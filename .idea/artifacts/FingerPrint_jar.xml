@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FingerPrint:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FingerPrint_jar</output-path>
+    <root id="archive" name="FingerPrint.jar">
+      <element id="module-output" name="FingerPrint" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/portswigger/burp/extender/burp-extender-api/2.3/burp-extender-api-2.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
