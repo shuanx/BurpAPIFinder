@@ -39,6 +39,9 @@ public class BurpExtender implements IBurpExtender, IExtensionStateListener
         // 注册menu
         this.callbacks.registerContextMenuFactory(new Menu(this));
 
+        // 添加tag标签到ui
+        tags = new Tags(callbacks, this.NAME);
+
         // 输出插件信息
         this.stdout.println(this.extenderInfo());
     }
