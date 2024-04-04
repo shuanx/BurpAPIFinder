@@ -7,18 +7,18 @@
 > 2、发现通过某接口可以枚举用户信息、密码修改、用户创建接口  
 > 3、发现登陆后台网址  
 > 4、发现在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
-> ...
+> ...  
 
 
 ## 功能如下
 > 下述功能会在2024年6月底完成，如果有更好的建议或者期待使用的，点个免费的Star
 - [ ] 提取网站的URL链接和解析JS文件中的URL链接
 - [ ] 界面可配置的开启主动接口探测、铭感信息获取
-- [ ] 集成https://github.com/API-Security/APIKit的功能
+- [ ] 集成https://github.com/API-Security/APIKit的功能  
 
 
 ## 优化/建议/问题反馈群
-![img.png](images/weixinqun.png)
+<img src="images/weixinqun.png" alt="img.png" width="200"/>
 
 
 ## 免责声明

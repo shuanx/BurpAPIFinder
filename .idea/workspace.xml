@@ -10,56 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/PassiveScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/application/ApiScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiEndpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiTypeInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/CommonUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/Executor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/HttpRequestResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/RedirectUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/UrlScanCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BurpJsUrlFinder_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/conf/finger.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/model/Finger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/scan/Scanner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/GUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/HttpLogTable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/HttpLogTableModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/LogEntry.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/Tags.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/menu/Menu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/tabs/ScannerUi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/tabs/SettingUi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/burp/model/FingerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/model/Finger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/scan/Scanner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/GUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/HttpLogTable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/HttpLogTableModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/LogEntry.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/Tags.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/menu/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/tabs/ScannerUi$Table.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/tabs/ScannerUi$TableData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/tabs/ScannerUi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/tabs/SettingUi$Backends.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/ui/tabs/SettingUi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/burp/model/FingerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,7 +181,7 @@
       <workItem from="1712198709940" duration="6236000" />
       <workItem from="1712209983965" duration="119000" />
       <workItem from="1712210129895" duration="221000" />
-      <workItem from="1712210381769" duration="50000" />
+      <workItem from="1712210381769" duration="271000" />
     </task>
     <servers />
   </component>
