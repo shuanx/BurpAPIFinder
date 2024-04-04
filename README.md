@@ -1,32 +1,22 @@
-# Burp 指纹识别
-> 攻击过程中，我们通常会用浏览器访问一些资产，可以通过被动+FOFA+OA爆破让我们该BurpSuite插件就在帮助我们发现更多资产。
+# Burp Js Url Finder
+![](https://img.shields.io/badge/Author-Shaun-blue)
+![](https://img.shields.io/badge/JDK-9+-yellow)
+![](https://img.shields.io/badge/捡漏是问艺术-往往有意想不到的成果-red)
+> 攻击过程中，我们通常会用浏览器访问一些资产，但很多接口/敏感信息隐匿在html、JS文件中，通过这些接口我们可能可以：  
+> 1、通过接口未授权/越权获取到所有的账号密码  
+> 2、通过接口找到枚举用户信息、密码修改、用户创建接口  
+> 3、找到后台管理登陆接口  
+> 4、在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
+> ...
 
 ## 功能如下
 > 下述功能会在2024年6月底完成，如果有更好的建议或者期待使用的，点个Star
-- [ ] 浏览器被动指纹识别
-- [ ] 根据浏览器访问IP/域名FOFA重点指纹匹配
-- [ ] 匹配网站上的IP/域名进行FOFA重点指纹匹配
-- [ ] OA类弱口令爆破
-- [ ] 与本地Packer Fuzzer JS扫描器配合发现隐秘漏洞
+- [x] 提取网站的URL链接和解析JS文件中的URL链接
+- [x] 界面可配置的开启主动接口探测、铭感信息获取
+- [x] 集成https://github.com/API-Security/APIKit的功能
 
-## 支持检测指纹
-
-- [ ] 通达OA
-- [ ] 致远OA
-- [ ] 蓝凌OA
-- [ ] 泛微OA
-- [ ] 万户OA
-- [ ] 东华OA
-- [ ] 信呼OA
-
-## 支持弱口令爆破组件
-- [ ] 通达OA
-- [ ] 致远OA
-- [ ] 蓝凌OA
-- [ ] 泛微OA
-- [ ] 万户OA
-- [ ] 东华OA
-- [ ] 信呼OA
+## 优化/建议/问题反馈群
+![img.png](images/weixinqun.png)
 
 ## 免责声明
 
