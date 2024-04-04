@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author : metaStor
- * @date : Created 2022/4/6 7:27 PM
- * @description:
+ * @author： shaun
+ * @create： 2023/9/8 23:58
+ * @description：
  */
 public class ScannerUi extends AbstractTableModel implements IMessageEditorController {
 

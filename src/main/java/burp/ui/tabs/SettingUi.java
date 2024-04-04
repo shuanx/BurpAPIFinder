@@ -9,12 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * @author ：metaStor
- * @date ：Created 2022/4/6 7:27 PM
- * @description： 设置扫描方法：报错检测、反连检测(burpCollaborator/dnslog/ceye)
- *
- * TODO
- * 自定义回连平台
+ * @author： shaun
+ * @create： 2023/9/8 23:58
+ * @description：
  */
 public class SettingUi {
 

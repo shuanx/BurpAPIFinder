@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : metaStor
- * @date : Created 2022/4/30 5:24 PM
- * @description: 主动扫描Menu
- * @TODO: target中都没有记录，可在tabUI中查看扫描情况
+ * @author： shaun
+ * @create： 2023/9/8 23:58
+ * @description：被动扫描s
  */
 public class Menu implements IContextMenuFactory {
 
@@ -28,7 +27,7 @@ public class Menu implements IContextMenuFactory {
         sendItem.addActionListener(e -> {
             IHttpRequestResponse[] requestResponse = iContextMenuInvocation.getSelectedMessages();
             (new Thread(() -> {
-
+//                this.burpExtender.stdout.println(requestResponse[0]);
             })).start();
         });
         menuItems.add(sendItem);

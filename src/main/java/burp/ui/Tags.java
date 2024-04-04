@@ -9,10 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author ：metaStor
- * @date ：Created 2022/4/6 7:27 PM
+ * @author： shaun
+ * @create： 2023/9/8 23:58
  * @description：
- * */
+ */
 public class Tags implements ITab {
 
     private final JTabbedPane tabs;

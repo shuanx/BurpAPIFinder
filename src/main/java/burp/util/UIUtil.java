@@ -1,14 +1,17 @@
 package burp.util;
 
+import burp.BurpExtender;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
- * @author ：metaStor
- * @date ：Created 2022/4/6 7:27 PM
- * @description: 获取垂直、水平panle
+ * @author： shaun
+ * @create： 2023/9/8 23:58
+ * @description：入口
  */
 public class UIUtil {
+
 
     public static JPanel GetXPanel() {
         JPanel panel = new JPanel();
