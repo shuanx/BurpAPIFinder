@@ -177,28 +177,22 @@ public class ConfigPanel extends JPanel {
         gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnSearch.gridy = 0;
         FilterPanel.add(searchButton, gbc_btnSearch);
-        // 添加一个 "清除" 按钮
-        JButton btnClear = new JButton("清除");
-        GridBagConstraints gbc_btnClear = new GridBagConstraints();
-        gbc_btnClear.insets = new Insets(0, 0, 0, 5);
-        gbc_btnClear.fill = 0;
-        gbc_btnClear.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnClear.gridy = 0;
-        FilterPanel.add(btnClear, gbc_btnClear);
 
         // 功能按钮
         JPopupMenu moreMenu = new JPopupMenu("功能");
         JMenuItem exportItem = new JMenuItem("导出");
-        moreMenu.add(exportItem);
         exportItem.setIcon(UiUtils.getImageIcon("/icon/exportItem.png", 17, 17));
+        JMenuItem resetItem = new JMenuItem("清除");
+        resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
+        moreMenu.add(resetItem);
         moreMenu.add(exportItem);
         JButton moreButton = new JButton();
         moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
         GridBagConstraints gbc_btnMore = new GridBagConstraints();
-        gbc_btnClear.insets = new Insets(0, 0, 0, 5);
-        gbc_btnClear.fill = 0;
-        gbc_btnClear.gridx = 16;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnClear.gridy = 0;
+        gbc_btnMore.insets = new Insets(0, 0, 0, 5);
+        gbc_btnMore.fill = 0;
+        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnMore.gridy = 0;
         FilterPanel.add(moreButton, gbc_btnMore);
 
         // 点击”功能“的监听事件
