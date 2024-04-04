@@ -11,11 +11,10 @@ public class Utils {
     public static String getBanner(){
         String bannerInfo =
                 "[+] " + BurpExtender.extensionName + " is loaded\n"
-                        + "[+] ^_^\n"
-                        + "[+]\n"
+                        + "[+] ^_^            ^_^\n"
                         + "[+] #####################################\n"
-                        + "[+]    " + BurpExtender.extensionName + " v" + BurpExtender.version +"\n"
-                        + "[+]    anthor: " + BurpExtender.author + "\n"
+                        + "[+] " + BurpExtender.extensionName + " " + BurpExtender.version +"\n"
+                        + "[+] Author: " + BurpExtender.author + "\n"
                         + "[+] ####################################\n"
                         + "[+] Please enjoy it!\n";
         return bannerInfo;

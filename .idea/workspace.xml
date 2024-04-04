@@ -9,7 +9,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="" />
+    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/UiUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/addButtonIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/allButtonIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/deleteButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/editButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/exportItem.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/filterIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/importItem.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/importantButtonIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/moreButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/normalIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/openButtonIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/resetItem.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/saveButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/saveItem.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/searchButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/shutdownButtonIcon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/UIUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/UIUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,38 +69,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GUI.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FingerTest.testGetFinger.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GUI.executor": "Run",
+    "JUnit.FingerTest.testGetFinger.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "git-widget-placeholder": "Rebasing main",
+    "jdk.selected.JAVA_MODULE": "11",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/burp/application/apitypes" />
       <recent name="$PROJECT_DIR$/src/main/java/burp/util" />
       <recent name="$PROJECT_DIR$/src/main/java/burp/ui" />
-      <recent name="$PROJECT_DIR$/BurpJsUrlFinder" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
@@ -89,9 +115,9 @@
       <recent name="burp.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="burp.util" />
       <recent name="burp.application" />
       <recent name="burp" />
-      <recent name="burp.util" />
       <recent name="burp.ui" />
       <recent name="burp.scan" />
     </key>

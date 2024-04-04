@@ -4,6 +4,7 @@ import burp.*;
 import burp.util.Constants;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
@@ -13,16 +14,14 @@ import java.util.List;
 
 public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEditorController {
     private final String tagName;
+    public static JPanel contentPane;
     private JSplitPane mainSplitPane;
     private IMessageEditor requestTextEditor;
     private IMessageEditor responseTextEditor;
     private IHttpRequestResponse currentlyDisplayedItem;
     private JScrollPane upScrollPane;
-    private JSplitPane downSplitPane;
-    private JTabbedPane requestPanel;
-    private JTabbedPane responsePanel;
-    private JSplitPane upSplitPane;
     private ConfigPanel configPanel;
+    public static ITextEditor resultDeViewer;
 
     private ApiTable apiTable;
 
@@ -38,17 +37,15 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 // 主分隔面板
                 mainSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 
-                //上方面板
-                upSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-                upSplitPane.setEnabled(false); // 禁止拖动
-
                 // 配置面板
                 configPanel = new ConfigPanel();
-                BurpExtender.setConfigPanel(configPanel);
 
                 // 任务栏面板
                 apiTable = new ApiTable(ExtensionTab.this);
                 upScrollPane = new JScrollPane(apiTable);
+
+                // 将upScrollPane作为mainSplitPane的上半部分
+                mainSplitPane.setTopComponent(upScrollPane);
 
                 // 前两列设置宽度 30px
                 for (int i = 0; i < 2; i++) {
@@ -74,31 +71,31 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                     }
                 });
 
-                // 请求与响应界面的分隔面板规则
-                downSplitPane = new JSplitPane();
-                downSplitPane.setResizeWeight(0.5D);
 
                 // 请求的面板
-                requestPanel = new JTabbedPane();
                 requestTextEditor = callbacks.createMessageEditor(ExtensionTab.this, false);
-                requestPanel.addTab("Request", requestTextEditor.getComponent());
 
                 // 响应的面板
-                responsePanel = new JTabbedPane();
                 responseTextEditor = callbacks.createMessageEditor(ExtensionTab.this, false);
-                responsePanel.addTab("Response", responseTextEditor.getComponent());
 
-                // 自定义程序UI组件
-                downSplitPane.add(requestPanel, "left");
-                downSplitPane.add(responsePanel, "right");
+                // 详细结果面板
+                resultDeViewer = BurpExtender.getCallbacks().createTextEditor();
 
-                upSplitPane.add(configPanel, "left");
-                upSplitPane.add(upScrollPane, "right");
+                // 整体布局
+                contentPane = new JPanel();
+                contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+                contentPane.setLayout(new BorderLayout(0, 0));
 
-                mainSplitPane.add(upSplitPane, "left");
-                mainSplitPane.add(downSplitPane, "right");
+                contentPane.add(configPanel, BorderLayout.NORTH);
+                contentPane.add(mainSplitPane, BorderLayout.CENTER);
 
-                callbacks.customizeUiComponent(mainSplitPane);
+                JTabbedPane tabs = new JTabbedPane();
+                tabs.addTab("Result Info", resultDeViewer.getComponent());
+                tabs.addTab("Request", requestTextEditor.getComponent());
+                tabs.addTab("Original Response", responseTextEditor.getComponent());
+                mainSplitPane.setBottomComponent(tabs);
+
+                callbacks.customizeUiComponent(contentPane);
 
                 // 将自定义选项卡添加到Burp的UI
                 callbacks.addSuiteTab(ExtensionTab.this);
@@ -113,7 +110,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
     @Override
     public Component getUiComponent() {
-        return mainSplitPane;
+        return contentPane;
     }
 
     @Override
