@@ -4,12 +4,9 @@ import burp.ui.ConfigPanel;
 import burp.ui.ExtensionTab;
 import burp.util.Utils;
 
-import java.awt.Component;
 import java.io.PrintWriter;
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import javax.swing.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BurpExtender implements IBurpExtender {
     public final static String extensionName = "JsUrlFinder";
@@ -22,7 +19,8 @@ public class BurpExtender implements IBurpExtender {
     private static IExtensionHelpers helpers;
     private static ConfigPanel configPanel;
     private static ExtensionTab extensionTab;
-    private static PassiveScanner passiveScanner;
+    private static IProxyScanner iProxyScanner;
+    public static Set<String> hasScanDomainSet = new HashSet<>();
 
     public static PrintWriter getStdout() {
         return stdout;
@@ -52,8 +50,8 @@ public class BurpExtender implements IBurpExtender {
         return extensionTab;
     }
 
-    public static PassiveScanner getPassiveScanner() {
-        return passiveScanner;
+    public static IProxyScanner getIProxyScanner() {
+        return iProxyScanner;
     }
 
     @Override
@@ -65,9 +63,9 @@ public class BurpExtender implements IBurpExtender {
 
         // 标签界面, ExtensionTab 构造时依赖 BurpExtender.callbacks, 所以这个必须放在下面
         BurpExtender.extensionTab = new ExtensionTab(extensionName);
-        BurpExtender.passiveScanner = new PassiveScanner();
+        BurpExtender.iProxyScanner = new IProxyScanner();
 
-        callbacks.registerScannerCheck(passiveScanner);
+        callbacks.registerProxyListener(iProxyScanner);
 
         BurpExtender.stdout.println(Utils.getBanner());
     }

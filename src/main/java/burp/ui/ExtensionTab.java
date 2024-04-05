@@ -47,10 +47,27 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 // 将upScrollPane作为mainSplitPane的上半部分
                 mainSplitPane.setTopComponent(upScrollPane);
 
-                // 前两列设置宽度 30px
-                for (int i = 0; i < 2; i++) {
-                    apiTable.getColumnModel().getColumn(i).setMaxWidth(30);
-                }
+                // 前两列设置宽度 30px、60px
+                apiTable.getColumnModel().getColumn(0).setMaxWidth(30);
+                apiTable.getColumnModel().getColumn(1).setMaxWidth(60);
+
+                // 创建一个居中对齐的单元格渲染器
+                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+                DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+                leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+
+                apiTable.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+                apiTable.getColumnModel().getColumn(1).setCellRenderer(leftRenderer);
+                apiTable.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
+                apiTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+                apiTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+                apiTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+                apiTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+                apiTable.getColumnModel().getColumn(7).setCellRenderer(leftRenderer);
+                apiTable.getColumnModel().getColumn(8).setCellRenderer(leftRenderer);
+
 
                 apiTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
                     @Override
@@ -120,7 +137,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return 9;
     }
 
     @Override
@@ -129,17 +146,21 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
             case 0:
                 return " ";
             case 1:
-                return "#";
+                return "ID";
             case 2:
                 return "URL";
             case 3:
-                return "Status Code";
+                return "method";
             case 4:
-                return "Event Name";
+                return "URI Number";
             case 5:
-                return "Unauth";
+                return "isJsFindUrl";
             case 6:
-                return "Scan Time";
+                return "HavingImportant";
+            case 7:
+                return "Result";
+            case 8:
+                return "Time";
         }
         return null;
     }
@@ -151,6 +172,9 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        if (this.getApiTable().getTableData().isEmpty()){
+            return null;
+        }
         ApiTableData data = this.getApiTable().getTableData().get(rowIndex);
         switch (columnIndex) {
             case 0:
@@ -160,13 +184,17 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
             case 2:
                 return data.url;
             case 3:
-                return data.statusCode;
+                return data.method;
             case 4:
-                return data.apiType;
+                return data.uriNumber;
             case 5:
-                return data.unauth;
+                return data.isJsFindUrl;
             case 6:
-                return data.scanTime;
+                return data.havingImportant;
+            case 7:
+                return data.result;
+            case 8:
+                return data.time;
         }
         return null;
     }
@@ -190,10 +218,19 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
      * 新增任务至任务栏面板
      */
     public void add(ApiDocumentListTree apiDocumentListTree) {
-        synchronized (this.apiTable) {
+
             this.apiTable.getTableData().add(apiDocumentListTree.getMainApiData());
             int _id = this.apiTable.getTableData().size();
             fireTableRowsInserted(_id, _id);
+    }
+
+    // 清空列表中的数据
+    public void clearTableData() {
+            int size = this.apiTable.getTableData().size();
+            this.apiTable.getTableData().clear();
+            if (size > 0) {
+                fireTableRowsDeleted(0, size - 1);
+
         }
     }
 
@@ -207,26 +244,31 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
     public static class ApiTableData {
         final String id;
         final String url;
-        final String statusCode;
-        final String apiType;
-        final String unauth;
+        final String uriNumber;
+        final Boolean havingImportant;
+        final String result ;
         final IHttpRequestResponse requestResponse;
-        final String scanTime;
+        final String time;
         final Boolean isSubData;
         final ApiDocumentListTree parentListTree;
         private String treeStatus = "";
+        final String status;
+        final Boolean isJsFindUrl;
+        final String method;
 
-        public ApiTableData(Boolean isSubData, ApiDocumentListTree parentListTree, String id, String url, String statusCode, String apiType, String unauth, IHttpRequestResponse requestResponse, String scanTime) {
+        public ApiTableData(Boolean isSubData, ApiDocumentListTree parentListTree, String id, String url, String uriNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, Boolean isJsFindUrl, String method) {
             this.isSubData = isSubData;
             this.parentListTree = parentListTree;
-
             this.id = id;
             this.url = url;
-            this.statusCode = statusCode;
-            this.apiType = apiType;
-            this.unauth = unauth;
+            this.uriNumber = uriNumber;
+            this.havingImportant = havingImportant;
+            this.result = result;
             this.requestResponse = requestResponse;
-            this.scanTime = scanTime;
+            this.time = time;
+            this.status = status;
+            this.isJsFindUrl = isJsFindUrl;
+            this.method = method;
         }
 
         public void setTreeStatus(String treeStatus) {
@@ -247,6 +289,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
         public List<ApiTableData> getTableData() {
             return this.tableData;
         }
+
 
         public void changeSelection(int row, int col, boolean toggle, boolean extend) {
             ApiTableData dataEntry = ApiTable.this.tableData.get(convertRowIndexToModel(row));
