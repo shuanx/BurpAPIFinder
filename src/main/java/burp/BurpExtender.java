@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class BurpExtender implements IBurpExtender {
     public final static String extensionName = "JsUrlFinder";
-    public final static String version = "v2024-04-05";
+    public final static String version = "v2024-04-08";
     public final static String author = "Shaun";
 
     private static PrintWriter stdout;

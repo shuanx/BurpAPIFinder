@@ -93,10 +93,10 @@ public class Utils {
     public static String getPathFromUrl(String url) {
         try {
             URL urlObj = new URL(url);
-            return urlObj.getPath();
+            return urlObj.getPath().replaceAll("/+$", "").replaceAll("\\?+$", "");
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return null;
+            return "/";
         }
     }
 

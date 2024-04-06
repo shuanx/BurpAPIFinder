@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEditorController {
     private final String tagName;
@@ -42,6 +43,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
                 // 任务栏面板
                 apiTable = new ApiTable(ExtensionTab.this);
+                apiTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 upScrollPane = new JScrollPane(apiTable);
 
                 // 将upScrollPane作为mainSplitPane的上半部分
@@ -172,7 +174,9 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (this.getApiTable().getTableData().isEmpty()){
+
+        if (this.getApiTable().getTableData().isEmpty() | rowIndex >= this.getApiTable().getTableData().size()){
+            BurpExtender.getStdout().println(String.valueOf(rowIndex) + "==> " + this.getApiTable().getTableData());
             return null;
         }
         ApiTableData data = this.getApiTable().getTableData().get(rowIndex);
@@ -218,21 +222,42 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
      * 新增任务至任务栏面板
      */
     public void add(ApiDocumentListTree apiDocumentListTree) {
+        ApiTableData mainApiData = apiDocumentListTree.getMainApiData();
+        List<ApiTableData> tableData = this.apiTable.getTableData(); // 假设这是获取数据的正确方法
 
-            this.apiTable.getTableData().add(apiDocumentListTree.getMainApiData());
-            int _id = this.apiTable.getTableData().size();
-            fireTableRowsInserted(_id, _id);
-    }
+        int removedIndex = -1; // 初始设置为无效索引
 
-    // 清空列表中的数据
-    public void clearTableData() {
-            int size = this.apiTable.getTableData().size();
-            this.apiTable.getTableData().clear();
-            if (size > 0) {
-                fireTableRowsDeleted(0, size - 1);
-
+        // 迭代器用于安全地移除元素
+        for (Iterator<ApiTableData> iterator = tableData.iterator(); iterator.hasNext();) {
+            ApiTableData data = iterator.next();
+            if (data.url.equals(mainApiData.url)) { // 确保使用 getter 方法来访问属性
+                // 如果这一行是展开状态，则进行关闭
+                if (data.parentListTree != null && data.parentListTree.getExpandStatus()) {
+                    data.parentListTree.collapse();
+                }
+                // 从 List 中获取当前对象的索引
+                removedIndex = tableData.indexOf(data);
+                // 从模型中移除对象
+                iterator.remove();
+                break;
+            }
         }
+
+        // 如果找到并移除了元素，则通知表格模型
+        if (removedIndex != -1) {
+            fireTableRowsDeleted(removedIndex, removedIndex);
+        }
+
+        // 在首位添加新的或更新的条目
+        tableData.add(0, mainApiData);
+        // 通知表格模型在首位插入了新的条目
+        fireTableRowsInserted(0, 0);
+
+        // 确保新的或更新的条目在第一行显示
+        this.apiTable.setRowSelectionInterval(0, 0);
     }
+
+
 
     public ApiTable getApiTable() {
         return this.apiTable;
@@ -292,7 +317,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
 
         public void changeSelection(int row, int col, boolean toggle, boolean extend) {
-            ApiTableData dataEntry = ApiTable.this.tableData.get(convertRowIndexToModel(row));
+            ApiTableData dataEntry = this.tableData.get(convertRowIndexToModel(row));
 
             if (!dataEntry.isSubData) { // 切换状态
                 if (dataEntry.parentListTree.getExpandStatus()) {

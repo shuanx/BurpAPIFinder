@@ -1,6 +1,5 @@
 package burp;
 
-import burp.application.ApiScanner;
 import burp.ui.ApiDocumentListTree;
 import burp.ui.ConfigPanel;
 import burp.ui.ExtensionTab;
@@ -19,7 +18,6 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class IProxyScanner implements IProxyListener {
     private final UrlScanCount scanedUrl = new UrlScanCount();
-    private final ApiScanner apiScanner;
     private int scannedCount = 1;
     private final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
@@ -28,16 +26,10 @@ public class IProxyScanner implements IProxyListener {
     public IProxyScanner() {
         totalUrlResult = new HashMap<String, Object>();
         helpers = BurpExtender.getHelpers();
-        this.apiScanner = new ApiScanner();
         // 先新建一个进程用于后续处理任务
-        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);  // 修改这行
+        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);  // 修改这行
     }
 
-
-
-    public ApiScanner getApiScanner() {
-        return apiScanner;
-    }
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
         if (!messageIsRequest) {
@@ -82,6 +74,7 @@ public class IProxyScanner implements IProxyListener {
                     Map<String, Object> originalData = new HashMap<String, Object>();
                     // 判断url是否已在totalUrlResult之中
                     if (totalUrlResult.containsKey(Utils.getPathFromUrl(url))){
+
                         originalData = (Map<String, Object>)totalUrlResult.get(Utils.getUriFromUrl(url));
                         originalData.put("Time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                     }else{
@@ -93,6 +86,7 @@ public class IProxyScanner implements IProxyListener {
                         originalData.put("Result", "-");
                         originalData.put("Time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                     }
+                    originalData.put("ID", String.valueOf(iInterceptedProxyMessage.getMessageReference()));
                     if (!url.contains("favicon.") && !url.contains(".ico")) {
                         String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                         URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
@@ -127,13 +121,9 @@ public class IProxyScanner implements IProxyListener {
                     totalUrlResult.put(Utils.getUriFromUrl(url), originalData);
 
                     //  清空表格数据的再刷新
-                    synchronized (BurpExtender.getExtensionTab().getApiTable().getTableData()) {
-                        BurpExtender.getExtensionTab().clearTableData();
-                        // 结果展示
-                        for (Map.Entry<String, Object> entry : totalUrlResult.entrySet()) {
-                            ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(entry, iInterceptedProxyMessage);
-                            BurpExtender.getExtensionTab().add(apiDocumentListTree);
-                        }
+                    synchronized (BurpExtender.getExtensionTab().getApiTable()) {
+                        ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(originalData, Utils.getUriFromUrl(url));
+                        BurpExtender.getExtensionTab().add(apiDocumentListTree);
                     }
 
 
@@ -144,21 +134,20 @@ public class IProxyScanner implements IProxyListener {
 
     }
 
-    private static ApiDocumentListTree getApiDocumentListTree(Map.Entry<String, Object> entry, IInterceptedProxyMessage iInterceptedProxyMessage) {
-        Map<String, Object> oneResult = (Map<String, Object>) entry.getValue();;
-        Map<String, Object> uriData = (Map<String, Object>)oneResult.get("uri");
+    private static ApiDocumentListTree getApiDocumentListTree(Map<String, Object> originalData, String uri) {
+        Map<String, Object> uriData = (Map<String, Object>)originalData.get("uri");
         ApiDocumentListTree apiDocumentListTree = new ApiDocumentListTree(BurpExtender.getExtensionTab());
 
         ExtensionTab.ApiTableData mainApiData = new ExtensionTab.ApiTableData(false,
                 apiDocumentListTree,
-                String.valueOf(iInterceptedProxyMessage.getMessageReference()),
-                entry.getKey(),
+                (String) originalData.get("ID"),
+                uri,
                 String.valueOf(uriData.size()),
                 true,
-                (String) oneResult.get("Result"),
-                (IHttpRequestResponse) oneResult.get("requestResponse"),
-                (String) oneResult.get("Time"),
-                (String) oneResult.get("Status"),
+                (String) originalData.get("Result"),
+                (IHttpRequestResponse) originalData.get("requestResponse"),
+                (String) originalData.get("Time"),
+                (String) originalData.get("Status"),
                 false,
                 "-");
         ArrayList<ExtensionTab.ApiTableData> subApiData = new ArrayList<>();

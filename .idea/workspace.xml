@@ -10,12 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/PassiveScanner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/ApiScanner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiEndpoint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiTypeInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" afterDir="false" />
@@ -58,6 +61,7 @@
   "keyToString": {
     "Application.GUI.executor": "Run",
     "JUnit.FingerTest.testGetFinger.executor": "Run",
+    "Remote JVM Debug.BurpSuite.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -107,20 +111,7 @@
       <recent name="burp.scan" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GUI">
-    <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="burp.ui.GUI" />
-      <module name="BurpJsUrlFinder" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="burp.ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Remote JVM Debug.BurpSuite">
     <configuration name="FingerTest.testGetFinger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BurpJsUrlFinder" />
       <extension name="coverage">
@@ -143,17 +134,20 @@
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" />
       <option name="HOST" value="localhost" />
-      <option name="PORT" value="7777" />
+      <option name="PORT" value="8888" />
       <option name="AUTO_RESTART" value="false" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="7777" />
+        <option name="DEBUG_PORT" value="8888" />
         <option name="LOCAL" value="false" />
       </RunnerSettings>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JUnit.FingerTest.testGetFinger" />
+      <item itemvalue="Remote JVM Debug.BurpSuite" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GUI" />
         <item itemvalue="JUnit.FingerTest.testGetFinger" />
       </list>
     </recent_temporary>
