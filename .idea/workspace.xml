@@ -10,19 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IconTableCellRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/ApiScanner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiEndpoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/application/apitypes/ApiTypeInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +63,7 @@
     "git-widget-placeholder": "Rebasing main",
     "jdk.selected.JAVA_MODULE": "11",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main",
+    "last_opened_file_path": "/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main/java/burp/ui",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,11 +78,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/burp/ui" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/java/burp/application/apitypes" />
       <recent name="$PROJECT_DIR$/src/main/java/burp/util" />
-      <recent name="$PROJECT_DIR$/src/main/java/burp/ui" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
@@ -184,6 +177,7 @@
       <workItem from="1712209983965" duration="119000" />
       <workItem from="1712210129895" duration="221000" />
       <workItem from="1712210381769" duration="517000" />
+      <workItem from="1712450797675" duration="1107000" />
     </task>
     <servers />
   </component>

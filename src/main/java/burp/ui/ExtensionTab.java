@@ -1,6 +1,7 @@
 package burp.ui;
 
 import burp.*;
+import burp.ui.renderer.IconTableCellRenderer;
 import burp.util.Constants;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
     private ConfigPanel configPanel;
     public static ITextEditor resultDeViewer;
 
-    private ApiTable apiTable;
+    private static ApiTable apiTable;
 
     public ExtensionTab(String name) {
         IBurpExtenderCallbacks callbacks = BurpExtender.getCallbacks();
@@ -70,6 +71,9 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 apiTable.getColumnModel().getColumn(7).setCellRenderer(leftRenderer);
                 apiTable.getColumnModel().getColumn(8).setCellRenderer(leftRenderer);
 
+                IconTableCellRenderer iconRenderer = new IconTableCellRenderer();
+                apiTable.getColumnModel().getColumn(6).setCellRenderer(iconRenderer);
+
 
                 apiTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
                     @Override
@@ -109,9 +113,9 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 contentPane.add(mainSplitPane, BorderLayout.CENTER);
 
                 JTabbedPane tabs = new JTabbedPane();
+                tabs.addTab("Original Response", responseTextEditor.getComponent());
                 tabs.addTab("Result Info", resultDeViewer.getComponent());
                 tabs.addTab("Request", requestTextEditor.getComponent());
-                tabs.addTab("Original Response", responseTextEditor.getComponent());
                 mainSplitPane.setBottomComponent(tabs);
 
                 callbacks.customizeUiComponent(contentPane);

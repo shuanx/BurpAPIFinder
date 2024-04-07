@@ -106,13 +106,13 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(lbSuccessCount, gbc_lbSuccessCount);
 
         // 初始化按钮
-        allFingerprintsButton = new JToggleButton(UiUtils.getImageIcon("/icon/allButtonIcon.png", 30, 30));
-        allFingerprintsButton.setSelectedIcon(UiUtils.getImageIcon("/icon/importantButtonIcon.png", 30, 30));
-        allFingerprintsButton.setPreferredSize(new Dimension(30, 30));
-        allFingerprintsButton.setBorder(null);  // 设置无边框
-        allFingerprintsButton.setFocusPainted(false);  // 移除焦点边框
-        allFingerprintsButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-        allFingerprintsButton.setToolTipText("指纹匹配：所有指纹");
+//        allFingerprintsButton = new JToggleButton(UiUtils.getImageIcon("/icon/allButtonIcon.png", 30, 30));
+//        allFingerprintsButton.setSelectedIcon(UiUtils.getImageIcon("/icon/importantButtonIcon.png", 30, 30));
+//        allFingerprintsButton.setPreferredSize(new Dimension(30, 30));
+//        allFingerprintsButton.setBorder(null);  // 设置无边框
+//        allFingerprintsButton.setFocusPainted(false);  // 移除焦点边框
+//        allFingerprintsButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
+//        allFingerprintsButton.setToolTipText("指纹匹配：所有指纹");
         toggleButton = new JToggleButton(UiUtils.getImageIcon("/icon/openButtonIcon.png", 40, 24));
         toggleButton.setSelectedIcon(UiUtils.getImageIcon("/icon/shutdownButtonIcon.png", 40, 24));
         toggleButton.setPreferredSize(new Dimension(50, 24));
@@ -137,7 +137,7 @@ public class ConfigPanel extends JPanel {
         gbc_buttons.fill = GridBagConstraints.NONE; // 不填充
 
         // 在 FilterPanel 中添加 allFingerprintsButton
-        FilterPanel.add(allFingerprintsButton, gbc_buttons);
+//        FilterPanel.add(allFingerprintsButton, gbc_buttons);
 
         // 在 FilterPanel 中添加 toggleButton
         gbc_buttons.gridx = 7; // 将横坐标位置移动到下一个单元格
@@ -151,56 +151,56 @@ public class ConfigPanel extends JPanel {
         gbc_rightFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
-        // 全部按钮
-        JButton allButton = new JButton("全部");
-        GridBagConstraints gbc_btnall = new GridBagConstraints();
-        gbc_btnall.insets = new Insets(0, 0, 0, 5);
-        gbc_btnall.fill = 0;
-        gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnall.gridy = 0;
-        FilterPanel.add(allButton, gbc_btnall);
-        // 检索框
-        JTextField searchField = new JTextField(15);
-        GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
-        gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
-        gbc_btnSearchField.fill = 0;
-        gbc_btnSearchField.gridx = 13;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnSearchField.gridy = 0;
-        FilterPanel.add(searchField, gbc_btnSearchField);
-        // 检索按钮
-        JButton searchButton = new JButton();
-        searchButton.setIcon(UiUtils.getImageIcon("/icon/searchButton.png"));
-        searchButton.setToolTipText("搜索");
-        GridBagConstraints gbc_btnSearch = new GridBagConstraints();
-        gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
-        gbc_btnSearch.fill = 0;
-        gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnSearch.gridy = 0;
-        FilterPanel.add(searchButton, gbc_btnSearch);
+//        // 全部按钮
+//        JButton allButton = new JButton("全部");
+//        GridBagConstraints gbc_btnall = new GridBagConstraints();
+//        gbc_btnall.insets = new Insets(0, 0, 0, 5);
+//        gbc_btnall.fill = 0;
+//        gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
+//        gbc_btnall.gridy = 0;
+//        FilterPanel.add(allButton, gbc_btnall);
+//        // 检索框
+//        JTextField searchField = new JTextField(15);
+//        GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
+//        gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
+//        gbc_btnSearchField.fill = 0;
+//        gbc_btnSearchField.gridx = 13;  // 根据该值来确定是确定从左到右的顺序
+//        gbc_btnSearchField.gridy = 0;
+//        FilterPanel.add(searchField, gbc_btnSearchField);
+//        // 检索按钮
+//        JButton searchButton = new JButton();
+//        searchButton.setIcon(UiUtils.getImageIcon("/icon/searchButton.png"));
+//        searchButton.setToolTipText("搜索");
+//        GridBagConstraints gbc_btnSearch = new GridBagConstraints();
+//        gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
+//        gbc_btnSearch.fill = 0;
+//        gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
+//        gbc_btnSearch.gridy = 0;
+//        FilterPanel.add(searchButton, gbc_btnSearch);
 
-        // 功能按钮
-        JPopupMenu moreMenu = new JPopupMenu("功能");
-        JMenuItem exportItem = new JMenuItem("导出");
-        exportItem.setIcon(UiUtils.getImageIcon("/icon/exportItem.png", 17, 17));
-        JMenuItem resetItem = new JMenuItem("清除");
-        resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
-        moreMenu.add(resetItem);
-        moreMenu.add(exportItem);
-        JButton moreButton = new JButton();
-        moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
-        GridBagConstraints gbc_btnMore = new GridBagConstraints();
-        gbc_btnMore.insets = new Insets(0, 0, 0, 5);
-        gbc_btnMore.fill = 0;
-        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
-        gbc_btnMore.gridy = 0;
-        FilterPanel.add(moreButton, gbc_btnMore);
-
-        // 点击”功能“的监听事件
-        moreButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                moreMenu.show(e.getComponent(), e.getX(), e.getY());
-            }
-        });
+//        // 功能按钮
+//        JPopupMenu moreMenu = new JPopupMenu("功能");
+//        JMenuItem exportItem = new JMenuItem("导出");
+//        exportItem.setIcon(UiUtils.getImageIcon("/icon/exportItem.png", 17, 17));
+//        JMenuItem resetItem = new JMenuItem("清除");
+//        resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
+//        moreMenu.add(resetItem);
+//        moreMenu.add(exportItem);
+//        JButton moreButton = new JButton();
+//        moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
+//        GridBagConstraints gbc_btnMore = new GridBagConstraints();
+//        gbc_btnMore.insets = new Insets(0, 0, 0, 5);
+//        gbc_btnMore.fill = 0;
+//        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
+//        gbc_btnMore.gridy = 0;
+//        FilterPanel.add(moreButton, gbc_btnMore);
+//
+//        // 点击”功能“的监听事件
+//        moreButton.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent e) {
+//                moreMenu.show(e.getComponent(), e.getX(), e.getY());
+//            }
+//        });
 
     }
 

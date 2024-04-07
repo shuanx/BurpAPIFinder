@@ -6,62 +6,99 @@
 [+] ####################################
 [+] Please enjoy it!
 
-[+] 进入网页提取URL页面： http://192.168.70.128:8080/index.php
- URL result: [http://192.168.70.128:8080/user.php, http://192.168.70.128:8081/test.php_check_syntax]
-[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712420061793
-[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712420061794
-[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712420061794
-[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712420061794
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5b1ZeDe5KgQFm2e88IuM_a/mwb2.gif?pid=1_79&lid=0xa386234401238b5e&ts=1712420061871&type=pf_comm&group=lsCost&info=%7B%22time%22%3A%2212%22%7D&dim=%7B%7D
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-08
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
 [+] 进入网页提取URL页面： https://www.baidu.com:443/
  URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+[+]静态文件，不进行url识别：https://www.baidu.com:443/img/flexible/logo/pc/peak-result.png
+[+]静态文件，不进行url识别：https://www.baidu.com:443/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png
+[+]静态文件，不进行url识别：https://www.baidu.com:443/img/flexible/logo/pc/result.png
+[+]静态文件，不进行url识别：https://www.baidu.com:443/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png
+[+]静态文件，不进行url识别：https://www.baidu.com:443/img/flexible/logo/pc/result@2.png
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/img/qrcode/qrcode@2x-daf987ad02.png
+[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/s_super_index-3fffae8d60.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/sbase-65630eb62e.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/hotsearch-ea3ea684d5.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/min_super-ade0e81d30.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/img/qrcode/qrcode-hover@2x-f9b106a848.png
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/lib/esl-d776bfb1aa.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/lib/jquery-1-edb203c114.10.2.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/bundles/polyfill_9354efa.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/bundles/es6-polyfill_388d059.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/global/js/all_async_search_de8637e.js
+ URL result: [https://itunes.apple.com/cn/app/%E5%85%A8%E6%B0%91%E5%B0%8F%E8%A7%86%E9%A2%91/id1329385145?mt=8, https://github.com/RonenNess/ExpiredStorage, https://apps.apple.com/cn/app/id1527030248, https://apps.apple.com/cn/app/id1528455665, https://ulink.yy.com/urlscheme?type=scheme&action=, https://apps.apple.com/cn/app/%E5%BE%AE%E5%8F%AD/id1410178720, https://itunes.apple.com/app/apple-store/id477927812?pt=328057&ct=bottom_layer&mt=8, https://apps.apple.com/cn/app/%E7%95%AA%E4%B9%90/id1484301936, https://apps.apple.com/us/app/%E5%AF%BB%E5%AE%87/id1621670210, https://a.app.qq.com/o/simple.jsp?pkgname=, https://itunes.apple.com/cn/app/id1437234400?mt=8, http://ecmb.bdimg.com, https://itunes.apple.com/cn/app/id1533615786?mt=8, https://apps.apple.com/cn/app/id1581796662, https://itunes.apple.com/cn/app/id1281873118?mt=8, https://apps.apple.com/cn/app/1/id1065829176, https://apps.apple.com/cn/app/id1523487452, https://apps.apple.com/cn/app/id1490227077, https://apps.apple.com/cn/app/%E4%B8%80%E5%88%BB%E7%9B%B8%E5%86%8C-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E5%87%BA%E5%93%81/id1467852587, https://apps.apple.com/cn/app/id1548246673, http://www.w3.org/2000/svg, https://itunes.apple.com/app/apple-store/id916139408?pt=625805&ct=1024129m&mt=8, https://pss.bdstatic.com/, https://apps.apple.com/cn/app/id426340811, https://apps.apple.com/cn/app/%E5%AE%9D%E5%AE%9D%E7%9F%A5%E9%81%93-%E7%A7%91%E5%AD%A6%E5%A4%87%E5%AD%95%E6%80%80%E5%AD%95%E8%82%B2%E5%84%BF%E5%8A%A9%E6%89%8B/id858401906, https://itunes.apple.com/cn/app/id382201985?mt=8, https://apps.apple.com/cn/app/id1526110789, https://apps.apple.com/cn/app/id1541812473, https://apps.apple.com/cn/app/id393765873, https://apps.apple.com/cn/app/id1555616850, https://itunes.apple.com/cn/app/%E5%B0%8F%E5%BA%A6%E8%93%9D%E7%89%99/id1437733193?mt=8, https://itunes.apple.com/cn/app/bai-du-hao-kan/id1092031003, https://apps.apple.com/app/id1575660143, https://apps.apple.com/cn/app/id1546173008, https://apps.apple.com/app/id427941017, https://apps.apple.com/cn/app/id1615406726, http://www.w3.org/1999/xhtml, https://itunes.apple.com/cn/app/%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98/id547166701?mt=8, https://pss.bdstatic.com/r/www/cache/static/protocol/https, http://ss.bdimg.com, https://itunes.apple.com/cn/app/id452186370]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/font/iconfont-fa013548a9.woff2
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newxueshuicon-a5314d5c83.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newzhibo-a6a0831ecd.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newjiankang-f03b804b4b.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newyinyue-03ecd1e9b9.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/yingxiaoicon-612169cc36.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newzhidao-da1cf444b0.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newfanyi-da0cea8f7e.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newbaike-889054f349.png
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
  URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+ URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
  URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
  URL result: [https://www.hao123.com, http://music.taihe.com]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
  URL result: []
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
  URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420062212&req=2&csor=0
- URL result: []
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2166721202&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xe1bb626c01258ab2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.04450746613227907&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181088139&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9970f9470200c38b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.10439517846610857
 [+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2166721202&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xe1bb626c01258ab2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8906796259561056
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2166721202&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xe1bb626c01258ab2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5958209435897193
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451102388&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181088139&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9970f9470200c38b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6206821487550715
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/img/searchbox/nicon-2x-6258e1cf13.png
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2181088139&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9970f9470200c38b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5034832541482057&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
  URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
 [+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
  URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
  URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
  URL result: []
@@ -71,203 +108,339 @@
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
  URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
  URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420062365&_=1712420062059
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451102817&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=e7a502447359b9ababc94f9913ace07c
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451102817&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=e7a502447359b9ababc94f9913ace07c
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451102610&_=1712451101760
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420062620&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=ba2aa024cf3540d0664f0367f88c14fc
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420062620&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=ba2aa024cf3540d0664f0367f88c14fc
-[+] 进入网页提取URL页面： https://47.92.164.36:443/
- URL result: [http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-8]
-[+]静态文件，不进行url识别：https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
-[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
-[+] 进入网页提取URL页面： https://47.92.164.36:443/weaver/weaver.file.MakeValidateCode
- URL result: []
-[+] 进入网页提取URL页面： https://47.92.164.36:443/dateformat/timezonelogin.jsp?timeZoneOffset=-480
- URL result: []
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
- URL result: []
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420063362
- URL result: []
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420063660
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/
- URL result: [http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-8]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/dateformat/timezonelogin.jsp?timeZoneOffset=-480
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
-[+] 进入网页提取URL页面： https://47.92.164.36:443/weaver/weaver.file.MakeValidateCode
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420091866
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/
- URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420092911
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
- URL result: [https://www.hao123.com, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
- URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.022774351422563566
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6716379984685397
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.34308262965114666&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420093406&req=2&csor=0
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
- URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
- URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420093527&_=1712420093236
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-08
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451614608&_=1712451101761
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420093690&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=7d8f154256b6e48dbcdf3ec404f8bf6d
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420093690&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=7d8f154256b6e48dbcdf3ec404f8bf6d
-[+] 进入网页提取URL页面： https://sp0.baidu.com:443/6r1_czmhAB63otqbppnN2DJv/sp
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Wsjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=qrcode&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2181088139&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9970f9470200c38b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.4930224413651929&m=superman%3Acomponents_qrcodehover
+[+]静态文件，不进行url识别：https://ppui-static-pc.cdn.bcebos.com:443/passApi/css/loginv5_b4728be.css
+[+] 进入网页提取URL页面： https://ppui-static-pc.cdn.bcebos.com:443/passApi/js/loginv5_tangram_d12b7f2.js
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://www.aiqicha.cn/login/loginAjax?bdu=, https://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0, https://developer.apollo.auto/apollo/sync_bduss?bdu=, https://passport.baidu-int.com/v3/api/login/syncintbduss?tpl=, https://baike.baidu.hk/common/api/crossdomain?bdu=, https://www.yoojia.com/sync/crossdomain?bdu=, https://wantalk.com/api/wanhua/login/crossdomain/pc?bdu=, https://www.macromedia.com/go/getflashplayer, https://busjiucuo.baidu-int.com/subwaybus/passport/crossdomain?bdu=, https://eventgraph.baidu-int.com/event_api/api/get_access_bduss?bdu=, https://www.bddipr.com/cms/crossdomain/login?bdu=, https://newcopyright.baidu-int.com/login/crossdomain?bdu=, https://www.baidujk.com/harbor/pc/crossdomain?bdu=, https://inner-lutao.baidu-int.com/audit/api/crossdomain?bdu=, https://ppui-static-pc.cdn.bcebos.com, https://prebusjiucuo.baidu-int.com/subwaybus/passport/crossdomain?bdu=, https://user.hao123.com/static/crossdomain.php?bdu=, https://sandbox.pan.baidu-int.com/pass/crossdomain?bdu=, https://www.aiqicha.com/login/loginAjax?bdu=, http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0, http://www.macromedia.com/go/getflashplayer]
+[+] 进入网页提取URL页面： https://wappass.baidu.com:443/static/waplib/moonshad.js?tt=1712451615157
  URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/error.html
+[+]静态文件，不进行url识别：https://ppui-static-pc.cdn.bcebos.com:443/passApi/css/login_common_6b23a00.css
+[+]静态文件，不进行url识别：https://ppui-static-pc.cdn.bcebos.com:443/passApi/img/small_blank.gif
+[+]静态文件，不进行url识别：https://ppui-static-pc.cdn.bcebos.com:443/passApi/img/loading.gif
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/static/passpc-base/js/ld.min.js?cdnversion=1712451615479
+ URL result: []
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/v2/api/getqrcode?lp=pc&qrloginfrom=pc&gid=0D7614F-10CE-4718-97B5-2B6BBD0B3BBB&callback=tangram_guid_1712451615150&apiver=v3&tt=1712451615539&tpl=mn&logPage=traceId%3Apc_loginv5_1712451615%2ClogPage%3Aloginv5&_=1712451615541
+ URL result: []
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/v2/getpublickey?token=&tpl=mn&subpro=&apiver=v3&tt=1712451615481&gid=0D7614F-10CE-4718-97B5-2B6BBD0B3BBB&loginversion=v5&traceid=&time=1712451615&alg=v3&sig=LzhzaDJVVmVrYXFubm9xMlk1NUl6cEpNUU9yUGdLQ3NjeTJhSS8rY2RPRFhVZnAvc1dKRldmTHE0OHBXY2JHcg%3D%3D&elapsed=46&shaOne=00813cb196f49e771c903672bd52d2a763c66273&callback=bd__cbs__uc1l94
+ URL result: []
+[+]静态文件，不进行url识别：https://passport.baidu.com:443/passApi/img/baidu-download-icon.png
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/v2/api/?getapi&token=&tpl=mn&subpro=&apiver=v3&tt=1712451615528&class=login&gid=0D7614F-10CE-4718-97B5-2B6BBD0B3BBB&loginversion=v4&logintype=basicLogin&traceid=&time=1712451616&alg=v3&sig=T2xsd0lDbUZoRGtmNFVaZW5sNXR2ZjJVRnFhMzNKRFdrT3B3Qi9xczZvcVhQZktWSkhwNjhuS2x4RHVJaUNwaA%3D%3D&elapsed=6&shaOne=0068ec15bdff4dba87f942d8dbb3f4a4c8b71724&callback=bd__cbs__urtb5m
+ URL result: []
+[+]静态文件，不进行url识别：https://nsclick.baidu.com:443/v.gif?pid=111&v=1712451615538&page=loginv5&tpl=mn&subpro=&traceId=pc_loginv5_1712451615&source=pc&auto_statistic=e2V2ZW50VHlwZTpwYy1xckxvZ2luLXNob3d9&auto_en=pc-qrLogin-show
+[+] 进入网页提取URL页面： https://wappass.baidu.com:443/static/touch/js/lib/fingerprint.js
+ URL result: []
+[+]静态文件，不进行url识别：https://b.bdstatic.com:443/searchbox/icms/searchbox/img/code_home.png
+[+]静态文件，不进行url识别：https://nsclick.baidu.com:443/v.gif?pid=111&v=1712451615539&page=loginv5&tpl=mn&subpro=&traceId=pc_loginv5_1712451615&source=pc&auto_statistic=e2V2ZW50VHlwZTpwYy1xcmNvZGVsb2dpbi1zaG93fQ==&auto_en=pc-qrcodelogin-show
+[+]静态文件，不进行url识别：https://nsclick.baidu.com:443/v.gif?pid=111&v=1712451615543&page=loginv5&tpl=mn&subpro=&traceId=pc_loginv5_1712451615&source=pc&auto_statistic=e2V2ZW50VHlwZTpsb2dpblNob3d9&auto_en=loginShow
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/v2/api/qrcode?sign=621ae5bb00512df33e05859620bf4850&lp=pc&qrloginfrom=pc&logPage=traceId%3Apc_loginv5_1712451615%2ClogPage%3Aloginv5
+ URL result: []
+[+] 进入网页提取URL页面： https://wappass.baidu.com:443/static/machine/js/api/mkd.js?cdnversion=1712451615479
+ URL result: []
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/static/passpc-base/js/dv/g.min.js
+ URL result: [https://baidu.com/error.jsonp?n=]
+[+] 进入网页提取URL页面： https://wappass.baidu.com:443/static/sdk-machine/js/mkd_v2.js?cdnversion=1712451615479
+ URL result: [https://github.com/zloirock/core-js/blob/v3.23.3/LICENSE, https://github.com/zloirock/core-js]
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/viewlog?callback=jQuery110204936680611227291_1712451616124&ak=1e3f2dd1c81f2075171a547893391274&_=1712451616125
+ URL result: []
+[+]静态文件，不进行url识别：https://wappass.baidu.com:443/static/machine/css/api/mkd.css?_=1712451616125
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/cap/init
  URL result: []
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： http://192.168.70.128:8080/index.php
- URL result: [http://192.168.70.128:8080/user.php, http://192.168.70.128:8081/test.php_check_syntax]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： http://192.168.70.128:8080/index.php
- URL result: [http://192.168.70.128:8080/user.php, http://192.168.70.128:8081/test.php_check_syntax]
-[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://wappass.baidu.com:443/static/touch/js/lib/fingerprint.js
+ URL result: []
 [+] 进入网页提取URL页面： https://www.baidu.com:443/
  URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
  URL result: []
-[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
+ URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
  URL result: [https://www.hao123.com, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182319784&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xcc1ffe5f02138ea8&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5428933514203844
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182319784&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xcc1ffe5f02138ea8&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.18134103095724607
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2182319784&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xcc1ffe5f02138ea8&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.7935364728350884&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
+ URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451618753&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
+ URL result: []
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451619661&_=1712451618389
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
+ URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
+ URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451621592&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=0920f0c46ff78fb46f97cab42163d0b4
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451621591&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=0920f0c46ff78fb46f97cab42163d0b4
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/channel/unicast?channel_id=621ae5bb00512df33e05859620bf4850&gid=0D7614F-10CE-4718-97B5-2B6BBD0B3BBB&tpl=mn&_sdkFrom=1&callback=tangram_guid_1712451615150&apiver=v3&tt=1712451616115&_=1712451616116
+ URL result: []
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-08
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451769781
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451769781
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451769781
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451769781
+[+] 进入网页提取URL页面： https://www.baidu.com:443/
+ URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
+[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
+ URL result: [https://www.hao123.com, http://music.taihe.com]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
+ URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451770526&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165505341&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c0112fd3d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8950508245905233
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165505341&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c0112fd3d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.19276835507988266&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165505341&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c0112fd3d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9379116287919476
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
+ URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451770919&_=1712451770169
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451771050&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=e73a2d46794b8f4519af18612d0c53cb
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451771050&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=e73a2d46794b8f4519af18612d0c53cb
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
+ URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-08
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451891801
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451891801
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451891801
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451891801
+[+] 进入网页提取URL页面： https://www.baidu.com:443/
+ URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
+[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
+ URL result: [https://www.hao123.com, http://music.taihe.com]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
  URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451892439&req=2&csor=0
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
 [+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181547993&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xfb7e55170207c7d9&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8697904621537751
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2181547993&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xfb7e55170207c7d9&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6573693599477175&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181547993&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xfb7e55170207c7d9&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.03825433001753842
+[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
  URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.20955493842684625
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.134104398505823
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2157498546&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xaa3d10410098d0b2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.13462366779522728&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420123003&req=2&csor=0
- URL result: []
-[-] 已识别过URL，不进行重复识别
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
  URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
+ URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
+ URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451892773&_=1712451892166
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451892988&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=0d35d36986df7d9f1f1e68f552e7e2e4
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451892988&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=0d35d36986df7d9f1f1e68f552e7e2e4
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-08
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451937960
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451937960
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451937960
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451937960
+[+] 进入网页提取URL页面： https://www.baidu.com:443/
+ URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+ URL result: []
+0==> [burp.ui.ExtensionTab$ApiTableData@690e3bd3]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
+ URL result: [https://www.hao123.com, http://music.taihe.com]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
+ URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
+ URL result: []
+[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
+ URL result: []
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451938570&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182524326&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8d860a8b0216ada6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5953002946726587
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182524326&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8d860a8b0216ada6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.23338702235817554
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2182524326&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8d860a8b0216ada6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9658496512774177&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+ URL result: []
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+ URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
@@ -276,453 +449,264 @@
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
  URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
  URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
  URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
  URL result: []
 [+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
  URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420123176&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=4d9a617cfc2fc61d2ef789e074e7892e
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420123176&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=4d9a617cfc2fc61d2ef789e074e7892e
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420123104&_=1712420122850
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451938895&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=5aad068e8e4a924330f5e0d80c011dae
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451938752&_=1712451938376
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
+[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451938896&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=5aad068e8e4a924330f5e0d80c011dae
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451940328&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165502092&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xa11f38420112f08c&sid=40169_40320_40079_40366_40378_40415_40304_40472_40500_40511_40512_40446_60042_60031_60046&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.7960496449993895
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165502092&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xa11f38420112f08c&sid=40169_40320_40079_40366_40378_40415_40304_40472_40500_40511_40512_40446_60042_60031_60046&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.4809133247777835&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165502092&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xa11f38420112f08c&sid=40169_40320_40079_40366_40378_40415_40304_40472_40500_40511_40512_40446_60042_60031_60046&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.30341043801594525
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451940535&_=1712451940294
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/
- URL result: [http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-8]
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/weaver/weaver.file.MakeValidateCode
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451940690&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=3b0436beaeeff81078a920177583b017
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451940690&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=3b0436beaeeff81078a920177583b017
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451941523
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451941523
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451941523
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451941523
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451941932&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165128861&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xece41afe010d3e9d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.4056587947471231&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165128861&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xece41afe010d3e9d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.0857477810724494
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165128861&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xece41afe010d3e9d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.7685413278118107
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/dateformat/timezonelogin.jsp?timeZoneOffset=-480
- URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451942067&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=f8390eb484716b76467351da102fe1c5
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451942067&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=f8390eb484716b76467351da102fe1c5
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420125728
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420126024
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/
- URL result: [http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-8]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/weaver/weaver.file.MakeValidateCode
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
-[+] 进入网页提取URL页面： https://47.92.164.36:443/dateformat/timezonelogin.jsp?timeZoneOffset=-480
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
- URL result: []
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420138241
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1712420138537
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/
- URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
- URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
- URL result: [https://www.hao123.com, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2170825442&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb886b8501642ae2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8325031707699035
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2170825442&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb886b8501642ae2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.7987208000250106
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2170825442&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb886b8501642ae2&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6579415380052922&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
- URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420139384&req=2&csor=0
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
- URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
- URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
- URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420139472&_=1712420139168
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451942042&_=1712451941816
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420139722&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=eab5303492c6867c382b13f1a91b7ca7
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420139722&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=eab5303492c6867c382b13f1a91b7ca7
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451942736
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451942736
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451942736
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451942736
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： http://192.168.70.128:8080/index.php
- URL result: [http://192.168.70.128:8080/user.php, http://192.168.70.128:8081/test.php_check_syntax]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/
- URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451943074&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.45626913806999125
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9594200108775144
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9972459058061063&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451943262&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=a2f2dfb8416b4a5f0910b9771cacc2a1
 [-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
- URL result: [https://www.hao123.com, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
- URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
- URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2167052678&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x85d5a4e5012a9986&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.3947243605025528
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2167052678&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x85d5a4e5012a9986&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8590334230342298&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420153272&req=2&csor=0
- URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2167052678&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x85d5a4e5012a9986&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.3634760509740711
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
- URL result: []
-7==> [burp.ui.ExtensionTab$ApiTableData@2e438328, burp.ui.ExtensionTab$ApiTableData@5988b476, burp.ui.ExtensionTab$ApiTableData@38dd28a4, burp.ui.ExtensionTab$ApiTableData@59aada9b, burp.ui.ExtensionTab$ApiTableData@6bc24845, burp.ui.ExtensionTab$ApiTableData@77f56a4f, burp.ui.ExtensionTab$ApiTableData@263cf41d]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
- URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
- URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420153392&_=1712420153095
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451943261&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=a2f2dfb8416b4a5f0910b9771cacc2a1
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451943240&_=1712451943025
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420153527&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=8bab264eef107b112e6ee20dd6fb8e97
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420153528&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=8bab264eef107b112e6ee20dd6fb8e97
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451943766
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451943766
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451943766
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451943766
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/
- URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451944126&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
- URL result: [https://www.hao123.com, http://music.taihe.com]
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.14891726242335546
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.16189907448155694
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9508953142826899&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
 [-] 已识别过URL，不进行重复识别
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
- URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
- URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2158090507&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c00a1d90b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9168372070937962
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2158090507&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c00a1d90b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.2557512628292391
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2158090507&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8fc3e96c00a1d90b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.38012988726428354&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
- URL result: []
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420181342&req=2&csor=0
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
- URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
- URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420181438&_=1712420181132
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451944317&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=ce1cf3a4470248d007ca0a6adcdad2cd
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451944317&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=ce1cf3a4470248d007ca0a6adcdad2cd
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451944295&_=1712451944079
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420181557&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=3732dffc182cf3e98dd99d74b23f7d3e
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420181557&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=3732dffc182cf3e98dd99d74b23f7d3e
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451944837
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451944837
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451944837
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451944837
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/
- URL result: [https://pss.bdstatic.com/, https://ss1.bdstatic.com, https://dss0.bdstatic.com, http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001, https://dss1.bdstatic.com, https://pss.bdstatic.com, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot?#iefix, https://pss.bdstatic.com/static/superman/font/iconfont-cdfecb8456.eot, https://www.hao123.com?src=from_pc, https://pss.bdstatic.com/static/superman/font/iconfont-74fcdd51ab.svg#iconfont, https://beian.miit.gov.cn, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451945210&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8672284146816127&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.8323221642875118
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165127566&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb84a9bf5010d398e&sid=40079_40305_40373_40366_40415_40446_40464_39662_40505_40510_40512_40397_60028_60039_60046_60094&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.33468845326190233
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451945402&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=bcc9338fcf94c8be10261e8e274a7173
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451945402&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=bcc9338fcf94c8be10261e8e274a7173
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451945381&_=1712451945162
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451946252
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451946251
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451946251
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451946251
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451946662&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181924838&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb4238a99020d87e6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6470667264636254
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181924838&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb4238a99020d87e6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6087963239338132
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2181924838&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xb4238a99020d87e6&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6738774477149714&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451946815&_=1712451946547
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451947009&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=702fd0892c474e38a6eb4f8c3b05308c
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451947010&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=702fd0892c474e38a6eb4f8c3b05308c
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451950570
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451950570
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451950570
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451950570
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451950894&req=2&csor=0
+ URL result: []
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2182081870&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xc7ef43a7020fed4e&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.41741173387305186&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182081870&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xc7ef43a7020fed4e&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.3273547375629613
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2182081870&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xc7ef43a7020fed4e&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5630166795689904
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451951081&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=4b332a3041b49be1e3d8c505c9a9e93d
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451951081&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=4b332a3041b49be1e3d8c505c9a9e93d
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451951056&_=1712451950859
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451952268
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451952268
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451952268
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451952268
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451952640&req=2&csor=0
+ URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9520759931779545
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.7364873322582619
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165591414&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xd4ff00a401144d76&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.12157892090413291&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451952850&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=2610d6b47e30f13c946e19ca4854e6ae
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451952851&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=2610d6b47e30f13c946e19ca4854e6ae
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451952830&_=1712451952599
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451953817
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451953817
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451953816
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451953816
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181880887&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xf03329b9020cdc37&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5911385728953564
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2181880887&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xf03329b9020cdc37&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9756634922998453&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2181880887&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xf03329b9020cdc37&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.13733255734320426
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451954607&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
- URL result: [https://www.hao123.com, http://music.taihe.com]
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
- URL result: [http://www.w3.org/1999/xlink, http://www.w3.org/2000/svg]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+]静态文件，不进行url识别：https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
-[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712420193102&req=2&csor=0
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://hectorstatic.baidu.com:443/cd37ed75a9387c5b.js
- URL result: []
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2167556221&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9560f2a50132487d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.008904667036359948
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2167556221&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9560f2a50132487d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5484619824121155
-[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2167556221&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x9560f2a50132487d&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.13896160439483074&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E4%BC%8A%E6%9C%97%E6%88%96%E5%8F%91%E5%8A%A8%E9%87%8D%E5%A4%A7%E8%A2%AD%E5%87%BB%20%E7%BE%8E%E5%9B%BD%E9%AB%98%E5%BA%A6%E6%88%92%E5%A4%87%22%2C%22%E5%BD%A9%E6%B0%91%E6%A2%A6%E5%88%B0%E5%8F%B7%E7%A0%81%E4%B9%B0%E4%B8%AD%E4%B8%89%E5%8D%83%E5%A4%9A%E4%B8%87%3F%E7%A6%8F%E5%BD%A9%E5%9B%9E%E5%BA%94%22%2C%22%E8%80%81%E4%BA%BA%E6%8A%8A%E9%81%97%E4%BA%A7%E5%85%A8%E7%BB%99%E5%A5%B3%E5%84%BF%2011%E5%B2%81%E5%AD%99%E5%A5%B3%E8%B5%B7%E8%AF%89%22%2C%22%E7%88%B1%E5%A5%87%E8%89%BA2024%E9%A6%96%E9%83%A8%E7%A0%B4%E4%B8%87%E5%89%A7%22%5D&pagenum=0
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
- URL result: []
 [-] 已识别过URL，不进行重复识别
 [-] 已识别过URL，不进行重复识别
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
- URL result: []
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451954703&_=1712451954273
+ URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
+[-] 已识别过URL，不进行重复识别
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451954839&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=344b107292664188b081b9e49a677e98
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451954839&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=344b107292664188b081b9e49a677e98
+[+]静态文件，不进行url识别：https://ss2.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451955126
+[+]静态文件，不进行url识别：https://ss3.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451955126
+[+]静态文件，不进行url识别：https://ss0.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451955125
+[+]静态文件，不进行url识别：https://ss1.baidu.com:443/6ONWsjip0QIZ8tyhnq/ps_default.gif?_t=1712451955126
+[-] 已识别过URL，不进行重复识别
+[+] 进入网页提取URL页面： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&hisdata=%5B%7B%22time%22%3A1709995401%2C%22kw%22%3A%22consul%20by%20hashicorp%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1711388024%2C%22kw%22%3A%22%E8%87%B4%E8%BF%9Coa%22%2C%22fq%22%3A26%7D%2C%7B%22time%22%3A1712419561%2C%22kw%22%3A%22%E6%83%9F%E6%84%BF%E6%98%A5%E6%97%A5%E4%B8%8D%E8%BF%9F%E7%9B%B8%E9%80%A2%E7%BB%88%E6%9C%89%E6%97%B6%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%22%2C%22fq%22%3A2%7D%5D&_t=1712451955507&req=2&csor=0
  URL result: []
 [-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
- URL result: []
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165124753&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8795460a010d2e91&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6864653337371058
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2165124753&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8795460a010d2e91&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5973193481878913
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2165124753&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0x8795460a010d2e91&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.5784768591992517&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E5%AE%B6%E5%9B%BD%E6%B0%B8%E5%BF%B5%20%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84%22%2C%22%E6%98%A5%E5%85%89%E5%BE%88%E5%A5%BD%20%E4%B9%9F%E5%BE%88%E6%83%B3%E5%BF%B5%E4%BD%A0%22%2C%22%E6%97%A5%E6%9C%AC%E5%A4%A9%E7%9A%87%E7%8B%AC%E7%94%9F%E5%A5%B3%E6%88%90%E4%B8%BA%E6%9C%88%E8%96%AA7%E5%8D%83%E6%89%93%E5%B7%A5%E4%BA%BA%22%2C%22%E6%B1%9F%E8%8B%8F%E6%B5%B7%E5%AE%89%E5%95%86%E5%93%81%E6%88%BF%E4%BB%A5%E6%97%A7%E6%8D%A2%E6%96%B0%E6%94%BF%E7%AD%96%E8%90%BD%E5%9C%B0%22%2C%22%E8%A2%AB%E6%B7%84%E5%8D%9A%E7%83%A7%E7%83%A4%E5%BA%97%E4%BB%B7%E7%9B%AE%E8%A1%A8%E9%9C%87%E6%83%8A%E4%BA%86%22%2C%22%E9%BA%A6%E5%BD%93%E5%8A%B3%E9%81%AD%E9%81%87%E5%A4%A7%E9%BA%BB%E7%83%A6%22%5D&pagenum=0
 [-] 已识别过URL，不进行重复识别
 [-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
- URL result: []
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[-] 已识别过URL，不进行重复识别
-[+] 进入网页提取URL页面： https://www.baidu.com:443/content-search.xml
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
- URL result: []
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
- URL result: [https://dss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/w_cur-d41911290d.cur]
-[+] 进入网页提取URL页面： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
- URL result: [https://ms.bdstatic.com/se/ai-search-fe/, http://www.w3.org/2000/svg]
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420193406&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=87b53954eb863d6d9345c3d6969a4a5e
-[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712420193406&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=87b53954eb863d6d9345c3d6969a4a5e
-[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712420193309&_=1712420193022
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451955757&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=c20b11e85b903256ba5c663fa5822dee
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1712451955756&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40079_40373_40367_40415_40312_40302_40467_40472_40480_40499_40514_60026_60038_60030_60048_60057_40511_60093&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=c20b11e85b903256ba5c663fa5822dee
+[+] 进入网页提取URL页面： https://passport.baidu.com:443/passApi/js/wrapper.js?cdnversion=1712451955730&_=1712451955458
  URL result: [http://ppui-static-pc.cdn.bcebos.com, https://ppui-static-pc.cdn.bcebos.com]
