@@ -9,7 +9,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="" />
+    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IsJsFindUrlRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IconTableCellRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/HavingImportantRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,32 +54,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GUI.executor": "Run",
-    "JUnit.FingerTest.testGetFinger.executor": "Run",
-    "Remote JVM Debug.BurpSuite.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "git-widget-placeholder": "Rebasing main",
-    "jdk.selected.JAVA_MODULE": "11",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main/java/burp/ui",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Utils.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FingerTest.testGetFinger.executor&quot;: &quot;Run&quot;,
+    &quot;Remote JVM Debug.BurpSuite.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Rebasing main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main/java/burp/ui&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/burp/ui" />
@@ -81,6 +93,7 @@
       <recent name="junit.framework.TestCase" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -90,14 +103,27 @@
       <recent name="burp.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="burp.ui.renderer" />
       <recent name="burp.util" />
       <recent name="burp.application" />
       <recent name="burp" />
       <recent name="burp.ui" />
-      <recent name="burp.scan" />
     </key>
   </component>
-  <component name="RunManager" selected="Remote JVM Debug.BurpSuite">
+  <component name="RunManager" selected="Application.Utils">
+    <configuration name="Utils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="burp.util.Utils" />
+      <module name="BurpJsUrlFinder" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="burp.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FingerTest.testGetFinger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BurpJsUrlFinder" />
       <extension name="coverage">
@@ -129,11 +155,13 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.Utils" />
       <item itemvalue="JUnit.FingerTest.testGetFinger" />
       <item itemvalue="Remote JVM Debug.BurpSuite" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Utils" />
         <item itemvalue="JUnit.FingerTest.testGetFinger" />
       </list>
     </recent_temporary>
@@ -170,7 +198,9 @@
       <workItem from="1712209983965" duration="119000" />
       <workItem from="1712210129895" duration="221000" />
       <workItem from="1712210381769" duration="517000" />
-      <workItem from="1712450797675" duration="1385000" />
+      <workItem from="1712450797675" duration="1802000" />
+      <workItem from="1712494464168" duration="8736000" />
+      <workItem from="1712506327467" duration="926000" />
     </task>
     <servers />
   </component>

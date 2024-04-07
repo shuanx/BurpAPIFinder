@@ -1,7 +1,8 @@
 package burp.ui;
 
 import burp.*;
-import burp.ui.renderer.IconTableCellRenderer;
+import burp.ui.renderer.HavingImportantRenderer;
+import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
 
 import javax.swing.*;
@@ -53,6 +54,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 // 前两列设置宽度 30px、60px
                 apiTable.getColumnModel().getColumn(0).setMaxWidth(30);
                 apiTable.getColumnModel().getColumn(1).setMaxWidth(60);
+                apiTable.getColumnModel().getColumn(2).setMinWidth(400);
 
                 // 创建一个居中对齐的单元格渲染器
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -71,9 +73,10 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
                 apiTable.getColumnModel().getColumn(7).setCellRenderer(leftRenderer);
                 apiTable.getColumnModel().getColumn(8).setCellRenderer(leftRenderer);
 
-                IconTableCellRenderer iconRenderer = new IconTableCellRenderer();
-                apiTable.getColumnModel().getColumn(6).setCellRenderer(iconRenderer);
-
+                IsJsFindUrlRenderer isJsFindUrlRenderer = new IsJsFindUrlRenderer();
+                apiTable.getColumnModel().getColumn(6).setCellRenderer(isJsFindUrlRenderer);
+                HavingImportantRenderer havingImportantRenderer = new HavingImportantRenderer();
+                apiTable.getColumnModel().getColumn(7).setCellRenderer(havingImportantRenderer);
 
                 apiTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
                     @Override
@@ -143,7 +146,7 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -156,16 +159,18 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
             case 2:
                 return "URL";
             case 3:
-                return "method";
-            case 4:
                 return "URI Number";
+            case 4:
+                return "method";
             case 5:
-                return "isJsFindUrl";
+                return "status";
             case 6:
-                return "HavingImportant";
+                return "isJsFindUrl";
             case 7:
-                return "Result";
+                return "HavingImportant";
             case 8:
+                return "Result";
+            case 9:
                 return "Time";
         }
         return null;
@@ -192,16 +197,18 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
             case 2:
                 return data.url;
             case 3:
-                return data.method;
-            case 4:
                 return data.uriNumber;
+            case 4:
+                return data.method;
             case 5:
-                return data.isJsFindUrl;
+                return data.status;
             case 6:
-                return data.havingImportant;
+                return data.isJsFindUrl;
             case 7:
-                return data.result;
+                return data.havingImportant;
             case 8:
+                return data.result;
+            case 9:
                 return data.time;
         }
         return null;
@@ -282,10 +289,10 @@ public class ExtensionTab extends AbstractTableModel implements ITab, IMessageEd
         final ApiDocumentListTree parentListTree;
         private String treeStatus = "";
         final String status;
-        final Boolean isJsFindUrl;
+        final String isJsFindUrl;
         final String method;
 
-        public ApiTableData(Boolean isSubData, ApiDocumentListTree parentListTree, String id, String url, String uriNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, Boolean isJsFindUrl, String method) {
+        public ApiTableData(Boolean isSubData, ApiDocumentListTree parentListTree, String id, String url, String uriNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, String isJsFindUrl, String method) {
             this.isSubData = isSubData;
             this.parentListTree = parentListTree;
             this.id = id;

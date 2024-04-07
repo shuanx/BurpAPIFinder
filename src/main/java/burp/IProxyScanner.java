@@ -55,7 +55,7 @@ public class IProxyScanner implements IProxyListener {
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
-                return;
+//                return;
             }
 
             byte[] responseBytes = requestResponse.getResponse();
@@ -83,7 +83,7 @@ public class IProxyScanner implements IProxyListener {
                         originalData.put("requestResponse", requestResponse);
                         originalData.put("Uri Number", 1);
                         originalData.put("HavingImportant", false);
-                        originalData.put("Status", finalStatusCode);
+                        originalData.put("Status", "-");
                         originalData.put("Result", "-");
                         originalData.put("Time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                     }
@@ -103,11 +103,12 @@ public class IProxyScanner implements IProxyListener {
                         if (originalData.containsKey("uri")){
                             uriData = (Map<String, Object>) originalData.get("uri");
                         }
-                        if (!uriData.containsKey(Utils.getPathFromUrl(url))){
+                        if (!uriData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")){
                             Map<String, Object> getUriData = new HashMap<String, Object>();
                             getUriData.put("responseRequest", requestResponse);
-                            getUriData.put("isJsFindUrl", false);
+                            getUriData.put("isJsFindUrl", "N");
                             getUriData.put("method", method);
+                            getUriData.put("status", finalStatusCode);
                             getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                             uriData.put(Utils.getPathFromUrl(url), getUriData);
                         }
@@ -116,18 +117,17 @@ public class IProxyScanner implements IProxyListener {
                         for (String getUrl : urlSet) {
                             uriData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                         }
-
+                        if (uriData.isEmpty()){
+                            return;
+                        }
                         originalData.put("uri", uriData);
                     }
                     totalUrlResult.put(Utils.getUriFromUrl(url), originalData);
 
-                    //  清空表格数据的再刷新
                     synchronized (BurpExtender.getExtensionTab().getApiTable()) {
                         ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(originalData, Utils.getUriFromUrl(url));
                         BurpExtender.getExtensionTab().add(apiDocumentListTree);
                     }
-
-
                 }
             });
 
@@ -149,7 +149,7 @@ public class IProxyScanner implements IProxyListener {
                 (IHttpRequestResponse) originalData.get("requestResponse"),
                 (String) originalData.get("Time"),
                 (String) originalData.get("Status"),
-                false,
+                "-",
                 "-");
         ArrayList<ExtensionTab.ApiTableData> subApiData = new ArrayList<>();
 
@@ -168,7 +168,7 @@ public class IProxyScanner implements IProxyListener {
                     (IHttpRequestResponse) subUriValue.get("responseRequest"),
                     (String) subUriValue.get("time"),
                     (String) subUriValue.get("status"),
-                    (Boolean) subUriValue.get("isJsFindUrl"),
+                    (String) subUriValue.get("isJsFindUrl"),
                     (String) subUriValue.get("method"));
             subApiData.add(currentData);
         }

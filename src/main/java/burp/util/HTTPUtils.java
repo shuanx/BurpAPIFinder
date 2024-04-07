@@ -65,7 +65,7 @@ public class HTTPUtils {
         // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
         Map<String, Object> originalData = new HashMap<String, Object>();
         originalData.put("responseRequest", requestResponse);
-        originalData.put("isJsFindUrl", true);
+        originalData.put("isJsFindUrl", "Y");
         originalData.put("method", "GET");
         originalData.put("status", statusCode);
         originalData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));

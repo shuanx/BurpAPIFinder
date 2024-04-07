@@ -11,9 +11,9 @@ import java.awt.*;
  * @create： 2024/3/27 21:30
  * @description：TODO
  */
-public class IconTableCellRenderer extends DefaultTableCellRenderer {
+public class IsJsFindUrlRenderer extends DefaultTableCellRenderer {
 
-    public IconTableCellRenderer() {
+    public IsJsFindUrlRenderer() {
         setHorizontalAlignment(CENTER); // 设置居中
     }
 
@@ -25,11 +25,14 @@ public class IconTableCellRenderer extends DefaultTableCellRenderer {
         setText("");
 
         // 根据单元格值设置相应图标
-        if (value instanceof Boolean) {
-            if ((Boolean) value) {
-                setIcon(UiUtils.getImageIcon("/icon/importantButtonIcon.png", 15, 15));
-            } else {
-                setIcon(UiUtils.getImageIcon("/icon/normalIcon.png", 15, 15));
+        if (value instanceof String) {
+            if (((String) value).equalsIgnoreCase("Y")) {
+                setIcon(UiUtils.getImageIcon("/icon/findUrlFromJS.png", 15, 15));
+            } else if (((String) value).equalsIgnoreCase("N")) {
+                setIcon(UiUtils.getImageIcon("/icon/noFindUrlFromJS.png", 15, 15));
+            } else{
+                setIcon(null);
+                setText((String) value);
             }
         } else {
             setIcon(null); // 如果值不是布尔类型，则不显示图标

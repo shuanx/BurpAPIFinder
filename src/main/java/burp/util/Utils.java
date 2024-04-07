@@ -45,7 +45,8 @@ public class Utils {
             "mkv",
             "swf",
             "iso",
-            "ico"
+            "ico",
+            "gif"
     };
 
     // 对以下URl提取URL
@@ -69,6 +70,24 @@ public class Utils {
             ".aliyun.com",
             ".alibaba.com"
     };
+
+    public final static String[] UNCEKCK_PATH = new String[]{
+            "zh-CN",
+            "/static/",
+            "&",
+            "="
+    };
+
+    public static boolean isStaticPath(String url){
+        String path = getPathFromUrl(url);
+        for (String key : UNCEKCK_PATH){
+            if (path.contains(key)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean isStaticFile(String url) {
         for (String ext : STATIC_FILE_EXT) {
             if (ext.equalsIgnoreCase(Utils.getUriExt(url))) return true;
@@ -93,7 +112,15 @@ public class Utils {
     public static String getPathFromUrl(String url) {
         try {
             URL urlObj = new URL(url);
-            return urlObj.getPath().replaceAll("/+$", "").replaceAll("\\?+$", "");
+            String path = urlObj.getPath();
+
+            // 确保路径不以斜杠开头
+            if (path.isEmpty() || path.equals("/")) {
+                path = "/";
+            }else{
+                path = path.replaceAll("/+$", "").replaceAll("\\?+$", "");
+            }
+            return path;
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return "/";
@@ -131,7 +158,7 @@ public class Utils {
                 continue;
             }
 
-            if (!isStaticFile(url) && !url.endsWith(".js") && !url.contains(".js?") && !isWhiteDomain(url)){
+            if (!isStaticFile(url) && !url.endsWith(".js") && !url.contains(".js?") && !isStaticPath(url)){
                 urlList.add(url);
             }
         }
@@ -156,12 +183,12 @@ public class Utils {
             all_urls.add(process_url(url, temp_url));
         }
         List<String> result = new ArrayList<String>();
-        for(String singerurl:all_urls){
+        for(String singerurl : all_urls){
             String domain = url.getHost();
             try {
                 URL subURL = new URL(singerurl);
                 String subdomain = subURL.getHost();
-                if(!subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) && !singerurl.endsWith(".js") && !singerurl.contains(".js?") && !isWhiteDomain(singerurl) ){
+                if(!subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) && !getPathFromUrl(singerurl).endsWith(".js") && !singerurl.contains(".js?") && !isStaticPath(singerurl)){
                     result.add(singerurl);
                 }
 
@@ -252,5 +279,11 @@ public class Utils {
                         + "[+] ####################################\n"
                         + "[+] Please enjoy it!\n";
         return bannerInfo;
+    }
+
+
+    public static void main(String[] args) {
+
+        System.out.println(getPathFromUrl("http://www.baidu.com"));
     }
 }
