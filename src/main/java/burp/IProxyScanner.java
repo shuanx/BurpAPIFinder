@@ -5,6 +5,7 @@ import burp.ui.ConfigPanel;
 import burp.ui.ExtensionTab;
 import burp.util.*;
 
+import javax.swing.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -97,7 +98,7 @@ public class IProxyScanner implements IProxyListener {
                         if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
                             urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
                         }
-                        BurpExtender.getStdout().println("[+] 进入网页提取URL页面： " + url + "\r\n URL result: " + urlSet);
+                        BurpExtender.getStdout().println("[+] 进入网页提取URL页面： " + url + "==> URL result: " + urlSet);
                         Map<String, Object> uriData = new HashMap<>();
                         // 判断原先是否已有uriData
                         if (originalData.containsKey("uri")){
@@ -124,10 +125,16 @@ public class IProxyScanner implements IProxyListener {
                     }
                     totalUrlResult.put(Utils.getUriFromUrl(url), originalData);
 
-                    synchronized (BurpExtender.getExtensionTab().getApiTable()) {
-                        ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(originalData, Utils.getUriFromUrl(url));
-                        BurpExtender.getExtensionTab().add(apiDocumentListTree);
-                    }
+                    Map<String, Object> finalOriginalData = originalData;
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            synchronized (BurpExtender.getExtensionTab().getApiTable()) {
+                                ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(finalOriginalData, Utils.getUriFromUrl(url));
+                                BurpExtender.getExtensionTab().add(apiDocumentListTree);
+                            }
+                        }
+                    });
                 }
             });
 

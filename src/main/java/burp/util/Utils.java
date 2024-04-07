@@ -149,15 +149,14 @@ public class Utils {
                 }
             }
             try{
-                String subdomain = (new URL(uri)).getHost() + ":" + (new URL(uri)).getPort();
-                String domain = (new URL(url)).getHost() + ":" + (new URL(uri)).getPort();
+                String subdomain = (new URL(uri)).getHost() ;
+                String domain = (new URL(url)).getHost();
                 if (!subdomain.equalsIgnoreCase(domain)){
                     continue;
                 }
             } catch (Exception e) {
                 continue;
             }
-
             if (!isStaticFile(url) && !url.endsWith(".js") && !url.contains(".js?") && !isStaticPath(url)){
                 urlList.add(url);
             }
@@ -188,7 +187,7 @@ public class Utils {
             try {
                 URL subURL = new URL(singerurl);
                 String subdomain = subURL.getHost();
-                if(!subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) && !getPathFromUrl(singerurl).endsWith(".js") && !singerurl.contains(".js?") && !isStaticPath(singerurl)){
+                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) && !getPathFromUrl(singerurl).endsWith(".js") && !isStaticPath(singerurl)){
                     result.add(singerurl);
                 }
 

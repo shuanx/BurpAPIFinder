@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IsJsFindUrlRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ApiDocumentListTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IconTableCellRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/HavingImportantRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" afterDir="false" />
     </list>
@@ -200,7 +195,7 @@
       <workItem from="1712210381769" duration="517000" />
       <workItem from="1712450797675" duration="1802000" />
       <workItem from="1712494464168" duration="8736000" />
-      <workItem from="1712506327467" duration="926000" />
+      <workItem from="1712506327467" duration="3760000" />
     </task>
     <servers />
   </component>
