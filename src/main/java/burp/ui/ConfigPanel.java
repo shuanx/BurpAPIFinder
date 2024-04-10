@@ -214,6 +214,16 @@ public class ConfigPanel extends JPanel {
                 }
             }
         });
+        searchField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                if (!searchText.isEmpty()) {
+                    // 触发检索事件
+                    MailPanel.searchAndSelectRowByURL(searchText);
+                }
+            }
+        });
 
         // 全部按钮事件监听器
         allButton.addActionListener(new ActionListener() {

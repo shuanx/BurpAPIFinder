@@ -9,15 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ExtensionTab.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/BurpExtender.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/burp/util/Utils.class" beforeDir="false" />
-    </list>
+    <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,7 +199,7 @@
       <workItem from="1712494464168" duration="8736000" />
       <workItem from="1712506327467" duration="23451000" />
       <workItem from="1712709724201" duration="988000" />
-      <workItem from="1712740882076" duration="3548000" />
+      <workItem from="1712740882076" duration="4016000" />
     </task>
     <servers />
   </component>
