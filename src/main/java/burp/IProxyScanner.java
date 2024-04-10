@@ -1,11 +1,10 @@
 package burp;
 
-import burp.ui.ApiDocumentListTree;
 import burp.ui.ConfigPanel;
-import burp.ui.ExtensionTab;
+import burp.ui.Tags;
+import burp.ui.datmodel.ApiDataModel;
 import burp.util.*;
 
-import javax.swing.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,10 +21,10 @@ public class IProxyScanner implements IProxyListener {
     private int scannedCount = 1;
     private final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
-    public static Map<String, Object> totalUrlResult;
+    public static Map<String, ApiDataModel> apiDataModelMap;
 
     public IProxyScanner() {
-        totalUrlResult = new HashMap<String, Object>();
+        apiDataModelMap = new HashMap<String, ApiDataModel>();
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
         executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);  // 修改这行
@@ -71,24 +70,30 @@ public class IProxyScanner implements IProxyListener {
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
+                    Map<String, Object> pathData = new HashMap<>();
 
                     // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-                    Map<String, Object> originalData = new HashMap<String, Object>();
+                    ApiDataModel originalApiData;
                     // 判断url是否已在totalUrlResult之中
-                    if (totalUrlResult.containsKey(Utils.getPathFromUrl(url))){
+                    if (apiDataModelMap.containsKey(Utils.getPathFromUrl(url))) {
 
-                        originalData = (Map<String, Object>)totalUrlResult.get(Utils.getUriFromUrl(url));
-                        originalData.put("Time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-                    }else{
-                        originalData.put("Url", Utils.getUriFromUrl(url));
-                        originalData.put("requestResponse", requestResponse);
-                        originalData.put("Uri Number", 1);
-                        originalData.put("HavingImportant", false);
-                        originalData.put("Status", "-");
-                        originalData.put("Result", "-");
-                        originalData.put("Time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+                        originalApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
+                        originalApiData.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+                    } else {
+                        originalApiData = new ApiDataModel(
+                                Constants.TREE_STATUS_COLLAPSE,
+                                String.valueOf(iInterceptedProxyMessage.getMessageReference()),
+                                Utils.getUriFromUrl(url),
+                                "0",
+                                false,
+                                "-",
+                                requestResponse,
+                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                                "-",
+                                "-",
+                                "-",
+                                pathData);
                     }
-                    originalData.put("ID", String.valueOf(iInterceptedProxyMessage.getMessageReference()));
                     if (!url.contains("favicon.") && !url.contains(".ico")) {
                         String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                         URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
@@ -99,89 +104,44 @@ public class IProxyScanner implements IProxyListener {
                             urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
                         }
                         BurpExtender.getStdout().println("[+] 进入网页提取URL页面： " + url + "==> URL result: " + urlSet);
-                        Map<String, Object> uriData = new HashMap<>();
                         // 判断原先是否已有uriData
-                        if (originalData.containsKey("uri")){
-                            uriData = (Map<String, Object>) originalData.get("uri");
+                        if (!originalApiData.getPathData().isEmpty()) {
+                            pathData = originalApiData.getPathData();
                         }
-                        if (!uriData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")){
+                        if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")) {
                             Map<String, Object> getUriData = new HashMap<String, Object>();
                             getUriData.put("responseRequest", requestResponse);
                             getUriData.put("isJsFindUrl", "N");
                             getUriData.put("method", method);
                             getUriData.put("status", finalStatusCode);
                             getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-                            uriData.put(Utils.getPathFromUrl(url), getUriData);
+                            pathData.put(Utils.getPathFromUrl(url), getUriData);
                         }
 
                         // 依次遍历urlSet获取其返回的response值
                         for (String getUrl : urlSet) {
-                            uriData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
+                            pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                         }
-                        if (uriData.isEmpty()){
+                        if (pathData.isEmpty()) {
                             return;
                         }
-                        originalData.put("uri", uriData);
-                    }
-                    totalUrlResult.put(Utils.getUriFromUrl(url), originalData);
+                        originalApiData.setPathNumber(String.valueOf(pathData.size()));
+                        originalApiData.setPathData(pathData);
 
-                    Map<String, Object> finalOriginalData = originalData;
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            synchronized (BurpExtender.getExtensionTab().getApiTable()) {
-                                ApiDocumentListTree apiDocumentListTree = getApiDocumentListTree(finalOriginalData, Utils.getUriFromUrl(url));
-                                BurpExtender.getExtensionTab().add(apiDocumentListTree);
-                            }
+                    }
+                    synchronized (BurpExtender.getTags().getMainPanel().table) {
+                        if (apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
+                            BurpExtender.getTags().getMainPanel().editApiData(originalApiData);
+                        } else {
+                            BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
                         }
-                    });
+                        apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
+                    }
                 }
             });
 
         }
 
-    }
-
-    private static ApiDocumentListTree getApiDocumentListTree(Map<String, Object> originalData, String uri) {
-        Map<String, Object> uriData = (Map<String, Object>)originalData.get("uri");
-        ApiDocumentListTree apiDocumentListTree = new ApiDocumentListTree(BurpExtender.getExtensionTab());
-
-        ExtensionTab.ApiTableData mainApiData = new ExtensionTab.ApiTableData(false,
-                apiDocumentListTree,
-                (String) originalData.get("ID"),
-                uri,
-                String.valueOf(uriData.size()),
-                false,
-                (String) originalData.get("Result"),
-                (IHttpRequestResponse) originalData.get("requestResponse"),
-                (String) originalData.get("Time"),
-                (String) originalData.get("Status"),
-                "-",
-                "-");
-        ArrayList<ExtensionTab.ApiTableData> subApiData = new ArrayList<>();
-
-        mainApiData.setTreeStatus(Constants.TREE_STATUS_COLLAPSE);
-
-        apiDocumentListTree.setMainApiData(mainApiData);
-        for (Map.Entry<String, Object> uriEntry : uriData.entrySet()){
-            Map<String, Object> subUriValue = (Map<String, Object>)uriEntry.getValue();
-            ExtensionTab.ApiTableData currentData = new ExtensionTab.ApiTableData(true,
-                    apiDocumentListTree,
-                    "-",
-                    uriEntry.getKey(),
-                    "-",
-                    false,
-                    "-",
-                    (IHttpRequestResponse) subUriValue.get("responseRequest"),
-                    (String) subUriValue.get("time"),
-                    (String) subUriValue.get("status"),
-                    (String) subUriValue.get("isJsFindUrl"),
-                    (String) subUriValue.get("method"));
-            subApiData.add(currentData);
-        }
-        // 子项
-        apiDocumentListTree.setSubApiData(subApiData);
-        return apiDocumentListTree;
     }
 
 }

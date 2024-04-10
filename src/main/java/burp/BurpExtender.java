@@ -1,7 +1,7 @@
 package burp;
 
 import burp.ui.ConfigPanel;
-import burp.ui.ExtensionTab;
+import burp.ui.Tags;
 import burp.util.Utils;
 
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ public class BurpExtender implements IBurpExtender {
     private static IBurpExtenderCallbacks callbacks;
     private static IExtensionHelpers helpers;
     private static ConfigPanel configPanel;
-    private static ExtensionTab extensionTab;
+    private static Tags tags;
     private static IProxyScanner iProxyScanner;
     public static Set<String> hasScanDomainSet = new HashSet<>();
 
@@ -46,8 +46,8 @@ public class BurpExtender implements IBurpExtender {
         BurpExtender.configPanel = configPanel;
     }
 
-    public static ExtensionTab getExtensionTab() {
-        return extensionTab;
+    public static Tags getTags() {
+        return tags;
     }
 
     public static IProxyScanner getIProxyScanner() {
@@ -62,7 +62,7 @@ public class BurpExtender implements IBurpExtender {
         BurpExtender.stderr = new PrintWriter(callbacks.getStderr(), true);
 
         // 标签界面, ExtensionTab 构造时依赖 BurpExtender.callbacks, 所以这个必须放在下面
-        BurpExtender.extensionTab = new ExtensionTab(extensionName);
+        BurpExtender.tags = new Tags(callbacks, extensionName);
         BurpExtender.iProxyScanner = new IProxyScanner();
 
         callbacks.registerProxyListener(iProxyScanner);

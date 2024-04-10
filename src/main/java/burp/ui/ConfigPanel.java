@@ -30,6 +30,7 @@ public class ConfigPanel extends JPanel {
     // 在FingerTab类中添加成员变量
     public static JToggleButton allFingerprintsButton;
     public static JToggleButton toggleButton;
+    public static JTextField searchField;
     JCheckBox autoSendRequestCheckBox;
     JCheckBox includeCookieCheckBox;
 
@@ -203,6 +204,7 @@ public class ConfigPanel extends JPanel {
 //        });
 
     }
+
 
     public Boolean getAutoSendRequest() {
         return this.autoSendRequestCheckBox.isSelected();
