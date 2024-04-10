@@ -16,17 +16,15 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.Map;
 
 public class MailPanel extends JPanel implements IMessageEditorController {
     private String tagName;
     private JSplitPane mainSplitPane;
-    private IMessageEditor requestTextEditor;
-    private IMessageEditor responseTextEditor;
-    private IHttpRequestResponse currentlyDisplayedItem;
+    private static IMessageEditor requestTextEditor;
+    private static IMessageEditor responseTextEditor;
+    private static IHttpRequestResponse currentlyDisplayedItem;
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
     public static ITextEditor resultDeViewer;
@@ -67,6 +65,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(0).setMaxWidth(30);
         table.getColumnModel().getColumn(1).setMaxWidth(60);
         table.getColumnModel().getColumn(2).setMinWidth(400);
+        table.getColumnModel().getColumn(8).setMinWidth(100);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -191,14 +190,15 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         apiDataModel.getResult(),
                         apiDataModel.getTime()
                 });
-            }
 
+            }
             if (selectRow == 0){
                 table.setRowSelectionInterval(0, 0);
                 requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
                 responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
                 currentlyDisplayedItem = apiDataModel.getRequestResponse();
             }
+
         }
     }
 
@@ -295,6 +295,27 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         apiDataModel.getTime()
                 });
             }
+        }
+    }
+
+    public static void clearAllData(){
+        synchronized (model) {
+            // 清空model
+            model.setRowCount(0);
+            // 清空表格
+            IProxyScanner.apiDataModelMap = new HashMap<String, ApiDataModel>();
+            // 清空检索
+            historySearchText = "";
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    ConfigPanel.searchField.setText("");
+                }
+            });
+
+            // 还可以清空编辑器中的数据
+            MailPanel.requestTextEditor.setMessage(new byte[0], true); // 清空请求编辑器
+            MailPanel.responseTextEditor.setMessage(new byte[0], false); // 清空响应编辑器
+            MailPanel.currentlyDisplayedItem = null; // 清空当前显示的项
         }
     }
 

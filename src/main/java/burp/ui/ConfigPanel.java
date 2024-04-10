@@ -1,6 +1,5 @@
 package burp.ui;
 
-import burp.BurpExtender;
 import burp.IHttpRequestResponse;
 import burp.IMessageEditor;
 import burp.ITextEditor;
@@ -13,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 
 public class ConfigPanel extends JPanel {
@@ -186,7 +186,7 @@ public class ConfigPanel extends JPanel {
         JMenuItem resetItem = new JMenuItem("清除");
         resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
         moreMenu.add(resetItem);
-        moreMenu.add(exportItem);
+//        moreMenu.add(exportItem);
         JButton moreButton = new JButton();
         moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
         GridBagConstraints gbc_btnMore = new GridBagConstraints();
@@ -200,6 +200,15 @@ public class ConfigPanel extends JPanel {
         moreButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 moreMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+
+        // 为菜单项添加 Action Listener
+        resetItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 清空表格模型中的所有行数据
+                MailPanel.clearAllData();
             }
         });
 
