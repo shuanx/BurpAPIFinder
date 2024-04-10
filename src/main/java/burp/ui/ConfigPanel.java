@@ -152,56 +152,77 @@ public class ConfigPanel extends JPanel {
         gbc_rightFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
-//        // 全部按钮
-//        JButton allButton = new JButton("全部");
-//        GridBagConstraints gbc_btnall = new GridBagConstraints();
-//        gbc_btnall.insets = new Insets(0, 0, 0, 5);
-//        gbc_btnall.fill = 0;
-//        gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
-//        gbc_btnall.gridy = 0;
-//        FilterPanel.add(allButton, gbc_btnall);
-//        // 检索框
-//        JTextField searchField = new JTextField(15);
-//        GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
-//        gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
-//        gbc_btnSearchField.fill = 0;
-//        gbc_btnSearchField.gridx = 13;  // 根据该值来确定是确定从左到右的顺序
-//        gbc_btnSearchField.gridy = 0;
-//        FilterPanel.add(searchField, gbc_btnSearchField);
-//        // 检索按钮
-//        JButton searchButton = new JButton();
-//        searchButton.setIcon(UiUtils.getImageIcon("/icon/searchButton.png"));
-//        searchButton.setToolTipText("搜索");
-//        GridBagConstraints gbc_btnSearch = new GridBagConstraints();
-//        gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
-//        gbc_btnSearch.fill = 0;
-//        gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
-//        gbc_btnSearch.gridy = 0;
-//        FilterPanel.add(searchButton, gbc_btnSearch);
+        // 全部按钮
+        JButton allButton = new JButton("全部");
+        GridBagConstraints gbc_btnall = new GridBagConstraints();
+        gbc_btnall.insets = new Insets(0, 0, 0, 5);
+        gbc_btnall.fill = 0;
+        gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnall.gridy = 0;
+        FilterPanel.add(allButton, gbc_btnall);
+        // 检索框
+        JTextField searchField = new JTextField(15);
+        GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
+        gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
+        gbc_btnSearchField.fill = 0;
+        gbc_btnSearchField.gridx = 13;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnSearchField.gridy = 0;
+        FilterPanel.add(searchField, gbc_btnSearchField);
+        // 检索按钮
+        JButton searchButton = new JButton();
+        searchButton.setIcon(UiUtils.getImageIcon("/icon/searchButton.png"));
+        searchButton.setToolTipText("搜索");
+        GridBagConstraints gbc_btnSearch = new GridBagConstraints();
+        gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
+        gbc_btnSearch.fill = 0;
+        gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnSearch.gridy = 0;
+        FilterPanel.add(searchButton, gbc_btnSearch);
 
-//        // 功能按钮
-//        JPopupMenu moreMenu = new JPopupMenu("功能");
-//        JMenuItem exportItem = new JMenuItem("导出");
-//        exportItem.setIcon(UiUtils.getImageIcon("/icon/exportItem.png", 17, 17));
-//        JMenuItem resetItem = new JMenuItem("清除");
-//        resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
-//        moreMenu.add(resetItem);
-//        moreMenu.add(exportItem);
-//        JButton moreButton = new JButton();
-//        moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
-//        GridBagConstraints gbc_btnMore = new GridBagConstraints();
-//        gbc_btnMore.insets = new Insets(0, 0, 0, 5);
-//        gbc_btnMore.fill = 0;
-//        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
-//        gbc_btnMore.gridy = 0;
-//        FilterPanel.add(moreButton, gbc_btnMore);
-//
-//        // 点击”功能“的监听事件
-//        moreButton.addMouseListener(new MouseAdapter() {
-//            public void mouseClicked(MouseEvent e) {
-//                moreMenu.show(e.getComponent(), e.getX(), e.getY());
-//            }
-//        });
+        // 功能按钮
+        JPopupMenu moreMenu = new JPopupMenu("功能");
+        JMenuItem exportItem = new JMenuItem("导出");
+        exportItem.setIcon(UiUtils.getImageIcon("/icon/exportItem.png", 17, 17));
+        JMenuItem resetItem = new JMenuItem("清除");
+        resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
+        moreMenu.add(resetItem);
+        moreMenu.add(exportItem);
+        JButton moreButton = new JButton();
+        moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
+        GridBagConstraints gbc_btnMore = new GridBagConstraints();
+        gbc_btnMore.insets = new Insets(0, 0, 0, 5);
+        gbc_btnMore.fill = 0;
+        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnMore.gridy = 0;
+        FilterPanel.add(moreButton, gbc_btnMore);
+
+        // 点击”功能“的监听事件
+        moreButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                moreMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+
+        // 检索按钮事件监听器
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                if (!searchText.isEmpty()) {
+                    // 触发检索事件
+                    MailPanel.searchAndSelectRowByURL(searchText);
+                }
+            }
+        });
+
+        // 全部按钮事件监听器
+        allButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 触发显示所有行事件
+                MailPanel.showAllRows();
+            }
+        });
 
     }
 

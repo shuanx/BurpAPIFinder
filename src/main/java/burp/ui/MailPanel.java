@@ -34,6 +34,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public static JTable table;
     public static int selectRow = 0;
 
+    public static String historySearchText = "";
+    public static String historySearchType = null;
+
     public MailPanel(IBurpExtenderCallbacks callbacks, String name) {
         // 主分隔面板
         mainSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
@@ -161,43 +164,138 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void addApiData(ApiDataModel apiDataModel) {
-        model.insertRow(0, new Object[]{
-                Constants.TREE_STATUS_COLLAPSE,
-                apiDataModel.getId(),
-                apiDataModel.getUrl(),
-                apiDataModel.getPATHNumber(),
-                apiDataModel.getMethod(),
-                apiDataModel.getStatus(),
-                apiDataModel.getIsJsFindUrl(),
-                apiDataModel.getHavingImportant(),
-                apiDataModel.getResult(),
-                apiDataModel.getTime()
-        });
-        if (selectRow == 0){
-            table.setRowSelectionInterval(0, 0);
-            requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-            responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-            currentlyDisplayedItem = apiDataModel.getRequestResponse();
+        synchronized (table){
+            if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())){
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            } else if (historySearchText.isEmpty()) {
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            }
+
+            if (selectRow == 0){
+                table.setRowSelectionInterval(0, 0);
+                requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
+                responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
+                currentlyDisplayedItem = apiDataModel.getRequestResponse();
+            }
         }
     }
 
 
     public void editApiData(ApiDataModel apiDataModel) {
-        ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
-        int index = findRowIndexByURL(originalApiData.getUrl());
-        model.removeRow(index);
-        model.insertRow(0, new Object[]{
-                Constants.TREE_STATUS_COLLAPSE,
-                apiDataModel.getId(),
-                apiDataModel.getUrl(),
-                apiDataModel.getPATHNumber(),
-                apiDataModel.getMethod(),
-                apiDataModel.getStatus(),
-                apiDataModel.getIsJsFindUrl(),
-                apiDataModel.getHavingImportant(),
-                apiDataModel.getResult(),
-                apiDataModel.getTime()
-        });
+        synchronized (table){
+            ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
+            if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
+                int index = findRowIndexByURL(originalApiData.getUrl());
+                model.removeRow(index);
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            } else if (historySearchText.isEmpty()) {
+                int index = findRowIndexByURL(originalApiData.getUrl());
+                model.removeRow(index);
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            }
+        }
+    }
+
+
+    public static void searchAndSelectRowByURL(String searchText){
+        synchronized (model) {
+            // 清空model后，根据URL来做匹配
+            model.setRowCount(0);
+
+            // 记录当前检索内容
+            historySearchText = searchText;
+
+            // 遍历apiDataModelMap
+            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
+                String url = entry.getKey();
+                ApiDataModel apiDataModel = entry.getValue();
+                if (url.toLowerCase().contains(searchText.toLowerCase())) {
+                    model.insertRow(0, new Object[]{
+                            Constants.TREE_STATUS_COLLAPSE,
+                            apiDataModel.getId(),
+                            apiDataModel.getUrl(),
+                            apiDataModel.getPATHNumber(),
+                            apiDataModel.getMethod(),
+                            apiDataModel.getStatus(),
+                            apiDataModel.getIsJsFindUrl(),
+                            apiDataModel.getHavingImportant(),
+                            apiDataModel.getResult(),
+                            apiDataModel.getTime()
+                    });
+                }
+            }
+        }
+    }
+
+    public static void showAllRows(){
+        synchronized (model) {
+            // 清空model后，根据URL来做匹配
+            model.setRowCount(0);
+
+            // 清空检索内容
+            historySearchText = "";
+
+            // 遍历apiDataModelMap
+            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
+                ApiDataModel apiDataModel = entry.getValue();
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            }
+        }
     }
 
     public void modelExpand(ApiDataModel apiDataModel, int index) {
@@ -278,4 +376,5 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
         return null;
     }
+
 }

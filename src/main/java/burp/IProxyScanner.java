@@ -51,7 +51,7 @@ public class IProxyScanner implements IProxyListener {
                 this.scanedUrl.add(url);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别");
-                return;
+//                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -129,14 +129,12 @@ public class IProxyScanner implements IProxyListener {
                         originalApiData.setPathData(pathData);
 
                     }
-                    synchronized (BurpExtender.getTags().getMainPanel().table) {
-                        if (apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                            BurpExtender.getTags().getMainPanel().editApiData(originalApiData);
-                        } else {
-                            BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
-                        }
-                        apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
+                    if (apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
+                        BurpExtender.getTags().getMainPanel().editApiData(originalApiData);
+                    } else {
+                        BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
                     }
+                    apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
                 }
             });
 
