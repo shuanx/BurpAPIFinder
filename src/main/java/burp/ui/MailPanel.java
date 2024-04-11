@@ -28,7 +28,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
     public static ITextEditor resultDeViewer;
-    public static DefaultTableModel model;
+    private static DefaultTableModel model;
     public static JTable table;
     public static int selectRow = 0;
 
@@ -65,7 +65,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(0).setMaxWidth(30);
         table.getColumnModel().getColumn(1).setMaxWidth(60);
         table.getColumnModel().getColumn(2).setMinWidth(400);
-        table.getColumnModel().getColumn(8).setMinWidth(100);
+        table.getColumnModel().getColumn(9).setMinWidth(150);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -92,38 +92,43 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                synchronized (table){
-                    int row = table.rowAtPoint(e.getPoint());
-                    if (row >= 0) {
-                        selectRow = row;
-                        String listStatus = (String)table.getModel().getValueAt(row, 0);
-                        String url;
-                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)){
-                            url = (String)table.getModel().getValueAt(row, 2);
-                            ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                            requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-                            responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                            currentlyDisplayedItem = apiDataModel.getRequestResponse();
-                            if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
-                                apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
-                                modelExpand(apiDataModel, row);
-                            } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
-                                apiDataModel.setListStatus(Constants.TREE_STATUS_COLLAPSE);
-                                modeCollapse(apiDataModel, row);
-                            }
-                        }else{
-                            String path = (String)table.getModel().getValueAt(row, 2);
-                            url = findUrlFromPath(row);
-                            ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                            Map<String, Object> pathData = apiDataModel.getPathData();
-                            Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
-                            requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
-                            responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                            currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
-                        }
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        synchronized (getModel()){
+                            int row = table.rowAtPoint(e.getPoint());
+                            if (row >= 0) {
+                                selectRow = row;
+                                String listStatus = (String)table.getModel().getValueAt(row, 0);
+                                String url;
+                                if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)){
+                                    url = (String)table.getModel().getValueAt(row, 2);
+                                    ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
+                                    requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
+                                    responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
+                                    currentlyDisplayedItem = apiDataModel.getRequestResponse();
+                                    if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
+                                        apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
+                                        modelExpand(apiDataModel, row);
+                                    } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
+                                        apiDataModel.setListStatus(Constants.TREE_STATUS_COLLAPSE);
+                                        modeCollapse(apiDataModel, row);
+                                    }
+                                }else{
+                                    String path = (String)table.getModel().getValueAt(row, 2);
+                                    url = findUrlFromPath(row);
+                                    ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
+                                    Map<String, Object> pathData = apiDataModel.getPathData();
+                                    Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
+                                    requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
+                                    responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
+                                    currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
+                                }
 
+                            }
+                        }
                     }
-                }
+                });
+
             }
         });
 
@@ -163,110 +168,110 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void addApiData(ApiDataModel apiDataModel) {
-        synchronized (table){
-            if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())){
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        apiDataModel.getTime()
-                });
-            } else if (historySearchText.isEmpty()) {
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        apiDataModel.getTime()
-                });
+        if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
+            model.insertRow(0, new Object[]{
+                    Constants.TREE_STATUS_COLLAPSE,
+                    apiDataModel.getId(),
+                    apiDataModel.getUrl(),
+                    apiDataModel.getPATHNumber(),
+                    apiDataModel.getMethod(),
+                    apiDataModel.getStatus(),
+                    apiDataModel.getIsJsFindUrl(),
+                    apiDataModel.getHavingImportant(),
+                    apiDataModel.getResult(),
+                    apiDataModel.getTime()
+            });
+        } else if (historySearchText.isEmpty()) {
+            model.insertRow(0, new Object[]{
+                    Constants.TREE_STATUS_COLLAPSE,
+                    apiDataModel.getId(),
+                    apiDataModel.getUrl(),
+                    apiDataModel.getPATHNumber(),
+                    apiDataModel.getMethod(),
+                    apiDataModel.getStatus(),
+                    apiDataModel.getIsJsFindUrl(),
+                    apiDataModel.getHavingImportant(),
+                    apiDataModel.getResult(),
+                    apiDataModel.getTime()
+            });
 
-            }
-            if (selectRow == 0){
-                table.setRowSelectionInterval(0, 0);
-                requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-                responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                currentlyDisplayedItem = apiDataModel.getRequestResponse();
-            }
-
+        }
+        if (selectRow == 0) {
+            table.setRowSelectionInterval(0, 0);
+            requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
+            responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
+            currentlyDisplayedItem = apiDataModel.getRequestResponse();
         }
     }
 
 
     public void editApiData(ApiDataModel apiDataModel) {
-        synchronized (table){
-            ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
-            if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
-                int index = findRowIndexByURL(originalApiData.getUrl());
-                model.removeRow(index);
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        apiDataModel.getTime()
-                });
-            } else if (historySearchText.isEmpty()) {
-                int index = findRowIndexByURL(originalApiData.getUrl());
-                model.removeRow(index);
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        apiDataModel.getTime()
-                });
+
+        ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
+        if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
+            int index = findRowIndexByURL(originalApiData.getUrl());
+            if (model.getValueAt(index, 0).equals(Constants.TREE_STATUS_EXPAND)) {
+                modeCollapse(apiDataModel, index);
             }
+            model.removeRow(index);
+            model.insertRow(0, new Object[]{
+                    Constants.TREE_STATUS_COLLAPSE,
+                    apiDataModel.getId(),
+                    apiDataModel.getUrl(),
+                    apiDataModel.getPATHNumber(),
+                    apiDataModel.getMethod(),
+                    apiDataModel.getStatus(),
+                    apiDataModel.getIsJsFindUrl(),
+                    apiDataModel.getHavingImportant(),
+                    apiDataModel.getResult(),
+                    apiDataModel.getTime()
+            });
+        } else if (historySearchText.isEmpty()) {
+            int index = findRowIndexByURL(originalApiData.getUrl());
+            if (model.getValueAt(index, 0).equals(Constants.TREE_STATUS_EXPAND)) {
+                modeCollapse(apiDataModel, index);
+            }
+            model.removeRow(index);
+            model.insertRow(0, new Object[]{
+                    Constants.TREE_STATUS_COLLAPSE,
+                    apiDataModel.getId(),
+                    apiDataModel.getUrl(),
+                    apiDataModel.getPATHNumber(),
+                    apiDataModel.getMethod(),
+                    apiDataModel.getStatus(),
+                    apiDataModel.getIsJsFindUrl(),
+                    apiDataModel.getHavingImportant(),
+                    apiDataModel.getResult(),
+                    apiDataModel.getTime()
+            });
         }
     }
 
 
     public static void searchAndSelectRowByURL(String searchText){
-        synchronized (model) {
-            // 清空model后，根据URL来做匹配
-            model.setRowCount(0);
+        // 清空model后，根据URL来做匹配
+        model.setRowCount(0);
 
-            // 记录当前检索内容
-            historySearchText = searchText;
+        // 记录当前检索内容
+        historySearchText = searchText;
 
-            // 遍历apiDataModelMap
-            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
-                String url = entry.getKey();
-                ApiDataModel apiDataModel = entry.getValue();
-                if (url.toLowerCase().contains(searchText.toLowerCase())) {
-                    model.insertRow(0, new Object[]{
-                            Constants.TREE_STATUS_COLLAPSE,
-                            apiDataModel.getId(),
-                            apiDataModel.getUrl(),
-                            apiDataModel.getPATHNumber(),
-                            apiDataModel.getMethod(),
-                            apiDataModel.getStatus(),
-                            apiDataModel.getIsJsFindUrl(),
-                            apiDataModel.getHavingImportant(),
-                            apiDataModel.getResult(),
-                            apiDataModel.getTime()
-                    });
-                }
+        // 遍历apiDataModelMap
+        for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
+            String url = entry.getKey();
+            ApiDataModel apiDataModel = entry.getValue();
+            if (url.toLowerCase().contains(searchText.toLowerCase())) {
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
             }
         }
     }
@@ -330,7 +335,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             tmpIndex += 1;
             String listStatus;
 
-            if (tmpIndex != pathData.size() - 1 && pathData.size() != 1) {
+            if (tmpIndex != pathData.size() && pathData.size() != 1) {
                 listStatus = "┠";
             } else if (pathData.size() == 1) {
                 listStatus = "┗";
@@ -339,7 +344,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             }
             model.insertRow(index+tmpIndex, new Object[]{
                     listStatus,
-                    String.valueOf(tmpIndex),
+                    "-",
                     pathEntry.getKey(),
                     "-",
                     subPathValue.get("method"),
@@ -353,6 +358,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
         // 通知监听器，从selfIndex + 1 到 selfIndex + subApiData.size()的行已经被插入
         model.fireTableRowsInserted(index + 1, index + pathData.size());
+
     }
 
     public void modeCollapse(ApiDataModel apiDataModel, int index) {
@@ -364,7 +370,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int endDeleteIndex = index + pathData.size();
 
         // 从后向前删除子项，这样索引就不会因为列表的变动而改变
-        for (int i = pathData.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < pathData.size(); i++) {
             model.removeRow(startDeleteIndex);
         }
 
@@ -376,7 +382,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public int findRowIndexByURL(String url) {
         for (int i = 0; i < model.getRowCount(); i++) {
             // 获取每一行第二列的值
-            Object value = model.getValueAt(i, 1);
+            Object value = model.getValueAt(i, 2);
             // 检查这个值是否与要查找的URL匹配
             if (value != null && value.equals(url)) {
                 // 如果匹配，返回当前行的索引
@@ -396,6 +402,10 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             }
         }
         return null;
+    }
+
+    public DefaultTableModel getModel(){
+        return model;
     }
 
 }

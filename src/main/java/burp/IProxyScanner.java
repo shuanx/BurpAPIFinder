@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import javax.swing.SwingUtilities;
 
 /**
  * @author： shaun
@@ -73,27 +74,19 @@ public class IProxyScanner implements IProxyListener {
                     Map<String, Object> pathData = new HashMap<>();
 
                     // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-                    ApiDataModel originalApiData;
-                    // 判断url是否已在totalUrlResult之中
-                    if (apiDataModelMap.containsKey(Utils.getPathFromUrl(url))) {
-
-                        originalApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
-                        originalApiData.setTime(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-                    } else {
-                        originalApiData = new ApiDataModel(
-                                Constants.TREE_STATUS_COLLAPSE,
-                                String.valueOf(iInterceptedProxyMessage.getMessageReference()),
-                                Utils.getUriFromUrl(url),
-                                "0",
-                                false,
-                                "-",
-                                requestResponse,
-                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
-                                "-",
-                                "-",
-                                "-",
-                                pathData);
-                    }
+                    ApiDataModel originalApiData = new ApiDataModel(
+                            Constants.TREE_STATUS_COLLAPSE,
+                            String.valueOf(iInterceptedProxyMessage.getMessageReference()),
+                            Utils.getUriFromUrl(url),
+                            "0",
+                            false,
+                            "-",
+                            requestResponse,
+                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                            "-",
+                            "-",
+                            "-",
+                            pathData);
                     if (!url.contains("favicon.") && !url.contains(".ico")) {
                         String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                         URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
@@ -104,10 +97,6 @@ public class IProxyScanner implements IProxyListener {
                             urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
                         }
                         BurpExtender.getStdout().println("[+] 进入网页提取URL页面： " + url + "==> URL result: " + urlSet);
-                        // 判断原先是否已有uriData
-                        if (!originalApiData.getPathData().isEmpty()) {
-                            pathData = originalApiData.getPathData();
-                        }
                         if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")) {
                             Map<String, Object> getUriData = new HashMap<String, Object>();
                             getUriData.put("responseRequest", requestResponse);
@@ -122,6 +111,7 @@ public class IProxyScanner implements IProxyListener {
                         for (String getUrl : urlSet) {
                             pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                         }
+                        BurpExtender.getStdout().println(url + ": " + pathData);
                         if (pathData.isEmpty()) {
                             return;
                         }
@@ -129,17 +119,57 @@ public class IProxyScanner implements IProxyListener {
                         originalApiData.setPathData(pathData);
 
                     }
-                    if (apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                        BurpExtender.getTags().getMainPanel().editApiData(originalApiData);
-                    } else {
-                        BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
+                    synchronized (apiDataModelMap) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                synchronized (BurpExtender.getTags().getMainPanel().getModel()) {
+                                    if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
+                                        BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
+                                        apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
+                                    } else {
+                                        ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
+                                        ApiDataModel mergeApiData = mergeApiData(existedApiData, originalApiData);
+                                        BurpExtender.getTags().getMainPanel().editApiData(mergeApiData);
+                                        apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
+                                    }
+                                }
+                            }
+                        });
+
                     }
-                    apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
                 }
             });
-
         }
 
+    }
+
+    public static ApiDataModel mergeApiData(ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){
+        // 将第一个 map 的所有条目复制到新 map，作为基础
+        Map<String, Object> getUriData = apiDataModel1.getPathData();
+        apiDataModel1.setTime(apiDataModel2.getTime());
+
+        // 遍历第二个 map
+        for (Map.Entry<String, Object> entry : apiDataModel2.getPathData().entrySet()) {
+            String urlPath = entry.getKey();
+            Map<String, Object> urlPathValue = (Map<String, Object>)entry.getValue();
+
+            // 检查当前 key 在第一个 map 中是否存在
+            if (getUriData.containsKey(urlPath)) {
+                // 如果存在，检查 status
+                String existingValue = (String)urlPathValue.get("status");
+
+                // 如果新的 status 是200，或者现有的不是200，则替换
+                if (existingValue.equalsIgnoreCase("200")) {
+                    getUriData.put(urlPath, urlPathValue);
+                }
+            } else {
+                // 如果不存在，直接添加
+                getUriData.put(urlPath, urlPathValue);
+            }
+        }
+        apiDataModel1.setPathData(getUriData);
+        apiDataModel1.setPathNumber(String.valueOf(getUriData.size()));
+        return apiDataModel1;
     }
 
 }
