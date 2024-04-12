@@ -13,6 +13,7 @@ public class Tags implements ITab {
     private final JTabbedPane tabs;
     private final String tagName;
     private MailPanel mailPanel;
+    public FingerConfigTab fingerConfigTab = new FingerConfigTab();
 
     public Tags(IBurpExtenderCallbacks callbacks, String name){
         this.tagName = name;
@@ -20,6 +21,7 @@ public class Tags implements ITab {
         // 定义tab标签页
         tabs = new JTabbedPane();
         tabs.add("主页", this.mailPanel);
+        tabs.add("配置", this.fingerConfigTab);
 
         // 将整个tab加载到平台即可
         callbacks.customizeUiComponent(tabs);

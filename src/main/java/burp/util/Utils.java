@@ -1,7 +1,9 @@
 package burp.util;
 
 import burp.BurpExtender;
+import burp.IBurpExtenderCallbacks;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -280,6 +282,17 @@ public class Utils {
         return bannerInfo;
     }
 
+    /**
+     * 获取-插件运行路径
+     *
+     * @return
+     */
+    public static String getExtensionFilePath(IBurpExtenderCallbacks callbacks) {
+        String path = "";
+        Integer lastIndex = callbacks.getExtensionFilename().lastIndexOf(File.separator);
+        path = callbacks.getExtensionFilename().substring(0, lastIndex) + File.separator;
+        return path;
+    }
 
     public static void main(String[] args) {
 

@@ -1,0 +1,100 @@
+{
+  "fingerprint": [{
+    "match": "keyword",
+    "location": "body",
+    "keyword": [
+      "pass",
+      "email",
+      "user"
+    ],
+    "type": "铭感内容",
+    "isImportant": true
+  },
+  {
+    "match": "keyword",
+    "location": "body",
+    "keyword": [
+      "pass",
+      "email",
+      "name"
+    ],
+    "type": "铭感内容",
+    "isImportant": true
+  },
+  {
+    "match": "keyword",
+    "location": "urlPath",
+    "keyword": [
+      "/admin"
+    ],
+    "type": "铭感路径",
+    "isImportant": true
+  },
+  {
+    "match": "keyword",
+    "location": "urlPath",
+    "keyword": [
+      "/account"
+    ],
+    "type": "铭感路径",
+    "isImportant": true
+  },
+  {
+    "match": "keyword",
+    "location": "urlPath",
+    "keyword": [
+      "/account"
+    ],
+    "type": "铭感路径",
+    "isImportant": true
+  },
+  {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "png",
+        "jpg",
+        "jpeg",
+        "gif",
+        "pdf",
+        "bmp",
+        "css",
+        "woff",
+        "woff2",
+        "ttf",
+        "otf",
+        "ttc",
+        "svg",
+        "psd",
+        "exe",
+        "zip",
+        "rar",
+        "7z",
+        "msi",
+        "tar",
+        "gz",
+        "mp3",
+        "mp4",
+        "mkv",
+        "swf",
+        "iso",
+        "ico",
+        "gif"
+      ],
+      "type": "白名单URL后缀",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "zh-CN",
+        "/static/",
+        "&",
+        "="
+      ],
+      "type": "白名单路径",
+      "isImportant": true
+    }
+  ]
+}

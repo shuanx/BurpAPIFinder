@@ -6,13 +6,11 @@ import burp.ITextEditor;
 import burp.util.UiUtils;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 
 public class ConfigPanel extends JPanel {
@@ -153,13 +151,13 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
         // 全部按钮
-        JButton allButton = new JButton("全部");
+        JComboBox<String> choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看铭感内容", "只看铭感路径"});
         GridBagConstraints gbc_btnall = new GridBagConstraints();
         gbc_btnall.insets = new Insets(0, 0, 0, 5);
         gbc_btnall.fill = 0;
         gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnall.gridy = 0;
-        FilterPanel.add(allButton, gbc_btnall);
+        FilterPanel.add(choicesComboBox, gbc_btnall);
         // 检索框
         JTextField searchField = new JTextField(15);
         GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
@@ -235,7 +233,7 @@ public class ConfigPanel extends JPanel {
         });
 
         // 全部按钮事件监听器
-        allButton.addActionListener(new ActionListener() {
+        choicesComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 触发显示所有行事件
