@@ -1,5 +1,6 @@
 package burp.ui;
 
+import burp.BurpExtender;
 import burp.IHttpRequestResponse;
 import burp.IMessageEditor;
 import burp.ITextEditor;
@@ -24,6 +25,7 @@ public class ConfigPanel extends JPanel {
 
     public static HashMap<String, JLabel> resultMap = new HashMap<>();
     public static JPanel tagsPanel;
+    public static JComboBox<String> choicesComboBox;
 
     // 在FingerTab类中添加成员变量
     public static JToggleButton allFingerprintsButton;
@@ -151,7 +153,7 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
         // 全部按钮
-        JComboBox<String> choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看铭感内容", "只看铭感路径"});
+        choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看铭感内容", "只看铭感路径"});
         GridBagConstraints gbc_btnall = new GridBagConstraints();
         gbc_btnall.insets = new Insets(0, 0, 0, 5);
         gbc_btnall.fill = 0;
@@ -237,7 +239,13 @@ public class ConfigPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 触发显示所有行事件
-                MailPanel.showAllRows();
+                String selectedOption = (String)choicesComboBox.getSelectedItem();
+                BurpExtender.getStdout().println(selectedOption);
+                if (selectedOption.equals("全部")){
+                    MailPanel.showAllRows();
+                }else{
+                    MailPanel.showFilter(selectedOption);
+                }
             }
         });
 

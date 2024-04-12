@@ -276,6 +276,56 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
     }
 
+    public static void showFilter(String selectOption){
+        synchronized (model) {
+            // 清空model后，根据URL来做匹配
+            model.setRowCount(0);
+
+            // 遍历apiDataModelMap
+            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
+                ApiDataModel apiDataModel = entry.getValue();
+                boolean notMatch = false;
+                switch (selectOption) {
+                    case "只看status为200":
+                        if (!apiDataModel.getStatus().equals("200")){
+                            notMatch = true;
+                            break;
+                        };
+                    case "只看重点":
+                        if (!apiDataModel.getHavingImportant()) {
+                            notMatch = true;
+                            break;
+                        }
+                    case "只看铭感内容":
+                        if (!apiDataModel.getResult().contains("铭感内容")) {
+                            notMatch = true;
+                            break;
+                        }
+                    case "只看铭感路径":
+                        if (!apiDataModel.getResult().contains("铭感路径")) {
+                            notMatch = true;
+                            break;
+                        }
+                }
+                if (notMatch){
+                    break;
+                }
+                model.insertRow(0, new Object[]{
+                        Constants.TREE_STATUS_COLLAPSE,
+                        apiDataModel.getId(),
+                        apiDataModel.getUrl(),
+                        apiDataModel.getPATHNumber(),
+                        apiDataModel.getMethod(),
+                        apiDataModel.getStatus(),
+                        apiDataModel.getIsJsFindUrl(),
+                        apiDataModel.getHavingImportant(),
+                        apiDataModel.getResult(),
+                        apiDataModel.getTime()
+                });
+            }
+        }
+    }
+
     public static void showAllRows(){
         synchronized (model) {
             // 清空model后，根据URL来做匹配
@@ -325,6 +375,10 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void modelExpand(ApiDataModel apiDataModel, int index) {
+        // 看当前是否有过滤场景
+        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+
+
         model.setValueAt(Constants.TREE_STATUS_EXPAND, index, 0);
 
         Map<String, Object> pathData = apiDataModel.getPathData();
@@ -332,6 +386,32 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int tmpIndex = 0;
         for (Map.Entry<String, Object> pathEntry : pathData.entrySet()) {
             Map<String, Object> subPathValue = (Map<String, Object>)pathEntry.getValue();
+            boolean notMatch = false;
+            switch (selectedOption) {
+                case "只看status为200":
+                    if (!subPathValue.get("status").equals("200")){
+                        notMatch = true;
+                        break;
+                    };
+                case "只看重点":
+                    if (!(Boolean) subPathValue.get("havingImportant")) {
+                        notMatch = true;
+                        break;
+                    }
+                case "只看铭感内容":
+                    if (!((String)subPathValue.get("result")).contains("铭感内容")) {
+                        notMatch = true;
+                        break;
+                    }
+                case "只看铭感路径":
+                    if (!((String)subPathValue.get("result")).contains("铭感路径")) {
+                        notMatch = true;
+                        break;
+                    }
+            }
+            if (notMatch){
+                break;
+            }
             tmpIndex += 1;
             String listStatus;
 
@@ -362,6 +442,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void modeCollapse(ApiDataModel apiDataModel, int index) {
+        // 看当前是否有过滤场景
+        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
         model.setValueAt(Constants.TREE_STATUS_COLLAPSE, index, 0);
 
         Map<String, Object> pathData = apiDataModel.getPathData();
@@ -370,11 +452,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int deleteNumber = 0;
 
         // 从后向前删除子项，这样索引就不会因为列表的变动而改变
-        BurpExtender.getStdout().println(model.getRowCount());
         int numberOfRows = model.getRowCount();
         for (int i = 0; i < numberOfRows; i++) {
             try {
-                BurpExtender.getStdout().println(i + "==>" + model.getValueAt(startDeleteIndex, 0));
                 if (!model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_EXPAND) && !model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_COLLAPSE)) {
                     model.removeRow(startDeleteIndex);
                     deleteNumber += 1;
@@ -385,7 +465,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     BurpExtender.getStdout().println("Exception caught: " + e.getMessage());
                 }
         }
-        BurpExtender.getStdout().println("删除数据量：" + deleteNumber + model.getRowCount());
 
         // 现在所有的子项都被删除了，通知表格模型更新
         // 注意这里的索引是根据删除前的状态传递的

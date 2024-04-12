@@ -10,25 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/Wrapper/FingerPrintRulesWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/model/FingerPrintRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/FingerConfigTab.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/ButtonRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/CenterRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/CenterTableCellRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/HeaderIconRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/HeaderIconTypeRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/burp/ui/renderer/IconTableCellRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BurpJsUrlFinder_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/BurpJsUrlFinder_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/Tags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/Tags.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,8 +232,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
-          <line>372</line>
-          <option name="timeStamp" value="16" />
+          <line>281</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
