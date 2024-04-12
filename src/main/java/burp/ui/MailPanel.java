@@ -367,16 +367,29 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         Map<String, Object> pathData = apiDataModel.getPathData();
         // 计算即将删除的行区间
         int startDeleteIndex = index + 1;
-        int endDeleteIndex = index + pathData.size();
+        int deleteNumber = 0;
 
         // 从后向前删除子项，这样索引就不会因为列表的变动而改变
-        for (int i = 0; i < pathData.size(); i++) {
-            model.removeRow(startDeleteIndex);
+        BurpExtender.getStdout().println(model.getRowCount());
+        int numberOfRows = model.getRowCount();
+        for (int i = 0; i < numberOfRows; i++) {
+            try {
+                BurpExtender.getStdout().println(i + "==>" + model.getValueAt(startDeleteIndex, 0));
+                if (!model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_EXPAND) && !model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_COLLAPSE)) {
+                    model.removeRow(startDeleteIndex);
+                    deleteNumber += 1;
+                } else {
+                    break;
+                }} catch (Exception e) {
+                    // 捕获其他所有类型的异常
+                    BurpExtender.getStdout().println("Exception caught: " + e.getMessage());
+                }
         }
+        BurpExtender.getStdout().println("删除数据量：" + deleteNumber + model.getRowCount());
 
         // 现在所有的子项都被删除了，通知表格模型更新
         // 注意这里的索引是根据删除前的状态传递的
-        model.fireTableRowsDeleted(startDeleteIndex, endDeleteIndex - 1);
+        model.fireTableRowsDeleted(startDeleteIndex, index+deleteNumber);
     }
 
     public int findRowIndexByURL(String url) {
