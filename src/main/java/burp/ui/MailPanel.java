@@ -310,7 +310,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         }
                 }
                 if (notMatch){
-                    break;
+                    continue;
                 }
                 model.insertRow(0, new Object[]{
                         Constants.TREE_STATUS_COLLAPSE,
@@ -412,7 +412,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     }
             }
             if (notMatch){
-                break;
+                continue;
             }
             tmpIndex += 1;
             String listStatus;
