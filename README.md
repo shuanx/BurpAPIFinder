@@ -9,6 +9,7 @@
 > 4、发现在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
 > ...  
 
+最新4月中旬发布，效果图如下，尽情期待：
 ![img.png](images/qianduan.png)
 
 ## 功能如下
