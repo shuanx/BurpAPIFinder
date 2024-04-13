@@ -65,7 +65,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(0).setMaxWidth(30);
         table.getColumnModel().getColumn(1).setMaxWidth(60);
         table.getColumnModel().getColumn(2).setMinWidth(400);
-        table.getColumnModel().getColumn(9).setMinWidth(150);
+        table.getColumnModel().getColumn(7).setMinWidth(60);
+        table.getColumnModel().getColumn(8).setMinWidth(150);
+        table.getColumnModel().getColumn(9).setMinWidth(100);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -287,7 +289,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                 boolean notMatch = false;
                 switch (selectOption) {
                     case "只看status为200":
-                        if (!apiDataModel.getStatus().equals("200")){
+                        if (!apiDataModel.getStatus().contains("200")){
                             notMatch = true;
                             break;
                         };
@@ -389,7 +391,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             boolean notMatch = false;
             switch (selectedOption) {
                 case "只看status为200":
-                    if (!subPathValue.get("status").equals("200")){
+                    if (!((String)subPathValue.get("status")).contains("200")){
                         notMatch = true;
                         break;
                     };
@@ -430,8 +432,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     subPathValue.get("method"),
                     subPathValue.get("status"),
                     subPathValue.get("isJsFindUrl"),
-                    "-",
-                    "-",
+                    subPathValue.get("isImportant"),
+                    subPathValue.get("result"),
                     subPathValue.get("time")
             });
             model.fireTableRowsInserted(index+tmpIndex, index+tmpIndex);

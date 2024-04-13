@@ -9,7 +9,15 @@
     ],
     "type": "铭感内容",
     "isImportant": true
-  },
+  },{
+    "match": "keyword",
+    "location": "urlPath",
+    "keyword": [
+      "/login"
+    ],
+    "type": "铭感路径",
+    "isImportant": true
+    },
   {
     "match": "keyword",
     "location": "body",

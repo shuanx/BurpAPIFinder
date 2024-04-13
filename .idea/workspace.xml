@@ -10,11 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/datmodel/ApiDataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/datmodel/ApiDataModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/HTTPUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,9 +102,9 @@
       <recent name="burp.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="burp.util" />
       <recent name="burp.ui" />
       <recent name="burp.ui.renderer" />
-      <recent name="burp.util" />
       <recent name="burp.application" />
       <recent name="burp" />
     </key>
@@ -232,8 +235,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
-          <line>281</line>
+          <line>283</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

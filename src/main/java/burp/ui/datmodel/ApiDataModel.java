@@ -14,7 +14,7 @@ public class ApiDataModel {
     final String id;
     final String url;
     final IHttpRequestResponse requestResponse;
-    final String status;
+    String status;
     final String isJsFindUrl;
     final String method;
     String treeStatus;
@@ -81,6 +81,10 @@ public class ApiDataModel {
 
     public String getStatus(){
         return this.status;
+    }
+
+    public void setStatus(String status){
+        this.status = status;
     }
 
     public String getIsJsFindUrl(){

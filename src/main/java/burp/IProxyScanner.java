@@ -103,6 +103,9 @@ public class IProxyScanner implements IProxyListener {
                             getUriData.put("isJsFindUrl", "N");
                             getUriData.put("method", method);
                             getUriData.put("status", finalStatusCode);
+                            getUriData.put("isImportant", false);
+                            getUriData.put("result", "-");
+                            getUriData.put("result info", "-");
                             getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                             pathData.put(Utils.getPathFromUrl(url), getUriData);
                         }
@@ -115,20 +118,20 @@ public class IProxyScanner implements IProxyListener {
                         if (pathData.isEmpty()) {
                             return;
                         }
-                        originalApiData.setPathNumber(String.valueOf(pathData.size()));
-                        originalApiData.setPathData(pathData);
 
                     }
+                    ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(originalApiData, pathData, BurpExtender.getHelpers());
+
                     synchronized (apiDataModelMap) {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
                                 synchronized (BurpExtender.getTags().getMainPanel().getModel()) {
                                     if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                                        BurpExtender.getTags().getMainPanel().addApiData(originalApiData);
-                                        apiDataModelMap.put(Utils.getUriFromUrl(url), originalApiData);
+                                        BurpExtender.getTags().getMainPanel().addApiData(newOriginalApiData);
+                                        apiDataModelMap.put(Utils.getUriFromUrl(url), newOriginalApiData);
                                     } else {
                                         ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
-                                        ApiDataModel mergeApiData = mergeApiData(existedApiData, originalApiData);
+                                        ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
                                         BurpExtender.getTags().getMainPanel().editApiData(mergeApiData);
                                         apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
                                     }
@@ -144,6 +147,33 @@ public class IProxyScanner implements IProxyListener {
     }
 
     public static ApiDataModel mergeApiData(ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){
+        // 合并isImportant
+        if (apiDataModel2.getHavingImportant()){
+            apiDataModel1.setHavingImportant(true);
+        }
+
+        // 合并status
+        // 将字符串分割成数组
+        String[] apiDataStatusList1 = apiDataModel1.getStatus().split(",");
+        String[] apiDataStatusList2 = apiDataModel2.getStatus().split(",");
+        // 创建一个 HashSet 并添加所有元素来去除重复项
+        Set<String> statusSet = new HashSet<>();
+        statusSet.addAll(Arrays.asList(apiDataStatusList1));
+        statusSet.addAll(Arrays.asList(apiDataStatusList2));
+        // 将 Set 转换回 String，元素之间用逗号分隔
+        apiDataModel1.setStatus(String.join(",", statusSet).replace("-,", "").replace(",-", ""));
+
+        // 合并result
+        // 将字符串分割成数组
+        String[] apiDataResultList1 = apiDataModel1.getResult().split(",");
+        String[] apiDataResultList2 = apiDataModel2.getResult().split(",");
+        // 创建一个 HashSet 并添加所有元素来去除重复项
+        Set<String> resultSet = new HashSet<>();
+        resultSet.addAll(Arrays.asList(apiDataResultList1));
+        resultSet.addAll(Arrays.asList(apiDataResultList2));
+        // 将 Set 转换回 String，元素之间用逗号分隔
+        apiDataModel1.setResult(String.join(",", resultSet).replace("-,", "").replace(",-", ""));
+
         // 将第一个 map 的所有条目复制到新 map，作为基础
         Map<String, Object> getUriData = apiDataModel1.getPathData();
         apiDataModel1.setTime(apiDataModel2.getTime());
@@ -159,7 +189,7 @@ public class IProxyScanner implements IProxyListener {
                 String existingValue = (String)urlPathValue.get("status");
 
                 // 如果新的 status 是200，或者现有的不是200，则替换
-                if (existingValue.equalsIgnoreCase("200")) {
+                if (existingValue.contains("200")) {
                     getUriData.put(urlPath, urlPathValue);
                 }
             } else {
