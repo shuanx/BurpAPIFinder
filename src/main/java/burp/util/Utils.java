@@ -21,6 +21,11 @@ import java.util.regex.Pattern;
  */
 public class Utils {
     public final static String[] STATIC_FILE_EXT = new String[]{
+            "vue",
+            "htm",
+            "ts",
+            "html",
+            "min",
             "png",
             "jpg",
             "jpeg",

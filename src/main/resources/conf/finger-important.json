@@ -7,17 +7,9 @@
       "email",
       "user"
     ],
-    "type": "铭感内容",
+    "type": "敏感内容",
     "isImportant": true
-  },{
-    "match": "keyword",
-    "location": "urlPath",
-    "keyword": [
-      "/login"
-    ],
-    "type": "铭感路径",
-    "isImportant": true
-    },
+  },
   {
     "match": "keyword",
     "location": "body",
@@ -26,7 +18,7 @@
       "email",
       "name"
     ],
-    "type": "铭感内容",
+    "type": "敏感内容",
     "isImportant": true
   },
   {
@@ -35,7 +27,7 @@
     "keyword": [
       "/admin"
     ],
-    "type": "铭感路径",
+    "type": "敏感路径",
     "isImportant": true
   },
   {
@@ -44,7 +36,7 @@
     "keyword": [
       "/account"
     ],
-    "type": "铭感路径",
+    "type": "敏感路径",
     "isImportant": true
   },
   {
@@ -53,7 +45,7 @@
     "keyword": [
       "/account"
     ],
-    "type": "铭感路径",
+    "type": "敏感路径",
     "isImportant": true
   },
   {

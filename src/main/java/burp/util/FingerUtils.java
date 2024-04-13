@@ -27,9 +27,6 @@ public class FingerUtils {
         for (Map.Entry<String, Object> entry : pathData.entrySet()) {
             Map<String, Object> onePathData = (Map<String, Object>) entry.getValue();
             String onePath = entry.getKey();
-            if (onePath.contains("/login")){
-                BurpExtender.getStdout().println("AAA");
-            }
             IHttpRequestResponse onRequestsResponse = (IHttpRequestResponse) onePathData.get("responseRequest");
             byte[] oneResponseBytes = onRequestsResponse.getResponse();
             // status更新
@@ -91,7 +88,7 @@ public class FingerUtils {
                     }
                 }
                 newPathData.put(onePath, onePathData);
-                BurpExtender.getStdout().println(onePath + "===> " + onePathData);
+//                BurpExtender.getStdout().println(onePath + "===> " + onePathData);
 
 
             }

@@ -286,30 +286,13 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             // 遍历apiDataModelMap
             for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
                 ApiDataModel apiDataModel = entry.getValue();
-                boolean notMatch = false;
-                switch (selectOption) {
-                    case "只看status为200":
-                        if (!apiDataModel.getStatus().contains("200")){
-                            notMatch = true;
-                            break;
-                        };
-                    case "只看重点":
-                        if (!apiDataModel.getHavingImportant()) {
-                            notMatch = true;
-                            break;
-                        }
-                    case "只看铭感内容":
-                        if (!apiDataModel.getResult().contains("铭感内容")) {
-                            notMatch = true;
-                            break;
-                        }
-                    case "只看铭感路径":
-                        if (!apiDataModel.getResult().contains("铭感路径")) {
-                            notMatch = true;
-                            break;
-                        }
-                }
-                if (notMatch){
+                if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
+                    continue;
+                } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
+                    continue;
+                } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
+                    continue;
+                } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
                     continue;
                 }
                 model.insertRow(0, new Object[]{
@@ -388,30 +371,13 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int tmpIndex = 0;
         for (Map.Entry<String, Object> pathEntry : pathData.entrySet()) {
             Map<String, Object> subPathValue = (Map<String, Object>)pathEntry.getValue();
-            boolean notMatch = false;
-            switch (selectedOption) {
-                case "只看status为200":
-                    if (!((String)subPathValue.get("status")).contains("200")){
-                        notMatch = true;
-                        break;
-                    };
-                case "只看重点":
-                    if (!(Boolean) subPathValue.get("havingImportant")) {
-                        notMatch = true;
-                        break;
-                    }
-                case "只看铭感内容":
-                    if (!((String)subPathValue.get("result")).contains("铭感内容")) {
-                        notMatch = true;
-                        break;
-                    }
-                case "只看铭感路径":
-                    if (!((String)subPathValue.get("result")).contains("铭感路径")) {
-                        notMatch = true;
-                        break;
-                    }
-            }
-            if (notMatch){
+            if (selectedOption.equals("只看status为200") && !((String)subPathValue.get("status")).contains("200")){
+                continue;
+            } else if (selectedOption.equals("只看重点") &&  !((Boolean) subPathValue.get("havingImportant"))) {
+                continue;
+            } else if (selectedOption.equals("只看敏感内容") && !((String)subPathValue.get("result")).contains("敏感内容")){
+                continue;
+            } else if (selectedOption.equals("只看敏感路径") && !((String)subPathValue.get("result")).contains("敏感路径")) {
                 continue;
             }
             tmpIndex += 1;

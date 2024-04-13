@@ -153,7 +153,7 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
         // 全部按钮
-        choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看铭感内容", "只看铭感路径"});
+        choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看敏感内容", "只看敏感路径"});
         GridBagConstraints gbc_btnall = new GridBagConstraints();
         gbc_btnall.insets = new Insets(0, 0, 0, 5);
         gbc_btnall.fill = 0;

@@ -52,7 +52,7 @@ public class IProxyScanner implements IProxyListener {
                 this.scanedUrl.add(url);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别");
-//                return;
+                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -112,6 +112,10 @@ public class IProxyScanner implements IProxyListener {
 
                         // 依次遍历urlSet获取其返回的response值
                         for (String getUrl : urlSet) {
+                            if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4){
+                                BurpExtender.getStdout().println("白Ext或者太短path，顾虑掉： " + getUrl);
+                                continue;
+                            }
                             pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                         }
                         BurpExtender.getStdout().println(url + ": " + pathData);
