@@ -9,8 +9,7 @@
 > 4、发现在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
 > ...  
 
-最新4月中旬发布，效果图如下，尽情期待：
-![img.png](images/qianduan.png)
+![images/main.png](images/main.png)
 
 ## 功能如下
 > 下述功能会在2024年6月底完成，第一个版本会在明天4月7号晚上发布，敬请期待。如果有更好的建议或者期待使用的，点个免费的Star
