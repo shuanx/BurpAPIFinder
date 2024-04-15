@@ -669,3 +669,32 @@ AAAAAA
 [-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
 AAAAAA
 [-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/favicon.ico
+[+] Successfully loaded the configuration file finger.json
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-16
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/theme/ecology7/page/softkey/softkey_wev8.css
+[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/softkey/softkey_wev8.css
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/css/commom_wev8.css
+[+]静态文件，不进行url识别：https://47.92.164.36:443/css/commom_wev8.css
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/common/css/w7OVFont_wev8.css
+[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/common/css/w7OVFont_wev8.css
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/weaver/weaver.file.MakeValidateCode
+Exception caught: 1 >= 1
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/dateformat/timezonelogin.jsp?timeZoneOffset=-480
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
+[+]静态文件，不进行url识别：https://47.92.164.36:443/wui/theme/ecology7/page/images/desc_wev8.png
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
+[+]静态文件，不进行url识别：https://47.92.164.36:443/page/resource/userfile/image/img2.jpg
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1713197759915
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/common/page/changeLanguageInfo.jsp
+[-] 已识别过URL，不进行重复识别： https://47.92.164.36:443/wui/common/js/cacheck.js?t=1713197760270
+Exception caught: 1 >= 1
+Exception caught: 1 >= 1
+Exception caught: 1 >= 1
