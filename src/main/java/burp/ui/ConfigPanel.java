@@ -28,9 +28,10 @@ public class ConfigPanel extends JPanel {
     public static JComboBox<String> choicesComboBox;
 
     // 在FingerTab类中添加成员变量
-    public static JToggleButton allFingerprintsButton;
+    public static JToggleButton flashButton;
     public static JToggleButton toggleButton;
     public static JTextField searchField;
+    public static JLabel flashText;
     JCheckBox autoSendRequestCheckBox;
     JCheckBox includeCookieCheckBox;
 
@@ -106,14 +107,7 @@ public class ConfigPanel extends JPanel {
         gbc_lbSuccessCount.gridy = 0;
         FilterPanel.add(lbSuccessCount, gbc_lbSuccessCount);
 
-        // 初始化按钮
-//        allFingerprintsButton = new JToggleButton(UiUtils.getImageIcon("/icon/allButtonIcon.png", 30, 30));
-//        allFingerprintsButton.setSelectedIcon(UiUtils.getImageIcon("/icon/importantButtonIcon.png", 30, 30));
-//        allFingerprintsButton.setPreferredSize(new Dimension(30, 30));
-//        allFingerprintsButton.setBorder(null);  // 设置无边框
-//        allFingerprintsButton.setFocusPainted(false);  // 移除焦点边框
-//        allFingerprintsButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-//        allFingerprintsButton.setToolTipText("指纹匹配：所有指纹");
+
         toggleButton = new JToggleButton(UiUtils.getImageIcon("/icon/openButtonIcon.png", 40, 24));
         toggleButton.setSelectedIcon(UiUtils.getImageIcon("/icon/shutdownButtonIcon.png", 40, 24));
         toggleButton.setPreferredSize(new Dimension(50, 24));
@@ -121,6 +115,18 @@ public class ConfigPanel extends JPanel {
         toggleButton.setFocusPainted(false);  // 移除焦点边框
         toggleButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
         toggleButton.setToolTipText("指纹识别功能开");
+
+        // 刷新按钮按钮
+        flashButton = new JToggleButton(UiUtils.getImageIcon("/icon/stopButton.png", 30, 30));
+        flashButton.setSelectedIcon(UiUtils.getImageIcon("/icon/flashButton.png", 30, 30));
+        flashButton.setPreferredSize(new Dimension(30, 30));
+        flashButton.setBorder(null);  // 设置无边框
+        flashButton.setFocusPainted(false);  // 移除焦点边框
+        flashButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
+        flashButton.setToolTipText("指纹匹配：所有指纹");
+
+        // 刷新文本
+        flashText = new JLabel("自动刷新中，可点击左边按钮暂停刷新");
 
         // 添加填充以在左侧占位
         GridBagConstraints gbc_leftFiller = new GridBagConstraints();
@@ -137,23 +143,23 @@ public class ConfigPanel extends JPanel {
         gbc_buttons.gridy = 0; // 设置按钮的纵坐标位置
         gbc_buttons.fill = GridBagConstraints.NONE; // 不填充
 
-        // 在 FilterPanel 中添加 allFingerprintsButton
-//        FilterPanel.add(allFingerprintsButton, gbc_buttons);
-
         // 在 FilterPanel 中添加 toggleButton
-        gbc_buttons.gridx = 7; // 将横坐标位置移动到下一个单元格
         FilterPanel.add(toggleButton, gbc_buttons);
+        gbc_buttons.gridx = 7; // 将横坐标位置移动到下一个单元格
+        FilterPanel.add(flashButton, gbc_buttons);
+        gbc_buttons.gridx = 8; // 将横坐标位置移动到下一个单元格
+        FilterPanel.add(flashText, gbc_buttons);
 
         // 添加填充以在右侧占位
         GridBagConstraints gbc_rightFiller = new GridBagConstraints();
         gbc_rightFiller.weightx = 1; // 使得这个组件吸收额外的水平空间
-        gbc_rightFiller.gridx = 8; // 位置设置为最后一个单元格
+        gbc_rightFiller.gridx = 9; // 位置设置为最后一个单元格
         gbc_rightFiller.gridy = 0; // 第一行
         gbc_rightFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
 
         // 全部按钮
-        choicesComboBox = new JComboBox<>(new String[]{"全部", "只看status为200", "只看重点", "只看敏感内容", "只看敏感路径"});
+        choicesComboBox = new JComboBox<>(new String[]{"只看重点", "全部", "只看status为200", "只看敏感内容", "只看敏感路径"});
         GridBagConstraints gbc_btnall = new GridBagConstraints();
         gbc_btnall.insets = new Insets(0, 0, 0, 5);
         gbc_btnall.fill = 0;
@@ -196,6 +202,21 @@ public class ConfigPanel extends JPanel {
         gbc_btnMore.gridy = 0;
         FilterPanel.add(moreButton, gbc_btnMore);
 
+        // 刷新按钮
+        flashButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 检查按钮的选中状态
+                if (flashButton.isSelected()) {
+                    // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新"
+                    flashText.setText("暂停刷新，请点击左边按钮刷新");
+                } else {
+                    // 如果按钮没有被选中，意味着刷新功能没有被激活，我们将文本设置为 "自动刷新"
+                    flashText.setText("自动刷新中，可点击左边按钮暂停刷新");
+                }
+            }
+        });
+
         // 点击”功能“的监听事件
         moreButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -220,6 +241,7 @@ public class ConfigPanel extends JPanel {
                 if (!searchText.isEmpty()) {
                     // 触发检索事件
                     MailPanel.searchAndSelectRowByURL(searchText);
+                    setFlashButtonFalse();
                 }
             }
         });
@@ -240,11 +262,12 @@ public class ConfigPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // 触发显示所有行事件
                 String selectedOption = (String)choicesComboBox.getSelectedItem();
-                BurpExtender.getStdout().println(selectedOption);
                 if (selectedOption.equals("全部")){
                     MailPanel.showAllRows();
+                    setFlashButtonTrue();
                 }else{
                     MailPanel.showFilter(selectedOption);
+                    setFlashButtonFalse();
                 }
             }
         });
@@ -258,5 +281,27 @@ public class ConfigPanel extends JPanel {
 
     public Boolean getIncludeCookie() {
         return this.includeCookieCheckBox.isSelected();
+    }
+
+    public static void setFlashButtonTrue(){
+        flashButton.setSelected(false);
+        flashText.setText("自动刷新中，可点击左边按钮暂停刷新");
+
+    }
+
+    public static void setFlashButtonFalse(){
+        flashButton.setSelected(true);
+        flashText.setText("暂停刷新，请点击左边按钮刷新");
+    }
+
+    public static boolean getFlashButtonStatus(){
+        // 检查按钮的选中状态
+        if (flashButton.isSelected()) {
+            // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新"
+            return true;
+        } else {
+            // 如果按钮没有被选中，意味着刷新功能没有被激活，我们将文本设置为 "自动刷新"
+            return false;
+        }
     }
 }

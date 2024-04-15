@@ -60,7 +60,7 @@ public class IProxyScanner implements IProxyListener {
                 this.scanedUrl.add(Utils.getUriFromUrl(url) + statusCode);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-                return;
+//                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -98,7 +98,6 @@ public class IProxyScanner implements IProxyListener {
                         if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
                             urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
                         }
-                        BurpExtender.getStdout().println("[+] 进入网页提取URL页面： " + url + "==> URL result: " + urlSet);
                         if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")) {
                             Map<String, Object> getUriData = new HashMap<String, Object>();
                             getUriData.put("responseRequest", requestResponse);
@@ -115,12 +114,11 @@ public class IProxyScanner implements IProxyListener {
                         // 依次遍历urlSet获取其返回的response值
                         for (String getUrl : urlSet) {
                             if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4){
-                                BurpExtender.getStdout().println("白Ext或者太短path，顾虑掉： " + getUrl);
+                                BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
                                 continue;
                             }
                             pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                         }
-                        BurpExtender.getStdout().println(url + ": " + pathData);
                         if (pathData.isEmpty()) {
                             return;
                         }
@@ -133,12 +131,16 @@ public class IProxyScanner implements IProxyListener {
                             public void run() {
                                 synchronized (BurpExtender.getTags().getMainPanel().getModel()) {
                                     if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                                        BurpExtender.getTags().getMainPanel().addApiData(newOriginalApiData);
+                                        if(!ConfigPanel.getFlashButtonStatus()){
+                                            BurpExtender.getTags().getMainPanel().addApiData(newOriginalApiData);
+                                        }
                                         apiDataModelMap.put(Utils.getUriFromUrl(url), newOriginalApiData);
                                     } else {
                                         ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
                                         ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
-                                        BurpExtender.getTags().getMainPanel().editApiData(mergeApiData);
+                                        if(!ConfigPanel.getFlashButtonStatus()){
+                                            BurpExtender.getTags().getMainPanel().editApiData(mergeApiData);
+                                        }
                                         apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
                                     }
                                 }

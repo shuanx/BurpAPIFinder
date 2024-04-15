@@ -40,6 +40,10 @@ public class Tags implements ITab {
         return this.mailPanel;
     }
 
+    public FingerConfigTab getFingerConfigTab(){
+        return this.fingerConfigTab;
+    }
+
     @Override
     public Component getUiComponent() {
         return this.tabs;

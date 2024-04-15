@@ -67,7 +67,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(2).setMinWidth(400);
         table.getColumnModel().getColumn(7).setMinWidth(60);
         table.getColumnModel().getColumn(8).setMinWidth(150);
-        table.getColumnModel().getColumn(9).setMinWidth(100);
+        table.getColumnModel().getColumn(9).setMinWidth(180);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -85,6 +85,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(7).setCellRenderer(leftRenderer);
         table.getColumnModel().getColumn(8).setCellRenderer(leftRenderer);
+        table.getColumnModel().getColumn(9).setCellRenderer(leftRenderer);
 
         IsJsFindUrlRenderer isJsFindUrlRenderer = new IsJsFindUrlRenderer();
         table.getColumnModel().getColumn(6).setCellRenderer(isJsFindUrlRenderer);
@@ -487,6 +488,10 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
     public DefaultTableModel getModel(){
         return model;
+    }
+
+    public ConfigPanel getConfigPanel(){
+        return this.configPanel;
     }
 
 }
