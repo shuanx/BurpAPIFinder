@@ -170,6 +170,17 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void addApiData(ApiDataModel apiDataModel) {
+        // 看当前是否有过滤场景
+        String selectOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+        if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
+            return;
+        } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
+            return;
+        } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
+            return;
+        } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
+            return;
+        }
         if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
             model.insertRow(0, new Object[]{
                     Constants.TREE_STATUS_COLLAPSE,
@@ -208,7 +219,17 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
 
     public void editApiData(ApiDataModel apiDataModel) {
-
+        // 看当前是否有过滤场景
+        String selectOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+        if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
+            return;
+        } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
+            return;
+        } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
+            return;
+        } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
+            return;
+        }
         ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
         if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
             int index = findRowIndexByURL(originalApiData.getUrl());
@@ -373,7 +394,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             Map<String, Object> subPathValue = (Map<String, Object>)pathEntry.getValue();
             if (selectedOption.equals("只看status为200") && !((String)subPathValue.get("status")).contains("200")){
                 continue;
-            } else if (selectedOption.equals("只看重点") &&  !((Boolean) subPathValue.get("havingImportant"))) {
+            } else if (selectedOption.equals("只看重点") &&  !((Boolean) subPathValue.get("isImportant"))) {
                 continue;
             } else if (selectedOption.equals("只看敏感内容") && !((String)subPathValue.get("result")).contains("敏感内容")){
                 continue;

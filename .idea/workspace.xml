@@ -11,13 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/weixinqun.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +201,8 @@
       <workItem from="1712506327467" duration="23451000" />
       <workItem from="1712709724201" duration="988000" />
       <workItem from="1712740882076" duration="4016000" />
-      <workItem from="1712977123475" duration="2237000" />
+      <workItem from="1712977123475" duration="6753000" />
+      <workItem from="1713190601243" duration="91000" />
     </task>
     <servers />
   </component>
@@ -229,13 +229,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
-          <line>283</line>
+          <line>304</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
-          <line>287</line>
+          <line>308</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
+          <line>384</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java</url>
+          <line>392</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

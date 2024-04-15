@@ -45,13 +45,21 @@ public class IProxyScanner implements IProxyListener {
             IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();
             final IHttpRequestResponse resrsp = iInterceptedProxyMessage.getMessageInfo();
             String method = helpers.analyzeRequest(resrsp).getMethod();
-
             // 提取url，过滤掉静态文件
             String url = String.valueOf(helpers.analyzeRequest(resrsp).getUrl());
-            if (this.scanedUrl.get(url) <= 0) {
-                this.scanedUrl.add(url);
+            byte[] responseBytes = resrsp.getResponse();
+
+            // 返回结果为空则退出
+            if (responseBytes == null || responseBytes.length == 0) {
+                BurpExtender.getStdout().println("返回结果为空: " + url);
+                return;
+            }
+            String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
+
+            if (this.scanedUrl.get((Utils.getUriFromUrl(url) + statusCode)) <= 0) {
+                this.scanedUrl.add(Utils.getUriFromUrl(url) + statusCode);
             } else {
-                BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别");
+                BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
                 return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
@@ -59,12 +67,6 @@ public class IProxyScanner implements IProxyListener {
                 return;
             }
 
-            byte[] responseBytes = requestResponse.getResponse();
-            String statusCode = "error";
-            if (responseBytes != null) {
-                // 解析响应
-                statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
-            }
 
             // 网页提取URL并进行指纹识别
             String finalStatusCode = statusCode;

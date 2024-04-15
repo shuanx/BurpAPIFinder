@@ -199,6 +199,7 @@ public class Utils {
                 }
 
             } catch (Exception e) {
+                BurpExtender.getStdout().println("findUrl error: " + url);
             }
 
         }
