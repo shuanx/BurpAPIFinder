@@ -40,15 +40,6 @@
     "isImportant": true
   },
   {
-    "match": "keyword",
-    "location": "urlPath",
-    "keyword": [
-      "/account"
-    ],
-    "type": "敏感路径",
-    "isImportant": true
-  },
-  {
       "match": "keyword",
       "location": "urlPath",
       "keyword": [

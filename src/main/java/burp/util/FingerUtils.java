@@ -52,40 +52,41 @@ public class FingerUtils {
                 } else {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
+                boolean isMatch = true;
                 for (String key : rule.getKeyword()) {
-                    boolean isMatch = false;
-                    if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                        isMatch = true;
-                    } else if (rule.getMatch().equals("rugular") && locationContent.toLowerCase().matches(key)) {
-                        isMatch = true;
+                    if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
+                        isMatch = false;
+                    } else if (rule.getMatch().equals("rugular") && !locationContent.toLowerCase().matches(key)) {
+                        isMatch = false;
                     }
-                    if (isMatch) {
-                        // 是否为重要
-                        if (rule.getIsImportant()) {
-                            onePathData.put("isImportant", true);
-                            originalApiData.setHavingImportant(true);
-                        }
-                        String existingResult = (String) onePathData.get("result");
-                        if (existingResult.equals("-") || existingResult.isEmpty()) {
-                            onePathData.put("result", rule.getType());
-                        } else if (!existingResult.contains(rule.getType())) {
-                            onePathData.put("result", existingResult + "," + rule.getType());
-                        }
-                        if (originalApiData.getResult().equals("-")) {
-                            originalApiData.setResult(rule.getType());
-                        } else if (!originalApiData.getResult().contains(rule.getType())) {
-                            originalApiData.setResult(originalApiData.getResult() + "," + rule.getType());
-                        }
-                        String resultInfo = (String) onePathData.get("result info");
-                        if (resultInfo.equals("-")) {
-                            resultInfo = rule.getInfo();
-                        } else {
-                            resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
-                        }
-                        onePathData.put("result info", resultInfo);
+                }
+
+                if (isMatch) {
+                    // 是否为重要
+                    if (rule.getIsImportant()) {
+                        onePathData.put("isImportant", true);
+                        originalApiData.setHavingImportant(true);
+                    }
+                    String existingResult = (String) onePathData.get("result");
+                    if (existingResult.equals("-") || existingResult.isEmpty()) {
+                        onePathData.put("result", rule.getType());
+                    } else if (!existingResult.contains(rule.getType())) {
+                        onePathData.put("result", existingResult + "," + rule.getType());
+                    }
+                    if (originalApiData.getResult().equals("-")) {
+                        originalApiData.setResult(rule.getType());
+                    } else if (!originalApiData.getResult().contains(rule.getType())) {
+                        originalApiData.setResult(originalApiData.getResult() + "," + rule.getType());
+                    }
+                    String resultInfo = (String) onePathData.get("result info");
+                    if (resultInfo.equals("-")) {
+                        resultInfo = rule.getInfo();
+                    } else {
+                        resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
+                    }
+                    onePathData.put("result info", resultInfo);
 
 
-                    }
                 }
                 newPathData.put(onePath, onePathData);
 //                BurpExtender.getStdout().println(onePath + "===> " + onePathData);

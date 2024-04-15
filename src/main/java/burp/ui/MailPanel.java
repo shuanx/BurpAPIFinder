@@ -368,6 +368,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             model.setRowCount(0);
             // 清空表格
             IProxyScanner.apiDataModelMap = new HashMap<String, ApiDataModel>();
+            IProxyScanner.setHaveScanUrlNew();
             // 清空检索
             historySearchText = "";
             SwingUtilities.invokeLater(new Runnable() {

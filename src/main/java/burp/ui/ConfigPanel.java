@@ -1,9 +1,6 @@
 package burp.ui;
 
-import burp.BurpExtender;
-import burp.IHttpRequestResponse;
-import burp.IMessageEditor;
-import burp.ITextEditor;
+import burp.*;
 import burp.util.UiUtils;
 
 import javax.swing.*;
