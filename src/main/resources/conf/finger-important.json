@@ -110,7 +110,7 @@
         "phoneNo",
         "deptName"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容-数据暴漏(手机号码)",
       "isImportant": true
     },
     {
@@ -155,6 +155,38 @@
         "ALI_ACCESS_KEY"
       ],
       "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "access_key_id",
+        "secret_access_key"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "name",
+        "sfzh",
+        "application/json"
+      ],
+      "type": "敏感内容-数据暴漏(身份证)",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "msg",
+        "mobile",
+        "application/json"
+      ],
+      "type": "敏感内容-数据暴漏(手机号码)",
       "isImportant": true
     },
     {
@@ -273,6 +305,26 @@
         "身份证号码",
         "姓名",
         "公司"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "secret_key",
+        "address"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "secret_key",
+        "api_key"
       ],
       "type": "敏感内容-数据暴漏",
       "isImportant": true
