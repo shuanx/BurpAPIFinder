@@ -111,7 +111,7 @@ public class ConfigPanel extends JPanel {
         toggleButton.setBorder(null);  // 设置无边框
         toggleButton.setFocusPainted(false);  // 移除焦点边框
         toggleButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-        toggleButton.setToolTipText("指纹识别功能开");
+        toggleButton.setToolTipText("用于控制整体功能开关");
 
         // 刷新按钮按钮
         flashButton = new JToggleButton(UiUtils.getImageIcon("/icon/stopButton.png", 30, 30));
@@ -120,7 +120,7 @@ public class ConfigPanel extends JPanel {
         flashButton.setBorder(null);  // 设置无边框
         flashButton.setFocusPainted(false);  // 移除焦点边框
         flashButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-        flashButton.setToolTipText("指纹匹配：所有指纹");
+        flashButton.setToolTipText("用于控制表格是否自动化刷新，还是手工点击刷新");
 
         // 刷新文本
         flashText = new JLabel("自动刷新中");

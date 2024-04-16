@@ -67,16 +67,16 @@ public class IProxyScanner implements IProxyListener {
                 }
                 String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
 
-                if (this.haveScanUrl.get((Utils.getUriFromUrl(url) + statusCode)) <= 0) {
-                    this.haveScanUrl.add(Utils.getUriFromUrl(url) + statusCode);
+                if (this.haveScanUrl.get((Utils.getUriFromUrl(url).hashCode() + statusCode)) <= 0) {
+                    this.haveScanUrl.add(Utils.getUriFromUrl(url).hashCode() + statusCode);
                 } else {
-                    BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
+                    BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + Utils.getUriFromUrl(url));
                     scannedCount -= 1;
                     ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
                 }
                 if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
-                    BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
+                    BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + Utils.getUriFromUrl(url));
                     scannedCount -= 1;
                     ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
