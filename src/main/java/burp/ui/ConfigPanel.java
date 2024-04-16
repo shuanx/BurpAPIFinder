@@ -123,7 +123,7 @@ public class ConfigPanel extends JPanel {
         flashButton.setToolTipText("指纹匹配：所有指纹");
 
         // 刷新文本
-        flashText = new JLabel("自动刷新中，可点击左边按钮暂停刷新");
+        flashText = new JLabel("自动刷新中");
 
         // 添加填充以在左侧占位
         GridBagConstraints gbc_leftFiller = new GridBagConstraints();
@@ -205,11 +205,11 @@ public class ConfigPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // 检查按钮的选中状态
                 if (flashButton.isSelected()) {
-                    // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新"
-                    flashText.setText("暂停刷新，请点击左边按钮刷新");
+                    // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新中"
+                    flashText.setText("暂停刷新中");
                 } else {
                     // 如果按钮没有被选中，意味着刷新功能没有被激活，我们将文本设置为 "自动刷新"
-                    flashText.setText("自动刷新中，可点击左边按钮暂停刷新");
+                    flashText.setText("自动刷新中");
                 }
             }
         });
@@ -282,19 +282,19 @@ public class ConfigPanel extends JPanel {
 
     public static void setFlashButtonTrue(){
         flashButton.setSelected(false);
-        flashText.setText("自动刷新中，可点击左边按钮暂停刷新");
+        flashText.setText("自动刷新中");
 
     }
 
     public static void setFlashButtonFalse(){
         flashButton.setSelected(true);
-        flashText.setText("暂停刷新，请点击左边按钮刷新");
+        flashText.setText("暂停刷新中");
     }
 
     public static boolean getFlashButtonStatus(){
         // 检查按钮的选中状态
         if (flashButton.isSelected()) {
-            // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新"
+            // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新中"
             return true;
         } else {
             // 如果按钮没有被选中，意味着刷新功能没有被激活，我们将文本设置为 "自动刷新"

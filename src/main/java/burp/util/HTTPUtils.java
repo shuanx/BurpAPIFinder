@@ -71,6 +71,7 @@ public class HTTPUtils {
         originalData.put("isImportant", false);
         originalData.put("result", "-");
         originalData.put("result info", "-");
+        originalData.put("describe", "-");
         originalData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
 
         return originalData;

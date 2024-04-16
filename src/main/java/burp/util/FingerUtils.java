@@ -67,6 +67,12 @@ public class FingerUtils {
                         onePathData.put("isImportant", true);
                         originalApiData.setHavingImportant(true);
                     }
+                    String existingDescribe = (String) onePathData.get("describe");
+                    if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
+                        onePathData.put("describe", rule.getDescribe());
+                    } else if (!existingDescribe.contains(rule.getDescribe())) {
+                        onePathData.put("describe", existingDescribe + "," + rule.getDescribe());
+                    }
                     String existingResult = (String) onePathData.get("result");
                     if (existingResult.equals("-") || existingResult.isEmpty()) {
                         onePathData.put("result", rule.getType());

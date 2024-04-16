@@ -41,7 +41,7 @@ public class FingerConfigTab extends JPanel {
     private JTable table;
     private JDialog editPanel;  // 新增：编辑面板
     private Integer editingRow = null;
-    private JTextField keywordField;  // 新增：编辑面板的文本字段
+    private JTextField keywordField, describeField;  // 新增：编辑面板的文本字段
     private JComboBox<Boolean> isImportantField;
     private JComboBox<String> methodField, locationField, typeField;
 
@@ -147,6 +147,7 @@ public class FingerConfigTab extends JPanel {
                         model.addRow(new Object[]{
                                 counter,
                                 rule.getType(),
+                                rule.getDescribe(),
                                 rule.getIsImportant(),
                                 rule.getMatch(), // 获取method信息
                                 rule.getLocation(), // 获取location信息
@@ -181,6 +182,7 @@ public class FingerConfigTab extends JPanel {
                         model.addRow(new Object[]{
                                 counter,
                                 rule.getType(),
+                                rule.getDescribe(),
                                 rule.getIsImportant(),
                                 rule.getMatch(), // 获取method信息
                                 rule.getLocation(), // 获取location信息
@@ -216,6 +218,7 @@ public class FingerConfigTab extends JPanel {
                     model.addRow(new Object[]{
                             counter,
                             rule.getType(),
+                            rule.getDescribe(),
                             rule.getIsImportant(),
                             rule.getMatch(), // 获取method信息
                             rule.getLocation(), // 获取location信息
@@ -338,6 +341,7 @@ public class FingerConfigTab extends JPanel {
                             model.addRow(new Object[]{
                                     counter,
                                     rule.getType(),
+                                    rule.getDescribe(),
                                     rule.getIsImportant(),
                                     rule.getMatch(), // 获取 method 信息
                                     rule.getLocation(), // 获取 location 信息
@@ -387,6 +391,7 @@ public class FingerConfigTab extends JPanel {
                         model.addRow(new Object[]{
                                 counter,
                                 rule.getType(),
+                                rule.getDescribe(),
                                 rule.getIsImportant(),
                                 rule.getMatch(), // 获取 method 信息
                                 rule.getLocation(), // 获取 location 信息
@@ -433,11 +438,11 @@ public class FingerConfigTab extends JPanel {
         });
 
         // 表格数据
-        model = new DefaultTableModel(new Object[]{"#", "type", "isImportant", "Match", "location", "keyword", "Action"}, 0) {
+        model = new DefaultTableModel(new Object[]{"#", "type", "describe", "isImportant", "Match", "location", "keyword", "Action"}, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-                    case 6:
+                    case 7:
                         return JButton.class;
                     default:
                         return super.getColumnClass(columnIndex);
@@ -453,6 +458,7 @@ public class FingerConfigTab extends JPanel {
             model.addRow(new Object[]{
                     counter,
                     rule.getType(),
+                    rule.getDescribe(),
                     rule.getIsImportant(),
                     rule.getMatch(), // 获取method信息
                     rule.getLocation(), // 获取location信息
@@ -481,6 +487,7 @@ public class FingerConfigTab extends JPanel {
                         model.addRow(new Object[]{
                                 counter,
                                 rule.getType(),
+                                rule.getDescribe(),
                                 rule.getIsImportant(),
                                 rule.getMatch(), // 获取method信息
                                 rule.getLocation(), // 获取location信息
@@ -507,22 +514,22 @@ public class FingerConfigTab extends JPanel {
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setMaxWidth(maxColumnWidth);
-        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(2).setPreferredWidth(cmsColumnWidth);
-        table.getColumnModel().getColumn(2).setMaxWidth(cmsColumnWidth);
         table.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(3).setPreferredWidth(100);
-        table.getColumnModel().getColumn(3).setMaxWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(3).setPreferredWidth(cmsColumnWidth);
+        table.getColumnModel().getColumn(3).setMaxWidth(cmsColumnWidth);
         table.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(4).setPreferredWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(4).setPreferredWidth(100);
         table.getColumnModel().getColumn(4).setMaxWidth(maxColumnWidth);
         table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(5).setPreferredWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(5).setMaxWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         // 设置操作列的宽度以适应两个按钮
         int actionColumnWidth = 100;  // 假设每个按钮宽度为70，中间间隔10
-        table.getColumnModel().getColumn(6).setPreferredWidth(actionColumnWidth);
-        table.getColumnModel().getColumn(6).setMaxWidth(actionColumnWidth);
-        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(table));
+        table.getColumnModel().getColumn(7).setPreferredWidth(actionColumnWidth);
+        table.getColumnModel().getColumn(7).setMaxWidth(actionColumnWidth);
+        table.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(table));
 
 
         // 在 FingerConfigTab 构造函数中，设置表头渲染器的代码部分
@@ -562,6 +569,7 @@ public class FingerConfigTab extends JPanel {
         methodField = new JComboBox<>(new String[]{"keyword", "regular"});
         locationField = new JComboBox<>();
         keywordField = new JTextField();
+        describeField = new JTextField("-");
         methodField.setSelectedItem("keyword");
         updateLocationField("keyword");
 
@@ -582,9 +590,20 @@ public class FingerConfigTab extends JPanel {
         constraints.weightx = 1.0;  // 允许横向扩展
         editPanel.add(typeField, constraints);
 
-        // 添加 "isImportant" 标签
+        // 添加 "describeField" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
         constraints.gridy = 2;  // 在网格的第一行添加组件
+        constraints.weightx = 0;  // 不允许横向扩展
+        editPanel.add(new JLabel("Describe:"), constraints);
+
+        // 添加 "describeField" 输入框
+        constraints.gridx = 1;  // 在网格的第二列添加组件
+        constraints.weightx = 1.0;  // 允许横向扩展
+        editPanel.add(describeField, constraints);
+
+        // 添加 "isImportant" 标签
+        constraints.gridx = 0;  // 在网格的第一列添加组件
+        constraints.gridy = 3;  // 在网格的第一行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("IsImportant:"), constraints);
 
@@ -595,7 +614,7 @@ public class FingerConfigTab extends JPanel {
 
         // 添加 "Method" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 3;  // 在网格的第二行添加组件
+        constraints.gridy = 4;  // 在网格的第二行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Match:"), constraints);
 
@@ -606,7 +625,7 @@ public class FingerConfigTab extends JPanel {
 
         // 添加 "Location" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 4;  // 在网格的第三行添加组件
+        constraints.gridy = 5;  // 在网格的第三行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Location:"), constraints);
 
@@ -617,7 +636,7 @@ public class FingerConfigTab extends JPanel {
 
         // 添加 "Keyword" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 5;  // 在网格的第四行添加组件
+        constraints.gridy = 6;  // 在网格的第四行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Keyword:"), constraints);
 
@@ -660,6 +679,7 @@ public class FingerConfigTab extends JPanel {
                 Boolean isImportant = (Boolean) isImportantField.getSelectedItem();
                 String method = (String) methodField.getSelectedItem();
                 String location = (String) locationField.getSelectedItem();
+                String describe = describeField.getText();
                 List<String> keyword = Arrays.asList(keywordField.getText().split(","));
 
                 if (type.trim().isEmpty() || method.trim().isEmpty() ||
@@ -672,6 +692,7 @@ public class FingerConfigTab extends JPanel {
                     // 如果是编辑现有规则，更新数据源和表格模型中的数据
                     FingerPrintRule rule = BurpExtender.fingerprintRules.get(editingRow);
                     rule.setType(type);
+                    rule.setDescribe(describe);
                     rule.setIsImportant(isImportant);
                     rule.setMatch(method);
                     rule.setLocation(location);
@@ -679,10 +700,11 @@ public class FingerConfigTab extends JPanel {
 
                     // 更新表格模型
                     model.setValueAt(type, table.getSelectedRow(), 1);
-                    model.setValueAt(isImportant, table.getSelectedRow(), 2);
-                    model.setValueAt(method, table.getSelectedRow(), 3); // 假设Method列是第3列
-                    model.setValueAt(location, table.getSelectedRow(), 4); // 假设Location列是第4列
-                    model.setValueAt(String.join(",", keyword), table.getSelectedRow(), 5); // 假设Keyword列是第5列
+                    model.setValueAt(describe, table.getSelectedRow(), 2);
+                    model.setValueAt(isImportant, table.getSelectedRow(), 3);
+                    model.setValueAt(method, table.getSelectedRow(), 4); // 假设Method列是第3列
+                    model.setValueAt(location, table.getSelectedRow(), 5); // 假设Location列是第4列
+                    model.setValueAt(String.join(",", keyword), table.getSelectedRow(), 6); // 假设Keyword列是第5列
 
                     // 通知模型数据已更新，触发表格重绘
                     model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
@@ -693,7 +715,7 @@ public class FingerConfigTab extends JPanel {
                     editingRow = null;
                 } else {
                     // 创建新的 FingerPrintRule 对象
-                    FingerPrintRule newRule = new FingerPrintRule(type, isImportant, method, location, keyword);
+                    FingerPrintRule newRule = new FingerPrintRule(type, describe, isImportant, method, location, keyword);
                     synchronized (BurpExtender.fingerprintRules) {
                         // 将新规则添加到数据源的开始位置
                         BurpExtender.fingerprintRules.add(0, newRule);
@@ -701,6 +723,7 @@ public class FingerConfigTab extends JPanel {
                         ((DefaultTableModel) table.getModel()).insertRow(0, new Object[]{
                                 1, // 新行的序号始终为1
                                 newRule.getType(),
+                                newRule.getDescribe(),
                                 newRule.getIsImportant(),
                                 newRule.getMatch(),
                                 newRule.getLocation(),
@@ -772,6 +795,7 @@ public class FingerConfigTab extends JPanel {
                 model.addRow(new Object[]{
                         counter++,
                         rule.getType(),
+                        rule.getDescribe(),
                         rule.getIsImportant(),
                         rule.getMatch(),
                         rule.getLocation(),
@@ -839,6 +863,7 @@ public class FingerConfigTab extends JPanel {
                 model.addRow(new Object[]{
                         counter,
                         rule.getType(),
+                        rule.getDescribe(),
                         rule.getIsImportant(),
                         rule.getMatch(),
                         rule.getLocation(),
@@ -892,7 +917,7 @@ public class FingerConfigTab extends JPanel {
                     isImportantField.setSelectedItem(rule.getIsImportant());
                     methodField.setSelectedItem(rule.getMatch());
                     locationField.setSelectedItem(rule.getLocation());
-//                    updateLocationField(rule.getMethod()); // 根据 rule 的 method 更新 locationField
+                    describeField.setText(rule.getDescribe()); // 根据 rule 的 method 更新 locationField
                     keywordField.setText(String.join(",", rule.getKeyword())); // 设置 keywordField 的值
 
                     // 显示编辑面板

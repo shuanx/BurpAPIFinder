@@ -10,16 +10,22 @@ import java.util.List;
 public class FingerPrintRule {
     private String match;
     private String location;
+    private String describe;
     private List<String> keyword;
     private boolean isImportant;
     private String type;
     // 新添加的构造函数
-    public FingerPrintRule(String type, boolean isImportant, String match, String location, List<String> keyword) {
+    public FingerPrintRule(String type, String describe, boolean isImportant, String match, String location, List<String> keyword) {
         this.match = match;
+        this.describe = describe;
         this.location = location;
         this.keyword = keyword;
         this.type = type;
         this.isImportant = isImportant;
+    }
+    public String getDescribe(){return describe;}
+    public void setDescribe(String describe){
+        this.describe = describe;
     }
     public String getType(){return type;}
     public void setType(String type){this.type = type;}
@@ -50,6 +56,6 @@ public class FingerPrintRule {
     }
 
     public String getInfo(){
-        return "match: " + match + "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString();
+        return "match: " + match + "\r\nType: " + type + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString();
     }
 }

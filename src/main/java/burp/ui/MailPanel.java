@@ -16,12 +16,14 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.List;
 
 public class MailPanel extends JPanel implements IMessageEditorController {
     private String tagName;
     private JSplitPane mainSplitPane;
+    private JSplitPane infoSplitPane;
     private static IMessageEditor requestTextEditor;
     private static IMessageEditor responseTextEditor;
     private static IHttpRequestResponse currentlyDisplayedItem;
@@ -38,6 +40,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public MailPanel(IBurpExtenderCallbacks callbacks, String name) {
         // 主分隔面板
         mainSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        infoSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         setLayout(new BorderLayout());
         tagName = name;
 
@@ -48,14 +51,25 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         configPanel = new ConfigPanel();
 
         // 数据展示面板
-        model = new DefaultTableModel(new Object[]{"#", "ID", "URl", "PATH Number", "Method", "status", "isJsFindUrl", "HavingImportant", "Result", "Time"}, 0) {
+        model = new DefaultTableModel(new Object[]{"#", "ID", "URl", "PATH Number", "Method", "status", "isJsFindUrl", "HavingImportant", "Result", "describe", "Time"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // This will make all cells of the table non-editable
                 return false;
             }
         };
-        table = new JTable(model);
+        table = new JTable(model){
+            // 重写getToolTipText方法以返回特定单元格的数据
+            public String getToolTipText(MouseEvent e) {
+                int row = rowAtPoint(e.getPoint());
+                int col = columnAtPoint(e.getPoint());
+                if (row > -1 && col > -1) {
+                    Object value = getValueAt(row, col);
+                    return value == null ? null : value.toString();
+                }
+                return super.getToolTipText(e);
+            }
+        };;
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         upScrollPane = new JScrollPane(table);
         // 将upScrollPane作为mainSplitPane的上半部分
@@ -64,10 +78,10 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         // 前两列设置宽度 30px、60px
         table.getColumnModel().getColumn(0).setMaxWidth(30);
         table.getColumnModel().getColumn(1).setMaxWidth(60);
-        table.getColumnModel().getColumn(2).setMinWidth(400);
+        table.getColumnModel().getColumn(2).setMinWidth(300);
         table.getColumnModel().getColumn(7).setMinWidth(60);
         table.getColumnModel().getColumn(8).setMinWidth(150);
-        table.getColumnModel().getColumn(9).setMinWidth(180);
+        table.getColumnModel().getColumn(10).setMinWidth(180);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -86,6 +100,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(7).setCellRenderer(leftRenderer);
         table.getColumnModel().getColumn(8).setCellRenderer(leftRenderer);
         table.getColumnModel().getColumn(9).setCellRenderer(leftRenderer);
+        table.getColumnModel().getColumn(10).setCellRenderer(leftRenderer);
 
         IsJsFindUrlRenderer isJsFindUrlRenderer = new IsJsFindUrlRenderer();
         table.getColumnModel().getColumn(6).setCellRenderer(isJsFindUrlRenderer);
@@ -125,10 +140,13 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                     Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
                                     requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
                                     responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                                    resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes(), false);
+                                    try {
+                                        resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes("GBK"), false);
+                                    } catch (UnsupportedEncodingException ex) {
+                                        resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes(), false);
+                                    }
                                     currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
                                 }
-
                             }
                         }
                     }
@@ -149,11 +167,12 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         toolbar.add(configPanel, BorderLayout.NORTH);
         toolbar.add(mainSplitPane, BorderLayout.CENTER);
         add(toolbar, BorderLayout.NORTH);
+        add(infoSplitPane, BorderLayout.CENTER);
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Result Info", resultDeViewer.getComponent());
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
-        mainSplitPane.setBottomComponent(tabs);
+        infoSplitPane.setBottomComponent(tabs);
 
     }
 
@@ -195,6 +214,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     apiDataModel.getIsJsFindUrl(),
                     apiDataModel.getHavingImportant(),
                     apiDataModel.getResult(),
+                    "-",
                     apiDataModel.getTime()
             });
         } else if (historySearchText.isEmpty()) {
@@ -208,6 +228,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     apiDataModel.getIsJsFindUrl(),
                     apiDataModel.getHavingImportant(),
                     apiDataModel.getResult(),
+                    "-",
                     apiDataModel.getTime()
             });
 
@@ -250,6 +271,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     apiDataModel.getIsJsFindUrl(),
                     apiDataModel.getHavingImportant(),
                     apiDataModel.getResult(),
+                    "-",
                     apiDataModel.getTime()
             });
         } else if (historySearchText.isEmpty()) {
@@ -268,6 +290,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     apiDataModel.getIsJsFindUrl(),
                     apiDataModel.getHavingImportant(),
                     apiDataModel.getResult(),
+                    "-",
                     apiDataModel.getTime()
             });
         }
@@ -296,6 +319,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         apiDataModel.getIsJsFindUrl(),
                         apiDataModel.getHavingImportant(),
                         apiDataModel.getResult(),
+                        "-",
                         apiDataModel.getTime()
                 });
             }
@@ -329,6 +353,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         apiDataModel.getIsJsFindUrl(),
                         apiDataModel.getHavingImportant(),
                         apiDataModel.getResult(),
+                        "-",
                         apiDataModel.getTime()
                 });
             }
@@ -356,6 +381,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                         apiDataModel.getIsJsFindUrl(),
                         apiDataModel.getHavingImportant(),
                         apiDataModel.getResult(),
+                        "-",
                         apiDataModel.getTime()
                 });
             }
@@ -426,6 +452,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     subPathValue.get("isJsFindUrl"),
                     subPathValue.get("isImportant"),
                     subPathValue.get("result"),
+                    subPathValue.get("describe"),
                     subPathValue.get("time")
             });
             model.fireTableRowsInserted(index+tmpIndex, index+tmpIndex);
