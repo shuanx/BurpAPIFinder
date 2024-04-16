@@ -14,13 +14,266 @@
     "match": "keyword",
     "location": "body",
     "keyword": [
-      "pass",
-      "email",
-      "name"
+      "newPws",
+      "userName"
     ],
     "type": "敏感内容",
     "isImportant": true
   },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "newpassword",
+        "newpassword2",
+        "actionid"
+      ],
+      "type": "敏感内容",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "username",
+        "newpassword"
+      ],
+      "type": "敏感内容",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "password",
+        "name",
+        "userid"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "name",
+        "realName",
+        "email",
+        "phone"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },{
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "description",
+        "name",
+        "message",
+        "Type"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },{
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "person",
+        "mobilPhone",
+        "id",
+        "status"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "email",
+        "phone",
+        "pwd",
+        "id",
+        "name"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "personName",
+        "phoneNo",
+        "deptName"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "sfzhm",
+        "total",
+        "rows"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "keyHash",
+        "idCard",
+        "partment"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "Idcard",
+        "Name",
+        "id",
+        "status",
+        "address"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },{
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "ALI_ACCESS_ID",
+        "ALI_ACCESS_KEY"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "accessKeyId",
+        "accessSecret"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "password",
+        "HOST",
+        "NAME"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "server",
+        "pwd",
+        "database",
+        "user"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "Authentication failed",
+        "user",
+        "__construct"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "user=='",
+        "password=='"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },{
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "userName",
+        "password",
+        "=>",
+        "info"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },{
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "VPN服务器地址",
+        "用户名",
+        "密码"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "username",
+        "password",
+        "jdbc:"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "String username",
+        "String password",
+        "="
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "jdbc.url",
+        "://",
+        "username",
+        "password"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "身份证号码",
+        "姓名",
+        "公司"
+      ],
+      "type": "敏感内容-数据暴漏",
+      "isImportant": true
+    },
   {
     "match": "keyword",
     "location": "urlPath",
