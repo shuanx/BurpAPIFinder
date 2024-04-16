@@ -6,7 +6,7 @@
       "pass",
       "email",
       "user",
-      "json"
+      "application/json"
     ],
     "type": "敏感内容",
     "isImportant": true
@@ -72,7 +72,7 @@
         "name",
         "message",
         "Type",
-        "json"
+        "application/json"
       ],
       "type": "敏感内容-数据暴漏",
       "isImportant": true
@@ -97,7 +97,7 @@
         "pwd",
         "id",
         "name",
-        "json"
+        "application/json"
       ],
       "type": "敏感内容-数据暴漏",
       "isImportant": true
