@@ -6,11 +6,48 @@
       "pass",
       "email",
       "user",
-      "application/json"
+      "Content-Type: application/json"
     ],
     "type": "敏感内容",
+    "describe": "账号, 密码, 邮箱",
     "isImportant": true
   },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "gmsfhm",
+        "Content-Type: application/json"
+      ],
+      "type": "敏感内容",
+      "describe": "身份号",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "cjrsfzh",
+        "Content-Type: application/json"
+      ],
+      "type": "敏感内容",
+      "describe": "身份号",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "tel",
+        "account",
+        "userName",
+        "mailAccount",
+        "Content-Type: application/json"
+      ],
+      "type": "敏感内容",
+      "describe": "手机, 用户名, 邮件",
+      "isImportant": true
+    },
   {
     "match": "keyword",
     "location": "body",
@@ -19,6 +56,7 @@
       "userName"
     ],
     "type": "敏感内容",
+    "describe": "修改密码",
     "isImportant": true
   },
     {
@@ -26,10 +64,10 @@
       "location": "body",
       "keyword": [
         "newpassword",
-        "newpassword2",
         "actionid"
       ],
       "type": "敏感内容",
+      "describe": "修改密码",
       "isImportant": true
     },
     {
@@ -40,6 +78,7 @@
         "newpassword"
       ],
       "type": "敏感内容",
+      "describe": "修改密码",
       "isImportant": true
     },
     {
@@ -48,9 +87,11 @@
       "keyword": [
         "password",
         "name",
-        "userid"
+        "userid",
+        "Content-Type: application/json"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码",
       "isImportant": true
     },
     {
@@ -62,7 +103,8 @@
         "email",
         "phone"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 邮箱， 收集",
       "isImportant": true
     },{
       "match": "keyword",
@@ -72,9 +114,10 @@
         "name",
         "message",
         "Type",
-        "application/json"
+        "Content-Type: application/json"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号",
       "isImportant": true
     },{
       "match": "keyword",
@@ -85,7 +128,8 @@
         "id",
         "status"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 手机",
       "isImportant": true
     },
     {
@@ -97,9 +141,10 @@
         "pwd",
         "id",
         "name",
-        "application/json"
+        "Content-Type: application/json"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "手机, 用户名, 邮件, 密码",
       "isImportant": true
     },
     {
@@ -110,7 +155,8 @@
         "phoneNo",
         "deptName"
       ],
-      "type": "敏感内容-数据暴漏(手机号码)",
+      "type": "敏感内容",
+      "describe": "手机, 用户名",
       "isImportant": true
     },
     {
@@ -121,7 +167,8 @@
         "total",
         "rows"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "身份证",
       "isImportant": true
     },
     {
@@ -132,7 +179,8 @@
         "idCard",
         "partment"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "身份证",
       "isImportant": true
     },
     {
@@ -145,7 +193,8 @@
         "status",
         "address"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "身份证",
       "isImportant": true
     },{
       "match": "keyword",
@@ -154,7 +203,8 @@
         "ALI_ACCESS_ID",
         "ALI_ACCESS_KEY"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "云KEY",
       "isImportant": true
     },
     {
@@ -164,7 +214,8 @@
         "access_key_id",
         "secret_access_key"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "云KEY",
       "isImportant": true
     },
     {
@@ -173,9 +224,10 @@
       "keyword": [
         "name",
         "sfzh",
-        "application/json"
+        "Content-Type: application/json"
       ],
-      "type": "敏感内容-数据暴漏(身份证)",
+      "type": "敏感内容",
+      "describe": "身份证",
       "isImportant": true
     },
     {
@@ -184,9 +236,10 @@
       "keyword": [
         "msg",
         "mobile",
-        "application/json"
+        "Content-Type: application/json"
       ],
-      "type": "敏感内容-数据暴漏(手机号码)",
+      "type": "敏感内容",
+      "describe": "手机号码",
       "isImportant": true
     },
     {
@@ -196,7 +249,8 @@
         "accessKeyId",
         "accessSecret"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "云KEY",
       "isImportant": true
     },
     {
@@ -207,7 +261,8 @@
         "HOST",
         "NAME"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -219,7 +274,8 @@
         "database",
         "user"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -230,7 +286,8 @@
         "user",
         "__construct"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -240,7 +297,8 @@
         "user=='",
         "password=='"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码",
       "isImportant": true
     },{
       "match": "keyword",
@@ -251,7 +309,8 @@
         "=>",
         "info"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码",
       "isImportant": true
     },{
       "match": "keyword",
@@ -261,7 +320,8 @@
         "用户名",
         "密码"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -272,7 +332,8 @@
         "password",
         "jdbc:"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -283,7 +344,8 @@
         "String password",
         "="
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -295,7 +357,8 @@
         "username",
         "password"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码, IP",
       "isImportant": true
     },
     {
@@ -306,7 +369,8 @@
         "姓名",
         "公司"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 身份证",
       "isImportant": true
     },
     {
@@ -316,7 +380,8 @@
         "secret_key",
         "address"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码",
       "isImportant": true
     },
     {
@@ -326,27 +391,10 @@
         "secret_key",
         "api_key"
       ],
-      "type": "敏感内容-数据暴漏",
+      "type": "敏感内容",
+      "describe": "账号, 密码",
       "isImportant": true
     },
-  {
-    "match": "keyword",
-    "location": "urlPath",
-    "keyword": [
-      "/admin"
-    ],
-    "type": "敏感路径",
-    "isImportant": true
-  },
-  {
-    "match": "keyword",
-    "location": "urlPath",
-    "keyword": [
-      "/account"
-    ],
-    "type": "敏感路径",
-    "isImportant": true
-  },
   {
       "match": "keyword",
       "location": "urlPath",
