@@ -17,6 +17,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.List;
 
@@ -140,11 +141,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                     Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
                                     requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
                                     responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                                    try {
-                                        resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes("GBK"), false);
-                                    } catch (UnsupportedEncodingException ex) {
-                                        resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes(), false);
-                                    }
+                                    resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes(StandardCharsets.UTF_8), false);
                                     currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
                                 }
                             }
@@ -255,6 +252,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             return;
         }
         ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
+        if (findRowIndexByURL(originalApiData.getUrl()) < 0){
+            addApiData(apiDataModel);
+        }
         if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
             int index = findRowIndexByURL(originalApiData.getUrl());
             if (model.getValueAt(index, 0).equals(Constants.TREE_STATUS_EXPAND)) {

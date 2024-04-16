@@ -12,18 +12,9 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public class ConfigPanel extends JPanel {
-    public static IHttpRequestResponse currentlyDisplayedItem;
     public static JLabel lbRequestCount;
     public static JLabel lbSuccessCount;
-
-    public static IMessageEditor requestViewer;
-    public static IMessageEditor responseViewer;
-    public static ITextEditor resultDeViewer;
-
-    public static HashMap<String, JLabel> resultMap = new HashMap<>();
-    public static JPanel tagsPanel;
     public static JComboBox<String> choicesComboBox;
-
     // 在FingerTab类中添加成员变量
     public static JToggleButton flashButton;
     public static JToggleButton toggleButton;
