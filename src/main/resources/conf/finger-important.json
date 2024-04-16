@@ -5,7 +5,8 @@
     "keyword": [
       "pass",
       "email",
-      "user"
+      "user",
+      "json"
     ],
     "type": "敏感内容",
     "isImportant": true
@@ -70,7 +71,8 @@
         "description",
         "name",
         "message",
-        "Type"
+        "Type",
+        "json"
       ],
       "type": "敏感内容-数据暴漏",
       "isImportant": true
@@ -94,7 +96,8 @@
         "phone",
         "pwd",
         "id",
-        "name"
+        "name",
+        "json"
       ],
       "type": "敏感内容-数据暴漏",
       "isImportant": true
