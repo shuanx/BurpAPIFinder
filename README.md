@@ -9,13 +9,15 @@
 > 4、发现在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
 > ...  
 
-![images/main.png](images/main.png)
+![img.png](images/main.png)
 
 ## 功能如下
 > 下述功能会在2024年6月底完成，第一个版本会在明天4月7号晚上发布，敬请期待。如果有更好的建议或者期待使用的，点个免费的Star
 - [x] 提取网站的URL链接和解析JS文件中的URL链接
 - [x] 前段界面可自行定义铭感关键词、敏感url匹配
 - [x] 界面可配置的开启主动接口探测、铭感信息获取
+- [x] 集成主流攻防场景铭感信息泄漏的指纹库
+![img.png](images/config.png)
 - [ ] 集成https://github.com/API-Security/APIKit的功能  
 
 
