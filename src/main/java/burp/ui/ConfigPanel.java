@@ -155,7 +155,7 @@ public class ConfigPanel extends JPanel {
         gbc_btnall.gridy = 0;
         FilterPanel.add(choicesComboBox, gbc_btnall);
         // 检索框
-        JTextField searchField = new JTextField(15);
+        searchField = new JTextField(15);
         GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
         gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
         gbc_btnSearchField.fill = 0;

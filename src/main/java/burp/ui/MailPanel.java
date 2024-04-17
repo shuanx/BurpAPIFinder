@@ -181,7 +181,11 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 调用刷新表格的方法
-                refreshTableModel();
+                try{
+                    refreshTableModel();
+                } catch (Exception ep){
+                    ep.printStackTrace(BurpExtender.getStdout());
+                }
             }
         });
 
@@ -191,24 +195,17 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
     public static void refreshTableModel(){
         // 刷新页面, 如果自动更新关闭，则不刷新页面内容
-        BurpExtender.getStdout().println("AAAAA");
         if(ConfigPanel.getFlashButtonStatus()){
             return;
         }
         // 触发显示所有行事件
-        String searchText = ConfigPanel.searchField.getText();
-        if(searchText.isEmpty()){
-            searchText = "";
+        String searchText = "";
+        if (!ConfigPanel.searchField.getText().isEmpty()){
+            searchText = ConfigPanel.searchField.getText();
         }
+
         String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-        if (selectedOption.equals("全部")){
-            MailPanel.showFilter(selectedOption, searchText);
-            ConfigPanel.setFlashButtonTrue();
-        }else{
-            MailPanel.showFilter(selectedOption, searchText);
-            ConfigPanel.setFlashButtonFalse();
-        }
-        BurpExtender.getStdout().println("BBBB");
+        MailPanel.showFilter(selectedOption, searchText);
 
     }
 
