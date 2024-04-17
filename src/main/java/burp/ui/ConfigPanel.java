@@ -249,12 +249,16 @@ public class ConfigPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 触发显示所有行事件
+                String searchText = searchField.getText();
+                if(searchText.isEmpty()){
+                    searchText = "";
+                }
                 String selectedOption = (String)choicesComboBox.getSelectedItem();
                 if (selectedOption.equals("全部")){
-                    MailPanel.showAllRows();
+                    MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonTrue();
                 }else{
-                    MailPanel.showFilter(selectedOption);
+                    MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonFalse();
                 }
             }

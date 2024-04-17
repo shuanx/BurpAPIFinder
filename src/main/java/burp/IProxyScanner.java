@@ -145,26 +145,13 @@ public class IProxyScanner implements IProxyListener {
                         ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(originalApiData, pathData, BurpExtender.getHelpers());
 
                         synchronized (apiDataModelMap) {
-                            SwingUtilities.invokeLater(new Runnable() {
-                                public void run() {
-                                    synchronized (BurpExtender.getTags().getMainPanel().getModel()) {
-                                        if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                                            if(!ConfigPanel.getFlashButtonStatus()){
-                                                BurpExtender.getTags().getMainPanel().addApiData(newOriginalApiData);
-                                            }
-                                            apiDataModelMap.put(Utils.getUriFromUrl(url), newOriginalApiData);
-                                        } else {
-                                            ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
-                                            ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
-                                            if(!ConfigPanel.getFlashButtonStatus()){
-                                                BurpExtender.getTags().getMainPanel().editApiData(mergeApiData);
-                                            }
-                                            apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
-                                        }
-                                    }
-                                }
-                            });
-
+                            if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
+                                apiDataModelMap.put(Utils.getUriFromUrl(url), newOriginalApiData);
+                            } else {
+                                ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
+                                ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
+                                apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
+                            }
                         }
                     }
                 });

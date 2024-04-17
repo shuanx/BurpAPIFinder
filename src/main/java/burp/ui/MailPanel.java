@@ -14,12 +14,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.List;
+import javax.swing.Timer;
 
 public class MailPanel extends JPanel implements IMessageEditorController {
     private String tagName;
@@ -170,6 +173,42 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
         infoSplitPane.setBottomComponent(tabs);
+
+        // 构建一个定时刷新页面函数
+        // 创建一个每5秒触发一次的定时器
+        int delay = 5000; // 延迟时间，单位为毫秒
+        Timer timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 调用刷新表格的方法
+                refreshTableModel();
+            }
+        });
+
+        // 启动定时器
+        timer.start();
+    }
+
+    public static void refreshTableModel(){
+        // 刷新页面, 如果自动更新关闭，则不刷新页面内容
+        BurpExtender.getStdout().println("AAAAA");
+        if(ConfigPanel.getFlashButtonStatus()){
+            return;
+        }
+        // 触发显示所有行事件
+        String searchText = ConfigPanel.searchField.getText();
+        if(searchText.isEmpty()){
+            searchText = "";
+        }
+        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+        if (selectedOption.equals("全部")){
+            MailPanel.showFilter(selectedOption, searchText);
+            ConfigPanel.setFlashButtonTrue();
+        }else{
+            MailPanel.showFilter(selectedOption, searchText);
+            ConfigPanel.setFlashButtonFalse();
+        }
+        BurpExtender.getStdout().println("BBBB");
 
     }
 
@@ -326,13 +365,19 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
     }
 
-    public static void showFilter(String selectOption){
+    public static void showFilter(String selectOption, String searchText){
         synchronized (model) {
             // 清空model后，根据URL来做匹配
             model.setRowCount(0);
 
+            // 判断当前历史记录是否为空
+            if((selectOption.equals("全部"))){
+                historySearchText = searchText;
+            }
+
             // 遍历apiDataModelMap
             for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
+                String url = entry.getKey();
                 ApiDataModel apiDataModel = entry.getValue();
                 if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
                     continue;
@@ -343,19 +388,21 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                 } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
                     continue;
                 }
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        "-",
-                        apiDataModel.getTime()
-                });
+                if (url.toLowerCase().contains(searchText.toLowerCase())) {
+                    model.insertRow(0, new Object[]{
+                            Constants.TREE_STATUS_COLLAPSE,
+                            apiDataModel.getId(),
+                            apiDataModel.getUrl(),
+                            apiDataModel.getPATHNumber(),
+                            apiDataModel.getMethod(),
+                            apiDataModel.getStatus(),
+                            apiDataModel.getIsJsFindUrl(),
+                            apiDataModel.getHavingImportant(),
+                            apiDataModel.getResult(),
+                            "-",
+                            apiDataModel.getTime()
+                    });
+                }
             }
         }
     }
