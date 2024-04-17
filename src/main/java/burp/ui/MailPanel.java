@@ -33,7 +33,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     private static IHttpRequestResponse currentlyDisplayedItem;
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
-    public static IMessageEditor resultDeViewer;
+    public static ITextEditor resultDeViewer;
     private static DefaultTableModel model;
     public static JTable table;
     public static int selectRow = 0;
@@ -127,7 +127,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                     ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
                                     requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
                                     responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                                    resultDeViewer.setMessage(("\r\n\r\n\r\n\r\n\r\n\r\n").getBytes(), false);
+                                    resultDeViewer.setText(("\r\n\r\n\r\n\r\n\r\n\r\n").getBytes());
                                     currentlyDisplayedItem = apiDataModel.getRequestResponse();
                                     if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
                                         apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
@@ -144,7 +144,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                     Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
                                     requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
                                     responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                                    resultDeViewer.setMessage(((String)matchPathData.get("result info")).getBytes(StandardCharsets.UTF_8), false);
+                                    resultDeViewer.setText(((String)matchPathData.get("result info")).getBytes(StandardCharsets.UTF_8));
                                     currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
                                 }
                             }
@@ -162,7 +162,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         responseTextEditor = callbacks.createMessageEditor(this, false);
 
         // 详细结果面板
-        resultDeViewer = BurpExtender.getCallbacks().createMessageEditor(this, false);
+        resultDeViewer = BurpExtender.getCallbacks().createTextEditor();
 
         toolbar.add(configPanel, BorderLayout.NORTH);
         toolbar.add(mainSplitPane, BorderLayout.CENTER);
@@ -284,7 +284,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             // 还可以清空编辑器中的数据
             MailPanel.requestTextEditor.setMessage(new byte[0], true); // 清空请求编辑器
             MailPanel.responseTextEditor.setMessage(new byte[0], false); // 清空响应编辑器
-            MailPanel.resultDeViewer.setMessage(new byte[0], false);
+            MailPanel.resultDeViewer.setText(new byte[0]);
             MailPanel.currentlyDisplayedItem = null; // 清空当前显示的项
         }
     }
