@@ -1,5 +1,7 @@
 package burp.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +58,6 @@ public class FingerPrintRule {
     }
 
     public String getInfo(){
-        return "match: " + match + "\r\nType: " + type + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString();
+        return "Time: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "\r\nmatch: " + match + "\r\nType: " + type + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString() + "\r\n";
     }
 }

@@ -73,6 +73,12 @@ public class FingerUtils {
                     } else if (!existingDescribe.contains(rule.getDescribe())) {
                         onePathData.put("describe", existingDescribe + "," + rule.getDescribe());
                     }
+
+                    Set<String> uniqueDescribe = new HashSet<>();
+                    Collections.addAll(uniqueDescribe, existingDescribe);
+                    Collections.addAll(uniqueDescribe, rule.getDescribe());
+                    originalApiData.setDescribe(String.join(",", uniqueDescribe));
+
                     String existingResult = (String) onePathData.get("result");
                     if (existingResult.equals("-") || existingResult.isEmpty()) {
                         onePathData.put("result", rule.getType());
@@ -90,14 +96,10 @@ public class FingerUtils {
                     } else {
                         resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
                     }
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + resultInfo);
                     onePathData.put("result info", resultInfo);
-
-
                 }
                 newPathData.put(onePath, onePathData);
-//                BurpExtender.getStdout().println(onePath + "===> " + onePathData);
-
-
             }
 
         }

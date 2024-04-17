@@ -24,10 +24,12 @@ public class ApiDataModel {
     String time;
     Map<String, Object> pathData;
     String listStatus;
+    String describe;
+    String resultInfo;
 
 
 
-    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, String isJsFindUrl, String method, Map<String, Object> pathData) {
+    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, String isJsFindUrl, String method, Map<String, Object> pathData, String describe, String resultInfo) {
         this.listStatus = listStatus;
         this.id = id;
         this.url = url;
@@ -41,6 +43,25 @@ public class ApiDataModel {
         this.method = method;
         this.treeStatus = "";
         this.pathData = pathData;
+        this.describe = describe;
+        this.resultInfo = resultInfo;
+    }
+
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
+    public void setResultInfo(String resultInfo) {
+        this.resultInfo = resultInfo;
+    }
+
+    public String getResultInfo() {
+        return resultInfo;
     }
 
     public IHttpRequestResponse getRequestResponse(){

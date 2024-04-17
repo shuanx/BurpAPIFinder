@@ -258,7 +258,7 @@
       "location": "body",
       "keyword": [
         "password",
-        "HOST",
+        "HOST:",
         "NAME"
       ],
       "type": "敏感内容",
@@ -367,7 +367,8 @@
       "keyword": [
         "身份证号码",
         "姓名",
-        "公司"
+        "公司",
+        "Content-Type: application/json"
       ],
       "type": "敏感内容",
       "describe": "账号, 身份证",

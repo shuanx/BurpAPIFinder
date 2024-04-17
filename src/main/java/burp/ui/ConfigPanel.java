@@ -78,7 +78,7 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(lbRequestCount, gbc_lbRequestCount);
 
         // 转发成功url数，默认0
-        JLabel lbSucces = new JLabel("JsFinder Success:");
+        JLabel lbSucces = new JLabel("Success Domain:");
         GridBagConstraints gbc_lbSucces = new GridBagConstraints();
         gbc_lbSucces.insets = new Insets(0, 0, 0, 5);
         gbc_lbSucces.fill = 0;
@@ -105,8 +105,8 @@ public class ConfigPanel extends JPanel {
         toggleButton.setToolTipText("用于控制整体功能开关");
 
         // 刷新按钮按钮
-        flashButton = new JToggleButton(UiUtils.getImageIcon("/icon/stopButton.png", 30, 30));
-        flashButton.setSelectedIcon(UiUtils.getImageIcon("/icon/flashButton.png", 30, 30));
+        flashButton = new JToggleButton(UiUtils.getImageIcon("/icon/runningButton.png", 24, 24));
+        flashButton.setSelectedIcon(UiUtils.getImageIcon("/icon/flashButton.png", 24, 24));
         flashButton.setPreferredSize(new Dimension(30, 30));
         flashButton.setBorder(null);  // 设置无边框
         flashButton.setFocusPainted(false);  // 移除焦点边框

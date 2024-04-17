@@ -127,7 +127,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                     ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
                                     requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
                                     responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                                    resultDeViewer.setText(("\r\n\r\n\r\n\r\n\r\n\r\n").getBytes());
+                                    resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
                                     currentlyDisplayedItem = apiDataModel.getRequestResponse();
                                     if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
                                         apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
@@ -258,7 +258,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                             apiDataModel.getIsJsFindUrl(),
                             apiDataModel.getHavingImportant(),
                             apiDataModel.getResult(),
-                            "-",
+                            apiDataModel.getDescribe(),
                             apiDataModel.getTime()
                     });
                 }

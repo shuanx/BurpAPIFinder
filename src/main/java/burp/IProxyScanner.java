@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import javax.swing.SwingUtilities;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author： shaun
@@ -19,7 +20,7 @@ import javax.swing.SwingUtilities;
  */
 public class IProxyScanner implements IProxyListener {
     private static UrlScanCount haveScanUrl = new UrlScanCount();
-    public static int scannedCount = 0;
+    public static int totalScanCount = 0;
     private final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
     public static Map<String, ApiDataModel> apiDataModelMap;
@@ -28,27 +29,22 @@ public class IProxyScanner implements IProxyListener {
         apiDataModelMap = new HashMap<String, ApiDataModel>();
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
-        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);  // 修改这行
+        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);  // 修改这行
     }
 
     public static void setHaveScanUrlNew(){
         haveScanUrl = new UrlScanCount();
-        scannedCount = 0;
     }
-
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
         if (!messageIsRequest) {
-            scannedCount += 1;
-            ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
+            totalScanCount += 1;
+            ConfigPanel.lbSuccessCount.setText(String.valueOf(apiDataModelMap.size()));
             try{
-                int newRequestsCount = Integer.parseInt(ConfigPanel.lbRequestCount.getText()) + 1;
-                ConfigPanel.lbRequestCount.setText(Integer.toString(newRequestsCount));
+                ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
 
                 // 判断是否要进行指纹识别，如果关闭，则只展示数量
                 if (ConfigPanel.toggleButton.isSelected()){
-                    scannedCount -= 1;
-                    ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
                 }
 
@@ -62,8 +58,6 @@ public class IProxyScanner implements IProxyListener {
                 // 返回结果为空则退出
                 if (responseBytes == null || responseBytes.length == 0) {
                     BurpExtender.getStdout().println("返回结果为空: " + url);
-                    scannedCount -= 1;
-                    ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
                 }
                 String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
@@ -72,14 +66,10 @@ public class IProxyScanner implements IProxyListener {
                     this.haveScanUrl.add(Utils.getUriFromUrl(url).hashCode() + statusCode);
                 } else {
                     BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-                    scannedCount -= 1;
-                    ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
                 }
                 if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                     BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + Utils.getUriFromUrl(url));
-                    scannedCount -= 1;
-                    ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
                 }
 
@@ -104,7 +94,9 @@ public class IProxyScanner implements IProxyListener {
                                 "-",
                                 "-",
                                 "-",
-                                pathData);
+                                pathData,
+                                "-",
+                                "\r\n");
                         if (!url.contains("favicon.") && !url.contains(".ico")) {
                             String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                             URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
@@ -137,8 +129,6 @@ public class IProxyScanner implements IProxyListener {
                                 pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
                             }
                             if (pathData.isEmpty()) {
-                                scannedCount -= 1;
-                                ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                                 return;
                             }
 
@@ -159,8 +149,6 @@ public class IProxyScanner implements IProxyListener {
             }catch (Exception e){
                 BurpExtender.getStderr().println(e.getMessage());
             }
-            scannedCount -= 1;
-            ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
 
         }
 
