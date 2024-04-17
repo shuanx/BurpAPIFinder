@@ -22,7 +22,7 @@
 
 
 
-## 优化/建议/问题反馈群
+## 闲聊/优化/建议/问题反馈群
 <img src="images/weixinqun.png" alt="img.png" width="200"/>
 
 
