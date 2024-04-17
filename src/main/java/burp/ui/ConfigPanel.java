@@ -114,7 +114,7 @@ public class ConfigPanel extends JPanel {
         flashButton.setToolTipText("用于控制表格是否自动化刷新，还是手工点击刷新");
 
         // 刷新文本
-        flashText = new JLabel("自动刷新中");
+        flashText = new JLabel("自动每5秒刷新表格中");
 
         // 添加填充以在左侧占位
         GridBagConstraints gbc_leftFiller = new GridBagConstraints();
@@ -197,10 +197,10 @@ public class ConfigPanel extends JPanel {
                 // 检查按钮的选中状态
                 if (flashButton.isSelected()) {
                     // 如果按钮被选中，意味着刷新功能被激活，我们将文本设置为 "暂停刷新中"
-                    flashText.setText("暂停刷新中");
+                    flashText.setText("暂停每5秒刷新表格");
                 } else {
                     // 如果按钮没有被选中，意味着刷新功能没有被激活，我们将文本设置为 "自动刷新"
-                    flashText.setText("自动刷新中");
+                    flashText.setText("自动每5秒刷新表格中");
                 }
             }
         });
@@ -227,8 +227,8 @@ public class ConfigPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String searchText = searchField.getText();
                 if (!searchText.isEmpty()) {
-                    // 触发检索事件
-                    MailPanel.searchAndSelectRowByURL(searchText);
+                    String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                    MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonFalse();
                 }
             }
@@ -238,8 +238,9 @@ public class ConfigPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String searchText = searchField.getText();
                 if (!searchText.isEmpty()) {
-                    // 触发检索事件
-                    MailPanel.searchAndSelectRowByURL(searchText);
+                    String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                    MailPanel.showFilter(selectedOption, searchText);
+                    setFlashButtonFalse();
                 }
             }
         });
@@ -277,13 +278,13 @@ public class ConfigPanel extends JPanel {
 
     public static void setFlashButtonTrue(){
         flashButton.setSelected(false);
-        flashText.setText("自动刷新中");
+        flashText.setText("自动每5秒刷新表格中");
 
     }
 
     public static void setFlashButtonFalse(){
         flashButton.setSelected(true);
-        flashText.setText("暂停刷新中");
+        flashText.setText("暂停每5秒刷新表格");
     }
 
     public static boolean getFlashButtonStatus(){

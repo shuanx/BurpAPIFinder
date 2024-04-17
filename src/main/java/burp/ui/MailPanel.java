@@ -224,144 +224,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         return currentlyDisplayedItem.getHttpService();
     }
 
-    public void addApiData(ApiDataModel apiDataModel) {
-        // 看当前是否有过滤场景
-        String selectOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-        if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
-            return;
-        } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
-            return;
-        } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
-            return;
-        } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
-            return;
-        }
-        if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
-            model.insertRow(0, new Object[]{
-                    Constants.TREE_STATUS_COLLAPSE,
-                    apiDataModel.getId(),
-                    apiDataModel.getUrl(),
-                    apiDataModel.getPATHNumber(),
-                    apiDataModel.getMethod(),
-                    apiDataModel.getStatus(),
-                    apiDataModel.getIsJsFindUrl(),
-                    apiDataModel.getHavingImportant(),
-                    apiDataModel.getResult(),
-                    "-",
-                    apiDataModel.getTime()
-            });
-        } else if (historySearchText.isEmpty()) {
-            model.insertRow(0, new Object[]{
-                    Constants.TREE_STATUS_COLLAPSE,
-                    apiDataModel.getId(),
-                    apiDataModel.getUrl(),
-                    apiDataModel.getPATHNumber(),
-                    apiDataModel.getMethod(),
-                    apiDataModel.getStatus(),
-                    apiDataModel.getIsJsFindUrl(),
-                    apiDataModel.getHavingImportant(),
-                    apiDataModel.getResult(),
-                    "-",
-                    apiDataModel.getTime()
-            });
-
-        }
-        if (selectRow == 0) {
-            table.setRowSelectionInterval(0, 0);
-            requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-            responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-            currentlyDisplayedItem = apiDataModel.getRequestResponse();
-        }
-    }
-
-
-    public void editApiData(ApiDataModel apiDataModel) {
-        // 看当前是否有过滤场景
-        String selectOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-        if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
-            return;
-        } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
-            return;
-        } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
-            return;
-        } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
-            return;
-        }
-        ApiDataModel originalApiData = IProxyScanner.apiDataModelMap.get(Utils.getUriFromUrl(apiDataModel.getUrl()));
-        if (findRowIndexByURL(originalApiData.getUrl()) < 0){
-            addApiData(apiDataModel);
-        }
-        if (!historySearchText.isEmpty() && apiDataModel.getUrl().toLowerCase().contains(historySearchText.toLowerCase())) {
-            int index = findRowIndexByURL(originalApiData.getUrl());
-            if (model.getValueAt(index, 0).equals(Constants.TREE_STATUS_EXPAND)) {
-                modeCollapse(apiDataModel, index);
-            }
-            model.removeRow(index);
-            model.insertRow(0, new Object[]{
-                    Constants.TREE_STATUS_COLLAPSE,
-                    apiDataModel.getId(),
-                    apiDataModel.getUrl(),
-                    apiDataModel.getPATHNumber(),
-                    apiDataModel.getMethod(),
-                    apiDataModel.getStatus(),
-                    apiDataModel.getIsJsFindUrl(),
-                    apiDataModel.getHavingImportant(),
-                    apiDataModel.getResult(),
-                    "-",
-                    apiDataModel.getTime()
-            });
-        } else if (historySearchText.isEmpty()) {
-            int index = findRowIndexByURL(originalApiData.getUrl());
-            if (model.getValueAt(index, 0).equals(Constants.TREE_STATUS_EXPAND)) {
-                modeCollapse(apiDataModel, index);
-            }
-            model.removeRow(index);
-            model.insertRow(0, new Object[]{
-                    Constants.TREE_STATUS_COLLAPSE,
-                    apiDataModel.getId(),
-                    apiDataModel.getUrl(),
-                    apiDataModel.getPATHNumber(),
-                    apiDataModel.getMethod(),
-                    apiDataModel.getStatus(),
-                    apiDataModel.getIsJsFindUrl(),
-                    apiDataModel.getHavingImportant(),
-                    apiDataModel.getResult(),
-                    "-",
-                    apiDataModel.getTime()
-            });
-        }
-    }
-
-
-    public static void searchAndSelectRowByURL(String searchText){
-        // 清空model后，根据URL来做匹配
-        model.setRowCount(0);
-
-        // 记录当前检索内容
-        historySearchText = searchText;
-
-        // 遍历apiDataModelMap
-        for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
-            String url = entry.getKey();
-            ApiDataModel apiDataModel = entry.getValue();
-            if (url.toLowerCase().contains(searchText.toLowerCase())) {
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        "-",
-                        apiDataModel.getTime()
-                });
-            }
-        }
-    }
-
     public static void showFilter(String selectOption, String searchText){
         synchronized (model) {
             // 清空model后，根据URL来做匹配
@@ -404,34 +266,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
     }
 
-    public static void showAllRows(){
-        synchronized (model) {
-            // 清空model后，根据URL来做匹配
-            model.setRowCount(0);
-
-            // 清空检索内容
-            historySearchText = "";
-
-            // 遍历apiDataModelMap
-            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
-                ApiDataModel apiDataModel = entry.getValue();
-                model.insertRow(0, new Object[]{
-                        Constants.TREE_STATUS_COLLAPSE,
-                        apiDataModel.getId(),
-                        apiDataModel.getUrl(),
-                        apiDataModel.getPATHNumber(),
-                        apiDataModel.getMethod(),
-                        apiDataModel.getStatus(),
-                        apiDataModel.getIsJsFindUrl(),
-                        apiDataModel.getHavingImportant(),
-                        apiDataModel.getResult(),
-                        "-",
-                        apiDataModel.getTime()
-                });
-            }
-        }
-    }
-
     public static void clearAllData(){
         synchronized (model) {
             // 清空model
@@ -456,6 +290,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     }
 
     public void modelExpand(ApiDataModel apiDataModel, int index) {
+        // 关闭自动更新
+        ConfigPanel.setFlashButtonFalse();
         // 看当前是否有过滤场景
         String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
 

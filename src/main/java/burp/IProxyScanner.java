@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
  */
 public class IProxyScanner implements IProxyListener {
     private static UrlScanCount haveScanUrl = new UrlScanCount();
-    public int scannedCount = 1;
+    public static int scannedCount = 0;
     private final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
     public static Map<String, ApiDataModel> apiDataModelMap;
@@ -33,6 +33,7 @@ public class IProxyScanner implements IProxyListener {
 
     public static void setHaveScanUrlNew(){
         haveScanUrl = new UrlScanCount();
+        scannedCount = 0;
     }
 
 
@@ -70,7 +71,7 @@ public class IProxyScanner implements IProxyListener {
                 if (this.haveScanUrl.get((Utils.getUriFromUrl(url).hashCode() + statusCode)) <= 0) {
                     this.haveScanUrl.add(Utils.getUriFromUrl(url).hashCode() + statusCode);
                 } else {
-                    BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + Utils.getUriFromUrl(url));
+                    BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
                     scannedCount -= 1;
                     ConfigPanel.lbSuccessCount.setText(String.valueOf(scannedCount));
                     return;
