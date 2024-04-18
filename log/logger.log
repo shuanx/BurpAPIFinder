@@ -1,0 +1,109 @@
+[+] Successfully loaded the configuration file finger.json
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-16
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/img/flexible/logo/pc/peak-result.png
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/img/flexible/logo/pc/result@2.png
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/img/flexible/logo/pc/result.png
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png
+[+]静态文件，不进行url识别：https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newzhibo-a6a0831ecd.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newfanyi-da0cea8f7e.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newzhidao-da1cf444b0.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newyinyue-03ecd1e9b9.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newxueshuicon-a5314d5c83.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newjiankang-f03b804b4b.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/yingxiaoicon-612169cc36.png
+[-] 已识别过URL，不进行重复识别： https://dss0.bdstatic.com:443/5aV1bjqh_Q23odCf/static/superman/img/topnav/newbaike-889054f349.png
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/img/qrcode/qrcode@2x-daf987ad02.png
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/min_super-ade0e81d30.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/hotsearch-ea3ea684d5.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/s_super_index-3fffae8d60.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/css/ubase_sync-d600f57804.css?v=md5
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/img/qrcode/qrcode-hover@2x-f9b106a848.png
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/sbase-65630eb62e.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/global/js/all_async_search_907346f.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/lib/esl-d776bfb1aa.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/bundles/es6-polyfill_388d059.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/bundles/polyfill_9354efa.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/amd_modules/tslib-c95383af0c.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/every_cookie_mac_82990d4.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/bzPopper_7bc4f0e.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/home/js/nu_instant_search_d67677a.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/plugins/swfobject_0178953.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/js/tu_ba0fbe3.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/search-sug_947981a.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/soutu/css/soutu_new2_e1a824c.css
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/img/searchbox/nicon-2x-6258e1cf13.png
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/font/iconfont-fa013548a9.woff2
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/sugrec?&prod=pc_his&from=pc_web&json=1&sid=40373_40367_40415_40302_40480_40499_60026_60038_60030_60048_40511_40080&hisdata=%5B%7B%22time%22%3A1713283101%2C%22kw%22%3A%22%E5%B9%BF%E4%B8%9C%E5%A4%96%E8%AF%AD%E5%A4%96%E8%B4%B8%E5%A4%A7%E5%AD%A6%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713283111%2C%22kw%22%3A%22%E6%B7%B1%E4%BF%A1%E6%9C%8D%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713396388%2C%22kw%22%3A%22%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4icon%22%2C%22fq%22%3A4%7D%2C%7B%22time%22%3A1713396397%2C%22kw%22%3A%22csvd%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713396402%2C%22kw%22%3A%22cnvd%22%2C%22fq%22%3A12%7D%2C%7B%22time%22%3A1713396431%2C%22kw%22%3A%22%E7%A4%BE%E5%8C%BA%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713396436%2C%22kw%22%3A%22%E8%AE%BA%E5%9D%9B%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713459608%2C%22kw%22%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91%E6%9C%8D%E5%8A%A1%E6%9F%A5%E6%89%BE%E6%89%8B%E6%9C%BA%E5%AE%9A%E4%BD%8D%22%2C%22fq%22%3A2%7D%2C%7B%22time%22%3A1713459825%2C%22kw%22%3A%22%E9%98%BF%E9%87%8C%E4%BA%91%22%2C%22fq%22%3A3%7D%2C%7B%22time%22%3A1713459843%2C%22kw%22%3A%22%E5%8D%8E%E4%B8%BA%E4%BA%91%22%2C%22fq%22%3A4%7D%5D&_t=1713481323477&req=2&csor=0
+[+]静态文件，不进行url识别：https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=showpv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2155980651&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb338a3a0081a76b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.25886918055244146
+[+]静态文件，不进行url识别：https://sp2.baidu.com:443/-L-Ysjip0QIZ8tyhnq/v.gif?mod=superman%3Acomponents&submod=hotsearch&utype=undefined&superver=supernewplus&portrait=undefined&logPortrait=undefined&glogid=2155980651&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb338a3a0081a76b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.6749179923894588&m=superman%3Acomponents_hotsearchShow&showType=hotword&words=%5B%22%E9%92%93%E9%B1%BC%E5%8F%B0%E6%BC%AB%E6%AD%A5%E5%92%8C%E6%84%8F%E6%82%A0%E9%95%BF%22%2C%224.0%E7%89%88%E6%B6%88%E5%8D%9A%E4%BC%9A%20%E5%A4%96%E8%B5%84%E7%9C%8B%E4%B8%AD%E4%B8%89%E4%B8%AA%E2%80%9C%E6%96%B0%E2%80%9D%22%2C%22%E5%B0%8F%E9%BE%99%E8%99%BE%E8%BA%AB%E4%BB%B7%E6%9A%B4%E8%B7%8C%22%2C%22%E5%A4%A7%E5%A7%90%E5%85%88%E8%A2%AB%E4%BA%94%E6%AD%A5%E8%9B%87%E5%92%AC%E5%90%8E%E8%A2%AB%E8%9C%B1%E8%99%AB%E5%8F%AE%E9%99%A9%E4%B8%A7%E5%91%BD%22%2C%22%E5%84%BF%E5%AD%90%E8%AE%B2%E8%BF%B0%E7%88%B6%E4%BA%B2%E7%96%91%E8%A2%AB%E5%BD%93%E7%8C%8E%E7%89%A9%E6%9E%AA%E6%9D%80%22%2C%22%E8%92%8B%E5%8B%A4%E5%8B%A4%E6%91%94%E4%BA%86%22%5D&pagenum=0
+[-] 已识别过URL，不进行重复识别： https://sp1.baidu.com:443/-L-Xsjip0QIZ8tyhnq/v.gif?logactid=1234567890&showTab=10000&opType=nodepv&mod=superman%3Alib&submod=index&superver=supernewplus&glogid=2155980651&type=2011&pid=315&isLogin=0&version=PCHome&terminal=PC&qid=0xeb338a3a0081a76b&sid=&super_frm=&from_login=&from_reg=&query=&curcard=2&curcardtab=&_r=0.9701034533350792
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
+[-] 已识别过URL，不进行重复识别： https://www.baidu.com:443/content-search.xml
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/super_load-8301698f5e.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/placeholder-f3bc3565f2.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/advert-064271ed9b.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/login_guide-4fba3971ce.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/tips-e2ceadd14d.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/qrcode-0e4b67354f.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/invoke-97e9694cb9.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/top-right-operate/operate-b7693b0cc7.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/video-meet-7833028d86.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/content-info-12dbf9fb6d.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/ai-talk-switch-c2572e6a36.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/aging-tools-35648b2e67.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/ubase-dddde7cd4e.js?v=md5
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/js/components/guide_tips-d9e617f782.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/amd_modules/@baidu/video-meeting-1be7f62dac.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman//amd_modules/@baidu/ai-search-box-entry-ea20fec552.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/r/www/cache/static/protocol/https/amd_modules/@baidu/aging-tools-pc_63487d8.js
+[-] 已识别过URL，不进行重复识别： https://pss.bdstatic.com:443/static/superman/css/ubase-89d6b96e41.css?v=md5
+[-] 已识别过URL，不进行重复识别： https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=4&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1713481323826&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40373_40367_40415_40302_40480_40499_60026_60038_60030_60048_40511_40080&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=fe153a435bcb57e63b74608f034a4f87
+[-] 已识别过URL，不进行重复识别： https://sp1.baidu.com:443/5bU_dTmfKgQFm2e88IuM_a/w.gif?q=&rsv_ct=175&rsv_cst=2&rsv_clk_extra={%22text%22:%22AI%E4%BC%99%E4%BC%B4%E5%8D%B3%E5%B0%86%E5%8D%87%E7%BA%A7%E4%B8%BA%E6%96%87%E5%BF%83%E4%B8%80%E8%A8%80%22}&rsv_sid=&cid=&qid=&t=1713481323825&rsv_iorr=0&rsv_tn=baidu&rsv_isid=40373_40367_40415_40302_40480_40499_60026_60038_60030_60048_40511_40080&rsv_ssl=1&path=https%3A%2F%2Fwww.baidu.com%2F&rsv_did=fe153a435bcb57e63b74608f034a4f87
+[-] 已识别过URL，不进行重复识别： http://192.168.70.128:8080/favicon.ico
+[+] Successfully loaded the configuration file finger.json
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-16
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+[+] Successfully loaded the configuration file finger.json
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-16
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
+Exception caught: 1 >= 1
+[+] Successfully loaded the configuration file finger.json
+[+] JsUrlFinder is loaded
+[+] ^_^            ^_^
+[+] #####################################
+[+] JsUrlFinder v2024-04-16
+[+] Author: Shaun
+[+] ####################################
+[+] Please enjoy it!
+
