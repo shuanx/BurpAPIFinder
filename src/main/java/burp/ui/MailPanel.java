@@ -116,37 +116,35 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        synchronized (getModel()){
-                            int row = table.rowAtPoint(e.getPoint());
-                            if (row >= 0) {
-                                selectRow = row;
-                                String listStatus = (String)table.getModel().getValueAt(row, 0);
-                                String url;
-                                if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)){
-                                    url = (String)table.getModel().getValueAt(row, 2);
-                                    ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                                    requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-                                    responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                                    resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
-                                    currentlyDisplayedItem = apiDataModel.getRequestResponse();
-                                    if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
-                                        apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
-                                        modelExpand(apiDataModel, row);
-                                    } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
-                                        apiDataModel.setListStatus(Constants.TREE_STATUS_COLLAPSE);
-                                        modeCollapse(apiDataModel, row);
-                                    }
-                                }else{
-                                    String path = (String)table.getModel().getValueAt(row, 2);
-                                    url = findUrlFromPath(row);
-                                    ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                                    Map<String, Object> pathData = apiDataModel.getPathData();
-                                    Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
-                                    requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
-                                    responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                                    resultDeViewer.setText(((String)matchPathData.get("result info")).getBytes(StandardCharsets.UTF_8));
-                                    currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
+                        int row = table.rowAtPoint(e.getPoint());
+                        if (row >= 0) {
+                            selectRow = row;
+                            String listStatus = (String)table.getModel().getValueAt(row, 0);
+                            String url;
+                            if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)){
+                                url = (String)table.getModel().getValueAt(row, 2);
+                                ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
+                                requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
+                                responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
+                                resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
+                                currentlyDisplayedItem = apiDataModel.getRequestResponse();
+                                if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
+                                    apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
+                                    modelExpand(apiDataModel, row);
+                                } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
+                                    apiDataModel.setListStatus(Constants.TREE_STATUS_COLLAPSE);
+                                    modeCollapse(apiDataModel, row);
                                 }
+                            }else{
+                                String path = (String)table.getModel().getValueAt(row, 2);
+                                url = findUrlFromPath(row);
+                                ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
+                                Map<String, Object> pathData = apiDataModel.getPathData();
+                                Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
+                                requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
+                                responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
+                                resultDeViewer.setText(((String)matchPathData.get("result info")).getBytes());
+                                currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
                             }
                         }
                     }

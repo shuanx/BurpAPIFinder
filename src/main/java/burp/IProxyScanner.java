@@ -29,7 +29,7 @@ public class IProxyScanner implements IProxyListener {
         apiDataModelMap = new HashMap<String, ApiDataModel>();
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
-        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);  // 修改这行
+        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(20);  // 修改这行
     }
 
     public static void setHaveScanUrlNew(){
