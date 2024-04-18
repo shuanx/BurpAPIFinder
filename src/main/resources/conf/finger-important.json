@@ -566,6 +566,86 @@
       "describe": "MAC Address",
       "isImportant": false
     },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/graphql"
+      ],
+      "type": "敏感路径",
+      "describe": "GraphQL",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/graphiql"
+      ],
+      "type": "敏感路径",
+      "describe": "GraphQL",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/swagger-resources"
+      ],
+      "type": "敏感路径",
+      "describe": "OpenAPI-Swagger",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/swagger/"
+      ],
+      "type": "敏感路径",
+      "describe": "OpenAPI-Swagger",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/mappings"
+      ],
+      "type": "敏感路径",
+      "describe": "SpringbootActuator",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/actuator"
+      ],
+      "type": "敏感路径",
+      "describe": "SpringbootActuator",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/service"
+      ],
+      "type": "敏感路径",
+      "describe": "SOAP-WSDL/REST_WADL",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/service"
+      ],
+      "type": "敏感路径",
+      "describe": "SOAP-WSDL/REST_WADL",
+      "isImportant": true
+    },
 
   {
       "match": "keyword",

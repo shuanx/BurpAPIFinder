@@ -20,9 +20,8 @@
 ![img.png](images/config.png)
 - [x] 集成HaE的敏感信息识别指纹
 ![img.png](images/HaE.png)
-- [ ]集成https://github.com/API-Security/APIKit的功能  
-
-
+- [x]集成APIKit的敏感信息识别指纹
+![img.png](images/APIKit.png)
 
 ## 闲聊/优化/建议/问题反馈群
 <img src="images/weixinqun.png" alt="img.png" width="200"/>
