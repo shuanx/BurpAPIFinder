@@ -204,7 +204,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
         String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
         MailPanel.showFilter(selectedOption, searchText);
-
     }
 
     @Override

@@ -9,8 +9,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import javax.swing.SwingUtilities;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -26,10 +28,22 @@ public class IProxyScanner implements IProxyListener {
     public static Map<String, ApiDataModel> apiDataModelMap;
 
     public IProxyScanner() {
-        apiDataModelMap = new HashMap<String, ApiDataModel>();
+        apiDataModelMap = Collections.synchronizedMap(new HashMap<String, ApiDataModel>());
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
-        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(20);  // 修改这行
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        int maxPoolSize = coreCount * 2;  // 可以根据实际情况调整
+        long keepAliveTime = 60L;
+        executorService = new ThreadPoolExecutor(
+                coreCount,
+                maxPoolSize,
+                keepAliveTime,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<Runnable>(), // 可以根据需要调整队列类型和大小
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.CallerRunsPolicy() // 当线程池和队列都满时，任务在调用者线程中执行
+        );
+//        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(20);  // 修改这行
     }
 
     public static void setHaveScanUrlNew(){
@@ -148,7 +162,6 @@ public class IProxyScanner implements IProxyListener {
             }catch (Exception e){
                 BurpExtender.getStderr().println(e.getMessage());
             }
-
         }
 
     }

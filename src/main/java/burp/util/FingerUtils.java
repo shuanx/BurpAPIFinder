@@ -8,6 +8,7 @@ import burp.model.FingerPrintRule;
 import burp.ui.datmodel.ApiDataModel;
 
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -54,9 +55,10 @@ public class FingerUtils {
                 }
                 boolean isMatch = true;
                 for (String key : rule.getKeyword()) {
+                    Pattern pattern = Pattern.compile(key);
                     if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
                         isMatch = false;
-                    } else if (rule.getMatch().equals("rugular") && !locationContent.toLowerCase().matches(key)) {
+                    } else if (rule.getMatch().equals("regular") && !pattern.matcher(locationContent).find()) {
                         isMatch = false;
                     }
                 }
@@ -96,7 +98,7 @@ public class FingerUtils {
                     } else {
                         resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + resultInfo);
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo());
                     onePathData.put("result info", resultInfo);
                 }
                 newPathData.put(onePath, onePathData);

@@ -2,8 +2,8 @@
 ![](https://img.shields.io/badge/Author-Shaun-blue)
 ![](https://img.shields.io/badge/JDK-9+-yellow)
 ![](https://img.shields.io/badge/捡漏是问艺术-往往有意想不到的成果-red)
-> 攻防演练过程中，我们通常会用浏览器访问一些资产，但很多接口/敏感信息隐匿在html、JS文件中，通过该Burp插件我们可以：  
-> 1、发现通过某接口可以进行未授权/越权获取到所有的账号密码  
+> 攻防演练过程中，我们通常会用浏览器访问一些资产，但很多未授权/敏感信息/越权隐匿在已访问接口过html、JS文件等，通过该Burp插件我们可以：  
+> 1、发现通过某接口可以进行未授权/越权获取到所有的账号密码、私钥、凭证  
 > 2、发现通过某接口可以枚举用户信息、密码修改、用户创建接口  
 > 3、发现登陆后台网址  
 > 4、发现在html、JS中泄漏账号密码或者云主机的Access Key和SecretKey  
@@ -12,13 +12,15 @@
 ![img.png](images/main.png)
 
 ## 功能如下
-> 下述功能会在2024年6月底完成。如果有更好的建议或者期待使用的，点个免费的Star
+> 如果有更好的建议或者期待使用的，点个免费的Star
 - [x] 提取网站的URL链接和解析JS文件中的URL链接
 - [x] 前段界面可自行定义铭感关键词、敏感url匹配
 - [x] 界面可配置的开启主动接口探测、铭感信息获取
-- [x] 集成主流攻防场景铭感信息泄漏的指纹库
+- [x] 集成主流攻防场景敏感信息泄漏的指纹库
 ![img.png](images/config.png)
-- [ ] 集成https://github.com/API-Security/APIKit的功能  
+- [x] 集成HaE的敏感信息识别指纹
+![img.png](images/HaE.png)
+- [ ]集成https://github.com/API-Security/APIKit的功能  
 
 
 

@@ -396,6 +396,106 @@
       "describe": "账号, 密码",
       "isImportant": true
     },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(=deleteMe|rememberMe=)"
+      ],
+      "type": "敏感内容",
+      "describe": "shiro",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9._-]{10,}|eyJ[A-Za-z0-9_\\/+-]{10,}\\.[A-Za-z0-9._\\/+-]{10,})"
+      ],
+      "type": "敏感内容",
+      "describe": "JSON Web Token",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "((swagger-ui.html)|(\\\"swagger\\\":)|(Swagger UI)|(swaggerUi)|(swaggerVersion))"
+      ],
+      "type": "敏感内容",
+      "describe": "Swagger UI",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(ueditor\\.(config|all)\\.js)"
+      ],
+      "type": "敏感内容",
+      "describe": "Ueditor",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(Druid Stat Index)"
+      ],
+      "type": "敏感内容",
+      "describe": "Druid",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "[^0-9]((\\d{8}(0\\d|10|11|12)([0-2]\\d|30|31)\\d{3}$)|(\\d{6}(18|19|20)\\d{2}(0[1-9]|10|11|12)([0-2]\\d|30|31)\\d{3}(\\d|X|x)))[^0-9]"
+      ],
+      "type": "敏感内容",
+      "describe": "身份证",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(((access)(|-|_)(key)(|-|_)(id|secret))|(LTAI[a-z0-9]{12,20}))"
+      ],
+      "type": "敏感内容",
+      "describe": "Cloud Key",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "'[^\\w](([a-zA-Z]:\\\\(?:\\w+\\\\?)*)|([a-zA-Z]:\\\\(?:\\w+\\\\)*\\w+\\.\\w+))'"
+      ],
+      "type": "敏感内容",
+      "describe": "Windows File/Dir Path",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "((|'|\")(|[\\w]{1,10})([p](ass|wd|asswd|assword))(|[\\w]{1,10})(|'|\")(:|=)(\n      |)('|\")(.*?)('|\")(|,))"
+      ],
+      "type": "敏感内容",
+      "describe": "Password Field",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(jdbc:[a-z:]+://[a-z0-9\\.\\-_:;=/@?,&]+)"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC Connection",
+      "isImportant": true
+    },
   {
       "match": "keyword",
       "location": "urlPath",
@@ -430,7 +530,7 @@
         "gif"
       ],
       "type": "白名单URL后缀",
-      "isImportant": true
+      "isImportant": false
     },
     {
       "match": "keyword",
@@ -447,7 +547,7 @@
         "??"
       ],
       "type": "白名单路径",
-      "isImportant": true
+      "isImportant": false
     }
   ]
 }
