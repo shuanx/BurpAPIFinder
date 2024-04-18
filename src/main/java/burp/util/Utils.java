@@ -22,15 +22,12 @@ import java.util.regex.Pattern;
 public class Utils {
     public final static String[] STATIC_FILE_EXT = new String[]{
             "vue",
-            "htm",
             "ts",
-            "html",
             "min",
             "png",
             "jpg",
             "jpeg",
             "gif",
-            "pdf",
             "bmp",
             "css",
             "woff",
@@ -82,7 +79,11 @@ public class Utils {
             "zh-CN",
             "/static/",
             "&",
-            "="
+            "=",
+            "~",
+            ".css",
+            ",",
+            "??"
     };
 
     public static boolean isStaticPath(String url){
@@ -142,8 +143,11 @@ public class Utils {
     public static List<String> extractUrlsFromHtml(String uri, String html) {
         // 使用正则表达式提取文本内容中的 URL
         List<String> urlList = new ArrayList<String>();
+        if (!html.contains("http")){
+            return urlList;
+        }
         Pattern pattern = Pattern.compile(
-                "(http|https|ftp)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
+                "(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
         Matcher matcher = pattern.matcher(html);
         while (matcher.find()) {
             String url = matcher.group();

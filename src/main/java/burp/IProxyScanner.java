@@ -64,7 +64,7 @@ public class IProxyScanner implements IProxyListener {
                     return;
                 }
                 if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
-                    BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + Utils.getUriFromUrl(url));
+                    BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
                     return;
                 }
 
