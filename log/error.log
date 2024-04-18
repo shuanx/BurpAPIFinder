@@ -1,9 +1,0 @@
-java.io.FileNotFoundException: Unable to load JAR file
-	at burp.d3n.<init>(Unknown Source)
-	at burp.dxk.a(Unknown Source)
-	at burp.g47.lambda$load$0(Unknown Source)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:834)
