@@ -10,16 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/runningButton.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/logger.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/logger.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/IProxyScanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/model/FingerPrintRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/model/FingerPrintRule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/ConfigPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/MailPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/ui/datmodel/ApiDataModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/ui/datmodel/ApiDataModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/util/FingerUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/conf/finger-important.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +59,7 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
-    "git-widget-placeholder": "Rebasing main",
+    "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "11",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Volumes/Shaun-Data/开发/JavaProject/BurpJsUrlFinder/src/main/resources/icon",
@@ -215,6 +208,7 @@
       <workItem from="1712977123475" duration="6753000" />
       <workItem from="1713190601243" duration="7334000" />
       <workItem from="1713255530979" duration="1634000" />
+      <workItem from="1713401324304" duration="493000" />
     </task>
     <servers />
   </component>

@@ -102,7 +102,7 @@ public class ConfigPanel extends JPanel {
         toggleButton.setBorder(null);  // 设置无边框
         toggleButton.setFocusPainted(false);  // 移除焦点边框
         toggleButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-        toggleButton.setToolTipText("用于控制整体功能开关");
+        toggleButton.setToolTipText("是否开启对提取URL进行发起请求");
 
         // 刷新按钮按钮
         flashButton = new JToggleButton(UiUtils.getImageIcon("/icon/runningButton.png", 24, 24));

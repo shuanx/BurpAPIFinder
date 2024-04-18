@@ -43,11 +43,6 @@ public class IProxyScanner implements IProxyListener {
             try{
                 ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
 
-                // 判断是否要进行指纹识别，如果关闭，则只展示数量
-                if (ConfigPanel.toggleButton.isSelected()){
-                    return;
-                }
-
                 IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();
                 final IHttpRequestResponse resrsp = iInterceptedProxyMessage.getMessageInfo();
                 String method = helpers.analyzeRequest(resrsp).getMethod();
@@ -100,12 +95,7 @@ public class IProxyScanner implements IProxyListener {
                         if (!url.contains("favicon.") && !url.contains(".ico")) {
                             String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                             URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
-                            // 针对html页面提取
-                            Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
-                            // 针对JS页面提取
-                            if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
-                                urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
-                            }
+
                             if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")) {
                                 Map<String, Object> getUriData = new HashMap<String, Object>();
                                 getUriData.put("responseRequest", requestResponse);
@@ -120,14 +110,23 @@ public class IProxyScanner implements IProxyListener {
                                 pathData.put(Utils.getPathFromUrl(url), getUriData);
                             }
 
-                            // 依次遍历urlSet获取其返回的response值
-                            for (String getUrl : urlSet) {
-                                if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4){
-                                    BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
-                                    continue;
+                            if (!ConfigPanel.toggleButton.isSelected()){
+                                // 针对html页面提取
+                                Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
+                                // 针对JS页面提取
+                                if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
+                                    urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
                                 }
-                                pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
+                                // 依次遍历urlSet获取其返回的response值
+                                for (String getUrl : urlSet) {
+                                    if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4){
+                                        BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
+                                        continue;
+                                    }
+                                    pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
+                                }
                             }
+
                             if (pathData.isEmpty()) {
                                 return;
                             }
