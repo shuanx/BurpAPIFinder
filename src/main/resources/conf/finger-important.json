@@ -497,6 +497,17 @@
       "isImportant": true
     },
     {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "AppSecret",
+        "AppID"
+      ],
+      "type": "敏感内容",
+      "describe": "AppSecret、AppID",
+      "isImportant": true
+    },
+    {
       "match": "regular",
       "location": "body",
       "keyword": [
