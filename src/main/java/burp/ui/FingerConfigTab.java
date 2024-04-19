@@ -6,9 +6,7 @@ import burp.model.FingerPrintRule;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
@@ -16,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.awt.event.*;
-import java.util.Set;
-import java.util.HashSet;
 
 import burp.ui.renderer.ButtonRenderer;
 import burp.ui.renderer.CenterRenderer;
@@ -32,6 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import javax.swing.border.EmptyBorder;
 
 
@@ -680,8 +677,12 @@ public class FingerConfigTab extends JPanel {
                 String method = (String) methodField.getSelectedItem();
                 String location = (String) locationField.getSelectedItem();
                 String describe = describeField.getText();
-                List<String> keyword = Arrays.asList(keywordField.getText().split(","));
-
+                List<String> keyword;
+                if (method.equals("regular")){
+                    keyword = Collections.singletonList(keywordField.getText());
+                }else{
+                    keyword = Arrays.asList(keywordField.getText().split(","));
+                }
                 if (type.trim().isEmpty() || method.trim().isEmpty() ||
                         location.trim().isEmpty() || keyword.stream().allMatch(String::isEmpty)) {
                     JOptionPane.showMessageDialog(editPanel, "所有输入框都必须填写。", "输入错误", JOptionPane.ERROR_MESSAGE);

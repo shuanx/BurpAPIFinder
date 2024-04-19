@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * @author： shaun
@@ -55,12 +56,19 @@ public class FingerUtils {
                 }
                 boolean isMatch = true;
                 for (String key : rule.getKeyword()) {
-                    Pattern pattern = Pattern.compile(key);
-                    if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                        isMatch = false;
-                    } else if (rule.getMatch().equals("regular") && !pattern.matcher(locationContent).find()) {
-                        isMatch = false;
+                    try {
+                        Pattern pattern = Pattern.compile(key);
+                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
+                            isMatch = false;
+                        } else if (rule.getMatch().equals("regular") && !pattern.matcher(locationContent).find()) {
+                            isMatch = false;
+                        }
+                    } catch (PatternSyntaxException e) {
+                        BurpExtender.getStderr().println("正则表达式语法错误: " + key);
+                    } catch (NullPointerException e) {
+                        BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
                     }
+
                 }
 
                 if (isMatch) {

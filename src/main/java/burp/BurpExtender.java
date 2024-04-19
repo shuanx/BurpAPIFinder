@@ -91,7 +91,11 @@ public class BurpExtender implements IBurpExtender {
             Gson gson = new Gson();
             FingerPrintRulesWrapper rulesWrapper = gson.fromJson(reader, FingerPrintRulesWrapper.class);
             fingerprintRules = rulesWrapper.getFingerprint();
-            stdout.println("[+] Successfully loaded the configuration file finger.json");
+            if (tmpFile.exists()) {
+                stdout.println("[+] Successfully loaded the configuration file finger-tmp.json");
+            }else{
+                stdout.println("[+] Successfully loaded the configuration file finger-important.json");
+            }
         } catch (IOException e) {
             stderr.println("[!] Failed to load the configuration file finger.json, because: " + e.getMessage());
         }
