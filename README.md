@@ -1,4 +1,4 @@
-# Burp Js Url Finder
+# BurpAPIFinder
 ![](https://img.shields.io/badge/Author-Shaun-blue)
 ![](https://img.shields.io/badge/JDK-9+-yellow)
 ![](https://img.shields.io/badge/捡漏是问艺术-往往有意想不到的成果-red)

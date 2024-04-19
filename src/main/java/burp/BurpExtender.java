@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class BurpExtender implements IBurpExtender {
-    public final static String extensionName = "JsUrlFinder";
+    public final static String extensionName = "APIFinder";
     public final static String version = "v2024-04-16";
     public final static String author = "Shaun";
 

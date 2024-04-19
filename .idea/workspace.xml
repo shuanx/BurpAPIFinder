@@ -10,7 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="905a9d08-3791-411c-91a4-f0fce7a792b7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/images/config.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/config.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BurpJsUrlFinder_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/burp/BurpExtender.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +70,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.editor",
@@ -106,7 +110,7 @@
   <component name="RunManager" selected="Remote JVM Debug.BurpSuite">
     <configuration name="Utils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="burp.util.Utils" />
-      <module name="BurpJsUrlFinder" />
+      <module name="BurpAPIFinder" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="burp.util.*" />
@@ -118,7 +122,7 @@
       </method>
     </configuration>
     <configuration name="FingerTest.testGetFinger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BurpJsUrlFinder" />
+      <module name="BurpAPIFinder" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="burp.model.*" />
@@ -133,8 +137,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="BurpAPIFinder" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="BurpAPIFinder" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BurpSuite" type="Remote">
-      <module name="BurpJsUrlFinder" />
+      <module name="BurpAPIFinder" />
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" />
