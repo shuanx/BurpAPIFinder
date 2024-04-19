@@ -42,3 +42,6 @@ out/
 
 ### log ###
 log/
+
+### .idea ###
+.idea/
