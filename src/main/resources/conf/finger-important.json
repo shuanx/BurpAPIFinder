@@ -211,6 +211,312 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
+        "ACCESSID",
+        "ACCESSKEY"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "accessKeyId",
+        "accessKeySecret"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "ACCESS_ID",
+        "ACCESS_KEY"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "SSOusername",
+        "SSOpassword"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "oss://"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "UC_DBHOST",
+        "UC_DBUSER",
+        "UC_KEY",
+        "UC_API"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "jdbc:(mysql|h2|oracle|sqlserver|jtds:sqlserver):"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "System.Data.SqlClient"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "Data.PassportContext"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mysql.username",
+        "mysql.password",
+        "mysql.url"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "jdbc.username",
+        "jdbc.password"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mssql.jdbc",
+        "mssql.user"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      ],
+      "type": "敏感内容",
+      "describe": "JDBC泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "EMAIL_HOST_USER",
+        "EMAIL_HOST_PASSWORD"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mail.username",
+        "mail.password"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "sender.username",
+        "sender.password"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mailUserPwd",
+        "mailUserName"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mail_user",
+        "mail_pass"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "EMAIL_PSWD",
+        "EMAIL_USER"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "EMAIL_LOGIN_NAME",
+        "EMAIL_LOGIN_PASSWD"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "email_username",
+        "email_password"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "smtp_username",
+        "smtp_password"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mailuser",
+        "mailPassword"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "mailServerUsername",
+        "mailServerPassword"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "WebMail.UserName",
+        "WebMail.Password"
+      ],
+      "type": "敏感内容",
+      "describe": "邮箱凭证泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "ftpUsername",
+        "ftpPassword"
+      ],
+      "type": "敏感内容",
+      "describe": "FTP泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "FTP_USER",
+        "FTP_ADDR",
+        "FTP_PASS"
+      ],
+      "type": "敏感内容",
+      "describe": "FTP泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "ssh://"
+      ],
+      "type": "敏感内容",
+      "describe": "SSH泄漏",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
         "access_key_id",
         "secret_access_key"
       ],

@@ -22,6 +22,8 @@
 ![img.png](images/HaE.png)
 - [x] 集成APIKit的敏感信息识别指纹
 ![img.png](images/APIKit.png)
+- [x] 集成sweetPotato的敏感信息识别指纹
+![img.png](images/sweetPotato.png)
 
 ## 闲聊/优化/建议/问题反馈群
 <img src="images/weixinqun.png" alt="img.png" width="200"/>
