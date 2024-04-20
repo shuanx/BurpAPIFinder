@@ -56,60 +56,59 @@ public class IProxyScanner implements IProxyListener {
         if (!messageIsRequest) {
             totalScanCount += 1;
             ConfigPanel.lbSuccessCount.setText(String.valueOf(apiDataModelMap.size()));
-            try{
-                ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
+            ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
 
-                IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();
-                final IHttpRequestResponse resrsp = iInterceptedProxyMessage.getMessageInfo();
-                String method = helpers.analyzeRequest(resrsp).getMethod();
-                // 提取url，过滤掉静态文件
-                String url = String.valueOf(helpers.analyzeRequest(resrsp).getUrl());
-                byte[] responseBytes = resrsp.getResponse();
+            IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();
+            final IHttpRequestResponse resrsp = iInterceptedProxyMessage.getMessageInfo();
+            String method = helpers.analyzeRequest(resrsp).getMethod();
+            // 提取url，过滤掉静态文件
+            String url = String.valueOf(helpers.analyzeRequest(resrsp).getUrl());
+            byte[] responseBytes = resrsp.getResponse();
 
-                // 返回结果为空则退出
-                if (responseBytes == null || responseBytes.length == 0) {
-                    BurpExtender.getStdout().println("返回结果为空: " + url);
-                    return;
-                }
-                String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
-                String extractBaseUrl = Utils.extractBaseUrl(url);
-                if (extractBaseUrl.equals("-")){
-                    return;
-                }
-                if (ConfigPanel.toggleButton.isSelected()) {
-                } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode)) <= 0) {
-                    haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
-                } else {
-                    BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-                    return;
-                }
-                if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
-                    BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
-                    return;
-                }
+            // 返回结果为空则退出
+            if (responseBytes == null || responseBytes.length == 0) {
+                BurpExtender.getStdout().println("返回结果为空: " + url);
+                return;
+            }
+            String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
+            String extractBaseUrl = Utils.extractBaseUrl(url);
+            if (extractBaseUrl.equals("-")){
+                return;
+            }
+            if (ConfigPanel.toggleButton.isSelected()) {
+            } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode)) <= 0) {
+                haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
+            } else {
+                BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
+                return;
+            }
+            if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
+                BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
+                return;
+            }
 
-                // 网页提取URL并进行指纹识别
-                executorService.submit(new Runnable() {
-                    @Override
-                    public void run() {
-                        Map<String, Object> pathData = new HashMap<>();
-
-                        // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-                        ApiDataModel originalApiData = new ApiDataModel(
-                                Constants.TREE_STATUS_COLLAPSE,
-                                String.valueOf(iInterceptedProxyMessage.getMessageReference()),
-                                Utils.getUriFromUrl(url),
-                                "0",
-                                false,
-                                "-",
-                                requestResponse,
-                                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
-                                "-",
-                                "-",
-                                "-",
-                                pathData,
-                                "-",
-                                "\r\n");
+            // 网页提取URL并进行指纹识别
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    Map<String, Object> pathData = new HashMap<>();
+                    // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
+                    ApiDataModel originalApiData = new ApiDataModel(
+                            Constants.TREE_STATUS_COLLAPSE,
+                            String.valueOf(iInterceptedProxyMessage.getMessageReference()),
+                            Utils.getUriFromUrl(url),
+                            "0",
+                            false,
+                            "-",
+                            requestResponse,
+                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                            "-",
+                            "-",
+                            "-",
+                            pathData,
+                            "-",
+                            "\r\n");
+                    try {
                         if (!url.contains("favicon.") && !url.contains(".ico")) {
                             String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                             URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
@@ -128,7 +127,7 @@ public class IProxyScanner implements IProxyListener {
                                 pathData.put(Utils.getPathFromUrl(url), getUriData);
                             }
 
-                            if (!ConfigPanel.toggleButton.isSelected()){
+                            if (!ConfigPanel.toggleButton.isSelected()) {
                                 // 针对html页面提取
                                 Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
                                 // 针对JS页面提取
@@ -137,7 +136,7 @@ public class IProxyScanner implements IProxyListener {
                                 }
                                 // 依次遍历urlSet获取其返回的response值
                                 for (String getUrl : urlSet) {
-                                    if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4){
+                                    if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4) {
                                         BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
                                         continue;
                                     }
@@ -150,6 +149,12 @@ public class IProxyScanner implements IProxyListener {
                             }
 
                         }
+                    }catch (Exception e) {
+                        BurpExtender.getStderr().println("数据提取uri的时候报错：" + url);
+                        e.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                    try{
                         ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(originalApiData, pathData, BurpExtender.getHelpers());
 
                         synchronized (apiDataModelMap) {
@@ -161,11 +166,12 @@ public class IProxyScanner implements IProxyListener {
                                 apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
                             }
                         }
+                    } catch (Exception e) {
+                        BurpExtender.getStderr().println("数据合并的时候报错： " + url);
+                        e.printStackTrace(BurpExtender.getStderr());
                     }
-                });
-            }catch (Exception e){
-                BurpExtender.getStderr().println(e.getMessage());
-            }
+                }
+            });
         }
 
     }
