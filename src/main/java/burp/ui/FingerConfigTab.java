@@ -651,7 +651,7 @@ public class FingerConfigTab extends JPanel {
 
 
         JButton saveButton = new JButton("Save");
-        saveButton.setIcon(UiUtils.getImageIcon("/icon/saveButton.png"));
+        saveButton.setIcon(UiUtils.getImageIcon("/icon/saveItem.png"));
 
         // 在构造函数中为 methodField 添加事件监听器，以便动态更新 locationField 的选项
         methodField.addActionListener(new ActionListener() {

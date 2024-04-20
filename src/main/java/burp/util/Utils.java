@@ -280,6 +280,17 @@ public class Utils {
         }
     }
 
+    public static String extractBaseUrl(String fullUrl) {
+        try {
+            URL url = new URL(fullUrl);
+            // 构造基本URL，不包含查询参数
+            return new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getPath()).toString();
+        } catch (MalformedURLException e) {
+            BurpExtender.getStdout().println("URL解析报错： " + fullUrl + ":" + e.getMessage()); // 打印异常信息
+            return "-"; // 或者根据你的需求返回适当的值
+        }
+    }
+
     public static String getBanner(){
         String bannerInfo =
                 "[+] " + BurpExtender.extensionName + " is loaded\n"

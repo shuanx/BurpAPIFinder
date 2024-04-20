@@ -48,6 +48,8 @@ public class IProxyScanner implements IProxyListener {
 
     public static void setHaveScanUrlNew(){
         haveScanUrl = new UrlScanCount();
+        ConfigPanel.lbSuccessCount.setText("0");
+        ConfigPanel.lbRequestCount.setText("0");
     }
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
@@ -70,9 +72,13 @@ public class IProxyScanner implements IProxyListener {
                     return;
                 }
                 String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
-
-                if (this.haveScanUrl.get((Utils.getUriFromUrl(url).hashCode() + statusCode)) <= 0) {
-                    this.haveScanUrl.add(Utils.getUriFromUrl(url).hashCode() + statusCode);
+                String extractBaseUrl = Utils.extractBaseUrl(url);
+                if (extractBaseUrl.equals("-")){
+                    return;
+                }
+                if (ConfigPanel.toggleButton.isSelected()) {
+                } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode)) <= 0) {
+                    haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
                 } else {
                     BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
                     return;
@@ -82,9 +88,7 @@ public class IProxyScanner implements IProxyListener {
                     return;
                 }
 
-
                 // 网页提取URL并进行指纹识别
-                String finalStatusCode = statusCode;
                 executorService.submit(new Runnable() {
                     @Override
                     public void run() {
@@ -115,7 +119,7 @@ public class IProxyScanner implements IProxyListener {
                                 getUriData.put("responseRequest", requestResponse);
                                 getUriData.put("isJsFindUrl", "N");
                                 getUriData.put("method", method);
-                                getUriData.put("status", finalStatusCode);
+                                getUriData.put("status", statusCode);
                                 getUriData.put("isImportant", false);
                                 getUriData.put("result", "-");
                                 getUriData.put("result info", "-");

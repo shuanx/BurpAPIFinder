@@ -8,6 +8,7 @@ import burp.model.FingerPrintRule;
 import burp.ui.datmodel.ApiDataModel;
 
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -55,21 +56,36 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
+                StringBuilder matchedResults = new StringBuilder("match result：");
                 for (String key : rule.getKeyword()) {
                     try {
                         Pattern pattern = Pattern.compile(key);
+                        Matcher matcher = pattern.matcher(locationContent);
+
                         if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
                             isMatch = false;
-                        } else if (rule.getMatch().equals("regular") && !pattern.matcher(locationContent).find()) {
-                            isMatch = false;
+                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
+                            matchedResults.append(key).append("、");
+                        } else if (rule.getMatch().equals("regular")) {
+                            boolean foundMatch = false;
+                            while (matcher.find()) {
+                                foundMatch = true;
+                                // 将匹配到的内容添加到StringBuilder中
+                                matchedResults.append(key).append(" : ").append(matcher.group()).append("、");
+                            }
+                            if (!foundMatch) {
+                                isMatch = false;
+                            }
                         }
                     } catch (PatternSyntaxException e) {
                         BurpExtender.getStderr().println("正则表达式语法错误: " + key);
                     } catch (NullPointerException e) {
                         BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
+                    } catch (Exception e){
+                        BurpExtender.getStderr().println("匹配出现其他报错: " + e);
                     }
-
                 }
+
 
                 if (isMatch) {
                     // 是否为重要
@@ -106,8 +122,8 @@ public class FingerUtils {
                     } else {
                         resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo());
-                    onePathData.put("result info", resultInfo);
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
+                    onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
                 newPathData.put(onePath, onePathData);
             }
