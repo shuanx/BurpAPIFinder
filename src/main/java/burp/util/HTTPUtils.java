@@ -6,6 +6,7 @@ import burp.IHttpService;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +65,11 @@ public class HTTPUtils {
 
         // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
         Map<String, Object> originalData = new HashMap<String, Object>();
-        originalData.put("responseRequest", requestResponse);
+        originalData.put("requests", Base64.getEncoder().encodeToString(requestResponse.getRequest()));
+        originalData.put("response", Base64.getEncoder().encodeToString(requestResponse.getResponse()));
+        originalData.put("host", requestResponse.getHttpService().getHost());
+        originalData.put("port", requestResponse.getHttpService().getPort());
+        originalData.put("protocol", requestResponse.getHttpService().getProtocol());
         originalData.put("isJsFindUrl", "Y");
         originalData.put("method", "GET");
         originalData.put("status", statusCode);

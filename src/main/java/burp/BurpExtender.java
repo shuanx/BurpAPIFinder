@@ -1,6 +1,7 @@
 package burp;
 
 import burp.Wrapper.FingerPrintRulesWrapper;
+import burp.dataModel.DatabaseService;
 import burp.model.FingerPrintRule;
 import burp.ui.ConfigPanel;
 import burp.ui.Tags;
@@ -21,6 +22,7 @@ public class BurpExtender implements IBurpExtender {
     private static PrintWriter stdout;
     private static PrintWriter stderr;
     private static IBurpExtenderCallbacks callbacks;
+    private static DatabaseService dataBaseService;
     private static IExtensionHelpers helpers;
     private static ConfigPanel configPanel;
     private static Tags tags;
@@ -58,6 +60,10 @@ public class BurpExtender implements IBurpExtender {
 
     public static IProxyScanner getIProxyScanner() {
         return iProxyScanner;
+    }
+
+    public static DatabaseService getDataBaseService(){
+        return dataBaseService;
     }
 
     @Override
@@ -99,6 +105,8 @@ public class BurpExtender implements IBurpExtender {
         } catch (IOException e) {
             stderr.println("[!] Failed to load the configuration file finger.json, because: " + e.getMessage());
         }
+
+        dataBaseService = DatabaseService.getInstance();
 
         // 标签界面, ExtensionTab 构造时依赖 BurpExtender.callbacks, 所以这个必须放在下面
         BurpExtender.tags = new Tags(callbacks, extensionName);

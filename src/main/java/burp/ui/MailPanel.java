@@ -1,28 +1,25 @@
 package burp.ui;
 
 import burp.*;
-import burp.ui.datmodel.ApiDataModel;
+import burp.dataModel.ApiDataModel;
 import burp.ui.renderer.HavingImportantRenderer;
 import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
 import burp.util.Utils;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.*;
-import java.util.List;
 import javax.swing.Timer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MailPanel extends JPanel implements IMessageEditorController {
     private String tagName;
@@ -30,7 +27,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     private JSplitPane infoSplitPane;
     private static IMessageEditor requestTextEditor;
     private static IMessageEditor responseTextEditor;
-    private static IHttpRequestResponse currentlyDisplayedItem;
+    public static byte[] requestsData;
+    public static byte[] responseData;
+    public static IHttpService iHttpService;
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
     public static ITextEditor resultDeViewer;
@@ -116,36 +115,51 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             public void mouseClicked(MouseEvent e) {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        int row = table.rowAtPoint(e.getPoint());
-                        if (row >= 0) {
-                            selectRow = row;
-                            String listStatus = (String)table.getModel().getValueAt(row, 0);
-                            String url;
-                            if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)){
-                                url = (String)table.getModel().getValueAt(row, 2);
-                                ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                                requestTextEditor.setMessage(apiDataModel.getRequestResponse().getRequest(), true);
-                                responseTextEditor.setMessage(apiDataModel.getRequestResponse().getResponse(), false);
-                                resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
-                                currentlyDisplayedItem = apiDataModel.getRequestResponse();
-                                if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)){
-                                    apiDataModel.setListStatus(Constants.TREE_STATUS_EXPAND);
-                                    modelExpand(apiDataModel, row);
-                                } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
-                                    apiDataModel.setListStatus(Constants.TREE_STATUS_COLLAPSE);
-                                    modeCollapse(apiDataModel, row);
+                        try {
+                            int row = table.rowAtPoint(e.getPoint());
+                            if (row >= 0) {
+                                selectRow = row;
+                                String listStatus = (String) table.getModel().getValueAt(row, 0);
+                                String url;
+                                if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                                    url = (String) table.getModel().getValueAt(row, 2);
+                                    ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                                    requestsData = apiDataModel.getRequestsData();
+                                    responseData = apiDataModel.getResponseData();
+                                    iHttpService = apiDataModel.getiHttpService();
+                                    requestTextEditor.setMessage(requestsData, true);
+                                    responseTextEditor.setMessage(responseData, false);
+                                    resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
+                                    if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)) {
+                                        BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_EXPAND);
+                                        modelExpand(apiDataModel, row);
+                                    } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
+                                        BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_COLLAPSE);
+                                        modeCollapse(apiDataModel, row);
+                                    }
+                                } else {
+                                    try {
+                                        String path = (String) table.getModel().getValueAt(row, 2);
+                                        url = findUrlFromPath(row);
+                                        ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                                        ;
+                                        Map<String, Object> pathData = apiDataModel.getPathData();
+                                        Map<String, Object> matchPathData = (Map<String, Object>) pathData.get(path);
+                                        requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
+                                        responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
+                                        iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
+                                        requestTextEditor.setMessage(requestsData, true);
+                                        responseTextEditor.setMessage(responseData, false);
+                                        resultDeViewer.setText(((String) matchPathData.get("result info")).getBytes());
+                                    } catch (Exception e) {
+                                        e.printStackTrace(BurpExtender.getStderr());
+                                    }
+
                                 }
-                            }else{
-                                String path = (String)table.getModel().getValueAt(row, 2);
-                                url = findUrlFromPath(row);
-                                ApiDataModel apiDataModel = IProxyScanner.apiDataModelMap.get(url);
-                                Map<String, Object> pathData = apiDataModel.getPathData();
-                                Map<String, Object> matchPathData = (Map<String, Object>)pathData.get(path);
-                                requestTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getRequest(), true);
-                                responseTextEditor.setMessage(((IHttpRequestResponse)matchPathData.get("responseRequest")).getResponse(), false);
-                                resultDeViewer.setText(((String)matchPathData.get("result info")).getBytes());
-                                currentlyDisplayedItem = ((IHttpRequestResponse)matchPathData.get("responseRequest"));
                             }
+                        }catch (Exception ef) {
+                            BurpExtender.getStderr().println("[-] Error click table: " + table.rowAtPoint(e.getPoint()));
+                            ef.printStackTrace(BurpExtender.getStderr());
                         }
                     }
                 });
@@ -182,6 +196,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                 try{
                     refreshTableModel();
                 } catch (Exception ep){
+                    BurpExtender.getStderr().println("[!] 刷新表格报错， 报错如下：");
                     ep.printStackTrace(BurpExtender.getStdout());
                 }
             }
@@ -201,40 +216,42 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         if (!ConfigPanel.searchField.getText().isEmpty()){
             searchText = ConfigPanel.searchField.getText();
         }
-
+        // 设置所有状态码为关闭
         String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
         MailPanel.showFilter(selectedOption, searchText);
     }
 
     @Override
     public byte[] getRequest() {
-        return currentlyDisplayedItem.getRequest();
+        return requestsData;
     }
 
     @Override
     public byte[] getResponse() {
-        return currentlyDisplayedItem.getResponse();
+        return responseData;
     }
 
     @Override
     public IHttpService getHttpService() {
-        return currentlyDisplayedItem.getHttpService();
+        return iHttpService;
     }
 
     public static void showFilter(String selectOption, String searchText){
         synchronized (model) {
             // 清空model后，根据URL来做匹配
             model.setRowCount(0);
-
+            BurpExtender.getDataBaseService().updateListStatus(Constants.TREE_STATUS_COLLAPSE);
             // 判断当前历史记录是否为空
             if((selectOption.equals("全部"))){
                 historySearchText = searchText;
             }
 
+            // 获取数据库中的所有ApiDataModels
+            List<ApiDataModel> allApiDataModels = BurpExtender.getDataBaseService().getAllApiDataModels();
+
             // 遍历apiDataModelMap
-            for (Map.Entry<String, ApiDataModel> entry : IProxyScanner.apiDataModelMap.entrySet()) {
-                String url = entry.getKey();
-                ApiDataModel apiDataModel = entry.getValue();
+            for (ApiDataModel apiDataModel : allApiDataModels) {
+                String url = apiDataModel.getUrl();
                 if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
                     continue;
                 } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
@@ -268,7 +285,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             // 清空model
             model.setRowCount(0);
             // 清空表格
-            IProxyScanner.apiDataModelMap = new HashMap<String, ApiDataModel>();
             IProxyScanner.setHaveScanUrlNew();
             // 清空检索
             historySearchText = "";
@@ -282,9 +298,12 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             MailPanel.requestTextEditor.setMessage(new byte[0], true); // 清空请求编辑器
             MailPanel.responseTextEditor.setMessage(new byte[0], false); // 清空响应编辑器
             MailPanel.resultDeViewer.setText(new byte[0]);
-            MailPanel.currentlyDisplayedItem = null; // 清空当前显示的项
+            MailPanel.iHttpService = null; // 清空当前显示的项
+            MailPanel.requestsData = null;
+            MailPanel.responseData = null;
         }
     }
+
 
     public void modelExpand(ApiDataModel apiDataModel, int index) {
         // 关闭自动更新
@@ -341,7 +360,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
     public void modeCollapse(ApiDataModel apiDataModel, int index) {
         // 看当前是否有过滤场景
-        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
         model.setValueAt(Constants.TREE_STATUS_COLLAPSE, index, 0);
 
         Map<String, Object> pathData = apiDataModel.getPathData();
@@ -359,8 +377,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                 } else {
                     break;
                 }} catch (Exception e) {
-                    // 捕获其他所有类型的异常
-                    BurpExtender.getStdout().println("Exception caught: " + e.getMessage());
+                    BurpExtender.getStderr().println("[!] 数据收起报错，报错如下：");
+                    e.printStackTrace(BurpExtender.getStderr());
                 }
         }
 

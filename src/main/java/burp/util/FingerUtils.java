@@ -3,14 +3,12 @@ package burp.util;
 import burp.BurpExtender;
 import burp.IExtensionHelpers;
 import burp.IHttpRequestResponse;
-import burp.IResponseInfo;
 import burp.model.FingerPrintRule;
-import burp.ui.datmodel.ApiDataModel;
+import burp.dataModel.ApiDataModel;
 
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.PatternSyntaxException;
 
@@ -30,8 +28,7 @@ public class FingerUtils {
         for (Map.Entry<String, Object> entry : pathData.entrySet()) {
             Map<String, Object> onePathData = (Map<String, Object>) entry.getValue();
             String onePath = entry.getKey();
-            IHttpRequestResponse onRequestsResponse = (IHttpRequestResponse) onePathData.get("responseRequest");
-            byte[] oneResponseBytes = onRequestsResponse.getResponse();
+            byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
             // status更新
             if (originalApiData.getStatus().equals("-")){
                 originalApiData.setStatus((String)onePathData.get("status"));
@@ -71,7 +68,7 @@ public class FingerUtils {
                             while (matcher.find()) {
                                 foundMatch = true;
                                 // 将匹配到的内容添加到StringBuilder中
-                                matchedResults.append(key).append(" : ").append(matcher.group()).append("、");
+                                matchedResults.append(matcher.group()).append("、");
                             }
                             if (!foundMatch) {
                                 isMatch = false;

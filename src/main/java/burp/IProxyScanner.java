@@ -1,8 +1,7 @@
 package burp;
 
 import burp.ui.ConfigPanel;
-import burp.ui.Tags;
-import burp.ui.datmodel.ApiDataModel;
+import burp.dataModel.ApiDataModel;
 import burp.util.*;
 
 import java.net.URL;
@@ -11,9 +10,7 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
-import javax.swing.SwingUtilities;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author： shaun
@@ -25,10 +22,8 @@ public class IProxyScanner implements IProxyListener {
     public static int totalScanCount = 0;
     private final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
-    public static Map<String, ApiDataModel> apiDataModelMap;
 
     public IProxyScanner() {
-        apiDataModelMap = Collections.synchronizedMap(new HashMap<String, ApiDataModel>());
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
         int coreCount = Runtime.getRuntime().availableProcessors();
@@ -50,12 +45,13 @@ public class IProxyScanner implements IProxyListener {
         haveScanUrl = new UrlScanCount();
         ConfigPanel.lbSuccessCount.setText("0");
         ConfigPanel.lbRequestCount.setText("0");
+        BurpExtender.getDataBaseService().clearApiDataTable();
     }
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
         if (!messageIsRequest) {
             totalScanCount += 1;
-            ConfigPanel.lbSuccessCount.setText(String.valueOf(apiDataModelMap.size()));
+            ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
             ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
 
             IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();
@@ -80,7 +76,7 @@ public class IProxyScanner implements IProxyListener {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-                return;
+//                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -100,7 +96,9 @@ public class IProxyScanner implements IProxyListener {
                             "0",
                             false,
                             "-",
-                            requestResponse,
+                            requestResponse.getRequest(),
+                            requestResponse.getResponse(),
+                            requestResponse.getHttpService(),
                             new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
                             "-",
                             "-",
@@ -115,7 +113,11 @@ public class IProxyScanner implements IProxyListener {
 
                             if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url) && !Utils.getPathFromUrl(url).endsWith(".js")) {
                                 Map<String, Object> getUriData = new HashMap<String, Object>();
-                                getUriData.put("responseRequest", requestResponse);
+                                getUriData.put("requests", Base64.getEncoder().encodeToString(requestResponse.getRequest()));
+                                getUriData.put("response", Base64.getEncoder().encodeToString(requestResponse.getResponse()));
+                                getUriData.put("host", requestResponse.getHttpService().getHost());
+                                getUriData.put("port", requestResponse.getHttpService().getPort());
+                                getUriData.put("protocol", requestResponse.getHttpService().getProtocol());
                                 getUriData.put("isJsFindUrl", "N");
                                 getUriData.put("method", method);
                                 getUriData.put("status", statusCode);
@@ -156,15 +158,12 @@ public class IProxyScanner implements IProxyListener {
 
                     try{
                         ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(originalApiData, pathData, BurpExtender.getHelpers());
-
-                        synchronized (apiDataModelMap) {
-                            if (!apiDataModelMap.containsKey(Utils.getUriFromUrl(url))) {
-                                apiDataModelMap.put(Utils.getUriFromUrl(url), newOriginalApiData);
-                            } else {
-                                ApiDataModel existedApiData = apiDataModelMap.get(Utils.getUriFromUrl(url));
-                                ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
-                                apiDataModelMap.put(Utils.getUriFromUrl(url), mergeApiData);
-                            }
+                        if (!BurpExtender.getDataBaseService().isExistApiDataModelByUri(Utils.getUriFromUrl(url))) {
+                            BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
+                        } else {
+                            ApiDataModel existedApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
+                            ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
+                            BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                         }
                     } catch (Exception e) {
                         BurpExtender.getStderr().println("数据合并的时候报错： " + url);
@@ -204,6 +203,17 @@ public class IProxyScanner implements IProxyListener {
         // 将 Set 转换回 String，元素之间用逗号分隔
         apiDataModel1.setResult(String.join(",", resultSet).replace("-,", "").replace(",-", ""));
 
+        // 合并describe
+        String[] apiDataDescribeList1 = apiDataModel1.getDescribe().split(",");
+        String[] apiDataDescribeList2 = apiDataModel2.getDescribe().split(",");
+        // 创建一个 HashSet 并添加所有元素来去除重复项
+        Set<String> describeSet = new HashSet<>();
+        describeSet.addAll(Arrays.asList(apiDataDescribeList1));
+        describeSet.addAll(Arrays.asList(apiDataDescribeList2));
+        // 将 Set 转换回 String，元素之间用逗号分隔
+        apiDataModel1.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", ""));
+
+        // 合并PathData
         // 将第一个 map 的所有条目复制到新 map，作为基础
         Map<String, Object> getUriData = apiDataModel1.getPathData();
         apiDataModel1.setTime(apiDataModel2.getTime());
@@ -229,6 +239,7 @@ public class IProxyScanner implements IProxyListener {
         }
         apiDataModel1.setPathData(getUriData);
         apiDataModel1.setPathNumber(String.valueOf(getUriData.size()));
+        apiDataModel1.setResultInfo((apiDataModel1.getResultInfo() + "\r\n" + apiDataModel2.getResultInfo()).strip());
         return apiDataModel1;
     }
 

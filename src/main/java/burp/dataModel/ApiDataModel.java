@@ -1,6 +1,7 @@
-package burp.ui.datmodel;
+package burp.dataModel;
 
 import burp.IHttpRequestResponse;
+import burp.IHttpService;
 
 import java.util.Map;
 
@@ -13,11 +14,12 @@ import java.util.Map;
 public class ApiDataModel {
     final String id;
     final String url;
-    final IHttpRequestResponse requestResponse;
+    byte[] requestsData;
+    byte[] responseData;
+    IHttpService iHttpService;
     String status;
     final String isJsFindUrl;
     final String method;
-    String treeStatus;
     String pathNumber;
     Boolean havingImportant;
     String result ;
@@ -29,19 +31,20 @@ public class ApiDataModel {
 
 
 
-    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, IHttpRequestResponse requestResponse, String time, String status, String isJsFindUrl, String method, Map<String, Object> pathData, String describe, String resultInfo) {
+    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, byte[] requestsData, byte[] responseData, IHttpService iHttpService, String time, String status, String isJsFindUrl, String method, Map<String, Object> pathData, String describe, String resultInfo) {
         this.listStatus = listStatus;
         this.id = id;
         this.url = url;
         this.pathNumber = pathNumber;
         this.havingImportant = havingImportant;
         this.result = result;
-        this.requestResponse = requestResponse;
+        this.requestsData = requestsData;
+        this.responseData = responseData;
+        this.iHttpService = iHttpService;
         this.time = time;
         this.status = status;
         this.isJsFindUrl = isJsFindUrl;
         this.method = method;
-        this.treeStatus = "";
         this.pathData = pathData;
         this.describe = describe;
         this.resultInfo = resultInfo;
@@ -64,8 +67,16 @@ public class ApiDataModel {
         return resultInfo;
     }
 
-    public IHttpRequestResponse getRequestResponse(){
-        return this.requestResponse;
+    public byte[] getRequestsData(){
+        return this.requestsData;
+    }
+
+    public byte[] getResponseData(){
+        return this.responseData;
+    }
+
+    public IHttpService getiHttpService(){
+        return this.iHttpService;
     }
 
     public String getListStatus(){
@@ -76,9 +87,6 @@ public class ApiDataModel {
         this.listStatus = listStatus;
     }
 
-    public void setTreeStatus(String treeStatus) {
-        this.treeStatus = treeStatus;
-    }
 
     public String getId(){
         return this.id;

@@ -2,6 +2,7 @@ package burp.util;
 
 import burp.BurpExtender;
 import burp.IBurpExtenderCallbacks;
+import burp.IHttpService;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -314,6 +315,28 @@ public class Utils {
         path = callbacks.getExtensionFilename().substring(0, lastIndex) + File.separator;
         return path;
     }
+
+    public static IHttpService iHttpService(String host, int port, String protocol){
+        return new IHttpService() {
+            @Override
+            public String getHost() {
+                return host;
+            }
+
+            @Override
+            public int getPort() {
+                return port;
+            }
+
+            @Override
+            public String getProtocol() {
+                return protocol;
+            }
+        };
+    }
+
+
+    // 转换ArrayList<Byte>为byte[]
 
     public static void main(String[] args) {
 

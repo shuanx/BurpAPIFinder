@@ -101,7 +101,8 @@
         "name",
         "realName",
         "email",
-        "phone"
+        "phone",
+        "Content-Type: application/json"
       ],
       "type": "敏感内容",
       "describe": "账号, 邮箱， 收集",
@@ -821,16 +822,6 @@
       ],
       "type": "有价值信息",
       "describe": "Java Deserialization",
-      "isImportant": false
-    },
-    {
-      "match": "regular",
-      "location": "body",
-      "keyword": [
-        "(=(https?)(://|%3a%2f%2f))"
-      ],
-      "type": "有价值信息",
-      "describe": "URL As A Value",
       "isImportant": false
     },
     {
