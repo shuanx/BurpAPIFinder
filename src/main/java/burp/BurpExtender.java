@@ -4,6 +4,7 @@ import burp.Wrapper.FingerPrintRulesWrapper;
 import burp.dataModel.DatabaseService;
 import burp.model.FingerPrintRule;
 import burp.ui.ConfigPanel;
+import burp.ui.MailPanel;
 import burp.ui.Tags;
 import burp.util.Utils;
 import com.google.gson.Gson;
@@ -13,10 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-public class BurpExtender implements IBurpExtender {
+public class BurpExtender implements IBurpExtender, IExtensionStateListener {
     public final static String extensionName = "APIFinder";
-    public final static String version = "v2024-04-16";
+    public final static String version = "v2024-04-22";
     public final static String author = "Shaun";
 
     private static PrintWriter stdout;
@@ -113,8 +115,30 @@ public class BurpExtender implements IBurpExtender {
         BurpExtender.iProxyScanner = new IProxyScanner();
 
         callbacks.registerProxyListener(iProxyScanner);
+        callbacks.registerExtensionStateListener(this);
 
         BurpExtender.stdout.println(Utils.getBanner());
+    }
+
+    @Override
+    public void extensionUnloaded() {
+        // 扩展卸载时，立刻关闭线程池
+        BurpExtender.getStdout().println("[+] Extension is being unloaded, cleaning up resources...");
+
+        // 立刻关闭线程池
+        if (iProxyScanner.executorService != null) {
+            // 尝试立即关闭所有正在执行的任务
+            List<Runnable> notExecutedTasks = iProxyScanner.executorService.shutdownNow();
+            BurpExtender.getStdout().println("[+] 尝试停止所有正在执行的任务，未执行的任务数量：" + notExecutedTasks.size());
+        }
+
+        MailPanel.timer.stop();
+
+        // 关闭数据库连接
+        if (dataBaseService != null) {
+            dataBaseService.closeConnection();
+            BurpExtender.getStdout().println("[+] 断开数据连接成功.");
+        }
     }
 
 

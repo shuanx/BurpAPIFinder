@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class IProxyScanner implements IProxyListener {
     private static UrlScanCount haveScanUrl = new UrlScanCount();
     public static int totalScanCount = 0;
-    private final ThreadPoolExecutor executorService;  // 修改这行
+    final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
 
     public IProxyScanner() {
@@ -28,6 +28,7 @@ public class IProxyScanner implements IProxyListener {
         // 先新建一个进程用于后续处理任务
         int coreCount = Runtime.getRuntime().availableProcessors();
         int maxPoolSize = coreCount * 2;  // 可以根据实际情况调整
+        BurpExtender.getStdout().println("[+] Number of threads enabled:: " + maxPoolSize);
         long keepAliveTime = 60L;
         executorService = new ThreadPoolExecutor(
                 coreCount,
@@ -38,7 +39,6 @@ public class IProxyScanner implements IProxyListener {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.CallerRunsPolicy() // 当线程池和队列都满时，任务在调用者线程中执行
         );
-//        executorService = (ThreadPoolExecutor) Executors.newFixedThreadPool(20);  // 修改这行
     }
 
     public static void setHaveScanUrlNew(){
@@ -76,7 +76,7 @@ public class IProxyScanner implements IProxyListener {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-//                return;
+                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);

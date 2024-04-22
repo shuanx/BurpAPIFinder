@@ -36,7 +36,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     private static DefaultTableModel model;
     public static JTable table;
     public static int selectRow = 0;
-
+    public static Timer timer;
     public static String historySearchText = "";
     public static String historySearchType = null;
 
@@ -189,7 +189,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         // 构建一个定时刷新页面函数
         // 创建一个每5秒触发一次的定时器
         int delay = 5000; // 延迟时间，单位为毫秒
-        Timer timer = new Timer(delay, new ActionListener() {
+        timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 调用刷新表格的方法
@@ -353,8 +353,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             });
             model.fireTableRowsInserted(index+tmpIndex, index+tmpIndex);
         }
-        // 通知监听器，从selfIndex + 1 到 selfIndex + subApiData.size()的行已经被插入
-        model.fireTableRowsInserted(index + 1, index + pathData.size());
 
     }
 
@@ -371,6 +369,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int numberOfRows = model.getRowCount();
         for (int i = 0; i < numberOfRows; i++) {
             try {
+                if (startDeleteIndex > model.getRowCount()){
+                    break;
+                }
                 if (!model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_EXPAND) && !model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_COLLAPSE)) {
                     model.removeRow(startDeleteIndex);
                     deleteNumber += 1;
