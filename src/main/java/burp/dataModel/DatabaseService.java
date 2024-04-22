@@ -10,6 +10,7 @@ import burp.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
@@ -67,9 +68,8 @@ public class DatabaseService {
                 + " list_status TEXT,\n"
                 + " describe TEXT,\n"
                 + " result_info TEXT,\n"
-                + "path_data TEXT, \n"
-                + "request BLOB, \n"
-                + "response BLOB, \n"
+                + "path_data_index INTEGER, \n"
+                + "request_response_index INTEGER, \n"
                 + "host TEXT, \n"
                 + "port INTEGER, \n"
                 + "protocol TEXT\n"
@@ -77,9 +77,40 @@ public class DatabaseService {
 
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            BurpExtender.getStdout().println("[+] create db success~");
+            BurpExtender.getStdout().println("[+] create api data db success~");
         } catch (Exception e) {
-            BurpExtender.getStderr().println("[!] create db failed, because：");
+            BurpExtender.getStderr().println("[!] create api data db failed, because：");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        // 用来创建数据库requestResponse
+        String requestsResponseSQL = "CREATE TABLE IF NOT EXISTS requests_response (\n"
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " url TEXT NOT NULL,\n"
+                + " request BLOB, \n"
+                + " response BLOB\n"
+                + ");";
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(requestsResponseSQL);
+            BurpExtender.getStdout().println("[+] create requests response db success~");
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[!] create requests response db failed, because：");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        // 用来创建数据库path_data
+        String pathDataSQL = "CREATE TABLE IF NOT EXISTS path_data (\n"
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " url TEXT NOT NULL,\n"
+                + " path_data TEXT\n"
+                + ");";
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(pathDataSQL);
+            BurpExtender.getStdout().println("[+] create path data db success~");
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[!] create path data db failed, because：");
             e.printStackTrace(BurpExtender.getStderr());
         }
     }
@@ -101,10 +132,9 @@ public class DatabaseService {
 
     // Method to insert a new ApiDataModel
     public synchronized void insertApiDataModel(ApiDataModel model) {
-        String sql = "INSERT INTO api_data(pid, url, status, is_js_find_url, method, path_number, having_important, result, time, list_status, describe, result_info, path_data, request, response, host, port, protocol) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+        String sql = "INSERT INTO api_data(pid, url, status, is_js_find_url, method, path_number, having_important, result, time, list_status, describe, result_info, path_data_index, request_response_index, host, port, protocol) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, model.getId());
             pstmt.setString(2, model.getUrl());
             pstmt.setString(3, model.getStatus());
@@ -117,12 +147,11 @@ public class DatabaseService {
             pstmt.setString(10, model.getListStatus());
             pstmt.setString(11, model.getDescribe());
             pstmt.setString(12, model.getResultInfo());
-            pstmt.setString(13, serializePathData(model.getPathData()));
-            pstmt.setBytes(14, model.getRequestsData());
-            pstmt.setBytes(15, model.getResponseData());
-            pstmt.setString(16, model.getiHttpService().getHost());
-            pstmt.setInt(17, model.getiHttpService().getPort());
-            pstmt.setString(18, model.getiHttpService().getProtocol());
+            pstmt.setInt(13, model.getPathDataIndex());
+            pstmt.setInt(14, model.getRequestsResponseIndex());
+            pstmt.setString(15, model.getiHttpService().getHost());
+            pstmt.setInt(16, model.getiHttpService().getPort());
+            pstmt.setString(17, model.getiHttpService().getProtocol());
             pstmt.executeUpdate();
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-]插入数据库报错： " + model);
@@ -171,14 +200,13 @@ public class DatabaseService {
                         rs.getString("path_number"),
                         rs.getBoolean("having_important"),
                         rs.getString("result"),
-                        rs.getBytes("request"),
-                        rs.getBytes("response"),
+                        rs.getInt("request_response_index"),
                         Utils.iHttpService(rs.getString("host"), rs.getInt("port"), rs.getString("protocol")),
                         rs.getString("time"),
                         rs.getString("status"),
                         rs.getString("is_js_find_url"),
                         rs.getString("method"),
-                        deserializePathData(rs.getString("path_data")), // 使用你已经定义的方法反序列化路径数据
+                        rs.getInt("path_data_index"), // 使用你已经定义的方法反序列化路径数据
                         rs.getString("describe"),
                         rs.getString("result_info")
                 );
@@ -205,14 +233,12 @@ public class DatabaseService {
                 + "time=?, "
                 + "describe=?, "
                 + "result_info=?, "
-                + "path_data=?, "
-                + "request=?, "
-                + "response=?, "
+                + "path_data_index=?, "
+                + "request_response_index=?, "
                 + "host=?, "
                 + "port=?, "
                 + "protocol=? "
                 + "WHERE url=?";
-
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -227,15 +253,14 @@ public class DatabaseService {
             pstmt.setString(8, model.getTime());
             pstmt.setString(9, model.getDescribe());
             pstmt.setString(10, model.getResultInfo());
-            pstmt.setString(11, serializePathData(model.getPathData())); // 假设你有这个方法来序列化路径数据为 String
-            pstmt.setBytes(12, model.getRequestsData());
-            pstmt.setBytes(13, model.getResponseData());
-            pstmt.setString(14, model.getiHttpService().getHost());
-            pstmt.setInt(15, model.getiHttpService().getPort());
-            pstmt.setString(16, model.getiHttpService().getProtocol());
+            pstmt.setInt(11, model.getPathDataIndex()); // 假设你有这个方法来序列化路径数据为 String
+            pstmt.setInt(12, model.getRequestsResponseIndex());
+            pstmt.setString(13, model.getiHttpService().getHost());
+            pstmt.setInt(14, model.getiHttpService().getPort());
+            pstmt.setString(15, model.getiHttpService().getProtocol());
 
             // 最后设置匹配 URL 的参数
-            pstmt.setString(17, model.getUrl());
+            pstmt.setString(16, model.getUrl());
 
             // 执行更新
             pstmt.executeUpdate();
@@ -301,14 +326,13 @@ public class DatabaseService {
                         rs.getString("path_number"),
                         rs.getBoolean("having_important"),
                         rs.getString("result"),
-                        rs.getBytes("request"),
-                        rs.getBytes("response"),
+                        rs.getInt("request_response_index"),
                         Utils.iHttpService(rs.getString("host"), rs.getInt("port"), rs.getString("protocol")),
                         rs.getString("time"),
                         rs.getString("status"),
                         rs.getString("is_js_find_url"),
                         rs.getString("method"),
-                        deserializePathData(rs.getString("path_data")), // 使用你已经定义的方法反序列化路径数据
+                        rs.getInt("path_data_index"), // 使用你已经定义的方法反序列化路径数据
                         rs.getString("describe"),
                         rs.getString("result_info")
                 );
@@ -354,6 +378,8 @@ public class DatabaseService {
         }
     }
 
+
+
     // 关闭数据库连接的方法
     public void closeConnection() {
         try {
@@ -364,6 +390,137 @@ public class DatabaseService {
             BurpExtender.getStderr().println("关闭数据库连接时发生错误: ");
             ex.printStackTrace(BurpExtender.getStderr());
         }
+    }
+
+    public synchronized int insertOrUpdateRequestResponse(String url, byte[] request, byte[] response) {
+        int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
+        String checkSql = "SELECT id FROM requests_response WHERE url = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            // 检查记录是否存在
+            checkStmt.setString(1, url);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                // 记录存在，更新记录
+                generatedId = rs.getInt("id");
+                String updateSql = "UPDATE requests_response SET request = ?, response = ? WHERE id = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setBytes(1, request);
+                    updateStmt.setBytes(2, response);
+                    updateStmt.setInt(3, generatedId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                // 记录不存在，插入新记录
+                String insertSql = "INSERT INTO requests_response(url, request, response) VALUES(?, ?, ?)";
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                    insertStmt.setString(1, url);
+                    insertStmt.setBytes(2, request);
+                    insertStmt.setBytes(3, response);
+                    insertStmt.executeUpdate();
+
+                    // 获取生成的键值
+                    try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            generatedId = generatedKeys.getInt(1); // 获取生成的ID
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error inserting or updating requests_response table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return generatedId; // 返回ID值，无论是更新还是插入
+    }
+
+    public synchronized Map<String, byte[]> selectRequestResponseById(int id) {
+        String sql = "SELECT * FROM requests_response WHERE id = ?";
+        Map<String, byte[]> requestResponse = null;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    requestResponse = new HashMap<>();
+                    requestResponse.put("request", rs.getBytes("request"));
+                    requestResponse.put("response", rs.getBytes("response"));
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from requests_response table by ID: " + id);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return requestResponse;
+    }
+
+
+    // 方法以插入或更新 path_data 表
+    public synchronized int insertOrUpdatePathData(String url, Map<String, Object> pathData) {
+        int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
+        String checkSql = "SELECT id FROM path_data WHERE url = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            // 检查记录是否存在
+            checkStmt.setString(1, url);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                // 记录存在，更新记录
+                generatedId = rs.getInt("id");
+                String updateSql = "UPDATE path_data SET path_data = ? WHERE id = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setString(1, serializePathData(pathData));
+                    updateStmt.setInt(2, generatedId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                // 记录不存在，插入新记录
+                String insertSql = "INSERT INTO path_data(url, path_data) VALUES(?, ?)";
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                    insertStmt.setString(1, url);
+                    insertStmt.setString(2, serializePathData(pathData));
+                    insertStmt.executeUpdate();
+
+                    // 获取生成的键值
+                    try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            generatedId = generatedKeys.getInt(1); // 获取生成的ID
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error inserting or updating path_data table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return generatedId; // 返回ID值，无论是更新还是插入
+    }
+
+    // 方法根据ID查询 path_data 表
+    public synchronized Map<String, Object> selectPathDataById(int id) {
+        String sql = "SELECT * FROM path_data WHERE id = ?";
+        Map<String, Object> pathDataJson = null;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    pathDataJson = deserializePathData(rs.getString("path_data"));
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data table by ID: " + id);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return pathDataJson;
     }
 
 

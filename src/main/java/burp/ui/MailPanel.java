@@ -124,8 +124,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                 if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
                                     url = (String) table.getModel().getValueAt(row, 2);
                                     ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
-                                    requestsData = apiDataModel.getRequestsData();
-                                    responseData = apiDataModel.getResponseData();
+                                    requestsData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("request");
+                                    responseData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("response");
                                     iHttpService = apiDataModel.getiHttpService();
                                     requestTextEditor.setMessage(requestsData, true);
                                     responseTextEditor.setMessage(responseData, false);
@@ -143,7 +143,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                         url = findUrlFromPath(row);
                                         ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
                                         ;
-                                        Map<String, Object> pathData = apiDataModel.getPathData();
+                                        Map<String, Object> pathData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel.getPathDataIndex());
                                         Map<String, Object> matchPathData = (Map<String, Object>) pathData.get(path);
                                         requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
                                         responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
@@ -314,7 +314,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
         model.setValueAt(Constants.TREE_STATUS_EXPAND, index, 0);
 
-        Map<String, Object> pathData = apiDataModel.getPathData();
+        Map<String, Object> pathData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel.getPathDataIndex());
 
         int tmpIndex = 0;
         for (Map.Entry<String, Object> pathEntry : pathData.entrySet()) {
@@ -360,7 +360,6 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         // 看当前是否有过滤场景
         model.setValueAt(Constants.TREE_STATUS_COLLAPSE, index, 0);
 
-        Map<String, Object> pathData = apiDataModel.getPathData();
         // 计算即将删除的行区间
         int startDeleteIndex = index + 1;
         int deleteNumber = 0;

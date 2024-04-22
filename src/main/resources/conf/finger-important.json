@@ -542,7 +542,7 @@
       "location": "body",
       "keyword": [
         "msg",
-        "mobile",
+        "mobile\"",
         "Content-Type: application/json"
       ],
       "type": "敏感内容",
@@ -934,27 +934,6 @@
       "describe": "SpringbootActuator",
       "isImportant": true
     },
-    {
-      "match": "keyword",
-      "location": "urlPath",
-      "keyword": [
-        "/service"
-      ],
-      "type": "敏感路径",
-      "describe": "SOAP-WSDL/REST_WADL",
-      "isImportant": true
-    },
-    {
-      "match": "keyword",
-      "location": "urlPath",
-      "keyword": [
-        "/service"
-      ],
-      "type": "敏感路径",
-      "describe": "SOAP-WSDL/REST_WADL",
-      "isImportant": true
-    },
-
   {
       "match": "keyword",
       "location": "urlPath",

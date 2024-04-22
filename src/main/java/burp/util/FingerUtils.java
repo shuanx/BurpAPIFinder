@@ -126,7 +126,7 @@ public class FingerUtils {
             }
 
         }
-        originalApiData.setPathData(newPathData);
+        originalApiData.setPathDataIndex(BurpExtender.getDataBaseService().insertOrUpdatePathData(originalApiData.getUrl(), newPathData));
         originalApiData.setPathNumber(String.valueOf(pathData.size()));
         return originalApiData;
     }

@@ -96,14 +96,13 @@ public class IProxyScanner implements IProxyListener {
                             "0",
                             false,
                             "-",
-                            requestResponse.getRequest(),
-                            requestResponse.getResponse(),
+                            BurpExtender.getDataBaseService().insertOrUpdateRequestResponse(Utils.getUriFromUrl(url), requestResponse.getRequest(), requestResponse.getResponse()),
                             requestResponse.getHttpService(),
                             new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
                             "-",
                             "-",
                             "-",
-                            pathData,
+                            BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), pathData),
                             "-",
                             "\r\n");
                     try {
@@ -162,7 +161,7 @@ public class IProxyScanner implements IProxyListener {
                             BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
                         } else {
                             ApiDataModel existedApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
-                            ApiDataModel mergeApiData = mergeApiData(existedApiData, newOriginalApiData);
+                            ApiDataModel mergeApiData = mergeApiData(url, existedApiData, newOriginalApiData);
                             BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                         }
                     } catch (Exception e) {
@@ -175,7 +174,7 @@ public class IProxyScanner implements IProxyListener {
 
     }
 
-    public static ApiDataModel mergeApiData(ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){
+    public static ApiDataModel mergeApiData(String url, ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){
         // 合并isImportant
         if (apiDataModel2.getHavingImportant()){
             apiDataModel1.setHavingImportant(true);
@@ -215,11 +214,11 @@ public class IProxyScanner implements IProxyListener {
 
         // 合并PathData
         // 将第一个 map 的所有条目复制到新 map，作为基础
-        Map<String, Object> getUriData = apiDataModel1.getPathData();
+        Map<String, Object> getUriData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel1.getPathDataIndex());
         apiDataModel1.setTime(apiDataModel2.getTime());
 
         // 遍历第二个 map
-        for (Map.Entry<String, Object> entry : apiDataModel2.getPathData().entrySet()) {
+        for (Map.Entry<String, Object> entry : BurpExtender.getDataBaseService().selectPathDataById(apiDataModel2.getPathDataIndex()).entrySet()) {
             String urlPath = entry.getKey();
             Map<String, Object> urlPathValue = (Map<String, Object>)entry.getValue();
 
@@ -237,7 +236,7 @@ public class IProxyScanner implements IProxyListener {
                 getUriData.put(urlPath, urlPathValue);
             }
         }
-        apiDataModel1.setPathData(getUriData);
+        apiDataModel1.setPathDataIndex(BurpExtender.getDataBaseService().insertOrUpdatePathData(url, getUriData));
         apiDataModel1.setPathNumber(String.valueOf(getUriData.size()));
         apiDataModel1.setResultInfo((apiDataModel1.getResultInfo() + "\r\n" + apiDataModel2.getResultInfo()).strip());
         return apiDataModel1;

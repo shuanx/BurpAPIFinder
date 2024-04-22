@@ -14,8 +14,6 @@ import java.util.Map;
 public class ApiDataModel {
     final String id;
     final String url;
-    byte[] requestsData;
-    byte[] responseData;
     IHttpService iHttpService;
     String status;
     final String isJsFindUrl;
@@ -24,28 +22,28 @@ public class ApiDataModel {
     Boolean havingImportant;
     String result ;
     String time;
-    Map<String, Object> pathData;
+    int pathDataIndex;
     String listStatus;
     String describe;
     String resultInfo;
+    int requestsResponseIndex;
 
 
 
-    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, byte[] requestsData, byte[] responseData, IHttpService iHttpService, String time, String status, String isJsFindUrl, String method, Map<String, Object> pathData, String describe, String resultInfo) {
+    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, int requestsResponseIndex, IHttpService iHttpService, String time, String status, String isJsFindUrl, String method, int pathDataIndex, String describe, String resultInfo) {
         this.listStatus = listStatus;
         this.id = id;
         this.url = url;
         this.pathNumber = pathNumber;
         this.havingImportant = havingImportant;
         this.result = result;
-        this.requestsData = requestsData;
-        this.responseData = responseData;
+        this.requestsResponseIndex = requestsResponseIndex;
         this.iHttpService = iHttpService;
         this.time = time;
         this.status = status;
         this.isJsFindUrl = isJsFindUrl;
         this.method = method;
-        this.pathData = pathData;
+        this.pathDataIndex = pathDataIndex;
         this.describe = describe;
         this.resultInfo = resultInfo;
     }
@@ -67,12 +65,8 @@ public class ApiDataModel {
         return resultInfo;
     }
 
-    public byte[] getRequestsData(){
-        return this.requestsData;
-    }
-
-    public byte[] getResponseData(){
-        return this.responseData;
+    public int getRequestsResponseIndex(){
+        return this.requestsResponseIndex;
     }
 
     public IHttpService getiHttpService(){
@@ -144,11 +138,11 @@ public class ApiDataModel {
         this.time = time;
     }
 
-    public Map<String, Object> getPathData() {
-        return pathData;
+    public int getPathDataIndex() {
+        return pathDataIndex;
     }
 
-    public void setPathData(Map<String, Object> pathData) {
-        this.pathData = pathData;
+    public void setPathDataIndex(int pathDataIndex) {
+        this.pathDataIndex = pathDataIndex;
     }
 }
