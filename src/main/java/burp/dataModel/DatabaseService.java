@@ -359,10 +359,10 @@ public class DatabaseService {
         try {
             if (this.connection != null && !this.connection.isClosed()) {
                 this.connection.close();
-                System.out.println("数据库连接已关闭。");
             }
         } catch (SQLException ex) {
-            System.err.println("关闭数据库连接时发生错误: " + ex.getMessage());
+            BurpExtender.getStderr().println("关闭数据库连接时发生错误: ");
+            ex.printStackTrace(BurpExtender.getStderr());
         }
     }
 
