@@ -369,7 +369,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         int numberOfRows = model.getRowCount();
         for (int i = 0; i < numberOfRows; i++) {
             try {
-                if (startDeleteIndex > model.getRowCount()){
+                if (startDeleteIndex > (model.getRowCount() - 1)){
                     break;
                 }
                 if (!model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_EXPAND) && !model.getValueAt(startDeleteIndex, 0).equals(Constants.TREE_STATUS_COLLAPSE)) {
