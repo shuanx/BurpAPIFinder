@@ -46,6 +46,8 @@ public class IProxyScanner implements IProxyListener {
         ConfigPanel.lbSuccessCount.setText("0");
         ConfigPanel.lbRequestCount.setText("0");
         BurpExtender.getDataBaseService().clearApiDataTable();
+        BurpExtender.getDataBaseService().clearPathDataTable();
+        BurpExtender.getDataBaseService().clearRequestsResponseTable();
     }
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
@@ -76,7 +78,7 @@ public class IProxyScanner implements IProxyListener {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-//                return;
+                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -157,10 +159,12 @@ public class IProxyScanner implements IProxyListener {
                     try{
                         ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(url, originalApiData, pathData, BurpExtender.getHelpers());
                         if (!BurpExtender.getDataBaseService().isExistApiDataModelByUri(Utils.getUriFromUrl(url))) {
+                            newOriginalApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
                             BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
                         } else {
                             ApiDataModel existedApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
                             ApiDataModel mergeApiData = mergeApiData(url, existedApiData, newOriginalApiData);
+                            mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
                             BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                         }
                     } catch (Exception e) {
@@ -214,7 +218,7 @@ public class IProxyScanner implements IProxyListener {
         // 合并PathData
         apiDataModel1.setTime(apiDataModel2.getTime());
 
-        apiDataModel1.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(url));
+        apiDataModel1.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(Utils.getUriFromUrl(url)));
         apiDataModel1.setResultInfo((apiDataModel1.getResultInfo() + "\r\n" + apiDataModel2.getResultInfo()).strip());
         return apiDataModel1;
     }

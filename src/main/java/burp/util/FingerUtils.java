@@ -86,7 +86,6 @@ public class FingerUtils {
                     // 是否为重要
                     if (rule.getIsImportant()) {
                         onePathData.put("isImportant", true);
-                        originalApiData.setHavingImportant(true);
                     }
                     String existingDescribe = (String) onePathData.get("describe");
                     if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
@@ -121,10 +120,10 @@ public class FingerUtils {
                     onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
             }
-            BurpExtender.getDataBaseService().insertOrUpdatePathData(url, onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
+            BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
 
         }
-        originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(url));
+        originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(Utils.getUriFromUrl(url)));
         return originalApiData;
     }
 }

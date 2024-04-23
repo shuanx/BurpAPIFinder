@@ -74,6 +74,69 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             }
         };;
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // 创建右键菜单
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem setUnImportantItem = new JMenuItem("误报");
+        popupMenu.add(setUnImportantItem);
+        // 将右键菜单添加到表格
+        table.setComponentPopupMenu(popupMenu);
+
+        setUnImportantItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected row from the table
+
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String listStatus = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String path = (String) table.getModel().getValueAt(selectedRow, 2);
+                    try {
+                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                            // Update the database
+                            String url = (String) model.getValueAt(selectedRow, 2); // Assuming URL is in column 2
+                            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                            if (apiDataModel != null) {
+                                apiDataModel.setHavingImportant(false);
+                                apiDataModel.setResult("误报");
+                                apiDataModel.setDescribe("误报");
+                                // Update the ApiDataModel in the database
+                                BurpExtender.getDataBaseService().updateApiDataModelByUrl(apiDataModel);
+                            }
+                        } else {
+                            String url = findUrlFromPath(selectedRow);
+                            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                            Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(url, path);
+                            matchPathData.put("result", "误报");
+                            matchPathData.put("describe", "误报");
+                            matchPathData.put("isImportant", false);
+                            BurpExtender.getDataBaseService().insertOrUpdatePathData(url, path, false, (String) matchPathData.get("status"), "误报", matchPathData);
+                            if (!BurpExtender.getDataBaseService().hasImportantPathDataByUrl(url)){
+                                apiDataModel.setHavingImportant(false);
+                                apiDataModel.setResult("误报");
+                                apiDataModel.setDescribe("误报");
+                                BurpExtender.getDataBaseService().updateApiDataModelByUrl(apiDataModel);
+                            }
+
+                        }
+                        // 触发显示所有行事件
+                        String searchText = "";
+                        if (!ConfigPanel.searchField.getText().isEmpty()){
+                            searchText = ConfigPanel.searchField.getText();
+                        }
+                        // 设置所有状态码为关闭
+                        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                        MailPanel.showFilter(selectedOption, searchText);
+
+                    }catch (Exception ek) {
+                        BurpExtender.getStderr().println("[-] chick setUnImportantItem error : " + path);
+                        ek.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                }
+            }
+        });
+
         upScrollPane = new JScrollPane(table);
         // 将upScrollPane作为mainSplitPane的上半部分
         mainSplitPane.setTopComponent(upScrollPane);
@@ -196,7 +259,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     refreshTableModel();
                 } catch (Exception ep){
                     BurpExtender.getStderr().println("[!] 刷新表格报错， 报错如下：");
-                    ep.printStackTrace(BurpExtender.getStdout());
+                    ep.printStackTrace(BurpExtender.getStderr());
                 }
             }
         });
@@ -207,6 +270,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
     public static void refreshTableModel(){
         // 刷新页面, 如果自动更新关闭，则不刷新页面内容
+        ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
         if(ConfigPanel.getFlashButtonStatus()){
             return;
         }
@@ -312,7 +376,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
 
         model.setValueAt(Constants.TREE_STATUS_EXPAND, index, 0);
-        List<Map<String, Object>> filteredPathData;
+        Map<String, Object> filteredPathData;
 
         if (selectedOption.equals("只看status为200")) {
             filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndStatus(apiDataModel.getUrl(), "200");
@@ -327,9 +391,11 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         }
 
         int tmpIndex = 0;
-        for (Map<String, Object> subPathValue : filteredPathData) {
+        for (Map.Entry<String, Object> entry : filteredPathData.entrySet()) {
             tmpIndex += 1;
             String listStatus;
+            String path = entry.getKey();
+            Map<String, Object> subPathValue = (Map<String, Object>) entry.getValue();
 
             if (tmpIndex != filteredPathData.size() && filteredPathData.size() != 1) {
                 listStatus = "┠";
@@ -339,7 +405,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
             model.insertRow(index + tmpIndex, new Object[]{
                     listStatus,
                     "-",
-                    subPathValue.get("path"), // Assuming 'path' is a key in your map
+                    path, // Assuming 'path' is a key in your map
                     "-",
                     subPathValue.get("method"),
                     subPathValue.get("status"),
