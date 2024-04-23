@@ -41,7 +41,9 @@ public class DatabaseService {
 
     private void initializeConnection() {
         try {
-            Class.forName("org.sqlite.JDBC");
+            // 注册 SQLite 驱动程序
+            Driver driver = new org.sqlite.JDBC();
+            DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(CONNECTION_STRING);
             // Enable foreign key support
             connection.createStatement().execute("PRAGMA foreign_keys = ON");
@@ -103,6 +105,10 @@ public class DatabaseService {
         String pathDataSQL = "CREATE TABLE IF NOT EXISTS path_data (\n"
                 + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
                 + " url TEXT NOT NULL,\n"
+                + " path TEXT NOT NULL,\n"
+                + " having_important INTEGER,\n"
+                + " status TEXT,\n"
+                + " result TEXT,\n"
                 + " path_data TEXT\n"
                 + ");";
 
@@ -132,7 +138,7 @@ public class DatabaseService {
 
     // Method to insert a new ApiDataModel
     public synchronized void insertApiDataModel(ApiDataModel model) {
-        String sql = "INSERT INTO api_data(pid, url, status, is_js_find_url, method, path_number, having_important, result, time, list_status, describe, result_info, path_data_index, request_response_index, host, port, protocol) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO api_data(pid, url, status, is_js_find_url, method, path_number, having_important, result, time, list_status, describe, result_info, request_response_index, host, port, protocol) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, model.getId());
@@ -147,11 +153,10 @@ public class DatabaseService {
             pstmt.setString(10, model.getListStatus());
             pstmt.setString(11, model.getDescribe());
             pstmt.setString(12, model.getResultInfo());
-            pstmt.setInt(13, model.getPathDataIndex());
-            pstmt.setInt(14, model.getRequestsResponseIndex());
-            pstmt.setString(15, model.getiHttpService().getHost());
-            pstmt.setInt(16, model.getiHttpService().getPort());
-            pstmt.setString(17, model.getiHttpService().getProtocol());
+            pstmt.setInt(13, model.getRequestsResponseIndex());
+            pstmt.setString(14, model.getiHttpService().getHost());
+            pstmt.setInt(15, model.getiHttpService().getPort());
+            pstmt.setString(16, model.getiHttpService().getProtocol());
             pstmt.executeUpdate();
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-]插入数据库报错： " + model);
@@ -206,7 +211,6 @@ public class DatabaseService {
                         rs.getString("status"),
                         rs.getString("is_js_find_url"),
                         rs.getString("method"),
-                        rs.getInt("path_data_index"), // 使用你已经定义的方法反序列化路径数据
                         rs.getString("describe"),
                         rs.getString("result_info")
                 );
@@ -233,7 +237,6 @@ public class DatabaseService {
                 + "time=?, "
                 + "describe=?, "
                 + "result_info=?, "
-                + "path_data_index=?, "
                 + "request_response_index=?, "
                 + "host=?, "
                 + "port=?, "
@@ -253,14 +256,13 @@ public class DatabaseService {
             pstmt.setString(8, model.getTime());
             pstmt.setString(9, model.getDescribe());
             pstmt.setString(10, model.getResultInfo());
-            pstmt.setInt(11, model.getPathDataIndex()); // 假设你有这个方法来序列化路径数据为 String
-            pstmt.setInt(12, model.getRequestsResponseIndex());
-            pstmt.setString(13, model.getiHttpService().getHost());
-            pstmt.setInt(14, model.getiHttpService().getPort());
-            pstmt.setString(15, model.getiHttpService().getProtocol());
+            pstmt.setInt(11, model.getRequestsResponseIndex());
+            pstmt.setString(12, model.getiHttpService().getHost());
+            pstmt.setInt(13, model.getiHttpService().getPort());
+            pstmt.setString(14, model.getiHttpService().getProtocol());
 
             // 最后设置匹配 URL 的参数
-            pstmt.setString(16, model.getUrl());
+            pstmt.setString(15, model.getUrl());
 
             // 执行更新
             pstmt.executeUpdate();
@@ -332,7 +334,6 @@ public class DatabaseService {
                         rs.getString("status"),
                         rs.getString("is_js_find_url"),
                         rs.getString("method"),
-                        rs.getInt("path_data_index"), // 使用你已经定义的方法反序列化路径数据
                         rs.getString("describe"),
                         rs.getString("result_info")
                 );
@@ -460,30 +461,43 @@ public class DatabaseService {
 
 
     // 方法以插入或更新 path_data 表
-    public synchronized int insertOrUpdatePathData(String url, Map<String, Object> pathData) {
+    // 方法以插入或更新 path_data 表
+    public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
-        String checkSql = "SELECT id FROM path_data WHERE url = ?";
+        String checkSql = "SELECT id, status FROM path_data WHERE url = ? AND path = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
             // 检查记录是否存在
             checkStmt.setString(1, url);
+            checkStmt.setString(2, path);
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
                 // 记录存在，更新记录
                 generatedId = rs.getInt("id");
-                String updateSql = "UPDATE path_data SET path_data = ? WHERE id = ?";
-                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
-                    updateStmt.setString(1, serializePathData(pathData));
-                    updateStmt.setInt(2, generatedId);
-                    updateStmt.executeUpdate();
+                String currentStatus = rs.getString("status");
+                // 如果记录存在，但状态不是200，则更新记录
+                if (!"200".equals(currentStatus)) {
+                    String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, path_data = ? WHERE id = ?";
+                    try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                        updateStmt.setBoolean(1, havingImportant);
+                        updateStmt.setString(2, status);
+                        updateStmt.setString(3, result);
+                        updateStmt.setString(4, serializePathData(pathData));
+                        updateStmt.setInt(5, generatedId);
+                        updateStmt.executeUpdate();
+                    }
                 }
             } else {
                 // 记录不存在，插入新记录
-                String insertSql = "INSERT INTO path_data(url, path_data) VALUES(?, ?)";
+                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, path_data) VALUES(?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                     insertStmt.setString(1, url);
-                    insertStmt.setString(2, serializePathData(pathData));
+                    insertStmt.setString(2, path);
+                    insertStmt.setBoolean(3, havingImportant);
+                    insertStmt.setString(4, status);
+                    insertStmt.setString(4, result);
+                    insertStmt.setString(5, serializePathData(pathData));
                     insertStmt.executeUpdate();
 
                     // 获取生成的键值
@@ -502,26 +516,184 @@ public class DatabaseService {
         return generatedId; // 返回ID值，无论是更新还是插入
     }
 
-    // 方法根据ID查询 path_data 表
-    public synchronized Map<String, Object> selectPathDataById(int id) {
-        String sql = "SELECT * FROM path_data WHERE id = ?";
-        Map<String, Object> pathDataJson = null;
+
+    public synchronized Map<String, Object> selectPathDataByUrlAndPath(String url, String path) {
+        String sql = "SELECT * FROM path_data WHERE url = ? AND path = ?";
+        Map<String, Object> pathData = null;
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, id);
+            pstmt.setString(1, url);
+            pstmt.setString(2, path);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    pathDataJson = deserializePathData(rs.getString("path_data"));
+                    pathData = deserializePathData(rs.getString("path_data"));
+                    // 你也可以将 having_important 和 result 字段添加到返回的 map 中
+                    pathData.put("having_important", rs.getInt("having_important"));
+                    pathData.put("result", rs.getString("result"));
                 }
             }
         } catch (Exception e) {
-            BurpExtender.getStderr().println("[-] Error selecting from path_data table by ID: " + id);
+            BurpExtender.getStderr().println("[-] Error selecting from path_data table by URL and Path: " + url + ", " + path);
             e.printStackTrace(BurpExtender.getStderr());
         }
-        return pathDataJson;
+        return pathData;
     }
+
+
+    public synchronized List<Map<String, Object>> selectAllPathDataByUrl(String url) {
+        String sql = "SELECT * FROM path_data WHERE url = ?";
+        List<Map<String, Object>> allPathData = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> pathData = new HashMap<>();
+                    // 直接从结果集中获取字段值
+                    pathData.put(rs.getString("path"), rs.getString("path_data"));
+                    allPathData.add(pathData);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting all from path_data table by URL: " + url);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return allPathData;
+    }
+
+    public synchronized String getPathDataCountByUrl(String url) {
+        String sql = "SELECT COUNT(*) FROM path_data WHERE url = ?";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1); // 获取第一列的值，即 COUNT(*) 的结果
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error counting path_data entries for URL: " + url);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return String.valueOf(count);
+    }
+
+    public synchronized List<Map<String, Object>> selectPathDataByConditions(
+            String url, String path, String result, boolean isImportant, String statusCondition) {
+        // 假设 statusCondition 是一个字符串，例如 "200"，用来匹配 status 字段
+        String sql = "SELECT * FROM path_data WHERE url = ? AND path = ? AND result LIKE ? AND having_important = ? AND status = ?";
+        List<Map<String, Object>> filteredPathData = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            pstmt.setString(2, path);
+            pstmt.setString(3, "%" + result + "%");
+            pstmt.setInt(4, isImportant ? 1 : 0);
+            pstmt.setString(5, statusCondition); // 添加 status 条件
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> pathData = new HashMap<>();
+                    // 直接从结果集中获取字段值
+                    pathData.put("id", rs.getInt("id"));
+                    pathData.put("url", rs.getString("url"));
+                    pathData.put("path", rs.getString("path"));
+                    pathData.put("having_important", rs.getInt("having_important"));
+                    pathData.put("status", rs.getString("status"));
+                    pathData.put("result", rs.getString("result"));
+                    // 假设 deserializePathData 方法可以处理 path_data 字段，将其转换成一个 Map
+                    pathData.putAll(deserializePathData(rs.getString("path_data")));
+                    filteredPathData.add(pathData);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data table with the given conditions: URL=" + url + ", Path=" + path + ", Result=" + result + ", IsImportant=" + isImportant + ", Status=" + statusCondition);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+    public synchronized List<Map<String, Object>> selectPathDataByUrlAndImportance(String url, boolean isImportant) {
+        String sql = "SELECT * FROM path_data WHERE url = ? AND having_important = ?";
+        List<Map<String, Object>> filteredPathData = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            pstmt.setInt(2, isImportant ? 1 : 0);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                Map<String, Object> pathData = new HashMap<>();
+                // 直接从结果集中获取字段值
+                pathData.put(rs.getString("path"), rs.getString("path_data"));
+                filteredPathData.add(pathData);
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndImportance: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+    public synchronized List<Map<String, Object>> selectPathDataByUrlAndStatus(String url, String status) {
+        String sql = "SELECT * FROM path_data WHERE url = ? AND status = ?";
+        List<Map<String, Object>> filteredPathData = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            pstmt.setString(2, status);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                Map<String, Object> pathData = new HashMap<>();
+                // 直接从结果集中获取字段值
+                pathData.put(rs.getString("path"), rs.getString("path_data"));
+                filteredPathData.add(pathData);
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndStatus: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+    public synchronized List<Map<String, Object>> selectPathDataByUrlAndResult(String url, String result) {
+        String sql = "SELECT * FROM path_data WHERE url = ? AND result LIKE ?";
+        List<Map<String, Object>> filteredPathData = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            pstmt.setString(2, "%" + result + "%");
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                Map<String, Object> pathData = new HashMap<>();
+                // 直接从结果集中获取字段值
+                pathData.put(rs.getString("path"), rs.getString("path_data"));
+                filteredPathData.add(pathData);
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndResult: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+
+
 
 
 

@@ -76,7 +76,7 @@ public class IProxyScanner implements IProxyListener {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
-                return;
+//                return;
             }
             if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
                 BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
@@ -102,7 +102,6 @@ public class IProxyScanner implements IProxyListener {
                             "-",
                             "-",
                             "-",
-                            BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), pathData),
                             "-",
                             "\r\n");
                     try {
@@ -156,7 +155,7 @@ public class IProxyScanner implements IProxyListener {
                     }
 
                     try{
-                        ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(originalApiData, pathData, BurpExtender.getHelpers());
+                        ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(url, originalApiData, pathData, BurpExtender.getHelpers());
                         if (!BurpExtender.getDataBaseService().isExistApiDataModelByUri(Utils.getUriFromUrl(url))) {
                             BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
                         } else {
@@ -213,31 +212,9 @@ public class IProxyScanner implements IProxyListener {
         apiDataModel1.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", ""));
 
         // 合并PathData
-        // 将第一个 map 的所有条目复制到新 map，作为基础
-        Map<String, Object> getUriData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel1.getPathDataIndex());
         apiDataModel1.setTime(apiDataModel2.getTime());
 
-        // 遍历第二个 map
-        for (Map.Entry<String, Object> entry : BurpExtender.getDataBaseService().selectPathDataById(apiDataModel2.getPathDataIndex()).entrySet()) {
-            String urlPath = entry.getKey();
-            Map<String, Object> urlPathValue = (Map<String, Object>)entry.getValue();
-
-            // 检查当前 key 在第一个 map 中是否存在
-            if (getUriData.containsKey(urlPath)) {
-                // 如果存在，检查 status
-                String existingValue = (String)urlPathValue.get("status");
-
-                // 如果新的 status 是200，或者现有的不是200，则替换
-                if (existingValue.contains("200")) {
-                    getUriData.put(urlPath, urlPathValue);
-                }
-            } else {
-                // 如果不存在，直接添加
-                getUriData.put(urlPath, urlPathValue);
-            }
-        }
-        apiDataModel1.setPathDataIndex(BurpExtender.getDataBaseService().insertOrUpdatePathData(url, getUriData));
-        apiDataModel1.setPathNumber(String.valueOf(getUriData.size()));
+        apiDataModel1.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(url));
         apiDataModel1.setResultInfo((apiDataModel1.getResultInfo() + "\r\n" + apiDataModel2.getResultInfo()).strip());
         return apiDataModel1;
     }

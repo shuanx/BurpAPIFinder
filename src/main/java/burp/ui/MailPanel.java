@@ -143,8 +143,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                         url = findUrlFromPath(row);
                                         ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
                                         ;
-                                        Map<String, Object> pathData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel.getPathDataIndex());
-                                        Map<String, Object> matchPathData = (Map<String, Object>) pathData.get(path);
+                                        Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
                                         requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
                                         responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
                                         iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
@@ -313,35 +312,34 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
 
         model.setValueAt(Constants.TREE_STATUS_EXPAND, index, 0);
+        List<Map<String, Object>> filteredPathData;
 
-        Map<String, Object> pathData = BurpExtender.getDataBaseService().selectPathDataById(apiDataModel.getPathDataIndex());
+        if (selectedOption.equals("只看status为200")) {
+            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndStatus(apiDataModel.getUrl(), "200");
+        } else if (selectedOption.equals("只看重点")) {
+            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndImportance(apiDataModel.getUrl(), true);
+        } else if (selectedOption.equals("只看敏感内容")) {
+            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(apiDataModel.getUrl(), "敏感内容");
+        } else if (selectedOption.equals("只看敏感路径")) {
+            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(apiDataModel.getUrl(), "敏感路径");
+        } else {
+            filteredPathData = BurpExtender.getDataBaseService().selectAllPathDataByUrl(apiDataModel.getUrl());
+        }
 
         int tmpIndex = 0;
-        for (Map.Entry<String, Object> pathEntry : pathData.entrySet()) {
-            Map<String, Object> subPathValue = (Map<String, Object>)pathEntry.getValue();
-            if (selectedOption.equals("只看status为200") && !((String)subPathValue.get("status")).contains("200")){
-                continue;
-            } else if (selectedOption.equals("只看重点") &&  !((Boolean) subPathValue.get("isImportant"))) {
-                continue;
-            } else if (selectedOption.equals("只看敏感内容") && !((String)subPathValue.get("result")).contains("敏感内容")){
-                continue;
-            } else if (selectedOption.equals("只看敏感路径") && !((String)subPathValue.get("result")).contains("敏感路径")) {
-                continue;
-            }
+        for (Map<String, Object> subPathValue : filteredPathData) {
             tmpIndex += 1;
             String listStatus;
 
-            if (tmpIndex != pathData.size() && pathData.size() != 1) {
+            if (tmpIndex != filteredPathData.size() && filteredPathData.size() != 1) {
                 listStatus = "┠";
-            } else if (pathData.size() == 1) {
-                listStatus = "┗";
             } else {
                 listStatus = "┗";
             }
-            model.insertRow(index+tmpIndex, new Object[]{
+            model.insertRow(index + tmpIndex, new Object[]{
                     listStatus,
                     "-",
-                    pathEntry.getKey(),
+                    subPathValue.get("path"), // Assuming 'path' is a key in your map
                     "-",
                     subPathValue.get("method"),
                     subPathValue.get("status"),
@@ -351,7 +349,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                     subPathValue.get("describe"),
                     subPathValue.get("time")
             });
-            model.fireTableRowsInserted(index+tmpIndex, index+tmpIndex);
+            model.fireTableRowsInserted(index + tmpIndex, index + tmpIndex);
         }
 
     }

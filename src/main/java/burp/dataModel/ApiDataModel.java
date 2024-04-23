@@ -22,7 +22,6 @@ public class ApiDataModel {
     Boolean havingImportant;
     String result ;
     String time;
-    int pathDataIndex;
     String listStatus;
     String describe;
     String resultInfo;
@@ -30,7 +29,7 @@ public class ApiDataModel {
 
 
 
-    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, int requestsResponseIndex, IHttpService iHttpService, String time, String status, String isJsFindUrl, String method, int pathDataIndex, String describe, String resultInfo) {
+    public ApiDataModel(String listStatus, String id, String url, String pathNumber, Boolean havingImportant, String result, int requestsResponseIndex, IHttpService iHttpService, String time, String status, String isJsFindUrl, String method, String describe, String resultInfo) {
         this.listStatus = listStatus;
         this.id = id;
         this.url = url;
@@ -43,7 +42,6 @@ public class ApiDataModel {
         this.status = status;
         this.isJsFindUrl = isJsFindUrl;
         this.method = method;
-        this.pathDataIndex = pathDataIndex;
         this.describe = describe;
         this.resultInfo = resultInfo;
     }
@@ -138,11 +136,4 @@ public class ApiDataModel {
         this.time = time;
     }
 
-    public int getPathDataIndex() {
-        return pathDataIndex;
-    }
-
-    public void setPathDataIndex(int pathDataIndex) {
-        this.pathDataIndex = pathDataIndex;
-    }
 }

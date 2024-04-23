@@ -112,9 +112,9 @@
       "location": "body",
       "keyword": [
         "description",
-        "name",
-        "message",
-        "Type",
+        "name\"",
+        "message\"",
+        "Type\"",
         "Content-Type: application/json"
       ],
       "type": "敏感内容",

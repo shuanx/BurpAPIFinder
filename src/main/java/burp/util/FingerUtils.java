@@ -20,11 +20,9 @@ import java.util.regex.PatternSyntaxException;
 public class FingerUtils {
 
 
-    public static ApiDataModel FingerFilter(ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
+    public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
 
-        // 对pathData进行匹配
-        Map<String, Object> newPathData = new HashMap<>();
         for (Map.Entry<String, Object> entry : pathData.entrySet()) {
             Map<String, Object> onePathData = (Map<String, Object>) entry.getValue();
             String onePath = entry.getKey();
@@ -122,12 +120,11 @@ public class FingerUtils {
                     originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
                     onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
-                newPathData.put(onePath, onePathData);
+                BurpExtender.getDataBaseService().insertOrUpdatePathData(url, onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
             }
 
         }
-        originalApiData.setPathDataIndex(BurpExtender.getDataBaseService().insertOrUpdatePathData(originalApiData.getUrl(), newPathData));
-        originalApiData.setPathNumber(String.valueOf(pathData.size()));
+        originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(url));
         return originalApiData;
     }
 }
