@@ -120,8 +120,8 @@ public class FingerUtils {
                     originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
                     onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
-                BurpExtender.getDataBaseService().insertOrUpdatePathData(url, onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
             }
+            BurpExtender.getDataBaseService().insertOrUpdatePathData(url, onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
 
         }
         originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(url));

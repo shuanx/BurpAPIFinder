@@ -631,7 +631,7 @@ public class DatabaseService {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, url);
-            pstmt.setInt(2, isImportant ? 1 : 0);
+            pstmt.setBoolean(2, isImportant);
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 Map<String, Object> pathData = new HashMap<>();
