@@ -27,7 +27,8 @@ public class IProxyScanner implements IProxyListener {
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
         int coreCount = Runtime.getRuntime().availableProcessors();
-        int maxPoolSize = coreCount * 2;  // 可以根据实际情况调整
+        coreCount = Math.max(coreCount, 20);
+        int maxPoolSize = coreCount * 2;
         BurpExtender.getStdout().println("[+] Number of threads enabled:: " + maxPoolSize);
         long keepAliveTime = 60L;
         executorService = new ThreadPoolExecutor(
