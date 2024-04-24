@@ -622,7 +622,9 @@ public class DatabaseService {
             pstmt.setBoolean(2, isImportant);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                }
             }
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndImportance: ");
@@ -642,7 +644,9 @@ public class DatabaseService {
             pstmt.setString(2, status);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                }
             }
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndStatus: ");
@@ -662,7 +666,9 @@ public class DatabaseService {
             pstmt.setString(2, "%" + result + "%");
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    filteredPathData.put(rs.getString("path"), deserializePathData(rs.getString("path_data")));
+                }
             }
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndResult: ");
