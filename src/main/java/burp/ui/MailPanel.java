@@ -20,6 +20,8 @@ import java.util.*;
 import javax.swing.Timer;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class MailPanel extends JPanel implements IMessageEditorController {
     private String tagName;
@@ -39,6 +41,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public static Timer timer;
     public static String historySearchText = "";
     public static String historySearchType = null;
+    public static LocalDateTime operationStartTime = LocalDateTime.now();
 
     public MailPanel(IBurpExtenderCallbacks callbacks, String name) {
         // 主分隔面板
@@ -100,8 +103,8 @@ public class MailPanel extends JPanel implements IMessageEditorController {
                                 apiDataModel.setHavingImportant(false);
                                 apiDataModel.setResult("误报");
                                 apiDataModel.setDescribe("误报");
-                                // Update the ApiDataModel in the database
                                 BurpExtender.getDataBaseService().updateApiDataModelByUrl(apiDataModel);
+                                BurpExtender.getDataBaseService().updateIsImportantToFalse(apiDataModel.getUrl());
                             }
                         } else {
                             String url = findUrlFromPath(selectedRow);
@@ -272,6 +275,9 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         // 刷新页面, 如果自动更新关闭，则不刷新页面内容
         ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
         if(ConfigPanel.getFlashButtonStatus()){
+            if (Duration.between(operationStartTime, LocalDateTime.now()).getSeconds() > 600){
+                ConfigPanel.setFlashButtonTrue();
+            }
             return;
         }
         // 触发显示所有行事件
@@ -371,6 +377,7 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public void modelExpand(ApiDataModel apiDataModel, int index) {
         // 关闭自动更新
         ConfigPanel.setFlashButtonFalse();
+        operationStartTime = LocalDateTime.now();
         // 看当前是否有过滤场景
         String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
 

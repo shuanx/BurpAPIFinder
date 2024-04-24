@@ -178,10 +178,6 @@ public class IProxyScanner implements IProxyListener {
     }
 
     public static ApiDataModel mergeApiData(String url, ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){
-        // 合并isImportant
-        if (apiDataModel2.getHavingImportant()){
-            apiDataModel1.setHavingImportant(true);
-        }
 
         // 合并status
         // 将字符串分割成数组
@@ -203,7 +199,7 @@ public class IProxyScanner implements IProxyListener {
         resultSet.addAll(Arrays.asList(apiDataResultList1));
         resultSet.addAll(Arrays.asList(apiDataResultList2));
         // 将 Set 转换回 String，元素之间用逗号分隔
-        apiDataModel1.setResult(String.join(",", resultSet).replace("-,", "").replace(",-", ""));
+        apiDataModel1.setResult(String.join(",", resultSet).replace("-,", "").replace(",-", "").replace(",误报", "").replace("误报,", ""));
 
         // 合并describe
         String[] apiDataDescribeList1 = apiDataModel1.getDescribe().split(",");
@@ -213,7 +209,7 @@ public class IProxyScanner implements IProxyListener {
         describeSet.addAll(Arrays.asList(apiDataDescribeList1));
         describeSet.addAll(Arrays.asList(apiDataDescribeList2));
         // 将 Set 转换回 String，元素之间用逗号分隔
-        apiDataModel1.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", ""));
+        apiDataModel1.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", "").replace(",误报", "").replace("误报,", ""));
 
         // 合并PathData
         apiDataModel1.setTime(apiDataModel2.getTime());

@@ -677,6 +677,38 @@ public class DatabaseService {
         return filteredPathData;
     }
 
+    public synchronized void updateIsImportantToFalse(String url) {
+        String selectSql = "SELECT path_data, path FROM path_data WHERE url = ? and having_important = 1";
+        String updateSql = "UPDATE path_data SET path_data = ? , having_important = 0 WHERE url = ? and path = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement selectStmt = conn.prepareStatement(selectSql);
+             PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+
+            // 执行查询
+            selectStmt.setString(1, url);
+            ResultSet rs = selectStmt.executeQuery();
+
+            // 如果查询结果不为空
+            while (rs.next()) {
+                Map<String, Object> allPathData = deserializePathData(rs.getString("path_data"));
+                // 修改isImportant为false
+                allPathData.put("isImportant", false);
+                allPathData.put("result", "误报");
+                allPathData.put("describe", "误报");
+                // 将更新后的JSON字符串更新回数据库
+                updateStmt.setString(1, serializePathData(allPathData));
+                updateStmt.setString(2, url);
+                updateStmt.setString(3, rs.getString("path"));
+                updateStmt.executeUpdate();
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error updating isImportant in path_data table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+    }
+
+
     public synchronized boolean hasImportantPathDataByUrl(String url) {
         String sql = "SELECT EXISTS(SELECT 1 FROM path_data WHERE url = ? AND having_important = 1)";
         boolean hasImportant = false;

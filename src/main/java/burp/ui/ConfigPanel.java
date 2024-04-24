@@ -2,6 +2,7 @@ package burp.ui;
 
 import burp.*;
 import burp.util.UiUtils;
+import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ConfigPanel extends JPanel {
@@ -218,6 +220,7 @@ public class ConfigPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // 清空表格模型中的所有行数据
                 MailPanel.clearAllData();
+                setFlashButtonTrue();
             }
         });
 
@@ -230,6 +233,7 @@ public class ConfigPanel extends JPanel {
                     String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
                     MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonFalse();
+                    MailPanel.operationStartTime = LocalDateTime.now();
                 }
             }
         });
@@ -241,6 +245,7 @@ public class ConfigPanel extends JPanel {
                     String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
                     MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonFalse();
+                    MailPanel.operationStartTime = LocalDateTime.now();
                 }
             }
         });
@@ -261,6 +266,7 @@ public class ConfigPanel extends JPanel {
                 }else{
                     MailPanel.showFilter(selectedOption, searchText);
                     setFlashButtonFalse();
+                    MailPanel.operationStartTime = LocalDateTime.now();
                 }
             }
         });
