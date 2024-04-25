@@ -243,8 +243,15 @@ public class MailPanel extends JPanel implements IMessageEditorController {
 
         toolbar.add(configPanel, BorderLayout.NORTH);
         toolbar.add(mainSplitPane, BorderLayout.CENTER);
-        add(toolbar, BorderLayout.NORTH);
-        add(infoSplitPane, BorderLayout.CENTER);
+        // 创建一个新的垂直 JSplitPane
+        JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        verticalSplitPane.setOneTouchExpandable(true); // 允许有一个快速展开/折叠的按钮
+        verticalSplitPane.setResizeWeight(0.5); // 设置初始分割比例
+        // 将 toolbar 和 infoSplitPane 添加到新的 JSplitPane
+        verticalSplitPane.setTopComponent(toolbar);
+        verticalSplitPane.setBottomComponent(infoSplitPane);
+        // 将 verticalSplitPane 添加到窗口的中心区域
+        add(verticalSplitPane, BorderLayout.CENTER);
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Result Info", resultDeViewer.getComponent());
         tabs.addTab("Original Response", responseTextEditor.getComponent());
