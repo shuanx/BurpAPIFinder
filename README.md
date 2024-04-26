@@ -16,13 +16,13 @@
 - [x] 提取网站的URL链接和解析JS文件中的URL链接
 - [x] 前段界面可自行定义铭感关键词、敏感url匹配
 - [x] 界面可配置的开启主动接口探测、铭感信息获取
-- [x] 集成主流攻防场景敏感信息泄漏的指纹库
+- [x] 集成主流攻防场景敏感信息泄漏的指纹库  
 ![img.png](images/config.png)
-- [x] 集成HaE的敏感信息识别指纹
+- [x] 集成HaE的敏感信息识别指纹  
 ![img.png](images/HaE.png)
-- [x] 集成APIKit的敏感信息识别指纹
+- [x] 集成APIKit的敏感信息识别指纹  
 ![img.png](images/APIKit.png)
-- [x] 集成sweetPotato的敏感信息识别指纹
+- [x] 集成sweetPotato的敏感信息识别指纹  
 ![img.png](images/sweetPotato.png)
 
 ## 闲聊/优化/建议/问题反馈群
