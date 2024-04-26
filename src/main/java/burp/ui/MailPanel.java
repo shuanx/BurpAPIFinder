@@ -8,6 +8,7 @@ import burp.util.Constants;
 import burp.util.Utils;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -23,8 +24,9 @@ import java.util.List;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class MailPanel extends JPanel implements IMessageEditorController {
+public class MailPanel implements IMessageEditorController {
     private String tagName;
+    public static JPanel contentPane;
     private JSplitPane mainSplitPane;
     private JSplitPane infoSplitPane;
     private static IMessageEditor requestTextEditor;
@@ -43,15 +45,18 @@ public class MailPanel extends JPanel implements IMessageEditorController {
     public static String historySearchType = null;
     public static LocalDateTime operationStartTime = LocalDateTime.now();
 
+    public static JPanel getContentPane(){
+        return contentPane;
+    }
+
     public MailPanel(IBurpExtenderCallbacks callbacks, String name) {
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(new BorderLayout(0, 0));
         // 主分隔面板
         mainSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         infoSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        setLayout(new BorderLayout());
         tagName = name;
-
-        JPanel toolbar = new JPanel();
-        toolbar.setLayout(new BorderLayout());
 
         // 首行配置面板
         configPanel = new ConfigPanel();
@@ -241,22 +246,15 @@ public class MailPanel extends JPanel implements IMessageEditorController {
         // 详细结果面板
         resultDeViewer = BurpExtender.getCallbacks().createTextEditor();
 
-        toolbar.add(configPanel, BorderLayout.NORTH);
-        toolbar.add(mainSplitPane, BorderLayout.CENTER);
-        // 创建一个新的垂直 JSplitPane
-        JSplitPane verticalSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        verticalSplitPane.setOneTouchExpandable(true); // 允许有一个快速展开/折叠的按钮
-        verticalSplitPane.setResizeWeight(0.5); // 设置初始分割比例
-        // 将 toolbar 和 infoSplitPane 添加到新的 JSplitPane
-        verticalSplitPane.setTopComponent(toolbar);
-        verticalSplitPane.setBottomComponent(infoSplitPane);
         // 将 verticalSplitPane 添加到窗口的中心区域
-        add(verticalSplitPane, BorderLayout.CENTER);
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Result Info", resultDeViewer.getComponent());
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
-        infoSplitPane.setBottomComponent(tabs);
+        mainSplitPane.setBottomComponent(tabs);
+
+        contentPane.add(configPanel, BorderLayout.NORTH);
+        contentPane.add(mainSplitPane, BorderLayout.CENTER);
 
         // 构建一个定时刷新页面函数
         // 创建一个每5秒触发一次的定时器
