@@ -564,6 +564,27 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
+        "\"accessKeyId\""
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "accessKeyId",
+        "secretAccessKey"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
         "password",
         "HOST:",
         "NAME"

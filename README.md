@@ -1,7 +1,7 @@
 # BurpAPIFinder
 ![](https://img.shields.io/badge/Author-Shaun-blue)
 ![](https://img.shields.io/badge/JDK-9+-yellow)
-![](https://img.shields.io/badge/捡漏是问艺术-往往有意想不到的成果-red)
+![](https://img.shields.io/badge/捡漏是门艺术-往往有意想不到的成果-red)
 > 攻防演练过程中，我们通常会用浏览器访问一些资产，但很多未授权/敏感信息/越权隐匿在已访问接口过html、JS文件等，通过该Burp插件我们可以：  
 > 1、发现通过某接口可以进行未授权/越权获取到所有的账号密码、私钥、凭证  
 > 2、发现通过某接口可以枚举用户信息、密码修改、用户创建接口  
