@@ -25,10 +25,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class MailPanel implements IMessageEditorController {
-    private String tagName;
     public static JPanel contentPane;
     private JSplitPane mainSplitPane;
-    private JSplitPane infoSplitPane;
     private static IMessageEditor requestTextEditor;
     private static IMessageEditor responseTextEditor;
     public static byte[] requestsData;
@@ -55,8 +53,6 @@ public class MailPanel implements IMessageEditorController {
         contentPane.setLayout(new BorderLayout(0, 0));
         // 主分隔面板
         mainSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        infoSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        tagName = name;
 
         // 首行配置面板
         configPanel = new ConfigPanel();
@@ -215,12 +211,18 @@ public class MailPanel implements IMessageEditorController {
                                         ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
                                         ;
                                         Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
-                                        requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
-                                        responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
-                                        iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
-                                        requestTextEditor.setMessage(requestsData, true);
-                                        responseTextEditor.setMessage(responseData, false);
-                                        resultDeViewer.setText(((String) matchPathData.get("result info")).getBytes());
+                                        if (((String)matchPathData.get("status")).equals("等待爬取")){
+                                            resultDeViewer.setText("等待爬取，爬取后再进行铭感信息探测...".getBytes());
+                                            requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
+                                            responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
+                                        }else{
+                                            requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
+                                            responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
+                                            iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
+                                            requestTextEditor.setMessage(requestsData, true);
+                                            responseTextEditor.setMessage(responseData, false);
+                                            resultDeViewer.setText(((String) matchPathData.get("result info")).getBytes());
+                                        }
                                     } catch (Exception e) {
                                         e.printStackTrace(BurpExtender.getStderr());
                                     }

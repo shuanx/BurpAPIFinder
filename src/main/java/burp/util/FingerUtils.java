@@ -26,6 +26,12 @@ public class FingerUtils {
         for (Map.Entry<String, Object> entry : pathData.entrySet()) {
             Map<String, Object> onePathData = (Map<String, Object>) entry.getValue();
             String onePath = entry.getKey();
+            // 未进行爬取的，则直接入库
+            if (((String) onePathData.get("status")).equals("等待爬取")){
+                BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
+                continue;
+            }
+
             byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
             // status更新
             if (originalApiData.getStatus().equals("-")){

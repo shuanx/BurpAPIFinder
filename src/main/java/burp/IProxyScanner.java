@@ -27,7 +27,6 @@ public class IProxyScanner implements IProxyListener {
         helpers = BurpExtender.getHelpers();
         // 先新建一个进程用于后续处理任务
         int coreCount = Runtime.getRuntime().availableProcessors();
-        coreCount = Math.max(coreCount, 20);
         int maxPoolSize = coreCount * 2;
         BurpExtender.getStdout().println("[+] Number of threads enabled:: " + maxPoolSize);
         long keepAliveTime = 60L;
@@ -130,21 +129,34 @@ public class IProxyScanner implements IProxyListener {
                                 pathData.put(Utils.getPathFromUrl(url), getUriData);
                             }
 
-                            if (!ConfigPanel.toggleButton.isSelected()) {
-                                // 针对html页面提取
-                                Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
-                                // 针对JS页面提取
-                                if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
-                                    urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
+                            // 针对html页面提取
+                            Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
+                            // 针对JS页面提取
+                            if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
+                                urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
+                            }
+                            // 依次遍历urlSet获取其返回的response值
+                            for (String getUrl : urlSet) {
+                                if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4) {
+                                    BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
+                                    continue;
                                 }
-                                // 依次遍历urlSet获取其返回的response值
-                                for (String getUrl : urlSet) {
-                                    if (Utils.isGetUrlExt(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4) {
-                                        BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
-                                        continue;
-                                    }
-                                    pathData.put(Utils.getPathFromUrl(getUrl), HTTPUtils.makeGetRequest(getUrl));
-                                }
+                                // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
+                                Map<String, Object> originalData = new HashMap<String, Object>();
+                                originalData.put("requests", null);
+                                originalData.put("response", null);
+                                originalData.put("host", requestResponse.getHttpService().getHost());
+                                originalData.put("port", requestResponse.getHttpService().getPort());
+                                originalData.put("protocol", requestResponse.getHttpService().getProtocol());
+                                originalData.put("isJsFindUrl", "Y");
+                                originalData.put("method", "GET");
+                                originalData.put("status", "等待爬取");
+                                originalData.put("isImportant", false);
+                                originalData.put("result", "-");
+                                originalData.put("result info", "-");
+                                originalData.put("describe", "-");
+                                originalData.put("time", '-');
+                                pathData.put(Utils.getPathFromUrl(getUrl), originalData);
                             }
 
                             if (pathData.isEmpty()) {
