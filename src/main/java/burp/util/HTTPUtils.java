@@ -17,31 +17,17 @@ import java.util.Map;
  * @description：TODO
  */
 public class HTTPUtils {
-    public static Map<String, Object> makeGetRequest(String getUrl) {
+    public static Map<String, Object> makeGetRequest(Map<String, Object> pathDataModel) {
+        Map<String, Object> onePathData = (Map<String, Object>) pathDataModel.get("path_data");
+        onePathData.put("path", pathDataModel.get("path"));
+        onePathData.put("url", pathDataModel.get("url"));
         // 解析URL
-        String host;
-        int port;
-        String protocol;
-        String path;
-        try {
-            // 创建URL对象
-            URL url = new URL(getUrl);
-            // 获取protocol、host、port、path
-            protocol = url.getProtocol();
-            host = url.getHost();
-            port = url.getPort();
-            if (port == -1 && protocol.equalsIgnoreCase("http")){
-                port = 80;
-            } else if (port == -1 && protocol.equalsIgnoreCase("https")) {
-                port = 443;
-            }
-            path = url.getPath();
-            // 分析URL
-        } catch (Exception e) {
-            // 处理可能出现的MalformedURLException
-            BurpExtender.getStdout().println("Invalid URL: " + getUrl);
-            return null;
-        }
+        String host = (String) onePathData.get("host");
+        // 使用Number作为中间类型，以应对可能不同的数字类型
+        Number portNumber = (Number) onePathData.get("port");
+        int port = portNumber.intValue();
+        String protocol = (String) onePathData.get("protocol");
+        String path = (String) onePathData.get("path");
         // 创建IHttpService对象
         IHttpService httpService = BurpExtender.getHelpers().buildHttpService(host, port, protocol);
 
@@ -52,34 +38,36 @@ public class HTTPUtils {
                 "\r\n";
         byte[] requestBytes = request.getBytes();
 
-        // 发起请求
-        IHttpRequestResponse requestResponse = BurpExtender.getCallbacks().makeHttpRequest(httpService, requestBytes);
+        // 初始化返回数据结构
+        onePathData.put("method", "GET");
+        onePathData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
 
-        // 获取响应字节
-        byte[] responseBytes = requestResponse.getResponse();
-        String statusCode = "error";
-        if (responseBytes != null) {
-            // 解析响应
-            statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
+        IHttpRequestResponse requestResponse = null;
+
+        try {
+            // 发起请求
+            requestResponse = BurpExtender.getCallbacks().makeHttpRequest(httpService, requestBytes);
+            // 空检查
+            if (requestResponse == null || requestResponse.getResponse() == null) {
+                throw new IllegalStateException("Request failed, no response received.");
+            }
+
+            // 获取响应字节
+            byte[] responseBytes = requestResponse.getResponse();
+            String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
+
+            // 添加请求和响应数据到返回数据结构
+            onePathData.put("requests", Base64.getEncoder().encodeToString(requestBytes));
+            onePathData.put("response", Base64.getEncoder().encodeToString(responseBytes));
+            onePathData.put("status", statusCode);
+        } catch (Exception e) {
+            // 异常处理，记录错误信息
+            onePathData.put("status", "请求报错");
+            onePathData.put("requests", Base64.getEncoder().encodeToString(requestBytes));
+            onePathData.put("response", Base64.getEncoder().encodeToString(e.getMessage().getBytes()));
         }
 
-        // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-        Map<String, Object> originalData = new HashMap<String, Object>();
-        originalData.put("requests", Base64.getEncoder().encodeToString(requestResponse.getRequest()));
-        originalData.put("response", Base64.getEncoder().encodeToString(requestResponse.getResponse()));
-        originalData.put("host", requestResponse.getHttpService().getHost());
-        originalData.put("port", requestResponse.getHttpService().getPort());
-        originalData.put("protocol", requestResponse.getHttpService().getProtocol());
-        originalData.put("isJsFindUrl", "Y");
-        originalData.put("method", "GET");
-        originalData.put("status", statusCode);
-        originalData.put("isImportant", false);
-        originalData.put("result", "-");
-        originalData.put("result info", "-");
-        originalData.put("describe", "-");
-        originalData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-
-        return originalData;
+        return onePathData;
 
     }
 }

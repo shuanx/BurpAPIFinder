@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class ConfigPanel extends JPanel {
     public static JLabel lbRequestCount;
@@ -254,19 +255,24 @@ public class ConfigPanel extends JPanel {
         choicesComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 触发显示所有行事件
-                String searchText = searchField.getText();
-                if(searchText.isEmpty()){
-                    searchText = "";
-                }
-                String selectedOption = (String)choicesComboBox.getSelectedItem();
-                if (selectedOption.equals("全部")){
-                    MailPanel.showFilter(selectedOption, searchText);
-                    setFlashButtonTrue();
-                }else{
-                    MailPanel.showFilter(selectedOption, searchText);
-                    setFlashButtonFalse();
-                    MailPanel.operationStartTime = LocalDateTime.now();
+                try{
+                    // 触发显示所有行事件
+                    String searchText = searchField.getText();
+                    if(searchText.isEmpty()){
+                        searchText = "";
+                    }
+                    String selectedOption = (String)choicesComboBox.getSelectedItem();
+                    if (selectedOption.equals("全部")){
+                        MailPanel.showFilter(selectedOption, searchText);
+                        setFlashButtonTrue();
+                    }else{
+                        MailPanel.showFilter(selectedOption, searchText);
+                        setFlashButtonFalse();
+                        MailPanel.operationStartTime = LocalDateTime.now();
+                    }
+                } catch (Exception ex) {
+                    BurpExtender.getStderr().println("[!] choicesComboBox:");
+                    ex.printStackTrace(BurpExtender.getStderr());
                 }
             }
         });

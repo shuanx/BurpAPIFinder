@@ -2,6 +2,7 @@ package burp;
 
 import burp.ui.ConfigPanel;
 import burp.dataModel.ApiDataModel;
+import burp.ui.MailPanel;
 import burp.util.*;
 
 import java.net.URL;
@@ -10,6 +11,9 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,6 +26,7 @@ public class IProxyScanner implements IProxyListener {
     public static int totalScanCount = 0;
     final ThreadPoolExecutor executorService;  // 修改这行
     private static IExtensionHelpers helpers;
+    private static ScheduledExecutorService monitorExecutor;
 
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
@@ -39,6 +44,54 @@ public class IProxyScanner implements IProxyListener {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.CallerRunsPolicy() // 当线程池和队列都满时，任务在调用者线程中执行
         );
+        // 初始化监控线程
+        monitorExecutor = Executors.newSingleThreadScheduledExecutor();
+        startDatabaseMonitor();
+    }
+
+    private void startDatabaseMonitor() {
+        // 设置定期执行的任务，这里假设每10秒钟检查一次
+        monitorExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                // 这里编写检查数据库的逻辑
+                try {
+                    if (ConfigPanel.toggleButton.isSelected()){
+                        return;
+                    }
+                    Map<String, Object> onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling();
+                    if (onePathData.isEmpty()){
+                        return;
+                    }
+                    ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
+                    mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
+                    BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+                    BurpExtender.getStdout().println("[~] monitorExecutor running .");
+                } catch (Exception e) {
+                    BurpExtender.getStderr().println("[!] scheduleAtFixedRate error: ");
+                    e.printStackTrace(BurpExtender.getStderr());
+                }
+            }
+        }, 0, 5, TimeUnit.SECONDS);
+    }
+
+    public static void shutdownMonitorExecutor() {
+        // 关闭监控线程池
+        if (monitorExecutor != null && !monitorExecutor.isShutdown()) {
+            monitorExecutor.shutdown();
+            try {
+                // 等待线程池终止，设置一个合理的超时时间
+                if (!monitorExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+                    // 如果线程池没有在规定时间内终止，则强制关闭
+                    monitorExecutor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                // 如果等待期间线程被中断，恢复中断状态
+                Thread.currentThread().interrupt();
+                // 强制关闭
+                monitorExecutor.shutdownNow();
+            }
+        }
     }
 
     public static void setHaveScanUrlNew(){
@@ -126,6 +179,8 @@ public class IProxyScanner implements IProxyListener {
                                 getUriData.put("result info", "-");
                                 getUriData.put("describe", "-");
                                 getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+                                getUriData.put("url", Utils.getUriFromUrl(url));
+                                getUriData.put("path", Utils.getPathFromUrl(url));
                                 pathData.put(Utils.getPathFromUrl(url), getUriData);
                             }
 
@@ -156,6 +211,8 @@ public class IProxyScanner implements IProxyListener {
                                 originalData.put("result info", "-");
                                 originalData.put("describe", "-");
                                 originalData.put("time", '-');
+                                originalData.put("url", Utils.getUriFromUrl(url));
+                                originalData.put("path", Utils.getPathFromUrl(getUrl));
                                 pathData.put(Utils.getPathFromUrl(getUrl), originalData);
                             }
 
@@ -231,5 +288,6 @@ public class IProxyScanner implements IProxyListener {
         apiDataModel1.setResultInfo((apiDataModel1.getResultInfo() + "\r\n" + apiDataModel2.getResultInfo()).strip());
         return apiDataModel1;
     }
+
 
 }

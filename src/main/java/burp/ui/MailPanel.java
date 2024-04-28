@@ -16,13 +16,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.*;
 import javax.swing.Timer;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import javax.swing.SwingWorker;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class MailPanel implements IMessageEditorController {
     public static JPanel contentPane;
@@ -278,24 +280,43 @@ public class MailPanel implements IMessageEditorController {
         timer.start();
     }
 
-    public static void refreshTableModel(){
+    public void refreshTableModel() {
         // 刷新页面, 如果自动更新关闭，则不刷新页面内容
         ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
-        if(ConfigPanel.getFlashButtonStatus()){
-            if (Duration.between(operationStartTime, LocalDateTime.now()).getSeconds() > 600){
+
+        if (ConfigPanel.getFlashButtonStatus()) {
+            if (Duration.between(operationStartTime, LocalDateTime.now()).getSeconds() > 600) {
                 ConfigPanel.setFlashButtonTrue();
             }
             return;
         }
-        // 触发显示所有行事件
-        String searchText = "";
-        if (!ConfigPanel.searchField.getText().isEmpty()){
-            searchText = ConfigPanel.searchField.getText();
-        }
-        // 设置所有状态码为关闭
-        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-        MailPanel.showFilter(selectedOption, searchText);
+
+        // 在EDT上获取值
+        final String searchText = ConfigPanel.searchField.getText();
+        final String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+
+        // 使用SwingWorker来处理数据更新，避免阻塞EDT
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // 执行耗时的数据操作
+                MailPanel.showFilter(selectedOption, searchText.isEmpty() ? "" : searchText);
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // 更新UI组件
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        model.fireTableDataChanged(); // 通知模型数据发生了变化，而不是连续插入或删除行
+                    }
+                });
+            }
+        };
+        worker.execute();
     }
+
 
     @Override
     public byte[] getRequest() {
@@ -311,49 +332,58 @@ public class MailPanel implements IMessageEditorController {
     public IHttpService getHttpService() {
         return iHttpService;
     }
+    public static void showFilter(String selectOption, String searchText) {
+        // 在后台线程获取数据，避免冻结UI
+        new SwingWorker<DefaultTableModel, Void>() {
+            @Override
+            protected DefaultTableModel doInBackground() throws Exception {
+                // 构建一个新的表格模型
+                model.setRowCount(0);
 
-    public static void showFilter(String selectOption, String searchText){
-        synchronized (model) {
-            // 清空model后，根据URL来做匹配
-            model.setRowCount(0);
-            BurpExtender.getDataBaseService().updateListStatus(Constants.TREE_STATUS_COLLAPSE);
-            // 判断当前历史记录是否为空
-            if((selectOption.equals("全部"))){
-                historySearchText = searchText;
+                // 获取数据库中的所有ApiDataModels
+                List<ApiDataModel> allApiDataModels = BurpExtender.getDataBaseService().getAllApiDataModels();
+
+                // 遍历apiDataModelMap
+                for (ApiDataModel apiDataModel : allApiDataModels) {
+                    String url = apiDataModel.getUrl();
+                    if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
+                        continue;
+                    } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
+                        continue;
+                    } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
+                        continue;
+                    } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
+                        continue;
+                    }
+                    if (url.toLowerCase().contains(searchText.toLowerCase())) {
+                        model.insertRow(0, new Object[]{
+                                Constants.TREE_STATUS_COLLAPSE,
+                                apiDataModel.getId(),
+                                apiDataModel.getUrl(),
+                                apiDataModel.getPATHNumber(),
+                                apiDataModel.getMethod(),
+                                apiDataModel.getStatus(),
+                                apiDataModel.getIsJsFindUrl(),
+                                apiDataModel.getHavingImportant(),
+                                apiDataModel.getResult(),
+                                apiDataModel.getDescribe(),
+                                apiDataModel.getTime()
+                        });
+                    }
+                }
+                return null;
             }
 
-            // 获取数据库中的所有ApiDataModels
-            List<ApiDataModel> allApiDataModels = BurpExtender.getDataBaseService().getAllApiDataModels();
-
-            // 遍历apiDataModelMap
-            for (ApiDataModel apiDataModel : allApiDataModels) {
-                String url = apiDataModel.getUrl();
-                if (selectOption.equals("只看status为200") && !apiDataModel.getStatus().contains("200")){
-                    continue;
-                } else if (selectOption.equals("只看重点") &&  !apiDataModel.getHavingImportant()) {
-                    continue;
-                } else if (selectOption.equals("只看敏感内容") && !apiDataModel.getResult().contains("敏感内容")){
-                    continue;
-                } else if (selectOption.equals("只看敏感路径") && !apiDataModel.getResult().contains("敏感路径")) {
-                    continue;
-                }
-                if (url.toLowerCase().contains(searchText.toLowerCase())) {
-                    model.insertRow(0, new Object[]{
-                            Constants.TREE_STATUS_COLLAPSE,
-                            apiDataModel.getId(),
-                            apiDataModel.getUrl(),
-                            apiDataModel.getPATHNumber(),
-                            apiDataModel.getMethod(),
-                            apiDataModel.getStatus(),
-                            apiDataModel.getIsJsFindUrl(),
-                            apiDataModel.getHavingImportant(),
-                            apiDataModel.getResult(),
-                            apiDataModel.getDescribe(),
-                            apiDataModel.getTime()
-                    });
+            @Override
+            protected void done() {
+                try {
+                    get();
+                } catch (InterruptedException | ExecutionException e) {
+                    BurpExtender.getStderr().println("[!] showFilter error:");
+                    e.printStackTrace(BurpExtender.getStderr());
                 }
             }
-        }
+        }.execute();
     }
 
     public static void clearAllData(){
@@ -379,60 +409,84 @@ public class MailPanel implements IMessageEditorController {
             MailPanel.responseData = null;
         }
     }
-
-
     public void modelExpand(ApiDataModel apiDataModel, int index) {
-        // 关闭自动更新
+        // Disable auto-refresh
         ConfigPanel.setFlashButtonFalse();
-        operationStartTime = LocalDateTime.now();
-        // 看当前是否有过滤场景
-        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
 
+        // SwingWorker to fetch data in the background
+        SwingWorker<List<Object[]>, Void> worker = new SwingWorker<List<Object[]>, Void>() {
+            @Override
+            protected List<Object[]> doInBackground() throws Exception {
+                // Fetch data in the background thread
+                String selectedOption = (String) ConfigPanel.choicesComboBox.getSelectedItem();
+                Map<String, Object> filteredPathData = fetchData(selectedOption, apiDataModel.getUrl());
 
-        model.setValueAt(Constants.TREE_STATUS_EXPAND, index, 0);
-        Map<String, Object> filteredPathData;
+                // Prepare table rows
+                List<Object[]> rows = new ArrayList<>();
+                int tmpIndex = 0;
+                for (Map.Entry<String, Object> entry : filteredPathData.entrySet()) {
+                    tmpIndex++;
+                    String listStatus = (tmpIndex == 1) ? "┗" : "┠";
+                    String path = entry.getKey();
+                    Map<String, Object> subPathValue = (Map<String, Object>) entry.getValue();
 
-        if (selectedOption.equals("只看status为200")) {
-            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndStatus(apiDataModel.getUrl(), "200");
-        } else if (selectedOption.equals("只看重点")) {
-            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndImportance(apiDataModel.getUrl(), true);
-        } else if (selectedOption.equals("只看敏感内容")) {
-            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(apiDataModel.getUrl(), "敏感内容");
-        } else if (selectedOption.equals("只看敏感路径")) {
-            filteredPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(apiDataModel.getUrl(), "敏感路径");
-        } else {
-            filteredPathData = BurpExtender.getDataBaseService().selectAllPathDataByUrl(apiDataModel.getUrl());
-        }
-
-        int tmpIndex = 0;
-        for (Map.Entry<String, Object> entry : filteredPathData.entrySet()) {
-            tmpIndex += 1;
-            String listStatus;
-            String path = entry.getKey();
-            Map<String, Object> subPathValue = (Map<String, Object>) entry.getValue();
-
-            if (tmpIndex != filteredPathData.size() && filteredPathData.size() != 1) {
-                listStatus = "┠";
-            } else {
-                listStatus = "┗";
+                    rows.add(new Object[]{
+                            listStatus,
+                            "-",
+                            path,
+                            "-",
+                            subPathValue.get("method"),
+                            subPathValue.get("status"),
+                            subPathValue.get("isJsFindUrl"),
+                            subPathValue.get("isImportant"),
+                            subPathValue.get("result"),
+                            subPathValue.get("describe"),
+                            subPathValue.get("time")
+                    });
+                }
+                return rows;
             }
-            model.insertRow(index + tmpIndex, new Object[]{
-                    listStatus,
-                    "-",
-                    path, // Assuming 'path' is a key in your map
-                    "-",
-                    subPathValue.get("method"),
-                    subPathValue.get("status"),
-                    subPathValue.get("isJsFindUrl"),
-                    subPathValue.get("isImportant"),
-                    subPathValue.get("result"),
-                    subPathValue.get("describe"),
-                    subPathValue.get("time")
-            });
-            model.fireTableRowsInserted(index + tmpIndex, index + tmpIndex);
-        }
 
+            @Override
+            protected void done() {
+                try {
+                    // Update table model on the EDT
+                    List<Object[]> rows = get();
+                    if (!rows.isEmpty()) {
+                        for (Object[] row : rows) {
+                            model.insertRow(index + 1, row);
+                        }
+                        model.fireTableRowsInserted(index + 1, index + rows.size());
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    BurpExtender.getStderr().println("[!] modelExpand error:");
+                    e.printStackTrace(BurpExtender.getStderr());
+                }
+            }
+        };
+
+        worker.execute();
     }
+
+
+    private Map<String, Object> fetchData(String selectedOption, String url) {
+        // Your actual method to fetch data from the database
+        // Replace the body of this method with your database access code
+        // For example:
+        switch (selectedOption) {
+            case "只看status为200":
+                return BurpExtender.getDataBaseService().selectPathDataByUrlAndStatus(url, "200");
+            case "只看重点":
+                return BurpExtender.getDataBaseService().selectPathDataByUrlAndImportance(url, true);
+            case "只看敏感内容":
+                return BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(url, "敏感内容");
+            case "只看敏感路径":
+                return BurpExtender.getDataBaseService().selectPathDataByUrlAndResult(url, "敏感路径");
+            default:
+                return BurpExtender.getDataBaseService().selectAllPathDataByUrl(url);
+        }
+    }
+
 
     public void modeCollapse(ApiDataModel apiDataModel, int index) {
         // 看当前是否有过滤场景

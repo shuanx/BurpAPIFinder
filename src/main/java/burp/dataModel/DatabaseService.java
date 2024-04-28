@@ -488,7 +488,6 @@ public class DatabaseService {
 
 
     // 方法以插入或更新 path_data 表
-    // 方法以插入或更新 path_data 表
     public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
         String checkSql = "SELECT id, status, result FROM path_data WHERE url = ? AND path = ?";
@@ -504,8 +503,12 @@ public class DatabaseService {
                 generatedId = rs.getInt("id");
                 String currentStatus = rs.getString("status");
                 String currentResult = rs.getString("result");
+                Boolean currentHavingImportant = rs.getBoolean("having_important");
                 // 如果记录存在，但状态不是200，则更新记录
-                if ((!"200".equals(currentStatus)) || result.equals("误报") || (!"误报".equals(currentResult))) {
+                if (currentResult.equals("误报") || status.equals("等待爬取") || currentHavingImportant){
+                    return generatedId;
+                }
+                if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报")) {
                     String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, path_data = ? WHERE id = ?";
                     try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                         updateStmt.setBoolean(1, havingImportant);
@@ -571,7 +574,7 @@ public class DatabaseService {
 
 
     public synchronized Map<String, Object> selectAllPathDataByUrl(String url) {
-        String sql = "SELECT * FROM path_data WHERE url = ?";
+        String sql = "SELECT path, path_data FROM path_data WHERE url = ?";
         Map<String, Object> allPathData = new HashMap<>();
 
         try (Connection conn = this.connect();
@@ -588,6 +591,62 @@ public class DatabaseService {
             e.printStackTrace(BurpExtender.getStderr());
         }
         return allPathData;
+    }
+    public Map<String, Object> fetchAndMarkSinglePathAsCrawling() throws SQLException {
+        // 事务开启
+        connection.setAutoCommit(false);
+        Map<String, Object> filteredPathData = new HashMap<>();
+
+        // 首先选取一条记录的ID
+        String selectSQL =
+                "SELECT id, path_data, url, path FROM path_data WHERE status = '等待爬取' LIMIT 1;";
+
+        int selectedId = -1;
+        String selectedPathData = null;
+        String url = null;
+        String path = null;
+
+        try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
+            ResultSet rs = selectStatement.executeQuery();
+            if (rs.next()) {
+                selectedId = rs.getInt("id");
+                selectedPathData = rs.getString("path_data");
+                url = rs.getString("url");
+                path = rs.getString("path");
+
+            }
+        }
+
+        if (selectedId != -1) {
+            // 更新状态为“爬取中”
+            String updateSQL =
+                    "UPDATE path_data SET status = '爬取中' WHERE id = ?;";
+
+            try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+                updateStatement.setInt(1, selectedId);
+                int affectedRows = updateStatement.executeUpdate();
+                if (affectedRows > 0) {
+                    // 序列化 path_data
+                    Object deserializedPathData = deserializePathData(selectedPathData);
+                    filteredPathData.put("id", selectedId);
+                    filteredPathData.put("path_data", deserializedPathData);
+                    filteredPathData.put("url", url);
+                    filteredPathData.put("path", path);
+                }
+            }
+        }
+
+        try {
+            connection.commit(); // 事务提交
+        } catch (Exception e) {
+            connection.rollback(); // 事务回滚
+            BurpExtender.getStderr().println("[-] Error fetchAndMarkSinglePathAsCrawling: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        } finally {
+            connection.setAutoCommit(true); // 恢复自动提交
+        }
+
+        return filteredPathData;
     }
 
     public synchronized String getPathDataCountByUrl(String url) {
