@@ -5,7 +5,11 @@ import burp.IBurpExtenderCallbacks;
 import burp.ITab;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class Tags implements ITab {
