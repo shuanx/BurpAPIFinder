@@ -2,7 +2,7 @@ package burp.ui;
 
 import burp.*;
 import burp.dataModel.ApiDataModel;
-import burp.ui.renderer.HavingImportantRenderer;
+import burp.ui.renderer.IconTableCellRenderer;
 import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
 import burp.util.Utils;
@@ -64,18 +64,7 @@ public class MailPanel implements IMessageEditorController {
                 return false;
             }
         };
-        table = new JTable(model){
-            // 重写getToolTipText方法以返回特定单元格的数据
-            public String getToolTipText(MouseEvent e) {
-                int row = rowAtPoint(e.getPoint());
-                int col = columnAtPoint(e.getPoint());
-                if (row > -1 && col > -1) {
-                    Object value = getValueAt(row, col);
-                    return value == null ? null : value.toString();
-                }
-                return super.getToolTipText(e);
-            }
-        };;
+        table = new JTable(model);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // 创建右键菜单
@@ -173,7 +162,7 @@ public class MailPanel implements IMessageEditorController {
 
         IsJsFindUrlRenderer isJsFindUrlRenderer = new IsJsFindUrlRenderer();
         table.getColumnModel().getColumn(6).setCellRenderer(isJsFindUrlRenderer);
-        HavingImportantRenderer havingImportantRenderer = new HavingImportantRenderer();
+        IconTableCellRenderer havingImportantRenderer = new IconTableCellRenderer();
         table.getColumnModel().getColumn(7).setCellRenderer(havingImportantRenderer);
 
         table.addMouseListener(new MouseAdapter() {

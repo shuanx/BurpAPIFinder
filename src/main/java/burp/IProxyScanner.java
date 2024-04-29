@@ -32,7 +32,7 @@ public class IProxyScanner implements IProxyListener {
         long keepAliveTime = 60L;
 
         // 创建一个足够大的队列来处理您的任务
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(1000);
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(10000);
 
         executorService = new ThreadPoolExecutor(
                 coreCount,
@@ -43,8 +43,9 @@ public class IProxyScanner implements IProxyListener {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy() // 当任务太多时抛出异常，可以根据需要调整策略
         );
+        BurpExtender.getStdout().println("[+] run executorService maxPoolSize： " + coreCount);
 
-        monitorExecutorService = Executors.newFixedThreadPool(4); // 用固定数量的线程
+        monitorExecutorService = Executors.newFixedThreadPool(6); // 用固定数量的线程
 
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
@@ -64,7 +65,7 @@ public class IProxyScanner implements IProxyListener {
                         return;
                     }
                     ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
-                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl());
+                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl()  + "  path: " + onePathData.get("path"));
                     mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                     BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                 } catch (Exception e) {
@@ -72,7 +73,7 @@ public class IProxyScanner implements IProxyListener {
                     e.printStackTrace(BurpExtender.getStderr());
                 }
             });
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 5, TimeUnit.SECONDS);
     }
 
 

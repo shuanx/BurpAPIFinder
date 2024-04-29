@@ -183,7 +183,6 @@ public class ConfigPanel extends JPanel {
         JMenuItem resetItem = new JMenuItem("清除");
         resetItem.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
         moreMenu.add(resetItem);
-//        moreMenu.add(exportItem);
         JButton moreButton = new JButton();
         moreButton.setIcon(UiUtils.getImageIcon("/icon/moreButton.png", 17, 17));
         GridBagConstraints gbc_btnMore = new GridBagConstraints();

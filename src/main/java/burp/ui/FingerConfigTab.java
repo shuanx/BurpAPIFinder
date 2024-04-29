@@ -475,31 +475,9 @@ public class FingerConfigTab extends JPanel {
                     model.setRowCount(0);
                 }else{
                     toggleButton.setToolTipText("指纹识别功能开");
-                    // 清除表格的所有行
-                    model.setRowCount(0);
-
-                    // 添加所有的行
-                    int counter = 1;
-                    for (FingerPrintRule rule : BurpExtender.fingerprintRules){
-                        model.addRow(new Object[]{
-                                counter,
-                                rule.getType(),
-                                rule.getDescribe(),
-                                rule.getIsImportant(),
-                                rule.getMatch(), // 获取method信息
-                                rule.getLocation(), // 获取location信息
-                                String.join(",", rule.getKeyword()),
-                                new String[] {"Edit", "Delete"} // 操作按钮
-                        });
-                        counter ++;
-                    }
                 }
             }
         });
-
-
-
-
 
         table = new JTable(model);
         CenterRenderer centerRenderer = new CenterRenderer();

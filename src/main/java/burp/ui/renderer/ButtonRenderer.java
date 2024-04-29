@@ -6,29 +6,31 @@ import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-/**
- * @author： shaun
- * @create： 2024/3/28 00:19
- * @description：TODO
- */
 public class ButtonRenderer extends JPanel implements TableCellRenderer {
+    private static final Icon EDIT_ICON = UiUtils.getImageIcon("/icon/editButton.png");
+    private static final Icon DELETE_ICON = UiUtils.getImageIcon("/icon/deleteButton.png");
+
     private final JButton editButton;
     private final JButton deleteButton;
 
     public ButtonRenderer() {
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
-        editButton = new JButton();
-        editButton.setIcon(UiUtils.getImageIcon("/icon/editButton.png"));
-        deleteButton = new JButton();
-        deleteButton.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
-
-        editButton.setPreferredSize(new Dimension(40, 20));
-        deleteButton.setPreferredSize(new Dimension(40, 20));
+        editButton = createButton(EDIT_ICON);
+        deleteButton = createButton(DELETE_ICON);
 
         add(editButton);
         add(deleteButton);
-        setBorder(BorderFactory.createEmptyBorder());
+        setOpaque(true); // 设置为不透明，这样背景颜色变更才会生效
+    }
+
+    private JButton createButton(Icon icon) {
+        JButton button = new JButton(icon);
+        button.setPreferredSize(new Dimension(40, 20));
+        button.setMargin(new Insets(0, 0, 0, 0)); // 设置按钮边距为0
+        // 设置按钮边界为透明，以免在不同的LookAndFeel下显示不一致
+        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setContentAreaFilled(false);
+        return button;
     }
 
     @Override

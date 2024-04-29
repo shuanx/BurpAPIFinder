@@ -19,6 +19,7 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
+    private static final int MAX_SIZE = 20000; // 设置最大字节大小为20000
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -33,6 +34,15 @@ public class FingerUtils {
             }
 
             byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+            // 判断响应包是否超大，超大则截断
+            // 如果数组超过20000个字节，则截断并添加一条消息
+            if (oneResponseBytes.length > MAX_SIZE) {
+                byte[] truncatedResponse = new byte[MAX_SIZE];
+                System.arraycopy(oneResponseBytes, 0, truncatedResponse, 0, MAX_SIZE);
+                // 用截断的响应替换原始响应
+                onePathData.put("response", Base64.getEncoder().encodeToString(truncatedResponse));
+            }
+
             // status更新
             if (originalApiData.getStatus().equals("-")){
                 originalApiData.setStatus((String)onePathData.get("status"));
@@ -73,6 +83,9 @@ public class FingerUtils {
                                 foundMatch = true;
                                 // 将匹配到的内容添加到StringBuilder中
                                 matchedResults.append(matcher.group()).append("、");
+                                if (matchedResults.length() > MAX_SIZE){
+                                    break;
+                                }
                             }
                             if (!foundMatch) {
                                 isMatch = false;
@@ -140,6 +153,14 @@ public class FingerUtils {
         String onePath = (String) onePathData.get("path");
 
         byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+        // 如果数组超过20000个字节，则截断并添加一条消息
+        if (oneResponseBytes.length > MAX_SIZE) {
+            byte[] truncatedResponse = new byte[MAX_SIZE];
+            System.arraycopy(oneResponseBytes, 0, truncatedResponse, 0, MAX_SIZE);
+            // 用截断的响应替换原始响应
+            onePathData.put("response", Base64.getEncoder().encodeToString(truncatedResponse));
+        }
+
         // status更新
         if (originalApiData.getStatus().equals("-")){
             originalApiData.setStatus((String)onePathData.get("status"));
@@ -180,6 +201,9 @@ public class FingerUtils {
                             foundMatch = true;
                             // 将匹配到的内容添加到StringBuilder中
                             matchedResults.append(matcher.group()).append("、");
+                            if (matchedResults.length() > MAX_SIZE){
+                                break;
+                            }
                         }
                         if (!foundMatch) {
                             isMatch = false;
