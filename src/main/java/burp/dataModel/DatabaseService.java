@@ -592,58 +592,37 @@ public class DatabaseService {
         }
         return allPathData;
     }
-    public Map<String, Object> fetchAndMarkSinglePathAsCrawling() throws SQLException {
+
+    public synchronized Map<String, Object> fetchAndMarkSinglePathAsCrawling() throws SQLException {
         // 事务开启
-        connection.setAutoCommit(false);
         Map<String, Object> filteredPathData = new HashMap<>();
 
         // 首先选取一条记录的ID
-        String selectSQL =
-                "SELECT id, path_data, url, path FROM path_data WHERE status = '等待爬取' LIMIT 1;";
-
-        int selectedId = -1;
-        String selectedPathData = null;
-        String url = null;
-        String path = null;
+        String selectSQL = "SELECT id, path_data, url, path FROM path_data WHERE status = '等待爬取' LIMIT 1;";
+        String updateSQL = "UPDATE path_data SET status = '爬取中' WHERE id = ?;";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
             ResultSet rs = selectStatement.executeQuery();
             if (rs.next()) {
-                selectedId = rs.getInt("id");
-                selectedPathData = rs.getString("path_data");
-                url = rs.getString("url");
-                path = rs.getString("path");
+                int selectedId = rs.getInt("id");
+                String selectedPathData = rs.getString("path_data");
+                String url = rs.getString("url");
+                String path = rs.getString("path");
 
-            }
-        }
 
-        if (selectedId != -1) {
-            // 更新状态为“爬取中”
-            String updateSQL =
-                    "UPDATE path_data SET status = '爬取中' WHERE id = ?;";
-
-            try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
-                updateStatement.setInt(1, selectedId);
-                int affectedRows = updateStatement.executeUpdate();
-                if (affectedRows > 0) {
-                    // 序列化 path_data
-                    Object deserializedPathData = deserializePathData(selectedPathData);
-                    filteredPathData.put("id", selectedId);
-                    filteredPathData.put("path_data", deserializedPathData);
-                    filteredPathData.put("url", url);
-                    filteredPathData.put("path", path);
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+                    updateStatement.setInt(1, selectedId);
+                    int affectedRows = updateStatement.executeUpdate();
+                    if (affectedRows > 0) {
+                        // 序列化 path_data
+                        Object deserializedPathData = deserializePathData(selectedPathData);
+                        filteredPathData.put("id", selectedId);
+                        filteredPathData.put("path_data", deserializedPathData);
+                        filteredPathData.put("url", url);
+                        filteredPathData.put("path", path);
+                    }
                 }
             }
-        }
-
-        try {
-            connection.commit(); // 事务提交
-        } catch (Exception e) {
-            connection.rollback(); // 事务回滚
-            BurpExtender.getStderr().println("[-] Error fetchAndMarkSinglePathAsCrawling: ");
-            e.printStackTrace(BurpExtender.getStderr());
-        } finally {
-            connection.setAutoCommit(true); // 恢复自动提交
         }
 
         return filteredPathData;

@@ -8,11 +8,7 @@ import burp.util.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -25,56 +21,60 @@ public class IProxyScanner implements IProxyListener {
     private static UrlScanCount haveScanUrl = new UrlScanCount();
     public static int totalScanCount = 0;
     final ThreadPoolExecutor executorService;  // 修改这行
+    final ExecutorService monitorExecutorService;;  // 修改这行
     private static IExtensionHelpers helpers;
     private static ScheduledExecutorService monitorExecutor;
-
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
-        // 先新建一个进程用于后续处理任务
+
         int coreCount = Runtime.getRuntime().availableProcessors();
         int maxPoolSize = coreCount * 2;
-        BurpExtender.getStdout().println("[+] Number of threads enabled: " + maxPoolSize);
         long keepAliveTime = 60L;
+
+        // 创建一个足够大的队列来处理您的任务
+        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>(1000);
+
         executorService = new ThreadPoolExecutor(
                 coreCount,
                 maxPoolSize,
                 keepAliveTime,
                 TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(), // 可以根据需要调整队列类型和大小
+                workQueue,
                 Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.CallerRunsPolicy() // 当线程池和队列都满时，任务在调用者线程中执行
+                new ThreadPoolExecutor.AbortPolicy() // 当任务太多时抛出异常，可以根据需要调整策略
         );
-        // 初始化监控线程
+
+        monitorExecutorService = Executors.newFixedThreadPool(4); // 用固定数量的线程
+
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
         BurpExtender.getStdout().println("[+] run monitorExecutor success~ ");
     }
 
     private void startDatabaseMonitor() {
-        // 设置定期执行的任务，这里假设每10秒钟检查一次
-        monitorExecutor.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                // 这里编写检查数据库的逻辑
+        monitorExecutor.scheduleAtFixedRate(() -> {
+            monitorExecutorService.submit(() -> {
                 try {
                     if (ConfigPanel.toggleButton.isSelected()){
                         return;
                     }
                     Map<String, Object> onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling();
+
                     if (onePathData.isEmpty()){
                         return;
                     }
                     ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
+                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl());
                     mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                     BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
-                    BurpExtender.getStdout().println("[~] monitorExecutor running .");
                 } catch (Exception e) {
                     BurpExtender.getStderr().println("[!] scheduleAtFixedRate error: ");
                     e.printStackTrace(BurpExtender.getStderr());
                 }
-            }
-        }, 0, 5, TimeUnit.SECONDS);
+            });
+        }, 0, 10, TimeUnit.SECONDS);
     }
+
 
     public static void shutdownMonitorExecutor() {
         // 关闭监控线程池
