@@ -462,6 +462,7 @@ public class MailPanel implements IMessageEditorController {
     public void modelExpand(ApiDataModel apiDataModel, int index) {
         // Disable auto-refresh
         ConfigPanel.setFlashButtonFalse();
+        MailPanel.operationStartTime = LocalDateTime.now();
 
         // SwingWorker to fetch data in the background
         SwingWorker<List<Object[]>, Void> worker = new SwingWorker<List<Object[]>, Void>() {
