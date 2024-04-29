@@ -33,7 +33,7 @@ public class IProxyScanner implements IProxyListener {
         // 先新建一个进程用于后续处理任务
         int coreCount = Runtime.getRuntime().availableProcessors();
         int maxPoolSize = coreCount * 2;
-        BurpExtender.getStdout().println("[+] Number of threads enabled:: " + maxPoolSize);
+        BurpExtender.getStdout().println("[+] Number of threads enabled: " + maxPoolSize);
         long keepAliveTime = 60L;
         executorService = new ThreadPoolExecutor(
                 coreCount,
@@ -47,6 +47,7 @@ public class IProxyScanner implements IProxyListener {
         // 初始化监控线程
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
+        BurpExtender.getStdout().println("[+] run monitorExecutor success~ ");
     }
 
     private void startDatabaseMonitor() {

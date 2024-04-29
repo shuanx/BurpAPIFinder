@@ -207,11 +207,6 @@ public class FingerUtils {
                     onePathData.put("describe", existingDescribe + "," + rule.getDescribe());
                 }
 
-                Set<String> uniqueDescribe = new HashSet<>();
-                Collections.addAll(uniqueDescribe, existingDescribe);
-                Collections.addAll(uniqueDescribe, rule.getDescribe());
-                originalApiData.setDescribe(String.join(",", uniqueDescribe));
-
                 String existingResult = (String) onePathData.get("result");
                 if (existingResult.equals("-") || existingResult.isEmpty()) {
                     onePathData.put("result", rule.getType());
@@ -233,6 +228,12 @@ public class FingerUtils {
                 onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
             }
         }
+        String[] onePathDataDescribe1 = ((String)onePathData.get("describe")).split(",");
+        String[] exitDescribe = originalApiData.getDescribe().split(",");
+        Set<String> describeSet = new HashSet<>();
+        describeSet.addAll(Arrays.asList(onePathDataDescribe1));
+        describeSet.addAll(Arrays.asList(exitDescribe));
+        originalApiData.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", "").replace(",误报", "").replace("误报,", ""));
         BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl((String) onePathData.get("url")), (String) onePathData.get("path"), (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
         return originalApiData;
     }

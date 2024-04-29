@@ -490,7 +490,7 @@ public class DatabaseService {
     // 方法以插入或更新 path_data 表
     public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
-        String checkSql = "SELECT id, status, result FROM path_data WHERE url = ? AND path = ?";
+        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
