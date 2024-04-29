@@ -73,7 +73,7 @@ public class IProxyScanner implements IProxyListener {
                     e.printStackTrace(BurpExtender.getStderr());
                 }
             });
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 3, TimeUnit.SECONDS);
     }
 
 

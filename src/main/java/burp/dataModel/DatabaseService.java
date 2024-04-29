@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Arrays;
 
 public class DatabaseService {
 
@@ -108,6 +111,7 @@ public class DatabaseService {
                 + " having_important INTEGER,\n"
                 + " status TEXT,\n"
                 + " result TEXT,\n"
+                + " describe TEXT,\n"
                 + " path_data TEXT\n"
                 + ");";
 
@@ -119,11 +123,6 @@ public class DatabaseService {
             e.printStackTrace(BurpExtender.getStderr());
         }
     }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
 
     private Map<String, Object> deserializePathData(String json) {
         Type type = new TypeToken<Map<String, Object>>(){}.getType();
@@ -271,6 +270,8 @@ public class DatabaseService {
         }
     }
 
+
+
     // Method to update the list_status by URL
     public synchronized void updateListStatusByUrl(String url, String newListStatus) {
         String sql = "UPDATE api_data SET list_status = ? WHERE url = ?";
@@ -291,21 +292,28 @@ public class DatabaseService {
         }
     }
 
-    public synchronized void updateListStatus(String newListStatus) {
-        String sql = "UPDATE api_data SET list_status = ?";
+    public synchronized boolean deleteApiDataModelByUri(String url) {
+        String sql = "DELETE FROM api_data WHERE url = ?";
+        boolean isDeleted = false;
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // 设置新的 list_status 值和匹配的 URL
-            pstmt.setString(1, newListStatus);
+            pstmt.setString(1, url);
+            int affectedRows = pstmt.executeUpdate();
 
-            pstmt.executeUpdate();
-
+            if (affectedRows > 0) {
+                isDeleted = true;
+                BurpExtender.getStdout().println("[+]delete Api Data: URI=" + url);
+            } else {
+                BurpExtender.getStdout().println("[-]no found Api data to delete: URI=" + url);
+            }
         } catch (Exception e) {
-            BurpExtender.getStderr().println("[-] Error updating list_status in the database for ALLURL");
+            BurpExtender.getStderr().println("[-] Error updating list_status in the database for URL: " + url);
             e.printStackTrace(BurpExtender.getStderr());
         }
+
+        return isDeleted;
     }
 
 
@@ -488,7 +496,7 @@ public class DatabaseService {
 
 
     // 方法以插入或更新 path_data 表
-    public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, Map<String, Object> pathData) {
+    public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, String describe, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
         String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ?";
 
@@ -509,26 +517,28 @@ public class DatabaseService {
                     return generatedId;
                 }
                 if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报")) {
-                    String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, path_data = ? WHERE id = ?";
+                    String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, describe = ?, path_data = ? WHERE id = ?";
                     try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                         updateStmt.setBoolean(1, havingImportant);
                         updateStmt.setString(2, status);
                         updateStmt.setString(3, result);
-                        updateStmt.setString(4, serializePathData(pathData));
-                        updateStmt.setInt(5, generatedId);
+                        updateStmt.setString(4, describe);
+                        updateStmt.setString(5, serializePathData(pathData));
+                        updateStmt.setInt(6, generatedId);
                         updateStmt.executeUpdate();
                     }
                 }
             } else {
                 // 记录不存在，插入新记录
-                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, path_data) VALUES(?, ?, ?, ?, ?, ?)";
+                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, describe, path_data) VALUES(?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                     insertStmt.setString(1, url);
                     insertStmt.setString(2, path);
                     insertStmt.setBoolean(3, havingImportant);
                     insertStmt.setString(4, status);
                     insertStmt.setString(5, result);
-                    insertStmt.setString(6, serializePathData(pathData));
+                    insertStmt.setString(6, describe);
+                    insertStmt.setString(7, serializePathData(pathData));
                     insertStmt.executeUpdate();
 
                     // 获取生成的键值
@@ -766,5 +776,101 @@ public class DatabaseService {
         }
         return hasImportant;
     }
+
+    public synchronized boolean deletePathDataByUrl(String url) {
+        String sql = "DELETE FROM path_data WHERE url = ?";
+        boolean isDeleted = false;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                isDeleted = true;
+                 BurpExtender.getStdout().println("[+] Successfully deleted path_data for URL: " + url);
+            } else {
+                 BurpExtender.getStdout().println("[-] No records found to delete for URL: " + url);
+            }
+        } catch (Exception e) {
+             BurpExtender.getStderr().println("[-] Error deleting from path_data table by URL: " + url);
+             e.printStackTrace(BurpExtender.getStderr()); // 或者可以选择将异常栈打印到其他日志系统
+        }
+
+        return isDeleted;
+    }
+
+    // Method to delete an ApiDataModel by url and path
+    public synchronized boolean deletePathDataByUrlAndPath(String url, String path) {
+        String sqlDelete = "DELETE FROM path_data WHERE url = ? AND path = ?";
+        String sqlSelect = "SELECT status, result, describe FROM path_data WHERE url = ?";
+        String sqlUpdate = "UPDATE api_data SET status = ?, describe = ?, result = ?, path_number = ?, having_important = ? WHERE url = ?";
+        boolean isDeleted = true;
+
+        try (Connection conn = this.connect()) {
+
+            try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
+                // Delete the path data
+                pstmtDelete.setString(1, url);
+                pstmtDelete.setString(2, path);
+                int affectedRows = pstmtDelete.executeUpdate();
+                if (affectedRows > 0) {
+                    BurpExtender.getStdout().println("[+] Successfully deleted path data for URL and Path: " + url + ", " + path);
+                } else {
+                    isDeleted = false;
+                    BurpExtender.getStdout().println("[-] No records found path data to delete for URL and Path: " + url + ", " + path);
+                }
+            }
+
+            // If deletion was successful, update the api_data table
+            if (isDeleted) {
+                Set<String> statuses = new HashSet<>();
+                Set<String> descriptions = new HashSet<>();
+                Set<String> results = new HashSet<>();
+
+                try (PreparedStatement pstmtSelect = conn.prepareStatement(sqlSelect)) {
+                    pstmtSelect.setString(1, url);
+                    try (ResultSet rs = pstmtSelect.executeQuery()) {
+                        while (rs.next()) {
+                            // 分割每个字段值，并将它们添加到对应的集合中
+                            String[] statusArray = rs.getString("status").split(",");
+                            String[] descriptionArray = rs.getString("describe").split(",");
+                            String[] resultArray = rs.getString("result").split(",");
+
+                            // 添加到集合中，自动去重
+                            statuses.addAll(Arrays.asList(statusArray));
+                            descriptions.addAll(Arrays.asList(descriptionArray));
+                            results.addAll(Arrays.asList(resultArray));
+                        }
+                    }
+                }
+
+                String combinedStatus = statuses.isEmpty() ? "-" : String.join(", ", statuses).replace("-, ", "").replace(", -", "");
+                String combinedDescription = descriptions.isEmpty() ? "-" : String.join(", ", descriptions).replace("-, ", "").replace(", -", "");
+                String combinedResult = results.isEmpty() ? "-" : String.join(", ", results).replace("-, ", "").replace(", -", "");
+
+
+                try (PreparedStatement pstmtUpdate = conn.prepareStatement(sqlUpdate)) {
+                    pstmtUpdate.setString(1, combinedStatus);
+                    pstmtUpdate.setString(2, combinedDescription);
+                    pstmtUpdate.setString(3, combinedResult);
+                    pstmtUpdate.setString(4, getPathDataCountByUrl(url));
+                    pstmtUpdate.setBoolean(5, hasImportantPathDataByUrl(url));
+                    pstmtUpdate.setString(6, url);
+                    pstmtUpdate.executeUpdate();
+                }
+            }
+        } catch (Exception e) {
+            isDeleted = false;
+            // 如果定义了BurpExtender类和getStderr方法，可以打印错误信息
+            BurpExtender.getStderr().println("[-] Error deleting path data from api_data table by URL and Path: " + url + ", " + path);
+            e.printStackTrace(BurpExtender.getStderr()); // 或者可以选择将异常栈打印到其他日志系统
+        }
+
+        return isDeleted;
+    }
+
+
 
 }

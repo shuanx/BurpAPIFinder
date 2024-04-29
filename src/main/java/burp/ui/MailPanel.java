@@ -64,13 +64,25 @@ public class MailPanel implements IMessageEditorController {
                 return false;
             }
         };
-        table = new JTable(model);
+        table = new JTable(model){
+            public String getToolTipText(MouseEvent e) {
+                int row = rowAtPoint(e.getPoint());
+                int col = columnAtPoint(e.getPoint());
+                if (row > -1 && col > -1) {
+                    Object value = getValueAt(row, col);
+                    return value == null ? null : value.toString();
+                }
+                return super.getToolTipText(e);
+            }
+        };
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // 创建右键菜单
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem setUnImportantItem = new JMenuItem("误报");
+        JMenuItem deleteItem = new JMenuItem("删除");
         popupMenu.add(setUnImportantItem);
+        popupMenu.add(deleteItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
 
@@ -102,7 +114,7 @@ public class MailPanel implements IMessageEditorController {
                             matchPathData.put("result", "误报");
                             matchPathData.put("describe", "误报");
                             matchPathData.put("isImportant", false);
-                            BurpExtender.getDataBaseService().insertOrUpdatePathData(url, path, false, (String) matchPathData.get("status"), "误报", matchPathData);
+                            BurpExtender.getDataBaseService().insertOrUpdatePathData(url, path, false, (String) matchPathData.get("status"), "误报", "误报", matchPathData);
                             if (!BurpExtender.getDataBaseService().hasImportantPathDataByUrl(url)){
                                 apiDataModel.setHavingImportant(false);
                                 apiDataModel.setResult("误报");
@@ -110,6 +122,58 @@ public class MailPanel implements IMessageEditorController {
                                 BurpExtender.getDataBaseService().updateApiDataModelByUrl(apiDataModel);
                             }
 
+                        }
+                        // 触发显示所有行事件
+                        String searchText = "";
+                        if (!ConfigPanel.searchField.getText().isEmpty()){
+                            searchText = ConfigPanel.searchField.getText();
+                        }
+                        // 设置所有状态码为关闭
+                        String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                        MailPanel.showFilter(selectedOption, searchText);
+
+                    }catch (Exception ek) {
+                        BurpExtender.getStderr().println("[-] chick setUnImportantItem error : " + path);
+                        ek.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                }
+            }
+        });
+
+
+        deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected row from the table
+
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String listStatus = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String path = (String) table.getModel().getValueAt(selectedRow, 2);
+                    try {
+                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                            // Update the database
+                            String url = (String) model.getValueAt(selectedRow, 2); // Assuming URL is in column 2
+                            Boolean deleteApiDataModelByUriBoolean = BurpExtender.getDataBaseService().deleteApiDataModelByUri(url);
+                            if (deleteApiDataModelByUriBoolean){
+                                if (BurpExtender.getDataBaseService().deletePathDataByUrl(url)){
+                                    JOptionPane.showMessageDialog(table, "成功将URL从ApiData表和PathData中删除：" + url, "删除成功",  JOptionPane.INFORMATION_MESSAGE);
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(table, "无法将URL从PathData表中删除：" + url, "删除失败",  JOptionPane.INFORMATION_MESSAGE);
+                                }
+                            }else{
+                                JOptionPane.showMessageDialog(table, "无法将URL从ApiData表中删除：" + url, "删除失败",  JOptionPane.INFORMATION_MESSAGE);
+                            }
+
+                        } else {
+                            String url = findUrlFromPath(selectedRow);
+                            if(BurpExtender.getDataBaseService().deletePathDataByUrlAndPath(url, path)){
+                                JOptionPane.showMessageDialog(table, "成功将PATH从PathData表中删除：" + url + path, "删除成功",  JOptionPane.INFORMATION_MESSAGE);
+                            }else{
+                                JOptionPane.showMessageDialog(table, "无法将PATH从PathData表中删除：" + url + path, "删除失败",  JOptionPane.INFORMATION_MESSAGE);
+                            }
                         }
                         // 触发显示所有行事件
                         String searchText = "";

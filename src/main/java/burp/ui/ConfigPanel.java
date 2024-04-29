@@ -229,24 +229,20 @@ public class ConfigPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String searchText = searchField.getText();
-                if (!searchText.isEmpty()) {
-                    String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-                    MailPanel.showFilter(selectedOption, searchText);
-                    setFlashButtonFalse();
-                    MailPanel.operationStartTime = LocalDateTime.now();
-                }
+                String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                MailPanel.showFilter(selectedOption, searchText);
+                setFlashButtonFalse();
+                MailPanel.operationStartTime = LocalDateTime.now();
             }
         });
         searchField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String searchText = searchField.getText();
-                if (!searchText.isEmpty()) {
-                    String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
-                    MailPanel.showFilter(selectedOption, searchText);
-                    setFlashButtonFalse();
-                    MailPanel.operationStartTime = LocalDateTime.now();
-                }
+                String selectedOption = (String)ConfigPanel.choicesComboBox.getSelectedItem();
+                MailPanel.showFilter(selectedOption, searchText);
+                setFlashButtonFalse();
+                MailPanel.operationStartTime = LocalDateTime.now();
             }
         });
 

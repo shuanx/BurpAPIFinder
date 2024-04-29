@@ -19,7 +19,7 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
-    private static final int MAX_SIZE = 20000; // 设置最大字节大小为20000
+    private static final int MAX_SIZE = 40000; // 设置最大字节大小为40000
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -29,7 +29,7 @@ public class FingerUtils {
             String onePath = entry.getKey();
             // 未进行爬取的，则直接入库
             if (((String) onePathData.get("status")).equals("等待爬取")){
-                BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
+                BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
                 continue;
             }
 
@@ -139,7 +139,7 @@ public class FingerUtils {
                     onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
             }
-            BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
+            BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
 
         }
         originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(Utils.getUriFromUrl(url)));
@@ -258,7 +258,7 @@ public class FingerUtils {
         describeSet.addAll(Arrays.asList(onePathDataDescribe1));
         describeSet.addAll(Arrays.asList(exitDescribe));
         originalApiData.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", "").replace(",误报", "").replace("误报,", ""));
-        BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl((String) onePathData.get("url")), (String) onePathData.get("path"), (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), onePathData);
+        BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl((String) onePathData.get("url")), (String) onePathData.get("path"), (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
         return originalApiData;
     }
 }
