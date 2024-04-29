@@ -262,7 +262,7 @@ public class MailPanel implements IMessageEditorController {
 
         // 构建一个定时刷新页面函数
         // 创建一个每5秒触发一次的定时器
-        int delay = 5000; // 延迟时间，单位为毫秒
+        int delay = 10000; // 延迟时间，单位为毫秒
         timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
