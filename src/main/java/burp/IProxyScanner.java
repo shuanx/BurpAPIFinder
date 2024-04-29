@@ -24,6 +24,8 @@ public class IProxyScanner implements IProxyListener {
     final ExecutorService monitorExecutorService;;  // 修改这行
     private static IExtensionHelpers helpers;
     private static ScheduledExecutorService monitorExecutor;
+
+
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
 
@@ -123,11 +125,26 @@ public class IProxyScanner implements IProxyListener {
                 BurpExtender.getStdout().println("返回结果为空: " + url);
                 return;
             }
-            String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
-            String extractBaseUrl = Utils.extractBaseUrl(url);
-            if (extractBaseUrl.equals("-")){
+
+            // 匹配白名单路径
+            if (Utils.isWhiteDomain(Utils.getUriFromUrl(url))){
+                BurpExtender.getStdout().println("[-] 命中白名单， 不进行url识别： " + url);
                 return;
             }
+
+            // 匹配静态文件
+            if (Utils.isStaticFile(url) && url.contains("favicon.")){
+                BurpExtender.getStdout().println("[-] 命中静态文件，不进行url识别：" + url);
+                return;
+            }
+            // 看URL识别是否报错
+            String extractBaseUrl = Utils.extractBaseUrl(url);
+            if (extractBaseUrl.equals("-")){
+                BurpExtender.getStdout().println("[-] URL转化失败， 不进行url识别： " + url);
+                return;
+            }
+            String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
+
             if (ConfigPanel.toggleButton.isSelected()) {
             } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode)) <= 0) {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
@@ -135,10 +152,7 @@ public class IProxyScanner implements IProxyListener {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
                 return;
             }
-            if (Utils.isStaticFile(url) && !url.contains("favicon.") && !url.contains(".ico")){
-                BurpExtender.getStdout().println("[+]静态文件，不进行url识别：" + url);
-                return;
-            }
+
 
             // 网页提取URL并进行指纹识别
             executorService.submit(new Runnable() {

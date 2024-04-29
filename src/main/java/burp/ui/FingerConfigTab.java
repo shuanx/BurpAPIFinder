@@ -726,6 +726,25 @@ public class FingerConfigTab extends JPanel {
                     // 通知模型数据已更新，触发表格重绘
                     model.fireTableDataChanged();
                 }
+                BurpExtender.STATIC_FILE_EXT = new ArrayList<>();
+                BurpExtender.UNCEKCK_PATH = new ArrayList<>();
+                BurpExtender.UNCEKCK_DOMAINS = new ArrayList<>();
+                if (BurpExtender.fingerprintRules != null && !BurpExtender.fingerprintRules.isEmpty()){
+                    for (int i = 0 ; i < BurpExtender.fingerprintRules.size(); i ++){
+                        FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
+                        String tmpType = rule.getType();
+                        if (tmpType.equals("白名单URL后缀")){
+                            BurpExtender.STATIC_FILE_EXT.addAll(rule.getKeyword());
+                        } else if (tmpType.equals("白名单路径")) {
+                            BurpExtender.UNCEKCK_PATH.addAll(rule.getKeyword());
+                        } else if (tmpType.equals("白名单域名")) {
+                            BurpExtender.UNCEKCK_DOMAINS.addAll(rule.getKeyword());
+                        }
+                    }
+                }
+                BurpExtender.getStdout().println("[+] STATIC_FILE_EXT: " + BurpExtender.STATIC_FILE_EXT);
+                BurpExtender.getStdout().println("[+] UNCEKCK_PATH: " + BurpExtender.UNCEKCK_PATH);
+                BurpExtender.getStdout().println("[+] UNCEKCK_DOMAINS: " + BurpExtender.UNCEKCK_DOMAINS);
             }
         });
 
@@ -937,6 +956,25 @@ public class FingerConfigTab extends JPanel {
                     // 在删除行之后，重新验证和重绘表格
                     table.revalidate();
                     table.repaint();
+                    BurpExtender.STATIC_FILE_EXT = new ArrayList<>();
+                    BurpExtender.UNCEKCK_PATH = new ArrayList<>();
+                    BurpExtender.UNCEKCK_DOMAINS = new ArrayList<>();
+                    if (BurpExtender.fingerprintRules != null && !BurpExtender.fingerprintRules.isEmpty()){
+                        for (int i = 0 ; i < BurpExtender.fingerprintRules.size(); i ++){
+                            FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
+                            String tmpType = rule.getType();
+                            if (tmpType.equals("白名单URL后缀")){
+                                BurpExtender.STATIC_FILE_EXT.addAll(rule.getKeyword());
+                            } else if (tmpType.equals("白名单路径")) {
+                                BurpExtender.UNCEKCK_PATH.addAll(rule.getKeyword());
+                            } else if (tmpType.equals("白名单域名")) {
+                                BurpExtender.UNCEKCK_DOMAINS.addAll(rule.getKeyword());
+                            }
+                        }
+                    }
+                    BurpExtender.getStdout().println("[+] STATIC_FILE_EXT: " + BurpExtender.STATIC_FILE_EXT);
+                    BurpExtender.getStdout().println("[+] UNCEKCK_PATH: " + BurpExtender.UNCEKCK_PATH);
+                    BurpExtender.getStdout().println("[+] UNCEKCK_DOMAINS: " + BurpExtender.UNCEKCK_DOMAINS);
                 }
             });
 

@@ -959,11 +959,13 @@
       "match": "keyword",
       "location": "urlPath",
       "keyword": [
+        "vue",
+        "ts",
+        "min",
         "png",
         "jpg",
         "jpeg",
         "gif",
-        "pdf",
         "bmp",
         "css",
         "woff",
@@ -1002,10 +1004,23 @@
         "~",
         ".css",
         ",",
-        "",
         "??"
       ],
       "type": "白名单路径",
+      "isImportant": false
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        ".baidu.com",
+        ".google.com",
+        ".bing.com",
+        ".yahoo.com",
+        ".aliyun.com",
+        ".alibaba.com"
+      ],
+      "type": "白名单域名",
       "isImportant": false
     }
   ]

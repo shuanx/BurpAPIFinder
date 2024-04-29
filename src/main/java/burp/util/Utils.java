@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * @description：TODO
  */
 public class Utils {
-    public final static String[] STATIC_FILE_EXT = new String[]{
+    public final static List<String> STATIC_FILE_EXT = List.of(
             "vue",
             "ts",
             "min",
@@ -52,10 +52,10 @@ public class Utils {
             "iso",
             "ico",
             "gif"
-    };
+    );
 
     // 对以下URl提取URL
-    public final static String[] STATIC_URl_EXT = new String[]{
+    public final static  List<String> STATIC_URl_EXT = List.of(
             "js",
             "ppt",
             "pptx",
@@ -64,19 +64,19 @@ public class Utils {
             "xls",
             "xlsx",
             "cvs"
-    };
+    );
 
     // 不对下面URL进行指纹识别
-    public final static  String[] UNCEKCK_DOMAINS = new String[]{
+    public final static  List<String> UNCEKCK_DOMAINS = List.of(
             ".baidu.com",
             ".google.com",
             ".bing.com",
             ".yahoo.com",
             ".aliyun.com",
             ".alibaba.com"
-    };
+    );
 
-    public final static String[] UNCEKCK_PATH = new String[]{
+    public final static List<String> UNCEKCK_PATH = List.of(
             "zh-CN",
             "/static/",
             "&",
@@ -85,11 +85,12 @@ public class Utils {
             ".css",
             ",",
             "??"
-    };
+    );
+
 
     public static boolean isStaticPath(String url){
         String path = getPathFromUrl(url);
-        for (String key : UNCEKCK_PATH){
+        for (String key : BurpExtender.UNCEKCK_PATH){
             if (path.contains(key)){
                 return true;
             }
@@ -98,13 +99,14 @@ public class Utils {
     }
 
     public static boolean isStaticFile(String url) {
-        for (String ext : STATIC_FILE_EXT) {
+        for (String ext : BurpExtender.STATIC_FILE_EXT) {
             if (ext.equalsIgnoreCase(Utils.getUriExt(url))) return true;
         }
         return false;
     }
 
     public  static boolean isGetUrlExt(String url){
+
         for (String ext : STATIC_URl_EXT){
             if (ext.equalsIgnoreCase(Utils.getUriExt(url))) return true;
         }
@@ -112,7 +114,7 @@ public class Utils {
     }
 
     public static boolean isWhiteDomain(String url){
-        for (String uncheckDomains : UNCEKCK_DOMAINS){
+        for (String uncheckDomains : BurpExtender.UNCEKCK_DOMAINS){
             if (url.contains(uncheckDomains)) return true;
         }
         return false;

@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,6 +69,10 @@ public class BurpExtender implements IBurpExtender, IExtensionStateListener {
         return dataBaseService;
     }
 
+    public static List<String> STATIC_FILE_EXT = new ArrayList<>();
+    public static List<String> UNCEKCK_PATH = new ArrayList<>();
+    public static List<String> UNCEKCK_DOMAINS = new ArrayList<>();
+
     @Override
     public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
         BurpExtender.callbacks = callbacks;
@@ -103,6 +108,19 @@ public class BurpExtender implements IBurpExtender, IExtensionStateListener {
                 stdout.println("[+] Successfully loaded the configuration file finger-tmp.json");
             }else{
                 stdout.println("[+] Successfully loaded the configuration file finger-important.json");
+            }
+            if (fingerprintRules != null && !fingerprintRules.isEmpty()){
+                for (int i = 0 ; i < fingerprintRules.size(); i ++){
+                    FingerPrintRule rule = fingerprintRules.get(i);
+                    String type = rule.getType();
+                    if (type.equals("白名单URL后缀")){
+                        STATIC_FILE_EXT.addAll(rule.getKeyword());
+                    } else if (type.equals("白名单路径")) {
+                        UNCEKCK_PATH.addAll(rule.getKeyword());
+                    } else if (type.equals("白名单域名")) {
+                        UNCEKCK_DOMAINS.addAll(rule.getKeyword());
+                    }
+                }
             }
         } catch (IOException e) {
             stderr.println("[!] Failed to load the configuration file finger.json, because: " + e.getMessage());

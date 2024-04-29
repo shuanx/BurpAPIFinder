@@ -5,6 +5,7 @@ import burp.dataModel.ApiDataModel;
 import burp.ui.renderer.IconTableCellRenderer;
 import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
+import burp.util.UiUtils;
 import burp.util.Utils;
 
 import javax.swing.*;
@@ -41,6 +42,8 @@ public class MailPanel implements IMessageEditorController {
     public static String historySearchText = "";
     public static String historySearchType = null;
     public static LocalDateTime operationStartTime = LocalDateTime.now();
+    private final Icon deleteItemIcon = UiUtils.getImageIcon("/icon/deleteButton.png", 15, 15);
+    private final Icon setUnImportantItemIcon = UiUtils.getImageIcon("/icon/setUnImportantItemIcon.png", 15, 15);
 
     public static JPanel getContentPane(){
         return contentPane;
@@ -79,10 +82,10 @@ public class MailPanel implements IMessageEditorController {
 
         // 创建右键菜单
         JPopupMenu popupMenu = new JPopupMenu();
-        JMenuItem setUnImportantItem = new JMenuItem("误报");
-        JMenuItem deleteItem = new JMenuItem("删除");
-        popupMenu.add(setUnImportantItem);
+        JMenuItem setUnImportantItem = new JMenuItem("误报", setUnImportantItemIcon);
+        JMenuItem deleteItem = new JMenuItem("删除", deleteItemIcon);
         popupMenu.add(deleteItem);
+        popupMenu.add(setUnImportantItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
 
