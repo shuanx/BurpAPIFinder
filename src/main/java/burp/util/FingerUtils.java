@@ -70,7 +70,7 @@ public class FingerUtils {
                 StringBuilder matchedResults = new StringBuilder("match result：");
                 for (String key : rule.getKeyword()) {
                     try {
-                        Pattern pattern = Pattern.compile(key);
+                        Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
                         Matcher matcher = pattern.matcher(locationContent);
 
                         if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {

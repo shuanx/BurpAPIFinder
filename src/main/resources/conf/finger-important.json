@@ -223,6 +223,17 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
+        "AccessKey ID",
+        "AccessKey Secret"
+      ],
+      "type": "敏感内容",
+      "describe": "云KEY",
+      "isImportant": true
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
         "accessKeyId",
         "accessKeySecret"
       ],
@@ -591,6 +602,16 @@
       ],
       "type": "敏感内容",
       "describe": "账号, 密码, IP",
+      "isImportant": true
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
+        "(initPassword\\s*[:=]\\s*\"?|\"initPassword\"\\s*:\\s*\"?|\"初始密码\"\\s*:\\s*\"?)[\"]?[^\"\\s]+[\"]?|\\b初始密码是\\s+[^\"\\s]+"
+      ],
+      "type": "敏感内容",
+      "describe": "初始密码",
       "isImportant": true
     },
     {
