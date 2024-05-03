@@ -37,13 +37,12 @@ public class FingerConfigTab extends JPanel {
     private static DefaultTableModel model;
     private JTable table;
     private JDialog editPanel;  // 新增：编辑面板
-    private Integer editingRow = null;
+    public static Integer editingRow = null;
     private JTextField keywordField, describeField;  // 新增：编辑面板的文本字段
     private JComboBox<Boolean> isImportantField;
-    private JComboBox<String> methodField, locationField, typeField;
+    private JComboBox<String> methodField, locationField, typeField, accuracyFiled;
 
-    public static JToggleButton toggleButton;
-    private static List<Integer> tableToModelIndexMap = new ArrayList<>();
+    public static List<Integer> tableToModelIndexMap = new ArrayList<>();
     public Set<String> uniqueTypes = new HashSet<>();
 
 
@@ -68,23 +67,18 @@ public class FingerConfigTab extends JPanel {
         centerPanel.setBorder(new EmptyBorder(0, leftPadding, 0, 0));
         // 所有指纹和重点指纹的选择
 
-        ImageIcon shutdownIcon = UiUtils.getImageIcon("/icon/shutdownButtonIcon.png", 50, 24);
-        ImageIcon openIcon = UiUtils.getImageIcon("/icon/openButtonIcon.png", 50, 24);
-
-
-        toggleButton = new JToggleButton(openIcon);
-        toggleButton.setSelectedIcon(shutdownIcon);
-        toggleButton.setPreferredSize(new Dimension(50, 24));
-        toggleButton.setBorder(null);  // 设置无边框
-        toggleButton.setFocusPainted(false);  // 移除焦点边框
-        toggleButton.setContentAreaFilled(false);  // 移除选中状态下的背景填充
-        toggleButton.setToolTipText("指纹识别功能开");
-
-        centerPanel.add(toggleButton);
-
-
         // 全部按钮
         JButton allButton = new JButton("全部");
+        // 便捷操作
+        JButton convenientOperationButton = new JButton();
+        convenientOperationButton.setIcon(UiUtils.getImageIcon("/icon/convenientOperationIcon.png"));
+        JPopupMenu convenientOperationMenu = new JPopupMenu("功能");
+        JMenuItem highItem = new JMenuItem("只看精确率为高");
+        JMenuItem mediumItem = new JMenuItem("只看精确率为高、中");
+        JMenuItem allItem = new JMenuItem("只看精确率为高、中、低");
+        convenientOperationMenu.add(highItem);
+        convenientOperationMenu.add(mediumItem);
+        convenientOperationMenu.add(allItem);
         // 检索框
         JTextField searchField = new JTextField(15);
         // 检索按钮
@@ -112,6 +106,7 @@ public class FingerConfigTab extends JPanel {
         rightPanel.add(allButton);
         rightPanel.add(searchField);
         rightPanel.add(searchButton);
+        rightPanel.add(convenientOperationButton);
         rightPanel.add(moreButton);
         // 将左右面板添加到总的toolbar面板中
         toolbar.add(leftPanel, BorderLayout.WEST);
@@ -119,6 +114,117 @@ public class FingerConfigTab extends JPanel {
         toolbar.add(rightPanel, BorderLayout.EAST);
         add(toolbar, BorderLayout.NORTH);
 
+        // "只看精确率为高"按钮的事件
+        allItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 清除表格的所有行
+                model.setRowCount(0);
+                // 重新添加匹配搜索文本的行
+                int counter=1;
+                // 清空映射
+                tableToModelIndexMap.clear();
+
+                // 重新添加匹配搜索文本的行，并更新映射
+                for (int i = 0; i < BurpExtender.fingerprintRules.size(); i++) {
+                    FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
+                    // 保存当前规则在模型列表中的索引
+                    tableToModelIndexMap.add(i);
+                    rule.setOpen(true);
+                    model.addRow(new Object[]{
+                            counter,
+                            rule.getType(),
+                            rule.getDescribe(),
+                            rule.getIsImportant(),
+                            rule.getAccuracy(),
+                            rule.getMatch(), // 获取method信息
+                            rule.getLocation(), // 获取location信息
+                            String.join(",", rule.getKeyword()),
+                            new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
+                    });
+                    counter ++;
+                }
+                table.repaint();
+            }
+        });
+
+
+        // "只看精确率为高、中、低"按钮的事件
+        mediumItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 清除表格的所有行
+                model.setRowCount(0);
+                // 重新添加匹配搜索文本的行
+                int counter=1;
+                // 清空映射
+                tableToModelIndexMap.clear();
+
+                // 重新添加匹配搜索文本的行，并更新映射
+                for (int i = 0; i < BurpExtender.fingerprintRules.size(); i++) {
+                    FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
+                    // 保存当前规则在模型列表中的索引
+                    tableToModelIndexMap.add(i);
+                    if (rule.getAccuracy().equals("lower")){
+                        rule.setOpen(false);
+                    }else{
+                        rule.setOpen(true);
+                    }
+                    model.addRow(new Object[]{
+                            counter,
+                            rule.getType(),
+                            rule.getDescribe(),
+                            rule.getIsImportant(),
+                            rule.getAccuracy(),
+                            rule.getMatch(), // 获取method信息
+                            rule.getLocation(), // 获取location信息
+                            String.join(",", rule.getKeyword()),
+                            new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
+                    });
+                    counter ++;
+                }
+                table.repaint();
+            }
+        });
+
+
+        // "只看精确率为高中"按钮的事件
+        highItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 清除表格的所有行
+                model.setRowCount(0);
+                // 重新添加匹配搜索文本的行
+                int counter=1;
+                // 清空映射
+                tableToModelIndexMap.clear();
+
+                // 重新添加匹配搜索文本的行，并更新映射
+                for (int i = 0; i < BurpExtender.fingerprintRules.size(); i++) {
+                    FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
+                    // 保存当前规则在模型列表中的索引
+                    tableToModelIndexMap.add(i);
+                    if (!rule.getAccuracy().equals("high")){
+                        rule.setOpen(false);
+                    }else{
+                        rule.setOpen(true);
+                    }
+                    model.addRow(new Object[]{
+                            counter,
+                            rule.getType(),
+                            rule.getDescribe(),
+                            rule.getIsImportant(),
+                            rule.getAccuracy(),
+                            rule.getMatch(), // 获取method信息
+                            rule.getLocation(), // 获取location信息
+                            String.join(",", rule.getKeyword()),
+                            new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
+                    });
+                    counter ++;
+                }
+                table.repaint();
+            }
+        });
 
         // 输入”检索区域“的监听事件
         searchField.addActionListener(new ActionListener() {
@@ -128,9 +234,6 @@ public class FingerConfigTab extends JPanel {
 
                 // 清除表格的所有行
                 model.setRowCount(0);
-                if (toggleButton.isSelected()){
-                    return;
-                }
                 int counter=1;
                 // 清空映射
                 tableToModelIndexMap.clear();
@@ -146,10 +249,11 @@ public class FingerConfigTab extends JPanel {
                                 rule.getType(),
                                 rule.getDescribe(),
                                 rule.getIsImportant(),
+                                rule.getAccuracy(),
                                 rule.getMatch(), // 获取method信息
                                 rule.getLocation(), // 获取location信息
                                 String.join(",", rule.getKeyword()),
-                                new String[] {"Edit", "Delete"} // 操作按钮
+                                new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
                         });
                         counter ++;
                     }
@@ -162,9 +266,6 @@ public class FingerConfigTab extends JPanel {
                 String searchText = searchField.getText(); // 获取用户输入的搜索文本
                 // 清除表格的所有行
                 model.setRowCount(0);
-                if (toggleButton.isSelected()){
-                    return;
-                }
                 // 重新添加匹配搜索文本的行
                 int counter=1;
                 // 清空映射
@@ -181,10 +282,11 @@ public class FingerConfigTab extends JPanel {
                                 rule.getType(),
                                 rule.getDescribe(),
                                 rule.getIsImportant(),
+                                rule.getAccuracy(),
                                 rule.getMatch(), // 获取method信息
                                 rule.getLocation(), // 获取location信息
                                 String.join(",", rule.getKeyword()),
-                                new String[] {"Edit", "Delete"} // 操作按钮
+                                new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
                         });
                         counter ++;
                     }
@@ -198,9 +300,6 @@ public class FingerConfigTab extends JPanel {
 
                 // 清除表格的所有行
                 model.setRowCount(0);
-                if (toggleButton.isSelected()){
-                    return;
-                }
 
                 int counter=1;
                 // 清空映射
@@ -217,10 +316,11 @@ public class FingerConfigTab extends JPanel {
                             rule.getType(),
                             rule.getDescribe(),
                             rule.getIsImportant(),
+                            rule.getAccuracy(),
                             rule.getMatch(), // 获取method信息
                             rule.getLocation(), // 获取location信息
                             String.join(",", rule.getKeyword()),
-                            new String[] {"Edit", "Delete"} // 操作按钮
+                            new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
                     });
                     counter ++;
                 }
@@ -231,6 +331,7 @@ public class FingerConfigTab extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 清空编辑面板的文本字段
+                editPanel.setTitle("新增指纹");
                 isImportantField.setSelectedItem(Boolean.TRUE); // 默认设置为非重要
                 methodField.setSelectedItem("keyword"); // 默认方法设置为 keyword
                 updateLocationField("keyword"); // 根据默认的方法更新 locationField
@@ -250,6 +351,12 @@ public class FingerConfigTab extends JPanel {
         moreButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 popupMenu.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+        // 点击“快捷方式”的监听事件
+        convenientOperationButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                convenientOperationMenu.show(e.getComponent(), e.getX(), e.getY());
             }
         });
         // 点击导出按钮
@@ -340,10 +447,11 @@ public class FingerConfigTab extends JPanel {
                                     rule.getType(),
                                     rule.getDescribe(),
                                     rule.getIsImportant(),
+                                    rule.getAccuracy(),
                                     rule.getMatch(), // 获取 method 信息
                                     rule.getLocation(), // 获取 location 信息
                                     String.join(",", rule.getKeyword()),
-                                    new String[] {"Edit", "Delete"} // 操作按钮
+                                    new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
                             });
                             counter ++;
                         }
@@ -357,7 +465,6 @@ public class FingerConfigTab extends JPanel {
                     }
 
                 }
-                toggleButton.setSelected(false);
             }
         });
         // 点击重置按钮
@@ -390,10 +497,11 @@ public class FingerConfigTab extends JPanel {
                                 rule.getType(),
                                 rule.getDescribe(),
                                 rule.getIsImportant(),
+                                rule.getAccuracy(),
                                 rule.getMatch(), // 获取 method 信息
                                 rule.getLocation(), // 获取 location 信息
                                 String.join(",", rule.getKeyword()),
-                                new String[] {"Edit", "Delete"} // 操作按钮
+                                new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
                         });
                         counter ++;
                     }
@@ -404,7 +512,6 @@ public class FingerConfigTab extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(FingerConfigTab.this, "数据已重置失败： " + ex.getMessage(), "重置失败", JOptionPane.ERROR_MESSAGE);
                 }
-                toggleButton.setSelected(false);
             }
         });
         // 点击保存按钮
@@ -435,11 +542,11 @@ public class FingerConfigTab extends JPanel {
         });
 
         // 表格数据
-        model = new DefaultTableModel(new Object[]{"#", "type", "describe", "isImportant", "Match", "location", "keyword", "Action"}, 0) {
+        model = new DefaultTableModel(new Object[]{"#", "type", "describe", "isImportant", "accuracy", "Match", "location", "keyword", "Action"}, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-                    case 7:
+                    case 8:
                         return JButton.class;
                     default:
                         return super.getColumnClass(columnIndex);
@@ -457,27 +564,16 @@ public class FingerConfigTab extends JPanel {
                     rule.getType(),
                     rule.getDescribe(),
                     rule.getIsImportant(),
+                    rule.getAccuracy(),
                     rule.getMatch(), // 获取method信息
                     rule.getLocation(), // 获取location信息
                     String.join(",", rule.getKeyword()),
-                    new String[] {"Edit", "Delete"} // 操作按钮
+                    new String[] {"IsOpen", "Edit", "Delete"} // 操作按钮
             });
             counter ++;
 
         }
 
-        toggleButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ConfigPanel.toggleButton.setSelected(toggleButton.isSelected());
-                if(toggleButton.isSelected()){
-                    toggleButton.setToolTipText("指纹识别功能关");
-                    // 清除表格的所有行
-                    model.setRowCount(0);
-                }else{
-                    toggleButton.setToolTipText("指纹识别功能开");
-                }
-            }
-        });
 
         table = new JTable(model);
         CenterRenderer centerRenderer = new CenterRenderer();
@@ -496,15 +592,18 @@ public class FingerConfigTab extends JPanel {
         table.getColumnModel().getColumn(4).setPreferredWidth(100);
         table.getColumnModel().getColumn(4).setMaxWidth(maxColumnWidth);
         table.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(5).setPreferredWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(5).setPreferredWidth(100);
         table.getColumnModel().getColumn(5).setMaxWidth(maxColumnWidth);
         table.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(6).setPreferredWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(6).setMaxWidth(maxColumnWidth);
+        table.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
         // 设置操作列的宽度以适应两个按钮
-        int actionColumnWidth = 100;  // 假设每个按钮宽度为70，中间间隔10
-        table.getColumnModel().getColumn(7).setPreferredWidth(actionColumnWidth);
-        table.getColumnModel().getColumn(7).setMaxWidth(actionColumnWidth);
-        table.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(table));
+        int actionColumnWidth = 80;  // 假设每个按钮宽度为70，中间间隔10
+        table.getColumnModel().getColumn(8).setPreferredWidth(actionColumnWidth);
+        table.getColumnModel().getColumn(8).setMaxWidth(actionColumnWidth);
+        table.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(table));
 
 
         // 在 FingerConfigTab 构造函数中，设置表头渲染器的代码部分
@@ -533,7 +632,7 @@ public class FingerConfigTab extends JPanel {
         editPanel = new JDialog();
         editPanel.setTitle("新增指纹");
         editPanel.setLayout(new GridBagLayout());  // 更改为 GridBagLayout
-        editPanel.setSize(500, 300);
+        editPanel.setSize(500, 350);
         editPanel.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         editPanel.setModal(false);
         editPanel.setResizable(true);
@@ -542,6 +641,7 @@ public class FingerConfigTab extends JPanel {
         typeField.setEditable(true);
         isImportantField = new JComboBox<>(new Boolean[]{true, false});
         methodField = new JComboBox<>(new String[]{"keyword", "regular"});
+        accuracyFiled = new JComboBox<>(new String[]{"high", "medium", "lower"});
         locationField = new JComboBox<>();
         keywordField = new JTextField();
         describeField = new JTextField("-");
@@ -587,9 +687,20 @@ public class FingerConfigTab extends JPanel {
         constraints.weightx = 1.0;  // 允许横向扩展
         editPanel.add(isImportantField, constraints);
 
+        // 添加 "accuracyFiled" 标签
+        constraints.gridx = 0;  // 在网格的第一列添加组件
+        constraints.gridy = 4;  // 在网格的第一行添加组件
+        constraints.weightx = 0;  // 不允许横向扩展
+        editPanel.add(new JLabel("accuracyFiled:"), constraints);
+
+        // 添加 "accuracyFiled" 输入框
+        constraints.gridx = 1;  // 在网格的第二列添加组件
+        constraints.weightx = 1.0;  // 允许横向扩展
+        editPanel.add(accuracyFiled, constraints);
+
         // 添加 "Method" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 4;  // 在网格的第二行添加组件
+        constraints.gridy = 5;  // 在网格的第二行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Match:"), constraints);
 
@@ -600,7 +711,7 @@ public class FingerConfigTab extends JPanel {
 
         // 添加 "Location" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 5;  // 在网格的第三行添加组件
+        constraints.gridy = 6;  // 在网格的第三行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Location:"), constraints);
 
@@ -611,7 +722,7 @@ public class FingerConfigTab extends JPanel {
 
         // 添加 "Keyword" 标签
         constraints.gridx = 0;  // 在网格的第一列添加组件
-        constraints.gridy = 6;  // 在网格的第四行添加组件
+        constraints.gridy = 7;  // 在网格的第四行添加组件
         constraints.weightx = 0;  // 不允许横向扩展
         editPanel.add(new JLabel("Keyword:"), constraints);
 
@@ -652,6 +763,7 @@ public class FingerConfigTab extends JPanel {
                     type = type.trim(); // 清除前后空格
                 }
                 Boolean isImportant = (Boolean) isImportantField.getSelectedItem();
+                String accuracy = (String) accuracyFiled.getSelectedItem();
                 String method = (String) methodField.getSelectedItem();
                 String location = (String) locationField.getSelectedItem();
                 String describe = describeField.getText();
@@ -673,6 +785,7 @@ public class FingerConfigTab extends JPanel {
                     rule.setType(type);
                     rule.setDescribe(describe);
                     rule.setIsImportant(isImportant);
+                    rule.setAccuracy(accuracy);
                     rule.setMatch(method);
                     rule.setLocation(location);
                     rule.setKeyword(keyword);
@@ -681,9 +794,10 @@ public class FingerConfigTab extends JPanel {
                     model.setValueAt(type, table.getSelectedRow(), 1);
                     model.setValueAt(describe, table.getSelectedRow(), 2);
                     model.setValueAt(isImportant, table.getSelectedRow(), 3);
-                    model.setValueAt(method, table.getSelectedRow(), 4); // 假设Method列是第3列
-                    model.setValueAt(location, table.getSelectedRow(), 5); // 假设Location列是第4列
-                    model.setValueAt(String.join(",", keyword), table.getSelectedRow(), 6); // 假设Keyword列是第5列
+                    model.setValueAt(accuracy, table.getSelectedRow(), 4);
+                    model.setValueAt(method, table.getSelectedRow(), 5); // 假设Method列是第3列
+                    model.setValueAt(location, table.getSelectedRow(), 6); // 假设Location列是第4列
+                    model.setValueAt(String.join(",", keyword), table.getSelectedRow(), 7); // 假设Keyword列是第5列
 
                     // 通知模型数据已更新，触发表格重绘
                     model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
@@ -694,7 +808,7 @@ public class FingerConfigTab extends JPanel {
                     editingRow = null;
                 } else {
                     // 创建新的 FingerPrintRule 对象
-                    FingerPrintRule newRule = new FingerPrintRule(type, describe, isImportant, method, location, keyword);
+                    FingerPrintRule newRule = new FingerPrintRule(type, describe, isImportant, method, location, keyword, true, accuracy);
                     synchronized (BurpExtender.fingerprintRules) {
                         // 将新规则添加到数据源的开始位置
                         BurpExtender.fingerprintRules.add(0, newRule);
@@ -704,6 +818,7 @@ public class FingerConfigTab extends JPanel {
                                 newRule.getType(),
                                 newRule.getDescribe(),
                                 newRule.getIsImportant(),
+                                newRule.getAccuracy(),
                                 newRule.getMatch(),
                                 newRule.getLocation(),
                                 String.join(",", newRule.getKeyword()),
@@ -750,7 +865,6 @@ public class FingerConfigTab extends JPanel {
 
         editPanel.add(saveButton);
 
-
     }
 
 
@@ -795,6 +909,7 @@ public class FingerConfigTab extends JPanel {
                         rule.getType(),
                         rule.getDescribe(),
                         rule.getIsImportant(),
+                        rule.getAccuracy(),
                         rule.getMatch(),
                         rule.getLocation(),
                         String.join(",", rule.getKeyword()),
@@ -837,51 +952,15 @@ public class FingerConfigTab extends JPanel {
         filterMenu.show(invoker, x, y); // 显示菜单
     }
 
-    public static void toggleFingerprintsDisplay(boolean isOpen, boolean showImportantOnly) {
-        // 清空当前表格数据
-        model.setRowCount(0);
-
-        if (isOpen){
-            return;
-        }
-
-        // 临时计数器，用于表格中的序号
-        int counter = 1;
-
-        // 清空映射
-        tableToModelIndexMap.clear();
-
-        // 遍历所有指纹规则，并根据条件添加到表格模型中
-        for (int i = 0; i < BurpExtender.fingerprintRules.size(); i++) {
-            FingerPrintRule rule = BurpExtender.fingerprintRules.get(i);
-
-            // 如果showImportantOnly为true，则只显示重要的指纹
-            if (!showImportantOnly || rule.getIsImportant()) {
-                // 添加行到表格模型
-                model.addRow(new Object[]{
-                        counter,
-                        rule.getType(),
-                        rule.getDescribe(),
-                        rule.getIsImportant(),
-                        rule.getMatch(),
-                        rule.getLocation(),
-                        String.join(",", rule.getKeyword()),
-                        new String[]{"Edit", "Delete"} // 假设这是操作列的按钮
-                });
-
-                // 更新tableToModelIndexMap，以便我们知道每个表行对应的数据模型索引
-                tableToModelIndexMap.add(i);
-
-                counter++;
-            }
-        }
-    }
-
-
     class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
         private final JPanel panel;
         private final JButton editButton;
         private final JButton deleteButton;
+        private final JButton toggleButton;
+        private final Icon EDIT_ICON = UiUtils.getImageIcon("/icon/editButton.png");
+        private final Icon DELETE_ICON = UiUtils.getImageIcon("/icon/deleteButton.png");
+        private final Icon openIcon = UiUtils.getImageIcon("/icon/openButtonIcon.png");
+        private final Icon closeIcon = UiUtils.getImageIcon("/icon/shutdownButtonIcon.png");
         private JTable table;
         private int row;
 
@@ -889,13 +968,39 @@ public class FingerConfigTab extends JPanel {
             this.table = table;
             panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
             editButton = new JButton();
-            editButton.setIcon(UiUtils.getImageIcon("/icon/editButton.png"));
+            editButton.setIcon(EDIT_ICON);
             deleteButton = new JButton();
-            deleteButton.setIcon(UiUtils.getImageIcon("/icon/deleteButton.png"));
+            deleteButton.setIcon(DELETE_ICON);
+            toggleButton = new JButton();
+            toggleButton.setIcon(openIcon);
 
-            editButton.setPreferredSize(new Dimension(40, 20));
-            deleteButton.setPreferredSize(new Dimension(40, 20));
+            editButton.setPreferredSize(new Dimension(17, 17));
+            deleteButton.setPreferredSize(new Dimension(17, 17));
+            toggleButton.setPreferredSize(new Dimension(17, 17));
 
+            toggleButton.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                   int viewRow = table.getSelectedRow(); // 获取视图中选中的行
+                   if (viewRow < 0) {
+                       return; // 如果没有选中任何行，就不执行编辑操作
+                   }
+                   int modelRow = table.convertRowIndexToModel(viewRow); // 转换为模型索引
+                   int dataIndex = tableToModelIndexMap.get(modelRow); // 使用模型索引查找原始数据列表中的索引
+
+                   editingRow = dataIndex; // 更新编辑行索引为原始数据列表中的索引
+                   FingerPrintRule rule = BurpExtender.fingerprintRules.get(dataIndex);
+                   if (rule.getIsOpen()){
+                       toggleButton.setIcon(closeIcon);
+                       rule.setOpen(false);
+                   } else {
+                       toggleButton.setIcon(openIcon);
+                       rule.setOpen(true);
+                   }
+                   fireEditingStopped();
+                   table.repaint();
+               }
+           });
             // 在编辑按钮的 ActionListener 中添加以下代码来设置 keywordField 的值
             editButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -911,8 +1016,10 @@ public class FingerConfigTab extends JPanel {
                     FingerPrintRule rule = BurpExtender.fingerprintRules.get(dataIndex);
 
                     // 填充编辑面板的字段
+                    editPanel.setTitle("编辑指纹");
                     typeField.getEditor().setItem(rule.getType());
                     isImportantField.setSelectedItem(rule.getIsImportant());
+                    accuracyFiled.setSelectedItem(rule.getAccuracy());
                     methodField.setSelectedItem(rule.getMatch());
                     locationField.setSelectedItem(rule.getLocation());
                     describeField.setText(rule.getDescribe()); // 根据 rule 的 method 更新 locationField
@@ -978,7 +1085,7 @@ public class FingerConfigTab extends JPanel {
                 }
             });
 
-
+            panel.add(toggleButton);
             panel.add(editButton);
             panel.add(deleteButton);
             panel.setBorder(BorderFactory.createEmptyBorder());

@@ -57,6 +57,9 @@ public class FingerUtils {
                 if (rule.getType().contains("白名单")) {
                     continue;
                 }
+                if (!rule.getIsOpen()){
+                    continue;
+                }
 
                 String locationContent = "";
                 if ("body".equals(rule.getLocation())) {
@@ -131,11 +134,11 @@ public class FingerUtils {
                     }
                     String resultInfo = (String) onePathData.get("result info");
                     if (resultInfo.equals("-")) {
-                        resultInfo = rule.getInfo();
+                        resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
                     } else {
-                        resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
+                        resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
                     onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
             }
@@ -173,6 +176,9 @@ public class FingerUtils {
         for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
             // 过滤掉白名单URL后缀、白名单路径
             if (rule.getType().contains("白名单")) {
+                continue;
+            }
+            if (!rule.getIsOpen()){
                 continue;
             }
 
@@ -244,11 +250,11 @@ public class FingerUtils {
                 }
                 String resultInfo = (String) onePathData.get("result info");
                 if (resultInfo.equals("-")) {
-                    resultInfo = rule.getInfo();
+                    resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
                 } else {
-                    resultInfo = resultInfo + "\r\n\r\n" + rule.getInfo();
+                    resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
                 }
-                originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
+                originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
                 onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
             }
         }

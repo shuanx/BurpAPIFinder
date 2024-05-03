@@ -24,8 +24,8 @@ public class Tags implements ITab {
         this.mailPanel = new MailPanel(callbacks, name);
         // 定义tab标签页
         tabs = new JTabbedPane();
-        tabs.add("主页", MailPanel.getContentPane());
         tabs.add("配置", this.fingerConfigTab);
+        tabs.add("主页", MailPanel.getContentPane());
 
         // 将整个tab加载到平台即可
         callbacks.customizeUiComponent(tabs);
