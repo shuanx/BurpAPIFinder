@@ -1005,6 +1005,18 @@
       "match": "regular",
       "location": "body",
       "keyword": [
+        "((basic [a-z0-9=:_\\+\\/-]{5,100})|(bearer [a-z0-9_.=:_\\+\\/-]{5,100}))"
+      ],
+      "type": "有价值信息",
+      "describe": "Authorization Header",
+      "isImportant": false,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "regular",
+      "location": "body",
+      "keyword": [
         "(type\\=\\\"file\\\")"
       ],
       "type": "有价值信息",
