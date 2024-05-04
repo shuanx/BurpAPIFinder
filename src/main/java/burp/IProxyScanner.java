@@ -45,7 +45,7 @@ public class IProxyScanner implements IProxyListener {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy() // 当任务太多时抛出异常，可以根据需要调整策略
         );
-        BurpExtender.getStdout().println("[+] run executorService maxPoolSize： " + coreCount);
+        BurpExtender.getStdout().println("[+] run executorService maxPoolSize: " + coreCount + " ~ " + maxPoolSize);
 
         monitorExecutorService = Executors.newFixedThreadPool(6); // 用固定数量的线程
 
