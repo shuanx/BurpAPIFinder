@@ -16,14 +16,30 @@ public class FingerPrintRule {
     private List<String> keyword;
     private boolean isImportant;
     private String type;
+    private boolean isOpen;
+    private String accuracy;
     // 新添加的构造函数
-    public FingerPrintRule(String type, String describe, boolean isImportant, String match, String location, List<String> keyword) {
+    public FingerPrintRule(String type, String describe, boolean isImportant, String match, String location, List<String> keyword, boolean isOpen, String accuracy) {
         this.match = match;
         this.describe = describe;
         this.location = location;
         this.keyword = keyword;
         this.type = type;
         this.isImportant = isImportant;
+        this.isOpen = isOpen;
+        this.accuracy = accuracy;
+    }
+    public boolean getIsOpen(){
+        return isOpen;
+    }
+    public void setOpen(boolean isOpen){
+        this.isOpen = isOpen;
+    }
+    public String getAccuracy(){
+        return accuracy;
+    }
+    public void setAccuracy(String accuracy){
+        this.accuracy = accuracy;
     }
     public String getDescribe(){return describe;}
     public void setDescribe(String describe){
@@ -58,6 +74,6 @@ public class FingerPrintRule {
     }
 
     public String getInfo(){
-        return "Time: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "\r\nmatch: " + match + "\r\nType: " + type + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString() + "\r\n";
+        return "Time: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "\r\nmatch: " + match + "\r\nType: " + type + "\r\naccuracy: " + accuracy + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString() + "\r\n";
     }
 }
