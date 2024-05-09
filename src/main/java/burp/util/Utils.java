@@ -180,6 +180,7 @@ public class Utils {
 
     public static List<String> findUrl(URL url, String js)
     {
+        // 方式一：原有的正则提取js中的url的逻辑
         String pattern_raw = "(?:\"|')(((?:[a-zA-Z]{1,10}://|//)[^\"'/]{1,}\\.[a-zA-Z]{2,}[^\"']{0,})|((?:/|\\.\\./|\\./)[^\"'><,;|*()(%%$^/\\\\\\[\\]][^\"'><,;|()]{1,})|([a-zA-Z0-9_\\-/]{1,}/[a-zA-Z0-9_\\-/]{1,}\\.(?:[a-zA-Z]{1,4}|action)(?:[\\?|/|;][^\"|']{0,}|))|([a-zA-Z0-9_\\-]{1,}\\.(?:php|asp|aspx|jsp|json|action|html|js|txt|xml)(?:\\?[^\"|']{0,}|)))(?:\"|')";
         Pattern r = Pattern.compile(pattern_raw);
         Matcher m = r.matcher(js);
@@ -189,6 +190,16 @@ public class Utils {
             ex_urls.add(m.group(1).replaceAll("\"","").replaceAll("'","").replaceAll("\n","").replaceAll("\t","").trim());
             matcher_start = m.end();
         }
+        // 方式二：
+        String regex = "\"([^\"]*?/.*?)\"|'([^']*?/.*?)'";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher_result = pattern.matcher(js);
+        int matcher_start2 = 0;
+        while (matcher_result.find(matcher_start2)){
+            ex_urls.add(matcher_result.group(1).replaceAll("\"","").replaceAll("'","").replaceAll("\n","").replaceAll("\t","").trim());
+            matcher_start2 = matcher_result.end();
+        }
+
         LinkedHashSet<String> hashSet = new LinkedHashSet<>(ex_urls);
         ArrayList<String> temp_urls = new ArrayList<>(hashSet);
         List<String> all_urls = new ArrayList<>();
