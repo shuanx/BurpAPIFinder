@@ -63,7 +63,11 @@ public class Utils {
             "docx",
             "xls",
             "xlsx",
-            "cvs"
+            "cvs",
+            "php",
+            "jsp",
+            "asp",
+            "aspx"
     );
 
     // 不对下面URL进行指纹识别
@@ -149,7 +153,7 @@ public class Utils {
             }
             return path;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            e.printStackTrace(BurpExtender.getStderr());
             return "/";
         }
     }
@@ -240,7 +244,8 @@ public class Utils {
                 }
 
             } catch (Exception e) {
-                BurpExtender.getStdout().println("findUrl error: " + url);
+                BurpExtender.getStderr().println("findUrl error: " + url);
+                e.printStackTrace(BurpExtender.getStderr());
             }
 
         }

@@ -505,7 +505,7 @@ public class DatabaseService {
             // 检查记录是否存在
             checkStmt.setString(1, url);
             checkStmt.setString(2, path);
-            checkStmt.setString(3, "%\"method\":\"" + pathData.get("method") + " \"%");
+            checkStmt.setString(3, "%\"method\":\"" + pathData.get("method") + "\"%");
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
                 // 记录存在，更新记录
