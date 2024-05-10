@@ -206,7 +206,8 @@ public class MailPanel implements IMessageEditorController {
         table.getColumnModel().getColumn(2).setMinWidth(300);
         table.getColumnModel().getColumn(7).setMinWidth(60);
         table.getColumnModel().getColumn(8).setMinWidth(150);
-        table.getColumnModel().getColumn(10).setMinWidth(180);
+        table.getColumnModel().getColumn(9).setMinWidth(200);
+        table.getColumnModel().getColumn(10).setMinWidth(140);
 
         // 创建一个居中对齐的单元格渲染器
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

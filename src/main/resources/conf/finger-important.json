@@ -268,7 +268,9 @@
       ],
       "type": "敏感内容",
       "describe": "云KEY",
-      "isImportant": true
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
     },
     {
       "match": "keyword",
@@ -720,7 +722,9 @@
       ],
       "type": "敏感内容",
       "describe": "初始密码",
-      "isImportant": true
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "medium"
     },
     {
       "match": "keyword",
