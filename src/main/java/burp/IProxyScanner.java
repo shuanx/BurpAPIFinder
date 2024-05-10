@@ -70,7 +70,7 @@ public class IProxyScanner implements IProxyListener {
                         return;
                     }
                     ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
-                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl()  + "  path: " + onePathData.get("path"));
+//                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl()  + "  path: " + onePathData.get("path"));
                     mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                     BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                 } catch (Exception e) {
