@@ -84,12 +84,28 @@ public class Utils {
             "~",
             ".css",
             ",",
-            "??"
+            "??",
+            ".",
+            "<",
+            ">",
+            "[",
+            "]",
+            "(",
+            ")",
+            "}",
+            "{"
     );
 
 
     public static boolean isStaticPath(String url){
         String path = getPathFromUrl(url);
+        // 使用正则表达式匹配中文字符的模式
+        String chinesePattern = "[\u4E00-\u9FA5]";
+        // 判断字符串是否包含中文字符
+        if (path.matches(".*" + chinesePattern + ".*")){
+            return true;
+        }
+
         for (String key : BurpExtender.UNCEKCK_PATH){
             if (path.contains(key)){
                 return true;
@@ -194,10 +210,17 @@ public class Utils {
         String regex = "\"([^\"]*?/.*?)\"|'([^']*?/.*?)'";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher_result = pattern.matcher(js);
-        int matcher_start2 = 0;
-        while (matcher_result.find(matcher_start2)){
-            ex_urls.add(matcher_result.group(1).replaceAll("\"","").replaceAll("'","").replaceAll("\n","").replaceAll("\t","").trim());
-            matcher_start2 = matcher_result.end();
+        while (matcher_result.find()){
+            // 检查第一个捕获组
+            String group1 = matcher_result.group(1);
+            if (group1 != null) {
+                ex_urls.add(group1.replaceAll("\"", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+            }
+            // 检查第二个捕获组
+            String group2 = matcher_result.group(2);
+            if (group2 != null) {
+                ex_urls.add(group2.replaceAll("'", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+            }
         }
 
         LinkedHashSet<String> hashSet = new LinkedHashSet<>(ex_urls);

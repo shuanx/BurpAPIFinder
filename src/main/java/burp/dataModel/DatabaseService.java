@@ -638,6 +638,48 @@ public class DatabaseService {
         return filteredPathData;
     }
 
+    public synchronized int getJSCrawledTotalCountPathDataWithIsJsFindUrl() {
+        String sql = "SELECT COUNT(*) FROM path_data WHERE path_data LIKE ?";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "%\"isJsFindUrl\":\"Y\"%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error getCountPathDataWithIsJsFindUrl:");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return count;
+    }
+
+    public synchronized int getJSCrawledCountPathDataWithStatus() {
+        String sql = "SELECT COUNT(*) FROM path_data WHERE status !=  ? and path_data LIKE ?";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "等待爬取");
+            pstmt.setString(2, "%\"isJsFindUrl\":\"Y\"%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error getCountPathDataWithStatus:");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return count;
+    }
+
+
     public synchronized String getPathDataCountByUrl(String url) {
         String sql = "SELECT COUNT(*) FROM path_data WHERE url = ?";
         int count = 0;

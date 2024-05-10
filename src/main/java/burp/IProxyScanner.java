@@ -58,6 +58,9 @@ public class IProxyScanner implements IProxyListener {
         monitorExecutor.scheduleAtFixedRate(() -> {
             monitorExecutorService.submit(() -> {
                 try {
+                    int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
+                    int haveJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledCountPathDataWithStatus();
+                    ConfigPanel.jsCrawledCount.setText(haveJsCrawledNumber + "/" + totalJsCrawledNumber);
                     if (ConfigPanel.toggleButton.isSelected()){
                         return;
                     }
@@ -75,7 +78,7 @@ public class IProxyScanner implements IProxyListener {
                     e.printStackTrace(BurpExtender.getStderr());
                 }
             });
-        }, 0, 3, TimeUnit.SECONDS);
+        }, 0, 2, TimeUnit.SECONDS);
     }
 
 

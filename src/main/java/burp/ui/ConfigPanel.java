@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class ConfigPanel extends JPanel {
     public static JLabel lbRequestCount;
     public static JLabel lbSuccessCount;
+    public static JLabel jsCrawledCount;
     public static JComboBox<String> choicesComboBox;
     // 在FingerTab类中添加成员变量
     public static JToggleButton flashButton;
@@ -98,6 +99,24 @@ public class ConfigPanel extends JPanel {
         gbc_lbSuccessCount.gridy = 0;
         FilterPanel.add(lbSuccessCount, gbc_lbSuccessCount);
 
+        // 爬取JS的数量
+        JLabel jsCrawled = new JLabel("Crawled JS Number:");
+        GridBagConstraints gbc_jsCrawled = new GridBagConstraints();
+        gbc_jsCrawled.insets = new Insets(0, 0, 0, 5);
+        gbc_jsCrawled.fill = 0;
+        gbc_jsCrawled.gridx = 4;
+        gbc_jsCrawled.gridy = 0;
+        FilterPanel.add(jsCrawled, gbc_jsCrawled);
+
+        jsCrawledCount = new JLabel("0/0");
+        jsCrawledCount.setForeground(new Color(0, 0, 255)); // 蓝色
+        GridBagConstraints gbc_jsCrawledCount = new GridBagConstraints();
+        gbc_jsCrawledCount.insets = new Insets(0, 0, 0, 5);
+        gbc_jsCrawledCount.fill = 0;
+        gbc_jsCrawledCount.gridx = 5;
+        gbc_jsCrawledCount.gridy = 0;
+        FilterPanel.add(jsCrawledCount, gbc_jsCrawledCount);
+
 
         toggleButton = new JToggleButton(UiUtils.getImageIcon("/icon/openButtonIcon.png", 40, 24));
         toggleButton.setSelectedIcon(UiUtils.getImageIcon("/icon/shutdownButtonIcon.png", 40, 24));
@@ -122,7 +141,7 @@ public class ConfigPanel extends JPanel {
         // 添加填充以在左侧占位
         GridBagConstraints gbc_leftFiller = new GridBagConstraints();
         gbc_leftFiller.weightx = 1; // 使得这个组件吸收额外的水平空间
-        gbc_leftFiller.gridx = 5; // 位置设置为第一个单元格
+        gbc_leftFiller.gridx = 6; // 位置设置为第一个单元格
         gbc_leftFiller.gridy = 0; // 第一行
         gbc_leftFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_leftFiller);
@@ -130,21 +149,21 @@ public class ConfigPanel extends JPanel {
         // 设置按钮的 GridBagConstraints
         GridBagConstraints gbc_buttons = new GridBagConstraints();
         gbc_buttons.insets = new Insets(0, 5, 0, 5);
-        gbc_buttons.gridx = 6; // 设置按钮的横坐标位置
+        gbc_buttons.gridx = 7; // 设置按钮的横坐标位置
         gbc_buttons.gridy = 0; // 设置按钮的纵坐标位置
         gbc_buttons.fill = GridBagConstraints.NONE; // 不填充
 
         // 在 FilterPanel 中添加 toggleButton
         FilterPanel.add(toggleButton, gbc_buttons);
-        gbc_buttons.gridx = 7; // 将横坐标位置移动到下一个单元格
-        FilterPanel.add(flashButton, gbc_buttons);
         gbc_buttons.gridx = 8; // 将横坐标位置移动到下一个单元格
+        FilterPanel.add(flashButton, gbc_buttons);
+        gbc_buttons.gridx = 9; // 将横坐标位置移动到下一个单元格
         FilterPanel.add(flashText, gbc_buttons);
 
         // 添加填充以在右侧占位
         GridBagConstraints gbc_rightFiller = new GridBagConstraints();
         gbc_rightFiller.weightx = 1; // 使得这个组件吸收额外的水平空间
-        gbc_rightFiller.gridx = 9; // 位置设置为最后一个单元格
+        gbc_rightFiller.gridx = 10; // 位置设置为最后一个单元格
         gbc_rightFiller.gridy = 0; // 第一行
         gbc_rightFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
