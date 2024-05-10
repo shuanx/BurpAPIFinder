@@ -498,13 +498,14 @@ public class DatabaseService {
     // 方法以插入或更新 path_data 表
     public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, String describe, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
-        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ?";
+        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND path_data LIKE ?";
 
         try (Connection conn = this.connect();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
             // 检查记录是否存在
             checkStmt.setString(1, url);
             checkStmt.setString(2, path);
+            checkStmt.setString(3, "%\"method\":\"" + pathData.get("method") + " \"%");
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
                 // 记录存在，更新记录
@@ -516,7 +517,7 @@ public class DatabaseService {
                 if (currentResult.equals("误报") || status.equals("等待爬取") || currentHavingImportant){
                     return generatedId;
                 }
-                if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报")) {
+                if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报") || havingImportant ) {
                     String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, describe = ?, path_data = ? WHERE id = ?";
                     try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                         updateStmt.setBoolean(1, havingImportant);
@@ -603,7 +604,7 @@ public class DatabaseService {
         return allPathData;
     }
 
-    public synchronized Map<String, Object> fetchAndMarkSinglePathAsCrawling() throws SQLException {
+    public synchronized Map<String, Object> fetchAndMarkSinglePathAsCrawling() {
         // 事务开启
         Map<String, Object> filteredPathData = new HashMap<>();
 
@@ -633,6 +634,9 @@ public class DatabaseService {
                     }
                 }
             }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error fetchAndMarkSinglePathAsCrawling: ");
+            e.printStackTrace(BurpExtender.getStderr());
         }
 
         return filteredPathData;

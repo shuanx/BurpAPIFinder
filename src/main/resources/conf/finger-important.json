@@ -1137,20 +1137,6 @@
       "accuracy": "high"
     },
     {
-      "match": "regular",
-      "location": "body",
-      "keyword": [
-        "Content-Type: application/json",
-        "不能",
-        "\"msg\""
-      ],
-      "type": "有价值信息",
-      "describe": "缺少参数",
-      "isImportant": false,
-      "isOpen": true,
-      "accuracy": "high"
-    },
-    {
       "match": "keyword",
       "location": "urlPath",
       "keyword": [

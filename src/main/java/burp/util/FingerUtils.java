@@ -163,7 +163,9 @@ public class FingerUtils {
             // 用截断的响应替换原始响应
             onePathData.put("response", Base64.getEncoder().encodeToString(truncatedResponse));
         }
-
+        if (originalApiData == null){
+            BurpExtender.getStderr().println(onePathData);
+        }
         // status更新
         if (originalApiData.getStatus().equals("-")){
             originalApiData.setStatus((String)onePathData.get("status"));

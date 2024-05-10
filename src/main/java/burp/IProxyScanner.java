@@ -149,8 +149,8 @@ public class IProxyScanner implements IProxyListener {
             String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
 
             if (ConfigPanel.toggleButton.isSelected()) {
-            } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode)) <= 0) {
-                haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode);
+            } else if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode + method)) <= 0) {
+                haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode + method);
             } else {
                 BurpExtender.getStdout().println("[-] 已识别过URL，不进行重复识别： " + url);
                 return;
