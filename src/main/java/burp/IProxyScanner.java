@@ -24,12 +24,19 @@ public class IProxyScanner implements IProxyListener {
     final ExecutorService monitorExecutorService;;  // 修改这行
     private static IExtensionHelpers helpers;
     private static ScheduledExecutorService monitorExecutor;
+    private static int monitorExecutorServiceNumberOfThread = 6;
+    private static int monitorExecutorServiceNumberOfIntervals = 2;
 
 
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
 
         int coreCount = Runtime.getRuntime().availableProcessors();
+        if (coreCount > 6){
+            // 高性能模式
+            monitorExecutorServiceNumberOfThread = Math.min(coreCount, 10);;
+            monitorExecutorServiceNumberOfIntervals = 1;
+        }
         int maxPoolSize = coreCount * 2;
         long keepAliveTime = 60L;
 
@@ -47,11 +54,11 @@ public class IProxyScanner implements IProxyListener {
         );
         BurpExtender.getStdout().println("[+] run executorService maxPoolSize: " + coreCount + " ~ " + maxPoolSize);
 
-        monitorExecutorService = Executors.newFixedThreadPool(6); // 用固定数量的线程
+        monitorExecutorService = Executors.newFixedThreadPool(monitorExecutorServiceNumberOfThread);
 
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
-        BurpExtender.getStdout().println("[+] run monitorExecutor success~ ");
+        BurpExtender.getStdout().println("[+] run monitorExecutor success, thread number: " + monitorExecutorServiceNumberOfThread + ", monitorExecutorServiceNumberOfIntervals: " + monitorExecutorServiceNumberOfIntervals);
     }
 
     private void startDatabaseMonitor() {
@@ -70,7 +77,6 @@ public class IProxyScanner implements IProxyListener {
                         return;
                     }
                     ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
-//                    BurpExtender.getStdout().println("[+] monitorExecutor running url: " + mergeApiData.getUrl()  + "  path: " + onePathData.get("path"));
                     mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                     BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                 } catch (Exception e) {
@@ -78,7 +84,7 @@ public class IProxyScanner implements IProxyListener {
                     e.printStackTrace(BurpExtender.getStderr());
                 }
             });
-        }, 0, 2, TimeUnit.SECONDS);
+        }, 0, monitorExecutorServiceNumberOfIntervals, TimeUnit.SECONDS);
     }
 
 
