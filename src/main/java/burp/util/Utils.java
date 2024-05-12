@@ -97,21 +97,21 @@ public class Utils {
             "(",
             ")",
             "}",
-            "{"
+            "{",
+            "@"
     );
 
 
-    public static boolean isStaticPath(String url){
-        String path = getPathFromUrl(url);
+    public static boolean isStaticPathByPath(String urlPath){
         // 使用正则表达式匹配中文字符的模式
         String chinesePattern = "[\u4E00-\u9FA5]";
         // 判断字符串是否包含中文字符
-        if (path.matches(".*" + chinesePattern + ".*")){
+        if (urlPath.matches(".*" + chinesePattern + ".*")){
             return true;
         }
 
         for (String key : BurpExtender.UNCEKCK_PATH){
-            if (path.contains(key)){
+            if (urlPath.contains(key)){
                 return true;
             }
         }
@@ -191,7 +191,7 @@ public class Utils {
             } catch (Exception e) {
                 continue;
             }
-            if (!isStaticFile(url)  && !isStaticPath(url) && !isWhiteDomain(url)){
+            if (!isStaticFile(url)  && !isStaticPathByPath(getPathFromUrl(url)) && !isWhiteDomain(url)){
                 urlList.add(url);
             }
         }
@@ -207,23 +207,32 @@ public class Utils {
         int matcher_start = 0;
         List<String> ex_urls = new ArrayList<String>();
         while (m.find(matcher_start)){
-            ex_urls.add(m.group(1).replaceAll("\"","").replaceAll("'","").replaceAll("\n","").replaceAll("\t","").trim());
+            String matchGroup = m.group(1);
+            if (matchGroup != null){
+                if (!isStaticPathByPath(matchGroup)){
+                    ex_urls.add(matchGroup.replaceAll("\"","").replaceAll("'","").replaceAll("\n","").replaceAll("\t","").trim());
+                }
+            }
             matcher_start = m.end();
         }
         // 方式二：
-        String regex = "\"([^\"]*?/.*?)\"|'([^']*?/.*?)'";
+        String regex = "\"(/[^\"\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*)\"|'(/[^'\\\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*?)'";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher_result = pattern.matcher(js);
         while (matcher_result.find()){
             // 检查第一个捕获组
             String group1 = matcher_result.group(1);
             if (group1 != null) {
-                ex_urls.add(group1.replaceAll("\"", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                if (!isStaticPathByPath(group1)){
+                    ex_urls.add(group1.replaceAll("\"", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                }
             }
             // 检查第二个捕获组
             String group2 = matcher_result.group(2);
             if (group2 != null) {
-                ex_urls.add(group2.replaceAll("'", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                if (!isStaticPathByPath(group2)){
+                    ex_urls.add(group2.replaceAll("'", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                }
             }
         }
 
@@ -239,12 +248,12 @@ public class Utils {
             try {
                 URL subURL = new URL(singerurl);
                 String subdomain = subURL.getHost();
-                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) & !isStaticPath(singerurl)){
+                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl)){
                     result.add(singerurl);
                 }
 
             } catch (Exception e) {
-                BurpExtender.getStderr().println("findUrl error: " + url);
+                BurpExtender.getStderr().println("findUrl error: " + singerurl);
                 e.printStackTrace(BurpExtender.getStderr());
             }
 

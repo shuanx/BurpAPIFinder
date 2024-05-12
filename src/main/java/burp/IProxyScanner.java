@@ -189,7 +189,7 @@ public class IProxyScanner implements IProxyListener {
                             String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
                             URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
 
-                            if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPath(url)) {
+                            if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPathByPath(Utils.getPathFromUrl(url))) {
                                 Map<String, Object> getUriData = new HashMap<String, Object>();
                                 getUriData.put("requests", Base64.getEncoder().encodeToString(requestResponse.getRequest()));
                                 getUriData.put("response", Base64.getEncoder().encodeToString(requestResponse.getResponse()));

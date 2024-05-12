@@ -1253,7 +1253,11 @@
       "location": "urlPath",
       "keyword": [
         "zh-CN",
-        "/static/",
+        "image/",
+        "text/css",
+        "text/javascript",
+        "@",
+        "//",
         "&",
         "=",
         "~",
