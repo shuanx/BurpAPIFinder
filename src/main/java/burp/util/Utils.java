@@ -191,7 +191,7 @@ public class Utils {
             } catch (Exception e) {
                 continue;
             }
-            if (!isStaticFile(url) && !url.endsWith(".js") && !url.contains(".js?") && !isStaticPath(url)){
+            if (!isStaticFile(url)  && !isStaticPath(url) && !isWhiteDomain(url)){
                 urlList.add(url);
             }
         }
@@ -239,7 +239,7 @@ public class Utils {
             try {
                 URL subURL = new URL(singerurl);
                 String subdomain = subURL.getHost();
-                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) && !getPathFromUrl(singerurl).endsWith(".js") && !isStaticPath(singerurl)){
+                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl) & !isStaticPath(singerurl)){
                     result.add(singerurl);
                 }
 
