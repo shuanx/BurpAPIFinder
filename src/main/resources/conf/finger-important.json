@@ -1254,8 +1254,12 @@
       "keyword": [
         "zh-CN",
         "image/",
+        "images/",
         "text/css",
         "text/javascript",
+        ":",
+        "：",
+        "%",
         "@",
         "//",
         "&",
