@@ -31,13 +31,11 @@ public class IProxyScanner implements IProxyListener {
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
 
-        int coreCount = Runtime.getRuntime().availableProcessors();
-        if (coreCount > 6){
-            // 高性能模式
-            monitorExecutorServiceNumberOfThread = Math.min(coreCount, 10);;
-            monitorExecutorServiceNumberOfIntervals = 1;
-        }
+        int coreCount = Math.min(Runtime.getRuntime().availableProcessors(), 5);
         int maxPoolSize = coreCount * 2;
+
+        // 高性能模式
+        monitorExecutorServiceNumberOfThread = coreCount;;
         long keepAliveTime = 60L;
 
         // 创建一个足够大的队列来处理您的任务
@@ -65,9 +63,13 @@ public class IProxyScanner implements IProxyListener {
         monitorExecutor.scheduleAtFixedRate(() -> {
             monitorExecutorService.submit(() -> {
                 try {
-                    int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
-                    int haveJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledCountPathDataWithStatus();
-                    ConfigPanel.jsCrawledCount.setText(haveJsCrawledNumber + "/" + totalJsCrawledNumber);
+                    Random random = new Random();
+                    if (random.nextInt(6) == 2){
+                        int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
+                        int haveJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledCountPathDataWithStatus();
+                        ConfigPanel.jsCrawledCount.setText(haveJsCrawledNumber + "/" + totalJsCrawledNumber);
+                        ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
+                    }
                     if (ConfigPanel.toggleButton.isSelected()){
                         return;
                     }
@@ -119,7 +121,6 @@ public class IProxyScanner implements IProxyListener {
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
         if (!messageIsRequest) {
             totalScanCount += 1;
-            ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
             ConfigPanel.lbRequestCount.setText(Integer.toString(totalScanCount));
 
             IHttpRequestResponse requestResponse = iInterceptedProxyMessage.getMessageInfo();

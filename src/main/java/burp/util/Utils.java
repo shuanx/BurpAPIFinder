@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,38 +22,7 @@ import java.util.regex.Pattern;
  * @description：TODO
  */
 public class Utils {
-    public final static List<String> STATIC_FILE_EXT = List.of(
-            "vue",
-            "ts",
-            "min",
-            "png",
-            "jpg",
-            "jpeg",
-            "gif",
-            "bmp",
-            "css",
-            "woff",
-            "woff2",
-            "ttf",
-            "otf",
-            "ttc",
-            "svg",
-            "psd",
-            "exe",
-            "zip",
-            "rar",
-            "7z",
-            "msi",
-            "tar",
-            "gz",
-            "mp3",
-            "mp4",
-            "mkv",
-            "swf",
-            "iso",
-            "ico",
-            "gif"
-    );
+
 
     // 对以下URl提取URL
     public final static  List<String> STATIC_URl_EXT = List.of(
@@ -70,43 +40,17 @@ public class Utils {
             "aspx"
     );
 
-    // 不对下面URL进行指纹识别
-    public final static  List<String> UNCEKCK_DOMAINS = List.of(
-            ".baidu.com",
-            ".google.com",
-            ".bing.com",
-            ".yahoo.com",
-            ".aliyun.com",
-            ".alibaba.com"
-    );
+    private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4E00-\u9FA5]");
 
-    public final static List<String> UNCEKCK_PATH = List.of(
-            "zh-CN",
-            "/static/",
-            "&",
-            "=",
-            "~",
-            ".css",
-            ",",
-            "??",
-            ".",
-            "<",
-            ">",
-            "[",
-            "]",
-            "(",
-            ")",
-            "}",
-            "{",
-            "@"
-    );
-
+    private static final Pattern FIND_PAHT_FROM_JS_PATTERN = Pattern.compile("(?:\"|')(((?:[a-zA-Z]{1,10}://|//)[^\"'/]{1,}\\.[a-zA-Z]{2,}[^\"']{0,})|((?:/|\\.\\./|\\./)[^\"'><,;|*()(%%$^/\\\\\\[\\]][^\"'><,;|()]{1,})|([a-zA-Z0-9_\\-/]{1,}/[a-zA-Z0-9_\\-/]{1,}\\.(?:[a-zA-Z]{1,4}|action)(?:[\\?|/|;][^\"|']{0,}|))|([a-zA-Z0-9_\\-]{1,}\\.(?:php|asp|aspx|jsp|json|action|html|js|txt|xml)(?:\\?[^\"|']{0,}|)))(?:\"|')");
+    private static final Pattern FIND_PATH_FROM_JS_PATTERN2 = Pattern.compile("\"(/[^\"\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*)\"|'(/[^'\\\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*?)'");
+    private static final Pattern FIND_URL_FROM_HTML_PATTERN = Pattern.compile("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
 
     public static boolean isStaticPathByPath(String urlPath){
         // 使用正则表达式匹配中文字符的模式
         String chinesePattern = "[\u4E00-\u9FA5]";
         // 判断字符串是否包含中文字符
-        if (urlPath.matches(".*" + chinesePattern + ".*")){
+        if (CHINESE_PATTERN.matcher(urlPath).find()){
             return true;
         }
 
@@ -169,9 +113,7 @@ public class Utils {
         if (!html.contains("http")){
             return urlList;
         }
-        Pattern pattern = Pattern.compile(
-                "(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?");
-        Matcher matcher = pattern.matcher(html);
+        Matcher matcher = FIND_URL_FROM_HTML_PATTERN.matcher(html);
         while (matcher.find()) {
             String url = matcher.group();
             if (!url.contains("http") && url.startsWith("/")) {
@@ -201,11 +143,9 @@ public class Utils {
     public static List<String> findUrl(URL url, String js)
     {
         // 方式一：原有的正则提取js中的url的逻辑
-        String pattern_raw = "(?:\"|')(((?:[a-zA-Z]{1,10}://|//)[^\"'/]{1,}\\.[a-zA-Z]{2,}[^\"']{0,})|((?:/|\\.\\./|\\./)[^\"'><,;|*()(%%$^/\\\\\\[\\]][^\"'><,;|()]{1,})|([a-zA-Z0-9_\\-/]{1,}/[a-zA-Z0-9_\\-/]{1,}\\.(?:[a-zA-Z]{1,4}|action)(?:[\\?|/|;][^\"|']{0,}|))|([a-zA-Z0-9_\\-]{1,}\\.(?:php|asp|aspx|jsp|json|action|html|js|txt|xml)(?:\\?[^\"|']{0,}|)))(?:\"|')";
-        Pattern r = Pattern.compile(pattern_raw);
-        Matcher m = r.matcher(js);
+        Matcher m = FIND_PAHT_FROM_JS_PATTERN.matcher(js);
         int matcher_start = 0;
-        List<String> ex_urls = new ArrayList<String>();
+        Set<String> ex_urls = new LinkedHashSet<>();
         while (m.find(matcher_start)){
             String matchGroup = m.group(1);
             if (matchGroup != null){
@@ -216,30 +156,26 @@ public class Utils {
             matcher_start = m.end();
         }
         // 方式二：
-        String regex = "\"(/[^\"\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*)\"|'(/[^'\\\\s,@\\[\\]\\(\\)<>{}，%\\+：:/-]*?)'";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher_result = pattern.matcher(js);
+        Matcher matcher_result = FIND_PATH_FROM_JS_PATTERN2.matcher(js);
         while (matcher_result.find()){
             // 检查第一个捕获组
             String group1 = matcher_result.group(1);
             if (group1 != null) {
                 if (!isStaticPathByPath(group1)){
-                    ex_urls.add(group1.replaceAll("\"", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                    ex_urls.add(group1.trim());
                 }
             }
             // 检查第二个捕获组
             String group2 = matcher_result.group(2);
             if (group2 != null) {
                 if (!isStaticPathByPath(group2)){
-                    ex_urls.add(group2.replaceAll("'", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                    ex_urls.add(group2.trim());
                 }
             }
         }
 
-        LinkedHashSet<String> hashSet = new LinkedHashSet<>(ex_urls);
-        ArrayList<String> temp_urls = new ArrayList<>(hashSet);
         List<String> all_urls = new ArrayList<>();
-        for(String temp_url:temp_urls){
+        for(String temp_url:ex_urls){
             all_urls.add(process_url(url, temp_url));
         }
         List<String> result = new ArrayList<String>();
