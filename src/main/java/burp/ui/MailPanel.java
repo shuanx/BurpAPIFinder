@@ -247,6 +247,7 @@ public class MailPanel implements IMessageEditorController {
                                 if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
                                     url = (String) table.getModel().getValueAt(row, 2);
                                     ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                                    BurpExtender.getStdout().println("[-] click table: " + apiDataModel.getRequestsResponseIndex());
                                     requestsData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("request");
                                     responseData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("response");
                                     iHttpService = apiDataModel.getiHttpService();

@@ -67,20 +67,33 @@ public class IProxyScanner implements IProxyListener {
                     if (random.nextInt(6) == 2){
                         int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
                         int haveJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledCountPathDataWithStatus();
+                        int totalUrlCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountOriginalData();
+                        int haveUrlCrawledNumber = BurpExtender.getDataBaseService().getUrlCrawledCountOriginalDataWithStatus();
                         ConfigPanel.jsCrawledCount.setText(haveJsCrawledNumber + "/" + totalJsCrawledNumber);
+                        ConfigPanel.urlCrawledCount.setText(haveUrlCrawledNumber + "/" + totalUrlCrawledNumber);
                         ConfigPanel.lbSuccessCount.setText(String.valueOf(BurpExtender.getDataBaseService().getApiDataCount()));
                     }
-                    if (ConfigPanel.toggleButton.isSelected()){
-                        return;
+                    // 步骤一：判断是否有需要解析
+                    Map<String, Object> oneOriginalData = BurpExtender.getDataBaseService().fetchAndMarkOriginalDataAsCrawling();
+                    if (!oneOriginalData.isEmpty()){
+                        BurpExtender.getStdout().println("[+] 正在解析: " + oneOriginalData);
+                        runAPIFinder(oneOriginalData);
+                    }else{
+                        if (ConfigPanel.toggleButton.isSelected()){
+                            return;
+                        }
+                        // 步骤二：判断是否有需要爬取URL
+                        Map<String, Object> onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling();
+                        if (onePathData.isEmpty()){
+                            return;
+                        }
+                        BurpExtender.getStdout().println("[+] 正在爬取： " + onePathData.get("url") + onePathData.get("path"));
+                        ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
+                        mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
+                        BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                     }
-                    Map<String, Object> onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling();
 
-                    if (onePathData.isEmpty()){
-                        return;
-                    }
-                    ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
-                    mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
-                    BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+
                 } catch (Exception e) {
                     BurpExtender.getStderr().println("[!] scheduleAtFixedRate error: ");
                     e.printStackTrace(BurpExtender.getStderr());
@@ -113,9 +126,11 @@ public class IProxyScanner implements IProxyListener {
         haveScanUrl = new UrlScanCount();
         ConfigPanel.lbSuccessCount.setText("0");
         ConfigPanel.lbRequestCount.setText("0");
+        ConfigPanel.jsCrawledCount.setText("0/0");
         BurpExtender.getDataBaseService().clearApiDataTable();
         BurpExtender.getDataBaseService().clearPathDataTable();
         BurpExtender.getDataBaseService().clearRequestsResponseTable();
+        BurpExtender.getDataBaseService().clearOriginalDataTable();
     }
 
     public void processProxyMessage(boolean messageIsRequest, final IInterceptedProxyMessage iInterceptedProxyMessage) {
@@ -143,7 +158,7 @@ public class IProxyScanner implements IProxyListener {
             }
 
             // 匹配静态文件
-            if (Utils.isStaticFile(url) && url.contains("favicon.")){
+            if (Utils.isStaticFile(url) || url.contains("favicon.")){
                 BurpExtender.getStdout().println("[-] 命中静态文件，不进行url识别：" + url);
                 return;
             }
@@ -168,109 +183,125 @@ public class IProxyScanner implements IProxyListener {
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    Map<String, Object> pathData = new HashMap<>();
-                    // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-                    ApiDataModel originalApiData = new ApiDataModel(
-                            Constants.TREE_STATUS_COLLAPSE,
-                            String.valueOf(iInterceptedProxyMessage.getMessageReference()),
-                            Utils.getUriFromUrl(url),
-                            "0",
-                            false,
-                            "-",
-                            BurpExtender.getDataBaseService().insertOrUpdateRequestResponse(Utils.getUriFromUrl(url), requestResponse.getRequest(), requestResponse.getResponse()),
-                            requestResponse.getHttpService(),
-                            new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
-                            "-",
-                            "-",
-                            "-",
-                            "-",
-                            "\r\n");
-                    try {
-                        if (!url.contains("favicon.") && !url.contains(".ico")) {
-                            String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
-                            URL urlUrl = helpers.analyzeRequest(resrsp).getUrl();
-
-                            if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPathByPath(Utils.getPathFromUrl(url))) {
-                                Map<String, Object> getUriData = new HashMap<String, Object>();
-                                getUriData.put("requests", Base64.getEncoder().encodeToString(requestResponse.getRequest()));
-                                getUriData.put("response", Base64.getEncoder().encodeToString(requestResponse.getResponse()));
-                                getUriData.put("host", requestResponse.getHttpService().getHost());
-                                getUriData.put("port", requestResponse.getHttpService().getPort());
-                                getUriData.put("protocol", requestResponse.getHttpService().getProtocol());
-                                getUriData.put("isJsFindUrl", "N");
-                                getUriData.put("method", method);
-                                getUriData.put("status", statusCode);
-                                getUriData.put("isImportant", false);
-                                getUriData.put("result", "-");
-                                getUriData.put("result info", "-");
-                                getUriData.put("describe", "-");
-                                getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-                                getUriData.put("url", Utils.getUriFromUrl(url));
-                                getUriData.put("path", Utils.getPathFromUrl(url));
-                                pathData.put(Utils.getPathFromUrl(url), getUriData);
-                            }
-
-                            // 针对html页面提取
-                            Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
-                            // 针对JS页面提取
-                            if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
-                                urlSet.addAll(Utils.findUrl(urlUrl, new String(responseBytes)));
-                            }
-                            // 依次遍历urlSet获取其返回的response值
-                            for (String getUrl : urlSet) {
-                                if (Utils.isStaticFile(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4) {
-                                    BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
-                                    continue;
-                                }
-                                // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
-                                Map<String, Object> originalData = new HashMap<String, Object>();
-                                originalData.put("requests", null);
-                                originalData.put("response", null);
-                                originalData.put("host", requestResponse.getHttpService().getHost());
-                                originalData.put("port", requestResponse.getHttpService().getPort());
-                                originalData.put("protocol", requestResponse.getHttpService().getProtocol());
-                                originalData.put("isJsFindUrl", "Y");
-                                originalData.put("method", "GET");
-                                originalData.put("status", "等待爬取");
-                                originalData.put("isImportant", false);
-                                originalData.put("result", "-");
-                                originalData.put("result info", "-");
-                                originalData.put("describe", "-");
-                                originalData.put("time", '-');
-                                originalData.put("url", Utils.getUriFromUrl(url));
-                                originalData.put("path", Utils.getPathFromUrl(getUrl));
-                                pathData.put(Utils.getPathFromUrl(getUrl), originalData);
-                            }
-
-                            if (pathData.isEmpty()) {
-                                return;
-                            }
-
-                        }
-                    }catch (Exception e) {
-                        BurpExtender.getStderr().println("数据提取uri的时候报错：" + url);
-                        e.printStackTrace(BurpExtender.getStderr());
+                    int requestResponseIndex =  BurpExtender.getDataBaseService().insertOrUpdateRequestResponse(url, resrsp.getRequest(), responseBytes);
+                    if (requestResponseIndex == -1){
+                        BurpExtender.getStderr().println("[!] error in insertOrUpdateRequestResponse: " + url);
+                        return;
                     }
-
-                    try{
-                        ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(url, originalApiData, pathData, BurpExtender.getHelpers());
-                        if (!BurpExtender.getDataBaseService().isExistApiDataModelByUri(Utils.getUriFromUrl(url))) {
-                            newOriginalApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
-                            BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
-                        } else {
-                            ApiDataModel existedApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
-                            ApiDataModel mergeApiData = mergeApiData(url, existedApiData, newOriginalApiData);
-                            mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
-                            BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
-                        }
-                    } catch (Exception e) {
-                        BurpExtender.getStderr().println("数据合并的时候报错： " + url);
-                        e.printStackTrace(BurpExtender.getStderr());
+                    int insertOrUpdateOriginalDataIndex = BurpExtender.getDataBaseService().insertOrUpdateOriginalData(url, iInterceptedProxyMessage.getMessageReference(), statusCode, method, requestResponseIndex, resrsp.getHttpService());
+                    if (insertOrUpdateOriginalDataIndex == -1){
+                        BurpExtender.getStderr().println("[!] error in insertOrUpdateOriginalData: " + url);
                     }
                 }
             });
         }
 
+    }
+
+    public static void runAPIFinder(Map<String, Object> oneOriginalData){
+        Map<String, Object> pathData = new HashMap<>();
+        String url = (String)oneOriginalData.get("url");
+        String host = (String) oneOriginalData.get("host");
+        int port =  (Integer) oneOriginalData.get("port");
+        String protocol = (String)oneOriginalData.get("protocol");
+        // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
+        ApiDataModel originalApiData = new ApiDataModel(
+                Constants.TREE_STATUS_COLLAPSE,
+                (String) oneOriginalData.get("pid"),
+                Utils.getUriFromUrl(url),
+                "0",
+                false,
+                "-",
+                (Integer) oneOriginalData.get("request_response_index"),
+                Utils.iHttpService(host, port, protocol),
+                new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()),
+                "-",
+                "-",
+                "-",
+                "-",
+                "\r\n");
+        try {
+            Map<String, byte[]> requestResponseMap =  BurpExtender.getDataBaseService().selectRequestResponseById((Integer) oneOriginalData.get("request_response_index"));
+            byte[] responseBytes = requestResponseMap.get("response");
+            byte[] requestBytes  = requestResponseMap.get("request");
+            String mime = helpers.analyzeResponse(responseBytes).getInferredMimeType();
+
+            if (!pathData.containsKey(Utils.getPathFromUrl(url)) && !Utils.isStaticFile(url) && !Utils.isStaticPathByPath(Utils.getPathFromUrl(url))) {
+                Map<String, Object> getUriData = new HashMap<String, Object>();
+                getUriData.put("requests", Base64.getEncoder().encodeToString(requestBytes));
+                getUriData.put("response", Base64.getEncoder().encodeToString(responseBytes));
+                getUriData.put("host", host);
+                getUriData.put("port", port);
+                getUriData.put("protocol", protocol);
+                getUriData.put("isJsFindUrl", "N");
+                getUriData.put("method", oneOriginalData.get("method"));
+                getUriData.put("status", oneOriginalData.get("status"));
+                getUriData.put("isImportant", false);
+                getUriData.put("result", "-");
+                getUriData.put("result info", "-");
+                getUriData.put("describe", "-");
+                getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+                getUriData.put("url", Utils.getUriFromUrl(url));
+                getUriData.put("path", Utils.getPathFromUrl(url));
+                pathData.put(Utils.getPathFromUrl(url), getUriData);
+            }
+
+            // 针对html页面提取
+            Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtml(url, new String(responseBytes)));
+            // 针对JS页面提取
+            if (mime.equals("script") || mime.equals("HTML") || url.contains(".htm") || Utils.isGetUrlExt(url)) {
+                urlSet.addAll(Utils.findUrl(url, port, host, protocol, new String(responseBytes)));
+            }
+            // 依次遍历urlSet获取其返回的response值
+            for (String getUrl : urlSet) {
+                if (Utils.isStaticFile(getUrl) || Utils.getPathFromUrl(getUrl).length() < 4) {
+                    BurpExtender.getStdout().println("白Ext或者太短path，过滤掉： " + getUrl);
+                    continue;
+                }
+                // 当前请求的URL，requests，Response，以及findUrl来区别是否为提取出来的URL
+                Map<String, Object> originalData = new HashMap<String, Object>();
+                originalData.put("requests", null);
+                originalData.put("response", null);
+                originalData.put("host", host);
+                originalData.put("port", port);
+                originalData.put("protocol", protocol);
+                originalData.put("isJsFindUrl", "Y");
+                originalData.put("method", "GET");
+                originalData.put("status", "等待爬取");
+                originalData.put("isImportant", false);
+                originalData.put("result", "-");
+                originalData.put("result info", "-");
+                originalData.put("describe", "-");
+                originalData.put("time", '-');
+                originalData.put("url", Utils.getUriFromUrl(url));
+                originalData.put("path", Utils.getPathFromUrl(getUrl));
+                pathData.put(Utils.getPathFromUrl(getUrl), originalData);
+            }
+
+            if (pathData.isEmpty()) {
+                return;
+            }
+
+        }catch (Exception e) {
+            BurpExtender.getStderr().println("数据提取uri的时候报错：" + url);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        try{
+            ApiDataModel newOriginalApiData = FingerUtils.FingerFilter(url, originalApiData, pathData, BurpExtender.getHelpers());
+            if (!BurpExtender.getDataBaseService().isExistApiDataModelByUri(Utils.getUriFromUrl(url))) {
+                newOriginalApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
+                BurpExtender.getDataBaseService().insertApiDataModel(newOriginalApiData);
+            } else {
+                ApiDataModel existedApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
+                ApiDataModel mergeApiData = mergeApiData(url, existedApiData, newOriginalApiData);
+                mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(url)));
+                BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("数据合并的时候报错： " + url);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
     }
 
     public static ApiDataModel mergeApiData(String url, ApiDataModel apiDataModel1, ApiDataModel apiDataModel2){

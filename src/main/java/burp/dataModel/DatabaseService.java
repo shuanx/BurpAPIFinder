@@ -103,6 +103,28 @@ public class DatabaseService {
             e.printStackTrace(BurpExtender.getStderr());
         }
 
+        // 用来需要敏感信息提取的url
+        String originalDataSQL = "CREATE TABLE IF NOT EXISTS original_data (\n"
+                + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
+                + " pid TEXT, \n"
+                + " url TEXT NOT NULL,\n"
+                + " method TEXT, \n"
+                + " status TEXT, \n"
+                + " run_status TEXT, \n"
+                + " request_response_index INTEGER, \n"
+                + " host TEXT, \n"
+                + " port INTEGER, \n"
+                + " protocol TEXT \n"
+                + ");";
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(originalDataSQL);
+            BurpExtender.getStdout().println("[+] create original data db success~");
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[!] create original data failed, because：");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
         // 用来创建数据库path_data
         String pathDataSQL = "CREATE TABLE IF NOT EXISTS path_data (\n"
                 + " id INTEGER PRIMARY KEY AUTOINCREMENT,\n"
@@ -133,6 +155,92 @@ public class DatabaseService {
     private String serializePathData(Map<String, Object> pathData) {
         return gson.toJson(pathData);
     }
+
+    public synchronized int insertOrUpdateOriginalData(String url, int pid, String status, String method, int requestResponseIndex, IHttpService iHttpService) {
+        int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
+        String checkSql = "SELECT id FROM original_data WHERE url = ? AND method = ? AND host = ? AND port = ? AND protocol = ? AND run_status != ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            // 检查记录是否存在
+            checkStmt.setString(1, url);
+            checkStmt.setString(2, method);
+            checkStmt.setString(3, iHttpService.getHost());
+            checkStmt.setInt(4, iHttpService.getPort());
+            checkStmt.setString(5, iHttpService.getProtocol());
+            checkStmt.setString(6, "等待解析");
+            ResultSet rs = checkStmt.executeQuery();
+            if (!rs.next()) {
+                // 记录不存在，插入新记录
+                String insertSql = "INSERT INTO original_data(url, method, status, request_response_index, host, port, protocol, pid, run_status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                    insertStmt.setString(1, url);
+                    insertStmt.setString(2, method);
+                    insertStmt.setString(3, status);
+                    insertStmt.setInt(4, requestResponseIndex);
+                    insertStmt.setString(5, iHttpService.getHost());
+                    insertStmt.setInt(6, iHttpService.getPort());
+                    insertStmt.setString(7, iHttpService.getProtocol());
+                    insertStmt.setString(8, String.valueOf(pid));
+                    insertStmt.setString(9, "等待解析");
+                    insertStmt.executeUpdate();
+
+                    // 获取生成的键值
+                    try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            generatedId = generatedKeys.getInt(1); // 获取生成的ID
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            BurpExtender.getStderr().println("[-] Error inserting or updating original_data table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return generatedId; // 返回ID值，无论是更新还是插入
+    }
+
+
+
+    public synchronized Map<String, Object> fetchAndMarkOriginalDataAsCrawling() {
+        // 事务开启
+        Map<String, Object> filteredPathData = new HashMap<>();
+
+        // 首先选取一条记录的ID
+        String selectSQL = "SELECT * FROM original_data WHERE run_status = '等待解析' LIMIT 1;";
+        String updateSQL = "UPDATE original_data SET run_status = '解析中' WHERE id = ?;";
+
+        try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
+            ResultSet rs = selectStatement.executeQuery();
+            if (rs.next()) {
+                int selectedId = rs.getInt("id");
+
+
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+                    updateStatement.setInt(1, selectedId);
+                    int affectedRows = updateStatement.executeUpdate();
+                    if (affectedRows > 0) {
+                        filteredPathData.put("id", rs.getInt("id"));
+                        filteredPathData.put("method", rs.getString("method"));
+                        filteredPathData.put("host", rs.getString("host"));
+                        filteredPathData.put("port", rs.getInt("port"));
+                        filteredPathData.put("protocol", rs.getString("protocol"));
+                        filteredPathData.put("request_response_index", rs.getInt("request_response_index"));
+                        filteredPathData.put("url", rs.getString("url"));
+                        filteredPathData.put("pid", rs.getString("pid"));
+                        filteredPathData.put("status", rs.getString("status"));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error fetchAndMarkOriginalDataAsCrawling: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return filteredPathData;
+    }
+
 
     // Method to insert a new ApiDataModel
     public synchronized void insertApiDataModel(ApiDataModel model) {
@@ -414,6 +522,20 @@ public class DatabaseService {
         }
     }
 
+    public synchronized void clearOriginalDataTable() {
+        String sql = "DELETE FROM original_data"; // 用 DELETE 语句来清空表
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.executeUpdate();
+            BurpExtender.getStdout().println("[-] original_data table has been cleared.");
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("Error clearing original_data table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+    }
+
 
 
     // 关闭数据库连接的方法
@@ -465,7 +587,7 @@ public class DatabaseService {
                 }
             }
         } catch (Exception e) {
-            BurpExtender.getStderr().println("[-] Error inserting or updating requests_response table: ");
+            BurpExtender.getStderr().println("[-] Error inserting or updating requests_response table: " + url);
             e.printStackTrace(BurpExtender.getStderr());
         }
 
@@ -650,6 +772,45 @@ public class DatabaseService {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, "%\"isJsFindUrl\":\"Y\"%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error getCountPathDataWithIsJsFindUrl:");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return count;
+    }
+
+    public synchronized int getUrlCrawledCountOriginalDataWithStatus() {
+        String sql = "SELECT COUNT(*) FROM original_data WHERE run_status !=  ?";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, "解析");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error getCountPathDataWithStatus:");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return count;
+    }
+
+    public synchronized int getJSCrawledTotalCountOriginalData() {
+        String sql = "SELECT COUNT(*) FROM path_data";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt(1);

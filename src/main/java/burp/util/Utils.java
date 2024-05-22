@@ -140,7 +140,7 @@ public class Utils {
         return urlList;
     }
 
-    public static List<String> findUrl(URL url, String js)
+    public static List<String> findUrl(String url, int port, String host, String protocol, String js)
     {
         // 方式一：原有的正则提取js中的url的逻辑
         Matcher m = FIND_PAHT_FROM_JS_PATTERN.matcher(js);
@@ -176,15 +176,14 @@ public class Utils {
 
         List<String> all_urls = new ArrayList<>();
         for(String temp_url:ex_urls){
-            all_urls.add(process_url(url, temp_url));
+            all_urls.add(process_url(url, port, host, protocol, temp_url));
         }
         List<String> result = new ArrayList<String>();
         for(String singerurl : all_urls){
-            String domain = url.getHost();
             try {
                 URL subURL = new URL(singerurl);
                 String subdomain = subURL.getHost();
-                if(subdomain.equalsIgnoreCase(domain) && !isStaticFile(singerurl)){
+                if(subdomain.equalsIgnoreCase(host) && !isStaticFile(singerurl)){
                     result.add(singerurl);
                 }
 
@@ -197,10 +196,9 @@ public class Utils {
         return  result;
     }
 
-    public static String process_url(URL url, String re_URL) {
+    public static String process_url(String url, int port, String host, String host_URL, String re_URL) {
         String black_url = "javascript:";
-        String ab_URL = url.getHost() + ":"+ url.getPort();
-        String host_URL = url.getProtocol();
+        String ab_URL = host + ":"+ port;
         String result = "";
         if (re_URL.length() < 4) {
             if (re_URL.startsWith("//")) {
@@ -244,7 +242,7 @@ public class Utils {
                 }
 
             } else {
-                result = url.toString();
+                result = url;
             }
         }
         return result;
@@ -277,6 +275,7 @@ public class Utils {
             return "-"; // 或者根据你的需求返回适当的值
         }
     }
+
 
     public static String getBanner(){
         String bannerInfo =

@@ -18,6 +18,7 @@ public class ConfigPanel extends JPanel {
     public static JLabel lbRequestCount;
     public static JLabel lbSuccessCount;
     public static JLabel jsCrawledCount;
+    public static JLabel urlCrawledCount;
     public static JComboBox<String> choicesComboBox;
     // 在FingerTab类中添加成员变量
     public static JToggleButton flashButton;
@@ -100,11 +101,30 @@ public class ConfigPanel extends JPanel {
         FilterPanel.add(lbSuccessCount, gbc_lbSuccessCount);
 
         // 爬取JS的数量
-        JLabel jsCrawled = new JLabel("Crawled JS Number:");
+        JLabel urlCrawled = new JLabel("Analyze Url:");
+        GridBagConstraints gbc_urlCrawled = new GridBagConstraints();
+        gbc_urlCrawled.insets = new Insets(0, 0, 0, 5);
+        gbc_urlCrawled.fill = 0;
+        gbc_urlCrawled.gridx = 4;
+        gbc_urlCrawled.gridy = 0;
+        FilterPanel.add(urlCrawled, gbc_urlCrawled);
+
+        urlCrawledCount = new JLabel("0/0");
+        urlCrawledCount.setForeground(new Color(0, 0, 255)); // 蓝色
+        GridBagConstraints gbc_urlCrawledCount = new GridBagConstraints();
+        gbc_urlCrawledCount.insets = new Insets(0, 0, 0, 5);
+        gbc_urlCrawledCount.fill = 0;
+        gbc_urlCrawledCount.gridx = 5;
+        gbc_urlCrawledCount.gridy = 0;
+        FilterPanel.add(urlCrawledCount, gbc_urlCrawledCount);
+
+
+        // 爬取JS的数量
+        JLabel jsCrawled = new JLabel("Crawled JS:");
         GridBagConstraints gbc_jsCrawled = new GridBagConstraints();
         gbc_jsCrawled.insets = new Insets(0, 0, 0, 5);
         gbc_jsCrawled.fill = 0;
-        gbc_jsCrawled.gridx = 4;
+        gbc_jsCrawled.gridx = 6;
         gbc_jsCrawled.gridy = 0;
         FilterPanel.add(jsCrawled, gbc_jsCrawled);
 
@@ -113,7 +133,7 @@ public class ConfigPanel extends JPanel {
         GridBagConstraints gbc_jsCrawledCount = new GridBagConstraints();
         gbc_jsCrawledCount.insets = new Insets(0, 0, 0, 5);
         gbc_jsCrawledCount.fill = 0;
-        gbc_jsCrawledCount.gridx = 5;
+        gbc_jsCrawledCount.gridx = 7;
         gbc_jsCrawledCount.gridy = 0;
         FilterPanel.add(jsCrawledCount, gbc_jsCrawledCount);
 
@@ -141,7 +161,7 @@ public class ConfigPanel extends JPanel {
         // 添加填充以在左侧占位
         GridBagConstraints gbc_leftFiller = new GridBagConstraints();
         gbc_leftFiller.weightx = 1; // 使得这个组件吸收额外的水平空间
-        gbc_leftFiller.gridx = 6; // 位置设置为第一个单元格
+        gbc_leftFiller.gridx = 8; // 位置设置为第一个单元格
         gbc_leftFiller.gridy = 0; // 第一行
         gbc_leftFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_leftFiller);
@@ -149,21 +169,21 @@ public class ConfigPanel extends JPanel {
         // 设置按钮的 GridBagConstraints
         GridBagConstraints gbc_buttons = new GridBagConstraints();
         gbc_buttons.insets = new Insets(0, 5, 0, 5);
-        gbc_buttons.gridx = 7; // 设置按钮的横坐标位置
+        gbc_buttons.gridx = 10; // 设置按钮的横坐标位置
         gbc_buttons.gridy = 0; // 设置按钮的纵坐标位置
         gbc_buttons.fill = GridBagConstraints.NONE; // 不填充
 
         // 在 FilterPanel 中添加 toggleButton
         FilterPanel.add(toggleButton, gbc_buttons);
-        gbc_buttons.gridx = 8; // 将横坐标位置移动到下一个单元格
+        gbc_buttons.gridx = 11; // 将横坐标位置移动到下一个单元格
         FilterPanel.add(flashButton, gbc_buttons);
-        gbc_buttons.gridx = 9; // 将横坐标位置移动到下一个单元格
+        gbc_buttons.gridx = 12; // 将横坐标位置移动到下一个单元格
         FilterPanel.add(flashText, gbc_buttons);
 
         // 添加填充以在右侧占位
         GridBagConstraints gbc_rightFiller = new GridBagConstraints();
         gbc_rightFiller.weightx = 1; // 使得这个组件吸收额外的水平空间
-        gbc_rightFiller.gridx = 10; // 位置设置为最后一个单元格
+        gbc_rightFiller.gridx = 13; // 位置设置为最后一个单元格
         gbc_rightFiller.gridy = 0; // 第一行
         gbc_rightFiller.fill = GridBagConstraints.HORIZONTAL; // 水平填充
         FilterPanel.add(Box.createHorizontalGlue(), gbc_rightFiller);
@@ -173,7 +193,7 @@ public class ConfigPanel extends JPanel {
         GridBagConstraints gbc_btnall = new GridBagConstraints();
         gbc_btnall.insets = new Insets(0, 0, 0, 5);
         gbc_btnall.fill = 0;
-        gbc_btnall.gridx = 12;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnall.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnall.gridy = 0;
         FilterPanel.add(choicesComboBox, gbc_btnall);
         // 检索框
@@ -181,7 +201,7 @@ public class ConfigPanel extends JPanel {
         GridBagConstraints gbc_btnSearchField = new GridBagConstraints();
         gbc_btnSearchField.insets = new Insets(0, 0, 0, 5);
         gbc_btnSearchField.fill = 0;
-        gbc_btnSearchField.gridx = 13;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnSearchField.gridx = 16;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnSearchField.gridy = 0;
         FilterPanel.add(searchField, gbc_btnSearchField);
         // 检索按钮
@@ -191,7 +211,7 @@ public class ConfigPanel extends JPanel {
         GridBagConstraints gbc_btnSearch = new GridBagConstraints();
         gbc_btnSearch.insets = new Insets(0, 0, 0, 5);
         gbc_btnSearch.fill = 0;
-        gbc_btnSearch.gridx = 14;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnSearch.gridx = 17;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnSearch.gridy = 0;
         FilterPanel.add(searchButton, gbc_btnSearch);
 
@@ -207,7 +227,7 @@ public class ConfigPanel extends JPanel {
         GridBagConstraints gbc_btnMore = new GridBagConstraints();
         gbc_btnMore.insets = new Insets(0, 0, 0, 5);
         gbc_btnMore.fill = 0;
-        gbc_btnMore.gridx = 15;  // 根据该值来确定是确定从左到右的顺序
+        gbc_btnMore.gridx = 18;  // 根据该值来确定是确定从左到右的顺序
         gbc_btnMore.gridy = 0;
         FilterPanel.add(moreButton, gbc_btnMore);
 
