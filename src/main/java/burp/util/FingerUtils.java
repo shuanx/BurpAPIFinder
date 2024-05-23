@@ -175,89 +175,93 @@ public class FingerUtils {
 
         // 响应的body值
         String responseBody = new String(oneResponseBytes, StandardCharsets.UTF_8);
-        for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
-            // 过滤掉白名单URL后缀、白名单路径
-            if (rule.getType().contains("白名单")) {
-                continue;
-            }
-            if (!rule.getIsOpen()){
-                continue;
-            }
+        // 响应包是3开头或者404的则不进行匹配
+        if (!((String)onePathData.get("status")).startsWith("3") ||  ((String)onePathData.get("status")).equals("404")){
+            // 响应头
+            for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
+                // 过滤掉白名单URL后缀、白名单路径
+                if (rule.getType().contains("白名单")) {
+                    continue;
+                }
+                if (!rule.getIsOpen()){
+                    continue;
+                }
 
-            String locationContent = "";
-            if ("body".equals(rule.getLocation())) {
-                locationContent = responseBody;
-            } else if ("urlPath".equals(rule.getLocation())) {
-                locationContent = onePath;
-            } else {
-                BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
-            }
-            boolean isMatch = true;
-            StringBuilder matchedResults = new StringBuilder("match result：");
-            for (String key : rule.getKeyword()) {
-                try {
-                    Pattern pattern = Pattern.compile(key);
-                    Matcher matcher = pattern.matcher(locationContent);
+                String locationContent = "";
+                if ("body".equals(rule.getLocation())) {
+                    locationContent = responseBody;
+                } else if ("urlPath".equals(rule.getLocation())) {
+                    locationContent = onePath;
+                } else {
+                    BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
+                }
+                boolean isMatch = true;
+                StringBuilder matchedResults = new StringBuilder("match result：");
+                for (String key : rule.getKeyword()) {
+                    try {
+                        Pattern pattern = Pattern.compile(key);
+                        Matcher matcher = pattern.matcher(locationContent);
 
-                    if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                        isMatch = false;
-                    } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                        matchedResults.append(key).append("、");
-                    } else if (rule.getMatch().equals("regular")) {
-                        boolean foundMatch = false;
-                        while (matcher.find()) {
-                            foundMatch = true;
-                            // 将匹配到的内容添加到StringBuilder中
-                            matchedResults.append(matcher.group()).append("、");
-                            if (matchedResults.length() > MAX_SIZE){
-                                break;
+                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
+                            isMatch = false;
+                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
+                            matchedResults.append(key).append("、");
+                        } else if (rule.getMatch().equals("regular")) {
+                            boolean foundMatch = false;
+                            while (matcher.find()) {
+                                foundMatch = true;
+                                // 将匹配到的内容添加到StringBuilder中
+                                matchedResults.append(matcher.group()).append("、");
+                                if (matchedResults.length() > MAX_SIZE){
+                                    break;
+                                }
+                            }
+                            if (!foundMatch) {
+                                isMatch = false;
                             }
                         }
-                        if (!foundMatch) {
-                            isMatch = false;
-                        }
+                    } catch (PatternSyntaxException e) {
+                        BurpExtender.getStderr().println("正则表达式语法错误: " + key);
+                    } catch (NullPointerException e) {
+                        BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
+                    } catch (Exception e) {
+                        BurpExtender.getStderr().println("匹配出现其他报错: " + e);
                     }
-                } catch (PatternSyntaxException e) {
-                    BurpExtender.getStderr().println("正则表达式语法错误: " + key);
-                } catch (NullPointerException e) {
-                    BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
-                } catch (Exception e) {
-                    BurpExtender.getStderr().println("匹配出现其他报错: " + e);
-                }
-            }
-
-
-            if (isMatch) {
-                // 是否为重要
-                if (rule.getIsImportant()) {
-                    onePathData.put("isImportant", true);
-                }
-                String existingDescribe = (String) onePathData.get("describe");
-                if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
-                    onePathData.put("describe", rule.getDescribe());
-                } else if (!existingDescribe.contains(rule.getDescribe())) {
-                    onePathData.put("describe", existingDescribe + "," + rule.getDescribe());
                 }
 
-                String existingResult = (String) onePathData.get("result");
-                if (existingResult.equals("-") || existingResult.isEmpty()) {
-                    onePathData.put("result", rule.getType());
-                } else if (!existingResult.contains(rule.getType())) {
-                    onePathData.put("result", existingResult + "," + rule.getType());
+
+                if (isMatch) {
+                    // 是否为重要
+                    if (rule.getIsImportant()) {
+                        onePathData.put("isImportant", true);
+                    }
+                    String existingDescribe = (String) onePathData.get("describe");
+                    if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
+                        onePathData.put("describe", rule.getDescribe());
+                    } else if (!existingDescribe.contains(rule.getDescribe())) {
+                        onePathData.put("describe", existingDescribe + "," + rule.getDescribe());
+                    }
+
+                    String existingResult = (String) onePathData.get("result");
+                    if (existingResult.equals("-") || existingResult.isEmpty()) {
+                        onePathData.put("result", rule.getType());
+                    } else if (!existingResult.contains(rule.getType())) {
+                        onePathData.put("result", existingResult + "," + rule.getType());
+                    }
+                    if (originalApiData.getResult().equals("-")) {
+                        originalApiData.setResult(rule.getType());
+                    } else if (!originalApiData.getResult().contains(rule.getType())) {
+                        originalApiData.setResult(originalApiData.getResult() + "," + rule.getType());
+                    }
+                    String resultInfo = (String) onePathData.get("result info");
+                    if (resultInfo.equals("-")) {
+                        resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                    } else {
+                        resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                    }
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
+                    onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
                 }
-                if (originalApiData.getResult().equals("-")) {
-                    originalApiData.setResult(rule.getType());
-                } else if (!originalApiData.getResult().contains(rule.getType())) {
-                    originalApiData.setResult(originalApiData.getResult() + "," + rule.getType());
-                }
-                String resultInfo = (String) onePathData.get("result info");
-                if (resultInfo.equals("-")) {
-                    resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
-                } else {
-                    resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
-                }
-                originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
-                onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
             }
         }
         String[] onePathDataDescribe1 = ((String)onePathData.get("describe")).split(",");

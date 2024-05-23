@@ -21,21 +21,20 @@ public class IProxyScanner implements IProxyListener {
     private static UrlScanCount haveScanUrl = new UrlScanCount();
     public static int totalScanCount = 0;
     final ThreadPoolExecutor executorService;  // 修改这行
-    final ExecutorService monitorExecutorService;;  // 修改这行
     private static IExtensionHelpers helpers;
     private static ScheduledExecutorService monitorExecutor;
-    private static int monitorExecutorServiceNumberOfThread = 6;
     private static int monitorExecutorServiceNumberOfIntervals = 2;
 
 
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
 
-        int coreCount = Math.min(Runtime.getRuntime().availableProcessors(), 5);
+        int coreCount = Math.min(Runtime.getRuntime().availableProcessors(), 30);
+
         int maxPoolSize = coreCount * 2;
 
         // 高性能模式
-        monitorExecutorServiceNumberOfThread = coreCount;;
+        monitorExecutorServiceNumberOfIntervals = (Runtime.getRuntime().availableProcessors() > 30) ? 1 : monitorExecutorServiceNumberOfIntervals;
         long keepAliveTime = 60L;
 
         // 创建一个足够大的队列来处理您的任务
@@ -52,19 +51,16 @@ public class IProxyScanner implements IProxyListener {
         );
         BurpExtender.getStdout().println("[+] run executorService maxPoolSize: " + coreCount + " ~ " + maxPoolSize);
 
-        monitorExecutorService = Executors.newFixedThreadPool(monitorExecutorServiceNumberOfThread);
-
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
-        BurpExtender.getStdout().println("[+] run monitorExecutor success, thread number: " + monitorExecutorServiceNumberOfThread + ", monitorExecutorServiceNumberOfIntervals: " + monitorExecutorServiceNumberOfIntervals);
     }
 
     private void startDatabaseMonitor() {
         monitorExecutor.scheduleAtFixedRate(() -> {
-            monitorExecutorService.submit(() -> {
+            executorService.submit(() -> {
                 try {
                     Random random = new Random();
-                    if (random.nextInt(6) == 2){
+                    if (random.nextInt(5) == 2){
                         int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
                         int haveJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledCountPathDataWithStatus();
                         int totalUrlCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountOriginalData();
@@ -76,7 +72,7 @@ public class IProxyScanner implements IProxyListener {
                     // 步骤一：判断是否有需要解析
                     Map<String, Object> oneOriginalData = BurpExtender.getDataBaseService().fetchAndMarkOriginalDataAsCrawling();
                     if (!oneOriginalData.isEmpty()){
-                        BurpExtender.getStdout().println("[+] 正在解析: " + oneOriginalData);
+                        BurpExtender.getStdout().println("[+] 正在解析: " + oneOriginalData.get("url"));
                         runAPIFinder(oneOriginalData);
                     }else{
                         if (ConfigPanel.toggleButton.isSelected()){
@@ -169,7 +165,11 @@ public class IProxyScanner implements IProxyListener {
                 return;
             }
             String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
-
+            // 看status是否为30开头
+            if (statusCode.startsWith("3")){
+                BurpExtender.getStdout().println("[-] URL的响应包状态码3开头， 不进行url识别： " + url);
+                return;
+            }
 
             if (haveScanUrl.get((Utils.extractBaseUrl(url).hashCode() + statusCode + method)) <= 0) {
                 haveScanUrl.add(Utils.extractBaseUrl(url).hashCode() + statusCode + method);

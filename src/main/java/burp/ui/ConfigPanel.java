@@ -58,7 +58,7 @@ public class ConfigPanel extends JPanel {
         gbc_leftStrut.insets = new Insets(0, 0, 0, 5);
         gbc_leftStrut.fill = GridBagConstraints.HORIZONTAL;
         gbc_leftStrut.weightx = 1.0; // 这个值决定了 leftStrut 占据的空间大小
-        gbc_leftStrut.gridx = 10;
+        gbc_leftStrut.gridx = 8;
         gbc_leftStrut.gridy = 0;
         FilterPanel.add(leftStrut, gbc_leftStrut);
 

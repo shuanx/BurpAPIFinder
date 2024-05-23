@@ -791,7 +791,7 @@ public class DatabaseService {
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, "解析");
+            pstmt.setString(1, "等待解析");
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt(1);
@@ -805,7 +805,7 @@ public class DatabaseService {
     }
 
     public synchronized int getJSCrawledTotalCountOriginalData() {
-        String sql = "SELECT COUNT(*) FROM path_data";
+        String sql = "SELECT COUNT(*) FROM original_data";
         int count = 0;
 
         try (Connection conn = this.connect();
