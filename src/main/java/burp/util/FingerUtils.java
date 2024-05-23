@@ -176,7 +176,7 @@ public class FingerUtils {
         // 响应的body值
         String responseBody = new String(oneResponseBytes, StandardCharsets.UTF_8);
         // 响应包是3开头或者404的则不进行匹配
-        if (!((String)onePathData.get("status")).startsWith("3") ||  ((String)onePathData.get("status")).equals("404")){
+        if (!((String)onePathData.get("status")).startsWith("3") || !((String)onePathData.get("status")).equals("404")){
             // 响应头
             for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
                 // 过滤掉白名单URL后缀、白名单路径

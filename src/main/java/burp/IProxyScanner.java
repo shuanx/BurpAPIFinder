@@ -60,9 +60,8 @@ public class IProxyScanner implements IProxyListener {
         monitorExecutor.scheduleAtFixedRate(() -> {
             executorService.submit(() -> {
                 try {
-                    int activeCount = executorService.getActiveCount();
 
-                    if (activeCount >= 6){
+                    if (executorService.getActiveCount() >= 6){
                         return;
                     }
 
@@ -130,6 +129,7 @@ public class IProxyScanner implements IProxyListener {
         ConfigPanel.lbSuccessCount.setText("0");
         ConfigPanel.lbRequestCount.setText("0");
         ConfigPanel.jsCrawledCount.setText("0/0");
+        ConfigPanel.urlCrawledCount.setText("0/0");
         BurpExtender.getDataBaseService().clearApiDataTable();
         BurpExtender.getDataBaseService().clearPathDataTable();
         BurpExtender.getDataBaseService().clearRequestsResponseTable();
@@ -174,7 +174,7 @@ public class IProxyScanner implements IProxyListener {
             }
             String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
             // 看status是否为30开头
-            if (statusCode.startsWith("3")){
+            if (statusCode.startsWith("3") || statusCode.equals("404")){
                 BurpExtender.getStdout().println("[-] URL的响应包状态码3开头， 不进行url识别： " + url);
                 return;
             }
