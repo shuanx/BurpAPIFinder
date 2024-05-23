@@ -24,17 +24,18 @@ public class IProxyScanner implements IProxyListener {
     private static IExtensionHelpers helpers;
     private static ScheduledExecutorService monitorExecutor;
     private static int monitorExecutorServiceNumberOfIntervals = 2;
+    private static int MaxResponseContentLength = 500000;
 
 
     public IProxyScanner() {
         helpers = BurpExtender.getHelpers();
 
-        int coreCount = Math.min(Runtime.getRuntime().availableProcessors(), 30);
+        int coreCount = Math.min(Runtime.getRuntime().availableProcessors(), 16);
 
         int maxPoolSize = coreCount * 2;
 
         // 高性能模式
-        monitorExecutorServiceNumberOfIntervals = (Runtime.getRuntime().availableProcessors() > 30) ? 1 : monitorExecutorServiceNumberOfIntervals;
+        monitorExecutorServiceNumberOfIntervals = (Runtime.getRuntime().availableProcessors() > 6) ? 1 : monitorExecutorServiceNumberOfIntervals;
         long keepAliveTime = 60L;
 
         // 创建一个足够大的队列来处理您的任务
@@ -49,7 +50,7 @@ public class IProxyScanner implements IProxyListener {
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy() // 当任务太多时抛出异常，可以根据需要调整策略
         );
-        BurpExtender.getStdout().println("[+] run executorService maxPoolSize: " + coreCount + " ~ " + maxPoolSize);
+        BurpExtender.getStdout().println("[+] run executorService maxPoolSize: " + coreCount + " ~ " + maxPoolSize + ", monitorExecutorServiceNumberOfIntervals: " + monitorExecutorServiceNumberOfIntervals);
 
         monitorExecutor = Executors.newSingleThreadScheduledExecutor();
         startDatabaseMonitor();
@@ -59,6 +60,12 @@ public class IProxyScanner implements IProxyListener {
         monitorExecutor.scheduleAtFixedRate(() -> {
             executorService.submit(() -> {
                 try {
+                    int activeCount = executorService.getActiveCount();
+
+                    if (activeCount >= 6){
+                        return;
+                    }
+
                     Random random = new Random();
                     if (random.nextInt(5) == 2){
                         int totalJsCrawledNumber = BurpExtender.getDataBaseService().getJSCrawledTotalCountPathDataWithIsJsFindUrl();
@@ -139,7 +146,8 @@ public class IProxyScanner implements IProxyListener {
             String method = helpers.analyzeRequest(resrsp).getMethod();
             // 提取url，过滤掉静态文件
             String url = String.valueOf(helpers.analyzeRequest(resrsp).getUrl());
-            byte[] responseBytes = resrsp.getResponse();
+            byte[] responseBytes = resrsp.getResponse().length > MaxResponseContentLength ? Arrays.copyOf(resrsp.getResponse(), MaxResponseContentLength) : resrsp.getResponse();
+
 
             // 返回结果为空则退出
             if (responseBytes == null || responseBytes.length == 0) {

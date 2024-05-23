@@ -1102,7 +1102,7 @@
       "match": "regular",
       "location": "body",
       "keyword": [
-        "\".*Required.*parameter.*\""
+        "\".*Required .{1,18} parameter.*\""
       ],
       "type": "有价值信息",
       "describe": "缺少参数",

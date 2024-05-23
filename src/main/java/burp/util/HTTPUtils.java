@@ -6,10 +6,7 @@ import burp.IHttpService;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author： shaun
@@ -17,6 +14,8 @@ import java.util.Map;
  * @description：TODO
  */
 public class HTTPUtils {
+    public static int MaxResponseContentLength = 500000;
+
     public static Map<String, Object> makeGetRequest(Map<String, Object> pathDataModel) {
         Map<String, Object> onePathData = (Map<String, Object>) pathDataModel.get("path_data");
         onePathData.put("path", pathDataModel.get("path"));
@@ -54,6 +53,7 @@ public class HTTPUtils {
 
             // 获取响应字节
             byte[] responseBytes = requestResponse.getResponse();
+            responseBytes = responseBytes.length  > MaxResponseContentLength ? Arrays.copyOf(responseBytes, MaxResponseContentLength) : responseBytes;
             String statusCode = String.valueOf(BurpExtender.getCallbacks().getHelpers().analyzeResponse(responseBytes).getStatusCode());
 
             // 添加请求和响应数据到返回数据结构
