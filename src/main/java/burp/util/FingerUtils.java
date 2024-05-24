@@ -19,7 +19,8 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
-    private static final int MAX_SIZE = 40000; // 设置最大字节大小为40000
+    private static final int MAX_SIZE = 10000; // 设置最大字节大小为40000
+    private static final int CHUNK_SIZE = 20000;
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -52,6 +53,7 @@ public class FingerUtils {
 
             // 响应的body值
             String responseBody = new String(oneResponseBytes, StandardCharsets.UTF_8);
+            int responseBodyLength = responseBody.length();
             for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
                 // 过滤掉白名单URL后缀、白名单路径
                 if (rule.getType().contains("白名单")) {
@@ -73,25 +75,32 @@ public class FingerUtils {
                 StringBuilder matchedResults = new StringBuilder("match result：");
                 for (String key : rule.getKeyword()) {
                     try {
-                        Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
-                        Matcher matcher = pattern.matcher(locationContent);
-
                         if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
                             isMatch = false;
                         } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
                             matchedResults.append(key).append("、");
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
-                            while (matcher.find()) {
-                                foundMatch = true;
-                                // 将匹配到的内容添加到StringBuilder中
-                                matchedResults.append(matcher.group()).append("、");
-                                if (matchedResults.length() > MAX_SIZE){
-                                    break;
+                            for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
+                                int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
+                                String responseBodyChunk = responseBody.substring(start, end);
+
+                                Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
+                                Matcher matcher = pattern.matcher(responseBodyChunk);
+                                while (matcher.find()) {
+                                    foundMatch = true;
+                                    // 将匹配到的内容添加到StringBuilder中
+                                    matchedResults.append(matcher.group()).append("、");
+                                    if (matchedResults.length() > MAX_SIZE) {
+                                        break;
+                                    }
+                                }
+                                if (!foundMatch) {
+                                    isMatch = false;
                                 }
                             }
-                            if (!foundMatch) {
-                                isMatch = false;
+                            if (foundMatch){
+                                break;
                             }
                         }
                     } catch (PatternSyntaxException e) {

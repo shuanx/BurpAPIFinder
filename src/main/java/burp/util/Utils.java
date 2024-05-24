@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
-    static final int CHUNK_SIZE = 50000; // 分割大小
+    static final int CHUNK_SIZE = 20000; // 分割大小
 
     // 对以下URl提取URL
     public final static  List<String> STATIC_URl_EXT = List.of(
