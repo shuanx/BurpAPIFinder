@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BurpExtender implements IBurpExtender, IExtensionStateListener {
     public final static String extensionName = "APIFinder";
-    public final static String version = "v2024-05-04";
+    public final static String version = "v2024-05-24";
     public final static String author = "Shaun";
 
     private static PrintWriter stdout;
@@ -149,27 +149,6 @@ public class BurpExtender implements IBurpExtender, IExtensionStateListener {
             List<Runnable> notExecutedTasks = iProxyScanner.executorService.shutdownNow();
             BurpExtender.getStdout().println("[+] 尝试停止所有正在执行的任务，未执行的任务数量：" + notExecutedTasks.size());
         }
-
-        // 关闭 monitorExecutor
-        if (iProxyScanner.monitorExecutor != null && iProxyScanner.monitorExecutor.isShutdown()) {
-            try {
-                iProxyScanner.monitorExecutor.shutdown(); // 禁止提交新任务，开始关闭
-                // 等待一段时间以结束现有任务
-                if (!iProxyScanner.monitorExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
-                    iProxyScanner.monitorExecutor.shutdownNow(); // (可选)取消当前执行的任务
-                    // 等待任务响应中断
-                    if (!iProxyScanner.monitorExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
-                        BurpExtender.getStdout().println("MonitorExecutor did not terminate.");
-                    }
-                }
-            } catch (InterruptedException ie) {
-                // (重新)取消如果当前线程也被中断
-                iProxyScanner.monitorExecutor.shutdownNow();
-                // 保留中断状态
-                Thread.currentThread().interrupt();
-            }
-        }
-        BurpExtender.getStdout().println("MonitorExecutor shutdown successfully.");
 
         MailPanel.timer.stop();
 
