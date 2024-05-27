@@ -137,7 +137,9 @@ public class DatabaseService {
                 + " path_data TEXT,\n"
                 + " method TEXT,\n"
                 + " isJsFindUrl TEXT,\n"
-                + " jsFindUrl TEXT"
+                + " jsFindUrl TEXT, \n"
+                + " mayNewParentPath TEXT, \n"
+                + " isTryNewParentPath INTEGER"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
