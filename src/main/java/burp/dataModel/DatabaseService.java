@@ -134,7 +134,10 @@ public class DatabaseService {
                 + " status TEXT,\n"
                 + " result TEXT,\n"
                 + " describe TEXT,\n"
-                + " path_data TEXT\n"
+                + " path_data TEXT,\n"
+                + " method TEXT,\n"
+                + " isJsFindUrl TEXT,\n"
+                + " jsFindUrl TEXT"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
@@ -620,14 +623,14 @@ public class DatabaseService {
     // 方法以插入或更新 path_data 表
     public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, String describe, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
-        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND path_data LIKE ?";
+        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND method = ?";
 
         try (Connection conn = this.connect();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
             // 检查记录是否存在
             checkStmt.setString(1, url);
             checkStmt.setString(2, path);
-            checkStmt.setString(3, "%\"method\":\"" + pathData.get("method") + "\"%");
+            checkStmt.setString(3, (String) pathData.get("method"));
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
                 // 记录存在，更新记录
@@ -653,7 +656,7 @@ public class DatabaseService {
                 }
             } else {
                 // 记录不存在，插入新记录
-                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, describe, path_data) VALUES(?, ?, ?, ?, ?, ?, ?)";
+                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, describe, path_data, method, isJsFindUrl, jsFindUrl) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
                     insertStmt.setString(1, url);
                     insertStmt.setString(2, path);
@@ -662,6 +665,9 @@ public class DatabaseService {
                     insertStmt.setString(5, result);
                     insertStmt.setString(6, describe);
                     insertStmt.setString(7, serializePathData(pathData));
+                    insertStmt.setString(8, (String) pathData.get("method"));
+                    insertStmt.setString(9, (String) pathData.get("isJsFindUrl"));
+                    insertStmt.setString(10, (String) pathData.get("jsFindUrl"));
                     insertStmt.executeUpdate();
 
                     // 获取生成的键值
@@ -696,6 +702,9 @@ public class DatabaseService {
                     // 你也可以将 having_important 和 result 字段添加到返回的 map 中
                     pathData.put("having_important", rs.getInt("having_important"));
                     pathData.put("result", rs.getString("result"));
+                    pathData.put("method", rs.getString("method"));
+                    pathData.put("isJsFindUrl", rs.getString("isJsFindUrl"));
+                    pathData.put("jsFindUrl", rs.getString("jsFindUrl"));
                 }
             }
         } catch (Exception e) {
@@ -765,13 +774,13 @@ public class DatabaseService {
     }
 
     public synchronized int getJSCrawledTotalCountPathDataWithIsJsFindUrl() {
-        String sql = "SELECT COUNT(*) FROM path_data WHERE path_data LIKE ?";
+        String sql = "SELECT COUNT(*) FROM path_data WHERE isJsFindUrl = ?";
         int count = 0;
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, "%\"isJsFindUrl\":\"Y\"%");
+            pstmt.setString(1, "Y");
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt(1);
@@ -824,14 +833,14 @@ public class DatabaseService {
     }
 
     public synchronized int getJSCrawledCountPathDataWithStatus() {
-        String sql = "SELECT COUNT(*) FROM path_data WHERE status !=  ? and path_data LIKE ?";
+        String sql = "SELECT COUNT(*) FROM path_data WHERE status !=  ? and isJsFindUrl = ?";
         int count = 0;
 
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, "等待爬取");
-            pstmt.setString(2, "%\"isJsFindUrl\":\"Y\"%");
+            pstmt.setString(2, "Y");
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     count = rs.getInt(1);

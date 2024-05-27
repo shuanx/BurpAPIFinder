@@ -251,6 +251,7 @@ public class IProxyScanner implements IProxyListener {
                 getUriData.put("time", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
                 getUriData.put("url", Utils.getUriFromUrl(url));
                 getUriData.put("path", Utils.getPathFromUrl(url));
+                getUriData.put("jsFindUrl", "-");
                 pathData.put(Utils.getPathFromUrl(url), getUriData);
             }
 
@@ -283,6 +284,7 @@ public class IProxyScanner implements IProxyListener {
                 originalData.put("time", '-');
                 originalData.put("url", Utils.getUriFromUrl(url));
                 originalData.put("path", Utils.getPathFromUrl(getUrl));
+                originalData.put("jsFindUrl", url);
                 pathData.put(Utils.getPathFromUrl(getUrl), originalData);
             }
 
