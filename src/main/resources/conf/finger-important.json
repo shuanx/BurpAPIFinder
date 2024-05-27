@@ -1111,7 +1111,7 @@
       "accuracy": "high"
     },
     {
-      "match": "regular",
+      "match": "keyword",
       "location": "body",
       "keyword": [
         "Content-Type: application/json",
@@ -1124,7 +1124,7 @@
       "accuracy": "high"
     },
     {
-      "match": "regular",
+      "match": "keyword",
       "location": "body",
       "keyword": [
         "Content-Type: application/json",
