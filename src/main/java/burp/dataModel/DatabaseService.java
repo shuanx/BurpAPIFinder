@@ -10,6 +10,8 @@ import burp.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -73,10 +75,12 @@ public class DatabaseService {
                 + " list_status TEXT,\n"
                 + " describe TEXT,\n"
                 + " result_info TEXT,\n"
-                + "request_response_index INTEGER, \n"
-                + "host TEXT, \n"
-                + "port INTEGER, \n"
-                + "protocol TEXT\n"
+                + " request_response_index INTEGER, \n"
+                + " host TEXT, \n"
+                + " port INTEGER, \n"
+                + " protocol TEXT, \n"
+                + " jsMatchTime TEXT DEFAULT '-', \n"
+                + " jsMatchNumber INTEGER DEFAULT 0"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
@@ -160,6 +164,38 @@ public class DatabaseService {
     private String serializePathData(Map<String, Object> pathData) {
         return gson.toJson(pathData);
     }
+
+
+
+    public synchronized String fetchAndMarkApiData() {
+        // 首先选取一条记录的ID
+        String selectSQL = "SELECT * FROM api_data WHERE  strftime('%s', 'now', 'localtime') - strftime('%s', replace(time, '/', '-')) > 10 LIMIT 1";
+        String updateSQL = "UPDATE api_data SET jsMatchTime = ? and jsMatchNumber = ? WHERE id = ?";
+
+        try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
+            ResultSet rs = selectStatement.executeQuery();
+            if (rs.next()) {
+                int selectedId = rs.getInt("id");
+                String url = rs.getString("url");
+
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+                    updateStatement.setString(1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
+                    updateStatement.setInt(2, Integer.parseInt(getPathDataCountByUrl(url)));
+                    updateStatement.setInt(3, selectedId);
+                    int affectedRows = updateStatement.executeUpdate();
+                    if (affectedRows > 0) {
+                        return url;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error fetchAndMarkSinglePathAsCrawling: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return "";
+    }
+
 
     public synchronized int insertOrUpdateOriginalData(String url, int pid, String status, String method, int requestResponseIndex, IHttpService iHttpService) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
@@ -894,6 +930,48 @@ public class DatabaseService {
             }
         } catch (Exception e) {
             BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndImportance: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+    public synchronized Map<String, Object> selectPathDataByUrlAndStatusNot404(String url) {
+        String sql = "SELECT path, jsFindUrl FROM path_data WHERE url = ? AND status NOT LIKE '3%' AND status NOT LIKE '4%' AND isJsFindUrl = 'N'";
+        Map<String, Object> filteredPathData = new HashMap<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    filteredPathData.put(rs.getString("path"), rs.getString("jsFindUrl"));
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndStatus: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return filteredPathData;
+    }
+
+    public synchronized Map<String, Object> selectPathDataByUrlAndIsJsFindUrl(String url) {
+        String sql = "SELECT path, jsFindUrl FROM path_data WHERE url = ? AND isJsFindUrl = 'Y'";
+        Map<String, Object> filteredPathData = new HashMap<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    filteredPathData.put(rs.getString("path"), rs.getString("jsFindUrl"));
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndStatus: ");
             e.printStackTrace(BurpExtender.getStderr());
         }
         return filteredPathData;

@@ -77,23 +77,32 @@ public class IProxyScanner implements IProxyListener {
                     }
                     // 步骤一：判断是否有需要解析
                     Map<String, Object> oneOriginalData = BurpExtender.getDataBaseService().fetchAndMarkOriginalDataAsCrawling();
+                    Map<String, Object> onePathData =  new HashMap<>();
+                    String url = "";
                     if (!oneOriginalData.isEmpty()){
                         BurpExtender.getStdout().println("[+] 正在解析: " + oneOriginalData.get("url"));
                         runAPIFinder(oneOriginalData);
-                    }else{
-                        if (ConfigPanel.toggleButton.isSelected()){
-                            return;
-                        }
+                    }else if (ConfigPanel.toggleButton.isSelected()) {
+                        return;
+                    }else if(!(onePathData =  BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling()).isEmpty()){
                         // 步骤二：判断是否有需要爬取URL
-                        Map<String, Object> onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawling();
-                        if (onePathData.isEmpty()){
-                            return;
-                        }
                         BurpExtender.getStdout().println("[+] 正在爬取： " + onePathData.get("url") + onePathData.get("path"));
                         ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
                         mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                         BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+                    }else if (!(url = BurpExtender.getDataBaseService().fetchAndMarkApiData()).equals("")){
+                        BurpExtender.getStdout().println("进入匹配二模式");
+                        // 步骤一：读取该url对应的非爬取的url
+                        Map<String, Object> notJsFindUrlAndNot404 = BurpExtender.getDataBaseService().selectPathDataByUrlAndStatusNot404(url);
+                        // 步骤二：读取该url对应的爬取的url
+                        Map<String, Object> isFindUrl = BurpExtender.getDataBaseService().selectPathDataByUrlAndIsJsFindUrl(url);
+                        // 步骤三：进行匹配，看是否有匹配成功
+                        BurpExtender.getStdout().println(notJsFindUrlAndNot404);
+                        BurpExtender.getStdout().println(isFindUrl);
+                        // 步骤四：对匹配的数据库进行写入
+
                     }
+                    //
 
 
                 } catch (Exception e) {
