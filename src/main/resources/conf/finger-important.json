@@ -744,6 +744,19 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
+        "<pwd>",
+        "<admin_user>"
+      ],
+      "type": "敏感内容",
+      "describe": "管理员账号、管理员密码",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
         "\"admin_pwd\"",
         "\"admin_user\""
       ],

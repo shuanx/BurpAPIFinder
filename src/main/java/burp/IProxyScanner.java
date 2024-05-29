@@ -90,6 +90,12 @@ public class IProxyScanner implements IProxyListener {
                         ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
                         mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                         BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+                    } else if(!(onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawlingByNewParentPath()).isEmpty()){
+
+                        BurpExtender.getStdout().println("[+] 正在爬取模式二提取url： " + onePathData.get("url") + onePathData.get("path"));
+                        ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
+                        mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
+                        BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                     }else if (!(url = BurpExtender.getDataBaseService().fetchAndMarkApiData()).equals("")){
                         BurpExtender.getStdout().println("进入匹配二模式");
                         // 步骤一：读取该url对应的非爬取的url
@@ -108,7 +114,8 @@ public class IProxyScanner implements IProxyListener {
                                 if (key.contains(keyToCheck)) {
                                     // 提取出parent
                                     String parentPath = key.replace(keyToCheck, "");
-                                    BurpExtender.getStdout().println(key + ", parentPath: " + parentPath);
+                                    BurpExtender.getStdout().println(key + ", parentPath: " + parentPath +  ", " + isFindUrl.get(keyToCheck));
+                                    BurpExtender.getDataBaseService().updatePathDataMayNewParentPath(parentPath, (String) isFindUrl.get(keyToCheck));
                                     break; // 找到一个就足够了，不需要继续循环
                                 }
                             }

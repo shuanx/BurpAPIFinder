@@ -371,6 +371,27 @@ public class DatabaseService {
     }
 
 
+    public synchronized void updatePathDataMayNewParentPath(String mayNewParentPath, String jsFindUrl) {
+        String sql = "UPDATE path_data SET "
+                + " mayNewParentPath=?, "
+                + " isTryNewParentPath=? "
+                + "WHERE isTryNewParentPath is NULL AND mayNewParentPath IS NULL AND jsFindUrl = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 设置更新语句中的参数
+            pstmt.setString(1, mayNewParentPath);
+            pstmt.setBoolean(2, false);
+            pstmt.setString(3, jsFindUrl);
+
+            // 执行更新
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-]更新数据库报错： URL=" + jsFindUrl);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+    }
+
     // Method to update an ApiDataModel
     public synchronized void updateApiDataModelByUrl(ApiDataModel model) {
         String sql = "UPDATE api_data SET "
@@ -789,6 +810,43 @@ public class DatabaseService {
                 String url = rs.getString("url");
                 String path = rs.getString("path");
 
+
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+                    updateStatement.setInt(1, selectedId);
+                    int affectedRows = updateStatement.executeUpdate();
+                    if (affectedRows > 0) {
+                        // 序列化 path_data
+                        Object deserializedPathData = deserializePathData(selectedPathData);
+                        filteredPathData.put("id", selectedId);
+                        filteredPathData.put("path_data", deserializedPathData);
+                        filteredPathData.put("url", url);
+                        filteredPathData.put("path", path);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error fetchAndMarkSinglePathAsCrawling: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return filteredPathData;
+    }
+
+    public synchronized Map<String, Object> fetchAndMarkSinglePathAsCrawlingByNewParentPath() {
+        // 事务开启
+        Map<String, Object> filteredPathData = new HashMap<>();
+
+        // 首先选取一条记录的ID
+        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 LIMIT 1;";
+        String updateSQL = "UPDATE path_data SET isTryNewParentPath = 1 WHERE id = ?;";
+
+        try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
+            ResultSet rs = selectStatement.executeQuery();
+            if (rs.next()) {
+                int selectedId = rs.getInt("id");
+                String selectedPathData = rs.getString("path_data");
+                String url = rs.getString("url");
+                String path = rs.getString("mayNewParentPath") + rs.getString("path");
 
                 try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
                     updateStatement.setInt(1, selectedId);
