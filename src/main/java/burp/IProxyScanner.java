@@ -100,6 +100,21 @@ public class IProxyScanner implements IProxyListener {
                         BurpExtender.getStdout().println(notJsFindUrlAndNot404);
                         BurpExtender.getStdout().println(isFindUrl);
                         // 步骤四：对匹配的数据库进行写入
+                        // 遍历filteredPathData2的键，并检查它们是否部分包含在filteredPathData的键中
+                        for (String keyToCheck : isFindUrl.keySet()) {
+
+                            // 在filteredPathData的键中寻找任何包含keyToCheck的键
+                            for (String key : notJsFindUrlAndNot404.keySet()) {
+                                if (key.contains(keyToCheck)) {
+                                    // 提取出parent
+                                    String parentPath = key.replace(keyToCheck, "");
+                                    BurpExtender.getStdout().println(key + ", parentPath: " + parentPath);
+                                    break; // 找到一个就足够了，不需要继续循环
+                                }
+                            }
+
+
+                        }
 
                     }
                     //
