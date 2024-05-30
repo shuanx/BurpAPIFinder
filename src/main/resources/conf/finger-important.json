@@ -811,6 +811,30 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
+        "/graphiql"
+      ],
+      "type": "敏感内容",
+      "describe": "GraphQL API",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "__graphiql"
+      ],
+      "type": "敏感内容",
+      "describe": "GraphQL API",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
         "user=='",
         "password=='"
       ],
@@ -1255,6 +1279,18 @@
       ],
       "type": "敏感路径",
       "describe": "SpringbootActuator",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "urlPath",
+      "keyword": [
+        "/graphiql"
+      ],
+      "type": "敏感路径",
+      "describe": "GraphQL API",
       "isImportant": true,
       "isOpen": true,
       "accuracy": "high"

@@ -2,7 +2,7 @@
 ![](https://img.shields.io/badge/Author-Shaun-blue)
 ![](https://img.shields.io/badge/JDK-9+-yellow)
 ![](https://img.shields.io/badge/捡漏是门艺术-往往有意想不到的成果-red)
-> 攻防演练过程中，我们通常会用浏览器访问一些资产，但很多未授权/敏感信息/越权隐匿在已访问接口过html、JS文件等，通过该Burp插件我们可以：  
+> 攻防演练过程中，我们通常会用浏览器访问一些资产，但很多未授权/敏感信息/越权隐匿在已访问接口过html、JS文件等，通过该BurpAPIFinder插件我们可以：  
 > 1、发现通过某接口可以进行未授权/越权获取到所有的账号密码、私钥、凭证  
 > 2、发现通过某接口可以枚举用户信息、密码修改、用户创建接口  
 > 3、发现登陆后台网址  
@@ -25,21 +25,18 @@
 - [x] 集成sweetPotato的敏感信息识别指纹  
 ![img.png](images/sweetPotato.png)
 
+## 使用说明
+1、下载右侧Releases下的jar包  
+2、如原先有使用旧版本的，需要删除掉原先同BurpAPIFinder.jar同目录下的BurpAPIFinder.db文件后再加载
+
 ## 闲聊/优化/建议/问题反馈群
 <img src="images/weixinqun.png" alt="img.png" width="200"/>
 
-## 额外推荐笔者另一个好用的插件 - BurpFingerPrint
+## BurpFingerPrint
+额外推荐笔者另一个好用的插件 BurpFinderPrint
 GITHUB: https://github.com/shuanx/BurpFingerPrint
 该插件为作者精心开发出来, 旨在打造最强免费指纹识别库和弱口令探测库
-> 攻击过程中，我们通常会用浏览器访问一些资产，该BurpSuite插件实现被动指纹识别+网站提取链接+OA爆破，可帮助我们发现更多资产。
-- [x] 浏览器被动指纹识别，已集成Ehole指纹识别库
-- [x] 提取网站的URL链接和解析JS文件中的URL链接后进行指纹识别
-- [x] 开界面进行指纹库修改，可导入、导出、重置
-- [x] 优化已有指纹库，区分重点指纹和常见指纹，补充部分实战热门漏洞的指纹，方便直接一键getshell
-- [x] 优化算法，提升性能、减少内存开销
-- [x] 使用sqlite存储扫描结果，放置因BurpSuite意外退出而导致数据丢失
-- [ ] 收集github上常见的EXP工具，提起其含有EXP漏洞的指纹，当成重要指纹，一旦页面出现该指纹，就表示有戏有戏
-- [ ] 集成弱口令爆破页面和默认场景场景下弱口令爆破功能
+
 
 ## 免责声明
 
