@@ -142,8 +142,8 @@ public class DatabaseService {
                 + " method TEXT,\n"
                 + " isJsFindUrl TEXT,\n"
                 + " jsFindUrl TEXT, \n"
-                + " mayNewParentPath TEXT, \n"
-                + " isTryNewParentPath INTEGER"
+                + " mayNewParentPath TEXT DEFAULT '', \n"
+                + " isTryNewParentPath INTEGER DEFAULT 0"
                 + ");";
 
         try (Statement stmt = connection.createStatement()) {
@@ -169,18 +169,21 @@ public class DatabaseService {
 
     public synchronized String fetchAndMarkApiData() {
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT * FROM api_data WHERE  strftime('%s', 'now', 'localtime') - strftime('%s', replace(time, '/', '-')) > 10 LIMIT 1";
-        String updateSQL = "UPDATE api_data SET jsMatchTime = ? and jsMatchNumber = ? WHERE id = ?";
+        String selectSQL = "SELECT * FROM api_data WHERE ( strftime('%s', 'now', 'localtime') - strftime('%s', replace(time, '/', '-')) > 600  AND jsMatchTime = '-') OR strftime('%s', 'now', 'localtime') - strftime('%s', replace(jsMatchTime, '/', '-')) > 3000 LIMIT 1";
+        String updateSQL = "UPDATE api_data SET jsMatchTime = ? , jsMatchNumber = ? WHERE id = ?";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
             ResultSet rs = selectStatement.executeQuery();
             if (rs.next()) {
                 int selectedId = rs.getInt("id");
                 String url = rs.getString("url");
+                if (!rs.getString("jsMatchTime").equals('-') && (rs.getInt("jsMatchNumber") == getPathDataCountByUrlAndIsJsFindUrlAndStatus(url))){
+                    return "";
+                }
 
                 try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
                     updateStatement.setString(1, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-                    updateStatement.setInt(2, Integer.parseInt(getPathDataCountByUrl(url)));
+                    updateStatement.setInt(2, getPathDataCountByUrlAndIsJsFindUrlAndStatus(url));
                     updateStatement.setInt(3, selectedId);
                     int affectedRows = updateStatement.executeUpdate();
                     if (affectedRows > 0) {
@@ -375,14 +378,15 @@ public class DatabaseService {
         String sql = "UPDATE path_data SET "
                 + " mayNewParentPath=?, "
                 + " isTryNewParentPath=? "
-                + "WHERE isTryNewParentPath is NULL AND mayNewParentPath IS NULL AND jsFindUrl = ?";
+                + "WHERE mayNewParentPath = '' AND mayNewParentPath != ? AND result = '-' AND jsFindUrl = ? AND isJsFindUrl = 'Y'";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // 设置更新语句中的参数
             pstmt.setString(1, mayNewParentPath);
             pstmt.setBoolean(2, false);
-            pstmt.setString(3, jsFindUrl);
+            pstmt.setString(3, mayNewParentPath);
+            pstmt.setString(4, jsFindUrl);
 
             // 执行更新
             pstmt.executeUpdate();
@@ -837,7 +841,7 @@ public class DatabaseService {
         Map<String, Object> filteredPathData = new HashMap<>();
 
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 LIMIT 1;";
+        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 AND isJSFindUrl != 'N' AND mayNewParentPath != '' LIMIT 1;";
         String updateSQL = "UPDATE path_data SET isTryNewParentPath = 1 WHERE id = ?;";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
@@ -969,6 +973,27 @@ public class DatabaseService {
         }
 
         return String.valueOf(count);
+    }
+
+    public synchronized int getPathDataCountByUrlAndIsJsFindUrlAndStatus(String url) {
+        String sql = "SELECT COUNT(*) FROM path_data WHERE url = ? AND isJsFindUrl != 'YY' AND status NOT LIKE '3%' AND status NOT LIKE '4%' ";
+        int count = 0;
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1); // 获取第一列的值，即 COUNT(*) 的结果
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error counting path_data entries for URL: " + url);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return count;
     }
 
     public synchronized Map<String, Object> selectPathDataByUrlAndImportance(String url, boolean isImportant) {

@@ -91,22 +91,21 @@ public class IProxyScanner implements IProxyListener {
                         mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                         BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                     } else if(!(onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawlingByNewParentPath()).isEmpty()){
-
-                        BurpExtender.getStdout().println("[+] 正在爬取模式二提取url： " + onePathData.get("url") + onePathData.get("path"));
-                        ApiDataModel mergeApiData = FingerUtils.FingerFilter(HTTPUtils.makeGetRequest(onePathData));
+                        BurpExtender.getStdout().println("[+] 正在爬去Js提取Parent合并后的url： " + onePathData.get("url") + onePathData.get("path"));
+                        Map<String, Object> pathData = HTTPUtils.makeGetRequest(onePathData);
+                        pathData.put("isJsFindUrl", "YY");
+                        ApiDataModel mergeApiData = FingerUtils.FingerFilter(pathData);
                         mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                         BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                     }else if (!(url = BurpExtender.getDataBaseService().fetchAndMarkApiData()).equals("")){
-                        BurpExtender.getStdout().println("进入匹配二模式");
+                        BurpExtender.getStdout().println("[+] 进入Js提取Parent的逻辑：" + url);
                         // 步骤一：读取该url对应的非爬取的url
                         Map<String, Object> notJsFindUrlAndNot404 = BurpExtender.getDataBaseService().selectPathDataByUrlAndStatusNot404(url);
                         // 步骤二：读取该url对应的爬取的url
                         Map<String, Object> isFindUrl = BurpExtender.getDataBaseService().selectPathDataByUrlAndIsJsFindUrl(url);
                         // 步骤三：进行匹配，看是否有匹配成功
-                        BurpExtender.getStdout().println(notJsFindUrlAndNot404);
-                        BurpExtender.getStdout().println(isFindUrl);
-                        // 步骤四：对匹配的数据库进行写入
                         // 遍历filteredPathData2的键，并检查它们是否部分包含在filteredPathData的键中
+                        Map<String, Set<String>> uniqueElementsParent =new HashMap<>();
                         for (String keyToCheck : isFindUrl.keySet()) {
 
                             // 在filteredPathData的键中寻找任何包含keyToCheck的键
@@ -114,15 +113,27 @@ public class IProxyScanner implements IProxyListener {
                                 if (key.contains(keyToCheck)) {
                                     // 提取出parent
                                     String parentPath = key.replace(keyToCheck, "");
-                                    BurpExtender.getStdout().println(key + ", parentPath: " + parentPath +  ", " + isFindUrl.get(keyToCheck));
-                                    BurpExtender.getDataBaseService().updatePathDataMayNewParentPath(parentPath, (String) isFindUrl.get(keyToCheck));
-                                    break; // 找到一个就足够了，不需要继续循环
+                                    if (parentPath.length() < 3){
+                                        continue;
+                                    }
+                                    // BurpExtender.getStdout().println("[+] jsFindUrl: " + isFindUrl.get(keyToCheck) + ", parentPath: " + parentPath + ", Key: " + key);
+                                    uniqueElementsParent.computeIfAbsent((String) isFindUrl.get(keyToCheck), k -> new HashSet<>()).add(parentPath);
+                                    break;
                                 }
                             }
-
-
                         }
+                        for (Map.Entry<String, Set<String>> entry : uniqueElementsParent.entrySet()) {
+                            String jsFindUrl = entry.getKey();
+                            Set<String> valueSet = entry.getValue();
 
+                            // 将Set转换为以逗号分隔的字符串
+                            String mayNewParentPath = String.join(", ", valueSet);
+
+                            // 输出到BurpExtender的标准输出
+                            BurpExtender.getStdout().println("jsFindUrl: " + jsFindUrl + ", mayNewParentPath: " + mayNewParentPath);
+                            // 步骤四：对匹配的数据库进行写入
+                            BurpExtender.getDataBaseService().updatePathDataMayNewParentPath(mayNewParentPath, jsFindUrl);
+                        }
                     }
                     //
 

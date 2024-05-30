@@ -268,7 +268,7 @@ public class MailPanel implements IMessageEditorController {
                                         ;
                                         Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
                                         if (((String)matchPathData.get("status")).equals("等待爬取")){
-                                            resultDeViewer.setText("等待爬取，爬取后再进行铭感信息探测...".getBytes());
+                                            resultDeViewer.setText(("isJSFindUrl: " + matchPathData.get("isJsFindUrl") + "\r\n" + "jsFindUrl: " + matchPathData.get("jsFindUrl") + "\r\n等待爬取，爬取后再进行铭感信息探测...").getBytes());
                                             requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
                                             responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
                                         }else{
@@ -277,7 +277,7 @@ public class MailPanel implements IMessageEditorController {
                                             iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
                                             requestTextEditor.setMessage(requestsData, true);
                                             responseTextEditor.setMessage(responseData, false);
-                                            resultDeViewer.setText(((String) matchPathData.get("result info")).getBytes());
+                                            resultDeViewer.setText(("isJSFindUrl: " + matchPathData.get("isJsFindUrl") + "\r\n" + "jsFindUrl: " + matchPathData.get("jsFindUrl") + (String) matchPathData.get("result info")).getBytes());
                                         }
                                     } catch (Exception e) {
                                         e.printStackTrace(BurpExtender.getStderr());

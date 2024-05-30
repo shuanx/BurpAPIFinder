@@ -704,9 +704,9 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
-        "password",
+        "password:",
         "HOST:",
-        "NAME"
+        "NAME:"
       ],
       "type": "敏感内容",
       "describe": "账号, 密码, IP",
@@ -824,9 +824,8 @@
       "match": "keyword",
       "location": "body",
       "keyword": [
-        "userName",
-        "password",
-        "=>",
+        "userName =>",
+        "password =>",
         "info"
       ],
       "type": "敏感内容",
