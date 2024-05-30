@@ -361,7 +361,6 @@ public class MailPanel implements IMessageEditorController {
                 String path = (String) table.getModel().getValueAt(row, 2);
                 url = findUrlFromPath(row);
                 ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
-                ;
                 Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
                 if (((String)matchPathData.get("status")).equals("等待爬取")){
                     resultDeViewer.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "\r\n" + "Find js From Url: " + matchPathData.get("jsFindUrl") + "\r\n等待爬取，爬取后再进行铭感信息探测...").getBytes());

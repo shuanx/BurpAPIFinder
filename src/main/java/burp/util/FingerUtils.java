@@ -19,8 +19,9 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
-    private static final int MAX_SIZE = 10000; // 设置最大字节大小为40000
+    private static final int MAX_SIZE = 50000; // 设置最大字节大小为40000
     private static final int CHUNK_SIZE = 20000;
+    private static final int RESULT_SIZE = 10000;
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -91,7 +92,7 @@ public class FingerUtils {
                                     foundMatch = true;
                                     // 将匹配到的内容添加到StringBuilder中
                                     matchedResults.append(matcher.group()).append("、");
-                                    if (matchedResults.length() > MAX_SIZE) {
+                                    if (matchedResults.length() > RESULT_SIZE) {
                                         break;
                                     }
                                 }
