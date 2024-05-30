@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.Timer;
@@ -44,6 +46,7 @@ public class MailPanel implements IMessageEditorController {
     public static LocalDateTime operationStartTime = LocalDateTime.now();
     private final Icon deleteItemIcon = UiUtils.getImageIcon("/icon/deleteButton.png", 15, 15);
     private final Icon setUnImportantItemIcon = UiUtils.getImageIcon("/icon/setUnImportantItemIcon.png", 15, 15);
+    private final Icon copyIcon = UiUtils.getImageIcon("/icon/copyIcon.png", 15, 15);
 
     public static JPanel getContentPane(){
         return contentPane;
@@ -82,12 +85,31 @@ public class MailPanel implements IMessageEditorController {
 
         // 创建右键菜单
         JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem copyItem = new JMenuItem("复制路径", copyIcon);
         JMenuItem setUnImportantItem = new JMenuItem("误报", setUnImportantItemIcon);
         JMenuItem deleteItem = new JMenuItem("删除", deleteItemIcon);
+        popupMenu.add(copyItem);
         popupMenu.add(deleteItem);
         popupMenu.add(setUnImportantItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
+
+        copyItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Get the selected row from the table
+
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    // 假设URL在表格的第三列
+                    String url = (String) table.getValueAt(selectedRow, 2);
+                    // 复制URL到剪贴板
+                    StringSelection stringSelection = new StringSelection(url);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                }
+            }
+        });
 
         setUnImportantItem.addActionListener(new ActionListener() {
             @Override
@@ -241,49 +263,7 @@ public class MailPanel implements IMessageEditorController {
                         try {
                             int row = table.rowAtPoint(e.getPoint());
                             if (row >= 0) {
-                                selectRow = row;
-                                String listStatus = (String) table.getModel().getValueAt(row, 0);
-                                String url;
-                                if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
-                                    url = (String) table.getModel().getValueAt(row, 2);
-                                    ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
-                                    requestsData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("request");
-                                    responseData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("response");
-                                    iHttpService = apiDataModel.getiHttpService();
-                                    requestTextEditor.setMessage(requestsData, true);
-                                    responseTextEditor.setMessage(responseData, false);
-                                    resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
-                                    if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)) {
-                                        BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_EXPAND);
-                                        modelExpand(apiDataModel, row);
-                                    } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
-                                        BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_COLLAPSE);
-                                        modeCollapse(apiDataModel, row);
-                                    }
-                                } else {
-                                    try {
-                                        String path = (String) table.getModel().getValueAt(row, 2);
-                                        url = findUrlFromPath(row);
-                                        ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
-                                        ;
-                                        Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
-                                        if (((String)matchPathData.get("status")).equals("等待爬取")){
-                                            resultDeViewer.setText(("isJSFindUrl: " + matchPathData.get("isJsFindUrl") + "\r\n" + "jsFindUrl: " + matchPathData.get("jsFindUrl") + "\r\n等待爬取，爬取后再进行铭感信息探测...").getBytes());
-                                            requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
-                                            responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
-                                        }else{
-                                            requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
-                                            responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
-                                            iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
-                                            requestTextEditor.setMessage(requestsData, true);
-                                            responseTextEditor.setMessage(responseData, false);
-                                            resultDeViewer.setText(("isJSFindUrl: " + matchPathData.get("isJsFindUrl") + "\r\n" + "jsFindUrl: " + matchPathData.get("jsFindUrl") + (String) matchPathData.get("result info")).getBytes());
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace(BurpExtender.getStderr());
-                                    }
-
-                                }
+                                updateComponentsBasedOnSelectedRow(row);
                             }
                         }catch (Exception ef) {
                             BurpExtender.getStderr().println("[-] Error click table: " + table.rowAtPoint(e.getPoint()));
@@ -294,6 +274,28 @@ public class MailPanel implements IMessageEditorController {
 
             }
         });
+
+        table.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            try {
+                                int row = table.getSelectedRow();
+                                if (row >= 0) {
+                                    updateComponentsBasedOnSelectedRow(row);
+                                }
+                            }catch (Exception ef) {
+                                BurpExtender.getStderr().println("[-] Error KeyEvent.VK_UP OR  KeyEvent.VK_DOWN: ");
+                                ef.printStackTrace(BurpExtender.getStderr());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
 
         // 请求的面板
         requestTextEditor = callbacks.createMessageEditor(this, false);
@@ -332,6 +334,52 @@ public class MailPanel implements IMessageEditorController {
 
         // 启动定时器
         timer.start();
+    }
+
+    private void updateComponentsBasedOnSelectedRow(int row) {
+        selectRow = row;
+        String listStatus = (String) table.getModel().getValueAt(row, 0);
+        String url;
+        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+            url = (String) table.getModel().getValueAt(row, 2);
+            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+            requestsData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("request");
+            responseData = BurpExtender.getDataBaseService().selectRequestResponseById(apiDataModel.getRequestsResponseIndex()).get("response");
+            iHttpService = apiDataModel.getiHttpService();
+            requestTextEditor.setMessage(requestsData, true);
+            responseTextEditor.setMessage(responseData, false);
+            resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
+            if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)) {
+                BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_EXPAND);
+                modelExpand(apiDataModel, row);
+            } else if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_EXPAND)) {
+                BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_COLLAPSE);
+                modeCollapse(apiDataModel, row);
+            }
+        } else {
+            try {
+                String path = (String) table.getModel().getValueAt(row, 2);
+                url = findUrlFromPath(row);
+                ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                ;
+                Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
+                if (((String)matchPathData.get("status")).equals("等待爬取")){
+                    resultDeViewer.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "\r\n" + "Find js From Url: " + matchPathData.get("jsFindUrl") + "\r\n等待爬取，爬取后再进行铭感信息探测...").getBytes());
+                    requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
+                    responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
+                }else{
+                    requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
+                    responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
+                    iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
+                    requestTextEditor.setMessage(requestsData, true);
+                    responseTextEditor.setMessage(responseData, false);
+                    resultDeViewer.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "\r\n" + "Find js From Url: " + matchPathData.get("jsFindUrl") + "\r\n" +  (String) matchPathData.get("result info")).getBytes());
+                }
+            } catch (Exception e) {
+                e.printStackTrace(BurpExtender.getStderr());
+            }
+
+        }
     }
 
     public void refreshTableModel() {
@@ -608,3 +656,5 @@ public class MailPanel implements IMessageEditorController {
     }
 
 }
+
+
