@@ -750,6 +750,58 @@ public class DatabaseService {
     }
 
 
+    // 方法以插入或更新 path_data 表
+    public synchronized boolean updatePathDataBy4xxAnd3XXAndUrl(String url, String mayNewParentPath) {
+        String sql = "UPDATE path_data SET "
+                + " mayNewParentPath=?, "
+                + " isTryNewParentPath=? "
+                + "WHERE (status LIKE '3%' OR status LIKE '4%') AND  describe = '-' AND url = ? ";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 设置更新语句中的参数
+            pstmt.setString(1, mayNewParentPath);
+            pstmt.setBoolean(2, false);
+            pstmt.setString(3, url);
+
+            // 执行更新
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] ERROR in updatePathDataBy4xxAnd3XXAndUrl： URL=" + url + mayNewParentPath);
+            e.printStackTrace(BurpExtender.getStderr());
+            return false;
+        }
+    }
+
+
+    public synchronized boolean updatePathDataByUrlAndPath(String url, String path, String mayNewParentPath) {
+        String sql = "UPDATE path_data SET "
+                + " mayNewParentPath=?, "
+                + " isTryNewParentPath=?, "
+                + " isJsFindUrl=?"
+                + "WHERE path = ? AND url = ? ";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 设置更新语句中的参数
+            pstmt.setString(1, mayNewParentPath);
+            pstmt.setBoolean(2, false);
+            pstmt.setString(3, "YY");
+            pstmt.setString(4, path);
+            pstmt.setString(5, url);
+
+            // 执行更新
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] ERROR in updatePathDataByUrlAndPath： URL=" + url + mayNewParentPath);
+            e.printStackTrace(BurpExtender.getStderr());
+            return false;
+        }
+    }
+
+
     public synchronized Map<String, Object> selectPathDataByUrlAndPath(String url, String path) {
         String sql = "SELECT * FROM path_data WHERE url = ? AND path = ?";
         Map<String, Object> pathData = null;
@@ -841,7 +893,7 @@ public class DatabaseService {
         Map<String, Object> filteredPathData = new HashMap<>();
 
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 AND isJSFindUrl != 'N' AND mayNewParentPath != '' LIMIT 1;";
+        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 AND mayNewParentPath != '' LIMIT 1;";
         String updateSQL = "UPDATE path_data SET isTryNewParentPath = 1 WHERE id = ?;";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
@@ -850,7 +902,8 @@ public class DatabaseService {
                 int selectedId = rs.getInt("id");
                 String selectedPathData = rs.getString("path_data");
                 String url = rs.getString("url");
-                String path = rs.getString("mayNewParentPath") + rs.getString("path");
+                String pathParent = rs.getString("mayNewParentPath");
+                String path = rs.getString("path");
 
                 try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
                     updateStatement.setInt(1, selectedId);
@@ -861,6 +914,7 @@ public class DatabaseService {
                         filteredPathData.put("id", selectedId);
                         filteredPathData.put("path_data", deserializedPathData);
                         filteredPathData.put("url", url);
+                        filteredPathData.put("pathParent", pathParent);
                         filteredPathData.put("path", path);
                     }
                 }

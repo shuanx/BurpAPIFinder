@@ -47,6 +47,7 @@ public class MailPanel implements IMessageEditorController {
     private final Icon deleteItemIcon = UiUtils.getImageIcon("/icon/deleteButton.png", 15, 15);
     private final Icon setUnImportantItemIcon = UiUtils.getImageIcon("/icon/setUnImportantItemIcon.png", 15, 15);
     private final Icon copyIcon = UiUtils.getImageIcon("/icon/copyIcon.png", 15, 15);
+    private final Icon customizeIcon = UiUtils.getImageIcon("/icon/customizeIcon.png", 15, 15);
 
     public static JPanel getContentPane(){
         return contentPane;
@@ -85,14 +86,186 @@ public class MailPanel implements IMessageEditorController {
 
         // 创建右键菜单
         JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem customizeItem = new JMenuItem("自定义父路径", customizeIcon);
         JMenuItem copyItem = new JMenuItem("复制路径", copyIcon);
         JMenuItem setUnImportantItem = new JMenuItem("误报", setUnImportantItemIcon);
         JMenuItem deleteItem = new JMenuItem("删除", deleteItemIcon);
+        popupMenu.add(customizeItem);
         popupMenu.add(copyItem);
         popupMenu.add(deleteItem);
         popupMenu.add(setUnImportantItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
+
+        // 添加事件监听器到"自定义父路径"菜单项
+        // 添加事件监听器到"自定义父路径"菜单项
+        customizeItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String listStatus = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String path = (String) table.getModel().getValueAt(selectedRow, 2);
+                    try {
+                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                            // Update the database
+                            String url = (String) model.getValueAt(selectedRow, 2); // Assuming URL is in column 2
+                            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                            // 创建对话框的容器
+                            JDialog dialog = new JDialog();
+                            dialog.setTitle("自定义父路径");
+                            dialog.setLayout(new GridBagLayout()); // 使用GridBagLayout布局管理器
+                            GridBagConstraints constraints = new GridBagConstraints();
+                            constraints.fill = GridBagConstraints.HORIZONTAL;
+                            constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
+
+                            // 添加URL展示
+                            JLabel urlJLabel = new JLabel("功能：针对该URL下返回404场景的补充上下面父路径后进行识别：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 0; // 第一行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(urlJLabel, constraints);
+
+                            // 添加PATH展示
+                            JLabel pathJLabel = new JLabel("URL： " + url);
+                            constraints.gridy = 1; // 第二行
+                            dialog.add(pathJLabel, constraints);
+
+                            // 添加"自定义父路径"标签和输入框
+                            JLabel customParentPathLabel = new JLabel("自定义父路径：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 2; // 第三行
+                            constraints.gridwidth = 1; // 重置为占据一列的空间
+                            dialog.add(customParentPathLabel, constraints);
+
+                            JTextField customParentPathField = new JTextField();
+                            constraints.gridx = 1; // 第二列
+                            dialog.add(customParentPathField, constraints);
+
+                            // 添加按钮面板
+                            JPanel buttonPanel = new JPanel();
+                            JButton confirmButton = new JButton("确认");
+                            JButton cancelButton = new JButton("取消");
+
+                            // 确认按钮事件
+                            confirmButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    // 处理自定义父路径逻辑
+                                    // 获取用户输入的自定义父路径
+                                    String customPath = customParentPathField.getText();
+                                    if (BurpExtender.getDataBaseService().updatePathDataBy4xxAnd3XXAndUrl(url, customPath)){
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径成功：" + customPath , "插入自定义路径成功",  JOptionPane.INFORMATION_MESSAGE);
+                                    } else{
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径失败：" + customPath , "插入自定义路径失败",  JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            // 取消按钮事件
+                            cancelButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            buttonPanel.add(confirmButton);
+                            buttonPanel.add(cancelButton);
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 3; // 第四行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(buttonPanel, constraints);
+
+                            dialog.pack(); // 调整对话框大小以适应其子组件
+                            dialog.setLocationRelativeTo(null); // 居中显示
+                            dialog.setVisible(true); // 显示对话框
+                        } else {
+                            String url = findUrlFromPath(selectedRow);
+                            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
+                            Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(url, path);
+                            // 创建对话框的容器
+                            JDialog dialog = new JDialog();
+                            dialog.setTitle("自定义父路径");
+                            dialog.setLayout(new GridBagLayout()); // 使用GridBagLayout布局管理器
+                            GridBagConstraints constraints = new GridBagConstraints();
+                            constraints.fill = GridBagConstraints.HORIZONTAL;
+                            constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
+
+                            // 添加URL展示
+                            JLabel urlJLabel = new JLabel("功能：针对该PATH补充上下面父路径后进行识别：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 0; // 第一行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(urlJLabel, constraints);
+
+                            // 添加PATH展示
+                            JLabel pathJLabel = new JLabel("PATH： " + path);
+                            constraints.gridy = 1; // 第二行
+                            dialog.add(pathJLabel, constraints);
+
+                            // 添加"自定义父路径"标签和输入框
+                            JLabel customParentPathLabel = new JLabel("自定义父路径：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 2; // 第三行
+                            constraints.gridwidth = 1; // 重置为占据一列的空间
+                            dialog.add(customParentPathLabel, constraints);
+
+                            JTextField customParentPathField = new JTextField();
+                            constraints.gridx = 1; // 第二列
+                            dialog.add(customParentPathField, constraints);
+
+                            // 添加按钮面板
+                            JPanel buttonPanel = new JPanel();
+                            JButton confirmButton = new JButton("确认");
+                            JButton cancelButton = new JButton("取消");
+
+                            // 确认按钮事件
+                            confirmButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    // 处理自定义父路径逻辑
+                                    String customPath = customParentPathField.getText();
+                                    if (BurpExtender.getDataBaseService().updatePathDataByUrlAndPath(url, path, customPath)){
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径成功：" + customPath , "插入自定义路径成功",  JOptionPane.INFORMATION_MESSAGE);
+                                    } else{
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径失败：" + customPath , "插入自定义路径失败",  JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            // 取消按钮事件
+                            cancelButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            buttonPanel.add(confirmButton);
+                            buttonPanel.add(cancelButton);
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 3; // 第四行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(buttonPanel, constraints);
+
+                            dialog.pack(); // 调整对话框大小以适应其子组件
+                            dialog.setLocationRelativeTo(null); // 居中显示
+                            dialog.setVisible(true); // 显示对话框
+
+                        }
+
+                    }catch (Exception ek) {
+                        BurpExtender.getStderr().println("[-] chick 自定义父路径 error : " + path);
+                        ek.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                }
+
+            }
+        });
 
         copyItem.addActionListener(new ActionListener() {
             @Override

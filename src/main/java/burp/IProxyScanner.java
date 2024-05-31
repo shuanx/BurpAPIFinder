@@ -91,12 +91,26 @@ public class IProxyScanner implements IProxyListener {
                         mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
                         BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
                     } else if(!(onePathData = BurpExtender.getDataBaseService().fetchAndMarkSinglePathAsCrawlingByNewParentPath()).isEmpty()){
-                        BurpExtender.getStdout().println("[+] 正在爬去Js提取Parent合并后的url： " + onePathData.get("url") + onePathData.get("path"));
-                        Map<String, Object> pathData = HTTPUtils.makeGetRequest(onePathData);
-                        pathData.put("isJsFindUrl", "YY");
-                        ApiDataModel mergeApiData = FingerUtils.FingerFilter(pathData);
-                        mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
-                        BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+                        String path = (String) onePathData.get("path");
+                        String pathParent = (String) onePathData.get("pathParent");
+                        String[] pathParentList = pathParent.split(",");
+                        for (String onePathParent : pathParentList){
+                            if (!onePathParent.startsWith("/")) {
+                                onePathParent = "/" + onePathParent;
+                            }
+
+                            // 如果 customPath 是以 "/" 结尾，则去除尾部的 "/"
+                            if (onePathParent.endsWith("/")) {
+                                onePathParent = onePathParent.substring(0, onePathParent.length() - 1);
+                            }
+                            BurpExtender.getStdout().println("[+] 正在爬去Js提取Parent合并后的url： " + onePathData.get("url") +  onePathParent + path);
+                            onePathData.put("path",  onePathParent + path);
+                            Map<String, Object> pathData = HTTPUtils.makeGetRequest(onePathData);
+                            pathData.put("isJsFindUrl", "YY");
+                            ApiDataModel mergeApiData = FingerUtils.FingerFilter(pathData);
+                            mergeApiData.setHavingImportant(BurpExtender.getDataBaseService().hasImportantPathDataByUrl(Utils.getUriFromUrl(mergeApiData.getUrl())));
+                            BurpExtender.getDataBaseService().updateApiDataModelByUrl(mergeApiData);
+                        }
                     }else if (!(url = BurpExtender.getDataBaseService().fetchAndMarkApiData()).equals("")){
                         BurpExtender.getStdout().println("[+] 进入Js提取Parent的逻辑：" + url);
                         // 步骤一：读取该url对应的非爬取的url
