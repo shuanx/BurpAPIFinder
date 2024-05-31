@@ -228,9 +228,9 @@ public class MailPanel implements IMessageEditorController {
                                     // 处理自定义父路径逻辑
                                     String customPath = customParentPathField.getText();
                                     if (BurpExtender.getDataBaseService().updatePathDataByUrlAndPath(url, path, customPath)){
-                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径成功：" + customPath , "插入自定义路径成功",  JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + path +  ", 插入自定义父路径成功：" + customPath , "插入自定义路径成功",  JOptionPane.INFORMATION_MESSAGE);
                                     } else{
-                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义父路径失败：" + customPath , "插入自定义路径失败",  JOptionPane.INFORMATION_MESSAGE);
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + path + ", 插入自定义父路径失败：" + customPath , "插入自定义路径失败",  JOptionPane.INFORMATION_MESSAGE);
                                     }
                                     dialog.dispose(); // 关闭对话框
                                 }
