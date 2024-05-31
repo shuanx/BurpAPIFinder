@@ -132,7 +132,7 @@ public class MailPanel implements IMessageEditorController {
                             dialog.add(pathJLabel, constraints);
 
                             // 添加"自定义父路径"标签和输入框
-                            JLabel customParentPathLabel = new JLabel("自定义父路径：");
+                            JLabel customParentPathLabel = new JLabel("自定义父路径(多个用逗号拼接)：");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
@@ -206,7 +206,7 @@ public class MailPanel implements IMessageEditorController {
                             dialog.add(pathJLabel, constraints);
 
                             // 添加"自定义父路径"标签和输入框
-                            JLabel customParentPathLabel = new JLabel("自定义父路径：");
+                            JLabel customParentPathLabel = new JLabel("自定义父路径(多个用逗号拼接)：");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
