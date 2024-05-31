@@ -120,7 +120,7 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该URL下返回404场景的补充上下面父路径后进行识别：");
+                            JLabel urlJLabel = new JLabel("功能：针对该URL下返回状态码3xx或4xx且无敏感指纹场景的补充上下面父路径后进行识别：");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
@@ -194,7 +194,7 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该PATH补充上下面父路径后进行识别：");
+                            JLabel urlJLabel = new JLabel("功能：针对该PATH补充下面父路径后进行识别：");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
