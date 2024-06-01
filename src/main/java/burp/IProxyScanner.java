@@ -308,6 +308,7 @@ public class IProxyScanner implements IProxyListener {
                 getUriData.put("url", Utils.getUriFromUrl(url));
                 getUriData.put("path", Utils.getPathFromUrl(url));
                 getUriData.put("jsFindUrl", "-");
+                getUriData.put("original_url", url);
                 pathData.put(Utils.getPathFromUrl(url), getUriData);
             }
 
@@ -341,6 +342,7 @@ public class IProxyScanner implements IProxyListener {
                 originalData.put("url", Utils.getUriFromUrl(url));
                 originalData.put("path", Utils.getPathFromUrl(getUrl));
                 originalData.put("jsFindUrl", url);
+                originalData.put("original_url", url);
                 pathData.put(Utils.getPathFromUrl(getUrl), originalData);
             }
 

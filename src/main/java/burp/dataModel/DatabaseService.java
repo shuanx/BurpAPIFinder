@@ -1136,6 +1136,27 @@ public class DatabaseService {
         return filteredPathData;
     }
 
+    public synchronized List<String> selectPathDataByJsFindUrl(String url) {
+        String sql = "SELECT url, path FROM path_data WHERE jsFindUrl = ?";
+        List<String> resultList = new ArrayList<>();
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, url);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) { // 注意这里使用了 while 循环来处理所有的结果
+                    resultList.add(rs.getString("url") + rs.getString("path"));
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error selecting from path_data selectPathDataByUrlAndResult: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return resultList;
+    }
+
     public synchronized Map<String, Object> selectPathDataByUrlAndResult(String url, String result) {
         String sql = "SELECT * FROM path_data WHERE url = ? AND result LIKE ?";
         Map<String, Object> filteredPathData = new HashMap<>();

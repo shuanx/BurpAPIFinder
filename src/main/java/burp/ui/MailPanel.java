@@ -7,6 +7,7 @@ import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
 import burp.util.UiUtils;
 import burp.util.Utils;
+import org.iq80.snappy.Main;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -37,6 +38,7 @@ public class MailPanel implements IMessageEditorController {
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
     public static JEditorPane resultTextPane = new JEditorPane("text/html", "");
+    public static ITextEditor findUrlTEditor;
     public static JScrollPane scrollPane = new JScrollPane(resultTextPane);
     private static DefaultTableModel model;
     public static JTable table;
@@ -477,12 +479,16 @@ public class MailPanel implements IMessageEditorController {
         // 响应的面板
         responseTextEditor = callbacks.createMessageEditor(this, false);
 
+        // 提取到URL的面板
+        findUrlTEditor = BurpExtender.getCallbacks().createTextEditor();
+
 
         // 将 verticalSplitPane 添加到窗口的中心区域
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Result Info", scrollPane);
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
+        tabs.addTab("FindUrl", findUrlTEditor.getComponent());
         mainSplitPane.setBottomComponent(tabs);
 
         contentPane.add(configPanel, BorderLayout.NORTH);
@@ -521,6 +527,7 @@ public class MailPanel implements IMessageEditorController {
             requestTextEditor.setMessage(requestsData, true);
             responseTextEditor.setMessage(responseData, false);
             resultTextPane.setText((apiDataModel.getResultInfo()));
+            findUrlTEditor.setText("-".getBytes());
             if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)) {
                 BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_EXPAND);
                 modelExpand(apiDataModel, row);
@@ -538,12 +545,25 @@ public class MailPanel implements IMessageEditorController {
                     resultTextPane.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "<br>" + "Find js From Url: " + Utils.encodeForHTML((String) matchPathData.get("jsFindUrl")) + "<br>等待爬取，爬取后再进行铭感信息探测..."));
                     requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
                     responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
+                    findUrlTEditor.setText("-".getBytes());
                 }else{
+
                     requestsData = Base64.getDecoder().decode((String) matchPathData.get("requests"));
                     responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
                     iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
                     requestTextEditor.setMessage(requestsData, true);
                     responseTextEditor.setMessage(responseData, false);
+                    if (matchPathData.get("isJsFindUrl").equals("N")){
+                        List<String> resultList = BurpExtender.getDataBaseService().selectPathDataByJsFindUrl((String) matchPathData.get("original_url"));
+                        if (!resultList.isEmpty()){
+                            findUrlTEditor.setText((String.join("\r\n", resultList)).getBytes());
+                        }else{
+                            findUrlTEditor.setText("-".getBytes());
+                        }
+                    }else {
+                        findUrlTEditor.setText("-".getBytes());
+                    }
+
                     resultTextPane.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "<br>" + "Find js From Url: " + Utils.encodeForHTML((String) matchPathData.get("jsFindUrl")) + "<br>" +  (String) matchPathData.get("result info")));
                 }
             } catch (Exception e) {
@@ -677,6 +697,7 @@ public class MailPanel implements IMessageEditorController {
             MailPanel.requestTextEditor.setMessage(new byte[0], true); // 清空请求编辑器
             MailPanel.responseTextEditor.setMessage(new byte[0], false); // 清空响应编辑器
             MailPanel.resultTextPane.setText("");
+            MailPanel.findUrlTEditor.setText(new byte[0]);
             MailPanel.iHttpService = null; // 清空当前显示的项
             MailPanel.requestsData = null;
             MailPanel.responseData = null;

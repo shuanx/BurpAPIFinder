@@ -39,9 +39,19 @@ public class FingerUtils {
             // 判断响应包是否超大，超大则截断
             // 如果数组超过20000个字节，则截断并添加一条消息
             if (oneResponseBytes.length > MAX_SIZE) {
+                // 定义截断消息
+                String truncationMessage = "[!] The response packet length exceeds: " + MAX_SIZE + ", so it is truncated and returned. The matching is not affected. If you need the complete response packet content, please send a packet for testing yourself.\r\n\r\n";
+                // 将截断消息转换为byte数组
+                byte[] truncationMessageBytes = truncationMessage.getBytes(StandardCharsets.UTF_8);
+                // 确定新的截断长度，留出空间给截断消息
+                int truncatedLength = MAX_SIZE - truncationMessageBytes.length;
+                // 创建新数组，大小为截断响应加上截断消息
                 byte[] truncatedResponse = new byte[MAX_SIZE];
-                System.arraycopy(oneResponseBytes, 0, truncatedResponse, 0, MAX_SIZE);
-                // 用截断的响应替换原始响应
+                // 将截断消息复制到新数组开头
+                System.arraycopy(truncationMessageBytes, 0, truncatedResponse, 0, truncationMessageBytes.length);
+                // 将原始响应的一部分复制到新数组，紧接着截断消息之后
+                System.arraycopy(oneResponseBytes, 0, truncatedResponse, truncationMessageBytes.length, truncatedLength);
+                // 用截断的响应（包含截断消息）替换原始响应
                 onePathData.put("response", Base64.getEncoder().encodeToString(truncatedResponse));
             }
 
