@@ -74,6 +74,6 @@ public class FingerPrintRule {
     }
 
     public String getInfo(){
-        return "Time: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "\r\nmatch: " + match + "\r\nType: " + type + "\r\naccuracy: " + accuracy + "\r\ndescribe: " + describe +  "\r\nlocation: " + location + "\r\nkeyword: " + keyword.toString() + "\r\n";
+        return "Time: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()) + "<br>match: " + match + "<br>Type: " + type + "<br>accuracy: " + accuracy + "<br>describe: <span style='color: red;'>" + describe +  "</span><br>location: " + location + "<br>keyword: " + keyword.toString() + "<br>";
     }
 }

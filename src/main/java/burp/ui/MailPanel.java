@@ -36,7 +36,8 @@ public class MailPanel implements IMessageEditorController {
     public static IHttpService iHttpService;
     private JScrollPane upScrollPane;
     private ConfigPanel configPanel;
-    public static ITextEditor resultDeViewer;
+    public static JEditorPane resultTextPane = new JEditorPane("text/html", "");
+    public static JScrollPane scrollPane = new JScrollPane(resultTextPane);
     private static DefaultTableModel model;
     public static JTable table;
     public static int selectRow = 0;
@@ -476,12 +477,10 @@ public class MailPanel implements IMessageEditorController {
         // 响应的面板
         responseTextEditor = callbacks.createMessageEditor(this, false);
 
-        // 详细结果面板
-        resultDeViewer = BurpExtender.getCallbacks().createTextEditor();
 
         // 将 verticalSplitPane 添加到窗口的中心区域
         JTabbedPane tabs = new JTabbedPane();
-        tabs.addTab("Result Info", resultDeViewer.getComponent());
+        tabs.addTab("Result Info", scrollPane);
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
         mainSplitPane.setBottomComponent(tabs);
@@ -521,7 +520,7 @@ public class MailPanel implements IMessageEditorController {
             iHttpService = apiDataModel.getiHttpService();
             requestTextEditor.setMessage(requestsData, true);
             responseTextEditor.setMessage(responseData, false);
-            resultDeViewer.setText((apiDataModel.getResultInfo()).getBytes());
+            resultTextPane.setText((apiDataModel.getResultInfo()));
             if (apiDataModel.getListStatus().equals(Constants.TREE_STATUS_COLLAPSE)) {
                 BurpExtender.getDataBaseService().updateListStatusByUrl(url, Constants.TREE_STATUS_EXPAND);
                 modelExpand(apiDataModel, row);
@@ -536,7 +535,7 @@ public class MailPanel implements IMessageEditorController {
                 ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);
                 Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(apiDataModel.getUrl(), path);
                 if (((String)matchPathData.get("status")).equals("等待爬取")){
-                    resultDeViewer.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "\r\n" + "Find js From Url: " + matchPathData.get("jsFindUrl") + "\r\n等待爬取，爬取后再进行铭感信息探测...").getBytes());
+                    resultTextPane.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "<br>" + "Find js From Url: " + Utils.encodeForHTML((String) matchPathData.get("jsFindUrl")) + "<br>等待爬取，爬取后再进行铭感信息探测..."));
                     requestTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
                     responseTextEditor.setMessage("等待爬取，爬取后再进行铭感信息探测...".getBytes(), false);
                 }else{
@@ -545,7 +544,7 @@ public class MailPanel implements IMessageEditorController {
                     iHttpService = Utils.iHttpService((String) matchPathData.get("host"), ((Double) matchPathData.get("port")).intValue(), (String) matchPathData.get("protocol"));
                     requestTextEditor.setMessage(requestsData, true);
                     responseTextEditor.setMessage(responseData, false);
-                    resultDeViewer.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "\r\n" + "Find js From Url: " + matchPathData.get("jsFindUrl") + "\r\n" +  (String) matchPathData.get("result info")).getBytes());
+                    resultTextPane.setText(("IS Find From JS: " + matchPathData.get("isJsFindUrl") + "<br>" + "Find js From Url: " + Utils.encodeForHTML((String) matchPathData.get("jsFindUrl")) + "<br>" +  (String) matchPathData.get("result info")));
                 }
             } catch (Exception e) {
                 e.printStackTrace(BurpExtender.getStderr());
@@ -677,7 +676,7 @@ public class MailPanel implements IMessageEditorController {
             // 还可以清空编辑器中的数据
             MailPanel.requestTextEditor.setMessage(new byte[0], true); // 清空请求编辑器
             MailPanel.responseTextEditor.setMessage(new byte[0], false); // 清空响应编辑器
-            MailPanel.resultDeViewer.setText(new byte[0]);
+            MailPanel.resultTextPane.setText("");
             MailPanel.iHttpService = null; // 清空当前显示的项
             MailPanel.requestsData = null;
             MailPanel.responseData = null;
@@ -761,6 +760,7 @@ public class MailPanel implements IMessageEditorController {
                 return BurpExtender.getDataBaseService().selectAllPathDataByUrl(url);
         }
     }
+
 
 
     public void modeCollapse(ApiDataModel apiDataModel, int index) {

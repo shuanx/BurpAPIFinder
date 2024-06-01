@@ -73,7 +73,7 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
-                StringBuilder matchedResults = new StringBuilder("match result：");
+                StringBuilder matchedResults = new StringBuilder("");
                 for (String key : rule.getKeyword()) {
                     try {
                         if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
@@ -144,12 +144,12 @@ public class FingerUtils {
                     }
                     String resultInfo = (String) onePathData.get("result info");
                     if (resultInfo.equals("-")) {
-                        resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                        resultInfo = "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
                     } else {
-                        resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                        resultInfo = resultInfo + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
-                    onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo() + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    onePathData.put("result info", resultInfo + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
                 }
             }
             BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
@@ -206,7 +206,7 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
-                StringBuilder matchedResults = new StringBuilder("match result：");
+                StringBuilder matchedResults = new StringBuilder("");
                 for (String key : rule.getKeyword()) {
                     try {
                         Pattern pattern = Pattern.compile(key);
@@ -265,12 +265,12 @@ public class FingerUtils {
                     }
                     String resultInfo = (String) onePathData.get("result info");
                     if (resultInfo.equals("-")) {
-                        resultInfo = "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                        resultInfo = "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
                     } else {
-                        resultInfo = resultInfo + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo();
+                        resultInfo = resultInfo + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "\r\n\r\n" + "URL: " + Utils.getUriFromUrl(url) + onePath + "\r\n" + rule.getInfo() + matchedResults.toString().replaceAll("、+$", ""));
-                    onePathData.put("result info", resultInfo + matchedResults.toString().replaceAll("、+$", ""));
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo() + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    onePathData.put("result info", resultInfo + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
                 }
             }
         }
