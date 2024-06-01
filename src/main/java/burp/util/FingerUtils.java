@@ -66,6 +66,7 @@ public class FingerUtils {
             String responseBody = new String(oneResponseBytes, StandardCharsets.UTF_8);
             int responseBodyLength = responseBody.length();
             for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
+                String color = "blue";
                 // 过滤掉白名单URL后缀、白名单路径
                 if (rule.getType().contains("白名单")) {
                     continue;
@@ -128,6 +129,7 @@ public class FingerUtils {
                     // 是否为重要
                     if (rule.getIsImportant()) {
                         onePathData.put("isImportant", true);
+                        color = "red";
                     }
                     String existingDescribe = (String) onePathData.get("describe");
                     if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
@@ -154,12 +156,12 @@ public class FingerUtils {
                     }
                     String resultInfo = (String) onePathData.get("result info");
                     if (resultInfo.equals("-")) {
-                        resultInfo = "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
+                        resultInfo = "############################ NEXT ############################<br>URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     } else {
-                        resultInfo = resultInfo + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
+                        resultInfo = resultInfo + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo() + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
-                    onePathData.put("result info", resultInfo + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    onePathData.put("result info", resultInfo + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
                 }
             }
             BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
@@ -199,6 +201,7 @@ public class FingerUtils {
         if (!((String)onePathData.get("status")).startsWith("3") || !((String)onePathData.get("status")).equals("404")){
             // 响应头
             for (FingerPrintRule rule : BurpExtender.fingerprintRules) {
+                String color = "blue";
                 // 过滤掉白名单URL后缀、白名单路径
                 if (rule.getType().contains("白名单")) {
                     continue;
@@ -254,6 +257,7 @@ public class FingerUtils {
                     // 是否为重要
                     if (rule.getIsImportant()) {
                         onePathData.put("isImportant", true);
+                        color = "red";
                     }
                     String existingDescribe = (String) onePathData.get("describe");
                     if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
@@ -275,12 +279,12 @@ public class FingerUtils {
                     }
                     String resultInfo = (String) onePathData.get("result info");
                     if (resultInfo.equals("-")) {
-                        resultInfo = "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
+                        resultInfo = "############################ NEXT ############################<br>URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     } else {
-                        resultInfo = resultInfo + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo();
+                        resultInfo = resultInfo + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo() + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
-                    onePathData.put("result info", resultInfo + "match result：<span style='color: red;'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    onePathData.put("result info", resultInfo + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
                 }
             }
         }

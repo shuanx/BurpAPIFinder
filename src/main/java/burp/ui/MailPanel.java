@@ -488,7 +488,7 @@ public class MailPanel implements IMessageEditorController {
         tabs.addTab("Result Info", scrollPane);
         tabs.addTab("Original Response", responseTextEditor.getComponent());
         tabs.addTab("Request", requestTextEditor.getComponent());
-        tabs.addTab("FindUrl", findUrlTEditor.getComponent());
+        tabs.addTab("FindUrlByThisPath", findUrlTEditor.getComponent());
         mainSplitPane.setBottomComponent(tabs);
 
         contentPane.add(configPanel, BorderLayout.NORTH);
