@@ -7,7 +7,6 @@ import burp.ui.renderer.IsJsFindUrlRenderer;
 import burp.util.Constants;
 import burp.util.UiUtils;
 import burp.util.Utils;
-import org.iq80.snappy.Main;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +16,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
-import java.nio.charset.StandardCharsets;
+import java.net.URL;
 import java.util.*;
 import javax.swing.Timer;
 import java.util.ArrayList;
@@ -52,8 +51,8 @@ public class MailPanel implements IMessageEditorController {
     private final Icon setUnImportantItemIcon = UiUtils.getImageIcon("/icon/setUnImportantItemIcon.png", 15, 15);
     private final Icon copyIcon = UiUtils.getImageIcon("/icon/copyIcon.png", 15, 15);
     private final Icon customizeIcon = UiUtils.getImageIcon("/icon/customizeIcon.png", 15, 15);
-    private final Icon cookieIcon = UiUtils.getImageIcon("/icon/cookieItem.png", 15, 15);
-
+    private final Icon cookieIcon = UiUtils.getImageIcon("/icon/cookieIcon.png", 15, 15);
+    private final Icon urlIcon = UiUtils.getImageIcon("/icon/urlIcon.png", 15, 15);
     public static JPanel getContentPane(){
         return contentPane;
     }
@@ -93,16 +92,82 @@ public class MailPanel implements IMessageEditorController {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem cookieItem = new JMenuItem("自定义凭证", cookieIcon);
         JMenuItem customizeItem = new JMenuItem("自定义父路径", customizeIcon);
+        JMenuItem urlItem = new JMenuItem("提取url", urlIcon);
         JMenuItem copyItem = new JMenuItem("复制路径", copyIcon);
         JMenuItem setUnImportantItem = new JMenuItem("误报", setUnImportantItemIcon);
         JMenuItem deleteItem = new JMenuItem("删除", deleteItemIcon);
         popupMenu.add(cookieItem);
         popupMenu.add(customizeItem);
+        popupMenu.add(urlItem);
         popupMenu.add(copyItem);
         popupMenu.add(deleteItem);
         popupMenu.add(setUnImportantItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
+
+        // 添加事件监听器到"自定义凭证"菜单项
+        urlItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String listStatus = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String path = (String) table.getModel().getValueAt(selectedRow, 2);
+                    try {
+                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                            JOptionPane.showMessageDialog(table, "当前只支持对某一个具体路径进行url提取" , "提取url失败",  JOptionPane.INFORMATION_MESSAGE);
+                        }else {
+                            String url = findUrlFromPath(selectedRow);
+                            Map<String, Object> matchPathData = BurpExtender.getDataBaseService().selectPathDataByUrlAndPath(url, path);
+                            responseData = Base64.getDecoder().decode((String) matchPathData.get("response"));
+                            // 针对html页面提取
+                            Set<String> urlSet = new HashSet<>(Utils.extractUrlsFromHtmlNotFilter(url, new String(responseData, "UTF-8")));
+                            URL urlUrl = new URL(url);
+                            int port = 80;
+                            if (urlUrl.getPort() != -1){
+                                port = urlUrl.getPort();
+                            } else if (url.contains("http://")) {
+                                port = 80;
+                            }else {
+                                port = 443;
+                            }
+                            // 针对JS页面提取
+                            urlSet.addAll(Utils.findUrlNotFilter(url, port, urlUrl.getHost(), urlUrl.getProtocol(), new String(responseData, "UTF-8")));
+                            if (urlSet.isEmpty()){
+                                urlSet.add("[-] 未能提取出任何URL");
+                            }
+                            // 创建一个JTextArea
+                            JTextArea textArea = new JTextArea(String.join("\r\n", urlSet));
+                            textArea.setLineWrap(true); // 自动换行
+                            textArea.setWrapStyleWord(true); // 断行不断字
+                            textArea.setEditable(true); // 设置为不可编辑
+                            textArea.setCaretPosition(0); // 将插入符号位置设置在文档开头，这样滚动条会滚动到顶部
+
+                            // 使JTextArea能够被复制
+                            textArea.setSelectionStart(0);
+                            textArea.setSelectionEnd(textArea.getText().length());
+
+                            // 将JTextArea放入JScrollPane
+                            JScrollPane scrollPane = new JScrollPane(textArea);
+                            scrollPane.setPreferredSize(new Dimension(350, 150)); // 设定尺寸
+
+                            // 弹出一个包含滚动条的消息窗口
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    scrollPane,
+                                    "提取url成功",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        }
+                    }catch (Exception ek) {
+                        BurpExtender.getStderr().println("[-] chick 提取url error : " + path);
+                        ek.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                }
+
+            }
+        });
 
         // 添加事件监听器到"自定义凭证"菜单项
         cookieItem.addActionListener(new ActionListener() {
@@ -278,7 +343,7 @@ public class MailPanel implements IMessageEditorController {
                         }
 
                     }catch (Exception ek) {
-                        BurpExtender.getStderr().println("[-] chick 自定义父路径 error : " + path);
+                        BurpExtender.getStderr().println("[-] chick 自定义cookie error : " + path);
                         ek.printStackTrace(BurpExtender.getStderr());
                     }
 

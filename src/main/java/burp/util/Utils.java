@@ -148,6 +148,38 @@ public class Utils {
         return urlList;
     }
 
+
+    public static List<String> extractUrlsFromHtmlNotFilter(String uri, String html) {
+        // 使用正则表达式提取文本内容中的 URL
+        List<String> urlList = new ArrayList<String>();
+        if (!html.contains("http")){
+            return urlList;
+        }
+        int htmlLength = html.length(); // html文件内容长度
+
+        // 处理每个 CHUNK_SIZE 大小的片段
+        for (int start = 0; start < htmlLength; start += CHUNK_SIZE) {
+            int end = Math.min(start + CHUNK_SIZE, htmlLength);
+            String htmlChunk = html.substring(start, end);
+            Matcher matcher = FIND_URL_FROM_HTML_PATTERN.matcher(htmlChunk);
+            while (matcher.find()) {
+                String url = matcher.group();
+                if (!url.contains("http") && url.startsWith("/")) {
+                    try {
+                        URI baseUri = new URI(uri);
+                        url = baseUri.resolve(url).toString();
+                    } catch (URISyntaxException e) {
+                        continue;
+                    }
+                }
+                if (!isStaticFile(url) && !isStaticPathByPath(getPathFromUrl(url)) && !isWhiteDomain(url)) {
+                    urlList.add(url);
+                }
+            }
+        }
+        return urlList;
+    }
+
     public static List<String> findUrl(String url, int port, String host, String protocol, String js)
     {
         // 方式一：原有的正则提取js中的url的逻辑
@@ -190,6 +222,9 @@ public class Utils {
         }
 
 
+
+
+
         List<String> all_urls = new ArrayList<>();
         for(String temp_url:ex_urls){
             all_urls.add(process_url(url, port, host, protocol, temp_url));
@@ -210,6 +245,52 @@ public class Utils {
 
         }
         return  result;
+    }
+
+    public static List<String> findUrlNotFilter(String url, int port, String host, String protocol, String js) {
+        // 方式一：原有的正则提取js中的url的逻辑
+        int jsLength = js.length(); // JavaScript 文件内容长度
+        Set<String> ex_urls = new LinkedHashSet<>();
+
+        // 处理每个 CHUNK_SIZE 大小的片段
+        for (int start = 0; start < jsLength; start += CHUNK_SIZE) {
+            int end = Math.min(start + CHUNK_SIZE, jsLength);
+            String jsChunk = js.substring(start, end);
+            Matcher m = FIND_PAHT_FROM_JS_PATTERN.matcher(jsChunk);
+            int matcher_start = 0;
+            while (m.find(matcher_start)) {
+                String matchGroup = m.group(1);
+                if (matchGroup != null) {
+                    if (!isStaticPathByPath(matchGroup)) {
+                        ex_urls.add(matchGroup.replaceAll("\"", "").replaceAll("'", "").replaceAll("\n", "").replaceAll("\t", "").trim());
+                    }
+                }
+                matcher_start = m.end();
+            }
+            // 方式二：
+            Matcher matcher_result = FIND_PATH_FROM_JS_PATTERN2.matcher(jsChunk);
+            while (matcher_result.find()) {
+                // 检查第一个捕获组
+                String group1 = matcher_result.group(1);
+                if (group1 != null) {
+                    if (!isStaticPathByPath(group1)) {
+                        ex_urls.add(group1.trim());
+                    }
+                }
+                // 检查第二个捕获组
+                String group2 = matcher_result.group(2);
+                if (group2 != null) {
+                    if (!isStaticPathByPath(group2)) {
+                        ex_urls.add(group2.trim());
+                    }
+                }
+            }
+        }
+        List<String> all_urls = new ArrayList<>();
+        for (String temp_url : ex_urls) {
+            all_urls.add(process_url(url, port, host, protocol, temp_url));
+        }
+        return all_urls;
     }
 
     public static String process_url(String url, int port, String host, String host_URL, String re_URL) {
