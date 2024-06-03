@@ -140,6 +140,7 @@ public class DatabaseService {
                 + " describe TEXT,\n"
                 + " path_data TEXT,\n"
                 + " method TEXT,\n"
+                + " cookie TEXT DEFAULT '', \n"
                 + " isJsFindUrl TEXT,\n"
                 + " jsFindUrl TEXT, \n"
                 + " mayNewParentPath TEXT DEFAULT '', \n"
@@ -394,6 +395,52 @@ public class DatabaseService {
             BurpExtender.getStderr().println("[-]更新数据库报错： URL=" + jsFindUrl);
             e.printStackTrace(BurpExtender.getStderr());
         }
+    }
+
+
+    public synchronized boolean updatePathDataByUrlInsertCookie(String url, String cookie) {
+        String sql = "UPDATE path_data SET "
+                + " cookie=?, "
+                + " status = '等待爬取'"
+                + "WHERE status NOT LIKE '4%' AND having_important = 0 AND isJsFindUrl = 'Y' AND url = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 设置更新语句中的参数
+            pstmt.setString(1, cookie);
+            pstmt.setString(2, url);
+
+            // 执行更新
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] error updatePathDataByUrlInsertCookie： URL=" + url + cookie);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return false;
+    }
+
+    public synchronized boolean updatePathDataByUrlAndPathInsertCookie(String url, String path, String cookie) {
+        String sql = "UPDATE path_data SET "
+                + " cookie=?, "
+                + " status = '等待爬取'"
+                + "WHERE path = ? AND url = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // 设置更新语句中的参数
+            pstmt.setString(1, cookie);
+            pstmt.setString(2, path);
+            pstmt.setString(3, url);
+
+            // 执行更新
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] error updatePathDataByUrlAndPathInsertCookie： URL=" + url + cookie);
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+        return false;
     }
 
     // Method to update an ApiDataModel
@@ -855,7 +902,7 @@ public class DatabaseService {
         Map<String, Object> filteredPathData = new HashMap<>();
 
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT id, path_data, url, path FROM path_data WHERE status = '等待爬取' LIMIT 1;";
+        String selectSQL = "SELECT id, path_data, url, path, cookie FROM path_data WHERE status = '等待爬取' LIMIT 1;";
         String updateSQL = "UPDATE path_data SET status = '爬取中' WHERE id = ?;";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
@@ -877,6 +924,7 @@ public class DatabaseService {
                         filteredPathData.put("path_data", deserializedPathData);
                         filteredPathData.put("url", url);
                         filteredPathData.put("path", path);
+                        filteredPathData.put("cookie", rs.getString("cookie"));
                     }
                 }
             }

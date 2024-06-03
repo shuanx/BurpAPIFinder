@@ -20,6 +20,11 @@ public class HTTPUtils {
         Map<String, Object> onePathData = (Map<String, Object>) pathDataModel.get("path_data");
         onePathData.put("path", pathDataModel.get("path"));
         onePathData.put("url", pathDataModel.get("url"));
+        // 插入投入信息
+        String insertHeader = (String) pathDataModel.get("cookie");
+        if (!insertHeader.equals("")){
+            insertHeader = insertHeader + "\r\n";
+        }
         // 解析URL
         String host = (String) onePathData.get("host");
         // 使用Number作为中间类型，以应对可能不同的数字类型
@@ -32,7 +37,7 @@ public class HTTPUtils {
 
         // 构造GET请求的字节数组
         String request = "GET " + path + " HTTP/1.1\r\n" +
-                "Host: " + host + "\r\n" +
+                "Host: " + host + "\r\n" + insertHeader +
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" + "\r\n" +
                 "\r\n";
         byte[] requestBytes = request.getBytes();
