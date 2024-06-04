@@ -798,6 +798,68 @@ public class DatabaseService {
 
 
     // 方法以插入或更新 path_data 表
+    public synchronized int insertOrUpdatePathDataWithCookie(String url, String path, Map<String, Object> pathData, String cookie) {
+        int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
+        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND method = 'GET'";
+
+        try (Connection conn = this.connect();
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            // 检查记录是否存在
+            checkStmt.setString(1, url);
+            checkStmt.setString(2, path);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                // 记录存在，更新记录
+                generatedId = rs.getInt("id");
+                String currentStatus = rs.getString("status");
+                String currentResult = rs.getString("result");
+                Boolean currentHavingImportant = rs.getBoolean("having_important");
+                // 如果记录存在，但状态不是200，则更新记录
+                if (currentResult.equals("误报") || currentStatus.equals("等待爬取") || currentHavingImportant){
+                    return generatedId;
+                }
+                String updateSql = "UPDATE path_data SET status = ?, cookie=? WHERE id = ?";
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                    updateStmt.setString(1, "等待爬取");
+                    updateStmt.setString(2, cookie);
+                    updateStmt.setInt(3, generatedId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                // 记录不存在，插入新记录
+                String insertSql = "INSERT INTO path_data(url, path, having_important, status,  result, describe, path_data, method, isJsFindUrl, jsFindUrl, cookie) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                    insertStmt.setString(1, url);
+                    insertStmt.setString(2, path);
+                    insertStmt.setBoolean(3, false);
+                    insertStmt.setString(4, "等待爬取");
+                    insertStmt.setString(5, "-");
+                    insertStmt.setString(6, "-");
+                    insertStmt.setString(7, serializePathData(pathData));
+                    insertStmt.setString(8, "GET");
+                    insertStmt.setString(9, "YY");
+                    insertStmt.setString(10, "自定义插入");
+                    insertStmt.setString(11, cookie);
+                    insertStmt.executeUpdate();
+
+                    // 获取生成的键值
+                    try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            generatedId = generatedKeys.getInt(1); // 获取生成的ID
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            BurpExtender.getStderr().println("[-] Error inserting or updating path_data table: ");
+            e.printStackTrace(BurpExtender.getStderr());
+        }
+
+        return generatedId; // 返回ID值，无论是更新还是插入
+    }
+
+
+    // 方法以插入或更新 path_data 表
     public synchronized boolean updatePathDataBy4xxAnd3XXAndUrl(String url, String mayNewParentPath) {
         String sql = "UPDATE path_data SET "
                 + " mayNewParentPath=?, "

@@ -52,6 +52,7 @@ public class MailPanel implements IMessageEditorController {
     private final Icon copyIcon = UiUtils.getImageIcon("/icon/copyIcon.png", 15, 15);
     private final Icon customizeIcon = UiUtils.getImageIcon("/icon/customizeIcon.png", 15, 15);
     private final Icon cookieIcon = UiUtils.getImageIcon("/icon/cookieIcon.png", 15, 15);
+    private final Icon insertNewIcon = UiUtils.getImageIcon("/icon/insertNewPathIcon.png", 15, 15);
     private final Icon urlIcon = UiUtils.getImageIcon("/icon/urlIcon.png", 15, 15);
     public static JPanel getContentPane(){
         return contentPane;
@@ -92,18 +93,171 @@ public class MailPanel implements IMessageEditorController {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem cookieItem = new JMenuItem("自定义凭证", cookieIcon);
         JMenuItem customizeItem = new JMenuItem("自定义父路径", customizeIcon);
+        JMenuItem insertNewPathItem = new JMenuItem("自定义路径扫描", insertNewIcon);
         JMenuItem urlItem = new JMenuItem("提取url", urlIcon);
         JMenuItem copyItem = new JMenuItem("复制路径", copyIcon);
         JMenuItem setUnImportantItem = new JMenuItem("误报", setUnImportantItemIcon);
         JMenuItem deleteItem = new JMenuItem("删除", deleteItemIcon);
         popupMenu.add(cookieItem);
         popupMenu.add(customizeItem);
+        popupMenu.add(insertNewPathItem);
         popupMenu.add(urlItem);
         popupMenu.add(copyItem);
         popupMenu.add(deleteItem);
         popupMenu.add(setUnImportantItem);
         // 将右键菜单添加到表格
         table.setComponentPopupMenu(popupMenu);
+
+
+
+        // 添加事件监听器到"自定义凭证"菜单项
+        insertNewPathItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String listStatus = (String) table.getModel().getValueAt(selectedRow, 0);
+                    String path = (String) table.getModel().getValueAt(selectedRow, 2);
+                    try {
+                        if (listStatus.equals(Constants.TREE_STATUS_COLLAPSE) || listStatus.equals(Constants.TREE_STATUS_EXPAND)) {
+                            // Update the database
+                            String url = (String) model.getValueAt(selectedRow, 2);
+                            ApiDataModel apiDataModel = BurpExtender.getDataBaseService().selectApiDataModelByUri(url);// Assuming URL is in column 2
+                            // 创建对话框的容器
+                            JDialog dialog = new JDialog();
+                            dialog.setTitle("自定义凭证");
+                            dialog.setLayout(new GridBagLayout()); // 使用GridBagLayout布局管理器
+                            GridBagConstraints constraints = new GridBagConstraints();
+                            constraints.fill = GridBagConstraints.HORIZONTAL;
+                            constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
+
+                            // 添加URL展示
+                            JLabel urlJLabel = new JLabel("功能：针对该URL对下面目录进行扫描且支持自定义凭证扫描：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 0; // 第一行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(urlJLabel, constraints);
+
+                            // 添加PATH展示
+                            JLabel pathJLabel = new JLabel("URL： " + url);
+                            constraints.gridy = 1; // 第二行
+                            dialog.add(pathJLabel, constraints);
+
+
+                            // 添加"自定义父路径"标签和输入框
+                            JLabel insertPathLabel = new JLabel("自定义扫描目录(换行分割、以/开头)：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 2; // 第三行
+                            constraints.gridwidth = 1; // 重置为占据一列的空间
+                            dialog.add(insertPathLabel, constraints);
+
+                            JTextArea insertPathArea = new JTextArea(5, 20);
+                            insertPathArea.setText("/xxxx/xxx\r\n/xxxx/xxx/xxx");
+                            insertPathArea.setLineWrap(true); // 自动换行
+                            insertPathArea.setWrapStyleWord(true); // 断行不断字
+                            constraints.gridx = 1; // 第二列
+                            dialog.add(new JScrollPane(insertPathArea), constraints); // 添加滚动条
+
+
+                            // 添加"自定义父路径"标签和输入框
+                            JLabel customParentPathLabel = new JLabel("自定义凭证(头部信息)：");
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 3; // 第四行
+                            constraints.gridwidth = 1; // 重置为占据一列的空间
+                            dialog.add(customParentPathLabel, constraints);
+
+                            JTextArea customParentPathArea = new JTextArea(5, 20);
+                            customParentPathArea.setText("Cookie: xxx\r\nAuthorization:xxx");
+                            customParentPathArea.setLineWrap(true); // 自动换行
+                            customParentPathArea.setWrapStyleWord(true); // 断行不断字
+                            constraints.gridx = 1; // 第二列
+                            dialog.add(new JScrollPane(customParentPathArea), constraints); // 添加滚动条
+
+                            // 添加按钮面板
+                            JPanel buttonPanel = new JPanel();
+                            JButton confirmButton = new JButton("确认");
+                            JButton cancelButton = new JButton("取消");
+
+                            // 确认按钮事件
+                            confirmButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    // 处理自定义父路径逻辑
+                                    // 获取用户输入的自定义父路径
+                                    String cookie = customParentPathArea.getText();
+                                    String urlPath = insertPathArea.getText();
+                                    if ( urlPath.equals("/xxxx/xxx\r\n/xxxx/xxx/xxx")){
+                                        JOptionPane.showMessageDialog(table, "对URL：" + url + ", 插入自定义扫描目录失败：路径为空，请重新输入", "插入自定义扫描目录失败",  JOptionPane.INFORMATION_MESSAGE);
+                                        return;
+                                    }
+                                    if (cookie.equals("Cookie: xxx\r\nAuthorization:xxx") ){
+                                        cookie = "";
+                                    }
+                                    int insertSuccessNumber = 0;
+                                    int insertFailNumber = 0;
+                                    for(String onePath : urlPath.split("\n")){
+                                        if (!onePath.startsWith("/")) {
+                                            onePath = "/" + onePath.strip().replace(" ", "");
+                                        }
+                                        Map<String, Object> originalData = new HashMap<String, Object>();
+                                        originalData.put("requests", null);
+                                        originalData.put("response", null);
+                                        originalData.put("host", apiDataModel.getiHttpService().getHost());
+                                        originalData.put("port", apiDataModel.getiHttpService().getPort());
+                                        originalData.put("protocol", apiDataModel.getiHttpService().getProtocol());
+                                        originalData.put("isJsFindUrl", "YY");
+                                        originalData.put("method", "GET");
+                                        originalData.put("status", "等待爬取");
+                                        originalData.put("isImportant", false);
+                                        originalData.put("result", "-");
+                                        originalData.put("result info", "-");
+                                        originalData.put("describe", "-");
+                                        originalData.put("time", '-');
+                                        originalData.put("url", url);
+                                        originalData.put("path", onePath);
+                                        originalData.put("jsFindUrl", url);
+                                        originalData.put("original_url", url);
+                                        if (BurpExtender.getDataBaseService().insertOrUpdatePathDataWithCookie(url, onePath, originalData, cookie) != -1){
+                                            insertSuccessNumber += 1;
+                                        }else{
+                                            insertFailNumber += 1;
+                                        }
+                                    }
+                                    JOptionPane.showMessageDialog(table, "对URL：" + url + ",插入自定义扫描目录成功数量：" + insertSuccessNumber + ", 失败数量(可能为path已存在且有重要敏感信息或单纯插入报错)： " + insertFailNumber + "\r\n凭证为："+ cookie , "插入自定义扫描目录成功",  JOptionPane.INFORMATION_MESSAGE);
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            // 取消按钮事件
+                            cancelButton.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    dialog.dispose(); // 关闭对话框
+                                }
+                            });
+
+                            buttonPanel.add(confirmButton);
+                            buttonPanel.add(cancelButton);
+                            constraints.gridx = 0; // 第一列
+                            constraints.gridy = 4; // 第五行
+                            constraints.gridwidth = 2; // 占据两列的空间
+                            dialog.add(buttonPanel, constraints);
+
+                            dialog.pack(); // 调整对话框大小以适应其子组件
+                            dialog.setLocationRelativeTo(null); // 居中显示
+                            dialog.setVisible(true); // 显示对话框
+                        }else {
+                            JOptionPane.showMessageDialog(table, "当前只支持对URL自定义路径扫描，不支持包含具体PATH" , "自定义路径扫描失败",  JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }catch (Exception ek) {
+                        BurpExtender.getStderr().println("[-] chick 提取url error : " + path);
+                        ek.printStackTrace(BurpExtender.getStderr());
+                    }
+
+                }
+
+            }
+        });
 
         // 添加事件监听器到"自定义凭证"菜单项
         urlItem.addActionListener(new ActionListener() {
