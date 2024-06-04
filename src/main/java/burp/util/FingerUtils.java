@@ -295,6 +295,7 @@ public class FingerUtils {
         describeSet.addAll(Arrays.asList(exitDescribe));
         originalApiData.setDescribe(String.join(",", describeSet).replace("-,", "").replace(",-", "").replace(",误报", "").replace("误报,", ""));
         BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl((String) onePathData.get("url")), (String) onePathData.get("path"), (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
+        originalApiData.setPathNumber(BurpExtender.getDataBaseService().getPathDataCountByUrl(Utils.getUriFromUrl(url)));
         return originalApiData;
     }
 }
