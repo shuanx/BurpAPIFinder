@@ -131,23 +131,16 @@ public class MailPanel implements IMessageEditorController {
                             constraints.fill = GridBagConstraints.HORIZONTAL;
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
-                            // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该URL对下面目录进行扫描且支持自定义凭证扫描：");
+                            JLabel urlJLabel = new JLabel("<html><body style='border:2px solid #4682B4; padding: 10px; background-color: #708090; color: #FFFFFF; font-weight: bold;'>功能：针对该URL对下面目录进行扫描(换行为分割，以/开头)且可自定义凭证或者头部信息<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目录数量最求精不求多，因为当前考虑性能问题，扫描频率为1秒/1个<br>URL: &nbsp;" + Utils.encodeForHTML(url) + "</body></html>");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(urlJLabel, constraints);
 
-                            // 添加PATH展示
-                            JLabel pathJLabel = new JLabel("URL： " + url);
-                            constraints.gridy = 1; // 第二行
-                            dialog.add(pathJLabel, constraints);
-
-
                             // 添加"自定义父路径"标签和输入框
-                            JLabel insertPathLabel = new JLabel("自定义扫描目录(换行分割、以/开头)：");
+                            JLabel insertPathLabel = new JLabel("自定义扫描目录：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 2; // 第三行
+                            constraints.gridy = 1; // 第二行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(insertPathLabel, constraints);
 
@@ -162,7 +155,7 @@ public class MailPanel implements IMessageEditorController {
                             // 添加"自定义父路径"标签和输入框
                             JLabel customParentPathLabel = new JLabel("自定义凭证(头部信息)：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 3; // 第四行
+                            constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(customParentPathLabel, constraints);
 
@@ -223,7 +216,12 @@ public class MailPanel implements IMessageEditorController {
                                             insertFailNumber += 1;
                                         }
                                     }
-                                    JOptionPane.showMessageDialog(table, "对URL：" + url + ",插入自定义扫描目录成功数量：" + insertSuccessNumber + ", 失败数量(可能为path已存在且有重要敏感信息或单纯插入报错)： " + insertFailNumber + "\r\n凭证为："+ cookie , "插入自定义扫描目录成功",  JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(table,
+                                            "<html>对URL：" + Utils.encodeForHTML(url) + "<br>插入自定义扫描目录成功数量：" + insertSuccessNumber +
+                                                    "<br>失败数量(可能为path已存在且有重要敏感信息或单纯插入报错)：" + insertFailNumber +
+                                                    "<br>凭证为：" + Utils.encodeForHTML(cookie) + "</html>",
+                                            "插入自定义扫描目录成功",
+                                            JOptionPane.INFORMATION_MESSAGE);
                                     dialog.dispose(); // 关闭对话框
                                 }
                             });
@@ -344,21 +342,16 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该URL下返回状态码3xx且重要无敏感指纹场景的补充上下面Header后进行识别");
+                            JLabel urlJLabel = new JLabel("<html><body style='border:2px solid #4682B4; padding: 10px; background-color: #708090; color: #FFFFFF; font-weight: bold;'>功能：针对该URL下返回状态码3xx且重要无敏感指纹Path场景，<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authorization或者其他头部信息）后进行GET请求敏感信息请求<br>URL: &nbsp;" + Utils.encodeForHTML(url) + "</body></html>");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(urlJLabel, constraints);
 
-                            // 添加PATH展示
-                            JLabel pathJLabel = new JLabel("URL： " + url);
-                            constraints.gridy = 1; // 第二行
-                            dialog.add(pathJLabel, constraints);
-
                             // 添加"自定义父路径"标签和输入框
                             JLabel customParentPathLabel = new JLabel("自定义凭证(头部信息)：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 2; // 第三行
+                            constraints.gridy = 1; // 第二行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(customParentPathLabel, constraints);
 
@@ -406,7 +399,7 @@ public class MailPanel implements IMessageEditorController {
                             buttonPanel.add(confirmButton);
                             buttonPanel.add(cancelButton);
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 3; // 第四行
+                            constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(buttonPanel, constraints);
 
@@ -425,21 +418,16 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该URL添加下面Header后进行识别");
+                            JLabel urlJLabel = new JLabel("<html><body style='border:2px solid #4682B4; padding: 10px; background-color: #708090; color: #FFFFFF; font-weight: bold;'>功能：针对该URL添加下面Header(Cookie、Authorization或者其他头部信息）后进行GET请求敏感信息请求<br>URL: &nbsp;" + Utils.encodeForHTML(url + path) + "</body></html>");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(urlJLabel, constraints);
 
-                            // 添加PATH展示
-                            JLabel pathJLabel = new JLabel("URL： " + url + path);
-                            constraints.gridy = 1; // 第二行
-                            dialog.add(pathJLabel, constraints);
-
                             // 添加"自定义父路径"标签和输入框
                             JLabel customParentPathLabel = new JLabel("自定义凭证(头部信息)：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 2; // 第三行
+                            constraints.gridy = 1; // 第二行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(customParentPathLabel, constraints);
 
@@ -487,7 +475,7 @@ public class MailPanel implements IMessageEditorController {
                             buttonPanel.add(confirmButton);
                             buttonPanel.add(cancelButton);
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 3; // 第四行
+                            constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(buttonPanel, constraints);
 
@@ -528,21 +516,16 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该URL下返回状态码3xx或4xx且无敏感指纹场景的补充上下面父路径后进行识别：");
+                            JLabel urlJLabel = new JLabel("<html><body style='border:2px solid #4682B4; padding: 10px; background-color: #708090; color: #FFFFFF; font-weight: bold;'>功能：针对该URL下返回状态码3xx或4xx且无敏感指纹场景的补充上下面父路径后进行识别<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比如已识别出/user/info，你可以在下面输入/api/v1，则会生成新的/api/v1/user/info<br>URL: &nbsp;" + Utils.encodeForHTML(url) + "</body></html>");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(urlJLabel, constraints);
 
-                            // 添加PATH展示
-                            JLabel pathJLabel = new JLabel("URL： " + url);
-                            constraints.gridy = 1; // 第二行
-                            dialog.add(pathJLabel, constraints);
-
                             // 添加"自定义父路径"标签和输入框
                             JLabel customParentPathLabel = new JLabel("自定义父路径(多个用逗号拼接)：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 2; // 第三行
+                            constraints.gridy = 1; // 第二行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(customParentPathLabel, constraints);
 
@@ -582,7 +565,7 @@ public class MailPanel implements IMessageEditorController {
                             buttonPanel.add(confirmButton);
                             buttonPanel.add(cancelButton);
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 3; // 第四行
+                            constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(buttonPanel, constraints);
 
@@ -600,21 +583,16 @@ public class MailPanel implements IMessageEditorController {
                             constraints.insets = new Insets(10, 10, 10, 10); // 设置组件之间的间距
 
                             // 添加URL展示
-                            JLabel urlJLabel = new JLabel("功能：针对该PATH补充下面父路径后进行识别：");
+                            JLabel urlJLabel = new JLabel("<html><body style='border:2px solid #4682B4; padding: 10px; background-color: #708090; color: #FFFFFF; font-weight: bold;'>功能：针对该PATH补充下面父路径后进行识别：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比如已识别出/user/info，你可以在下面输入/api/v1，则会生成新的/api/v1/user/info<br>URL: &nbsp;" + Utils.encodeForHTML(url + path) + "</body></html>");
                             constraints.gridx = 0; // 第一列
                             constraints.gridy = 0; // 第一行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(urlJLabel, constraints);
 
-                            // 添加PATH展示
-                            JLabel pathJLabel = new JLabel("PATH： " + path);
-                            constraints.gridy = 1; // 第二行
-                            dialog.add(pathJLabel, constraints);
-
                             // 添加"自定义父路径"标签和输入框
                             JLabel customParentPathLabel = new JLabel("自定义父路径(多个用逗号拼接)：");
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 2; // 第三行
+                            constraints.gridy = 1; // 第二行
                             constraints.gridwidth = 1; // 重置为占据一列的空间
                             dialog.add(customParentPathLabel, constraints);
 
@@ -653,7 +631,7 @@ public class MailPanel implements IMessageEditorController {
                             buttonPanel.add(confirmButton);
                             buttonPanel.add(cancelButton);
                             constraints.gridx = 0; // 第一列
-                            constraints.gridy = 3; // 第四行
+                            constraints.gridy = 2; // 第三行
                             constraints.gridwidth = 2; // 占据两列的空间
                             dialog.add(buttonPanel, constraints);
 
