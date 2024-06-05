@@ -170,7 +170,7 @@ public class DatabaseService {
 
     public synchronized String fetchAndMarkApiData() {
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT * FROM api_data WHERE ( strftime('%s', 'now', 'localtime') - strftime('%s', replace(time, '/', '-')) > 600  AND jsMatchTime = '-') OR strftime('%s', 'now', 'localtime') - strftime('%s', replace(jsMatchTime, '/', '-')) > 3000 LIMIT 1";
+        String selectSQL = "SELECT * FROM api_data WHERE ( strftime('%s', 'now', 'localtime') - strftime('%s', replace(time, '/', '-')) > 600  AND jsMatchTime = '-') OR strftime('%s', 'now', 'localtime') - strftime('%s', replace(jsMatchTime, '/', '-')) > 1200 LIMIT 1";
         String updateSQL = "UPDATE api_data SET jsMatchTime = ? , jsMatchNumber = ? WHERE id = ?";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
@@ -1003,7 +1003,7 @@ public class DatabaseService {
         Map<String, Object> filteredPathData = new HashMap<>();
 
         // 首先选取一条记录的ID
-        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath FROM path_data WHERE isTryNewParentPath = 0 AND mayNewParentPath != '' LIMIT 1;";
+        String selectSQL = "SELECT id, path_data, url, path, mayNewParentPath, cookie FROM path_data WHERE isTryNewParentPath = 0 AND mayNewParentPath != '' LIMIT 1;";
         String updateSQL = "UPDATE path_data SET isTryNewParentPath = 1 WHERE id = ?;";
 
         try (PreparedStatement selectStatement = connection.prepareStatement(selectSQL)) {
@@ -1014,6 +1014,7 @@ public class DatabaseService {
                 String url = rs.getString("url");
                 String pathParent = rs.getString("mayNewParentPath");
                 String path = rs.getString("path");
+                String cookie = rs.getString("cookie");
 
                 try (PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
                     updateStatement.setInt(1, selectedId);
@@ -1026,6 +1027,7 @@ public class DatabaseService {
                         filteredPathData.put("url", url);
                         filteredPathData.put("pathParent", pathParent);
                         filteredPathData.put("path", path);
+                        filteredPathData.put("cookie", cookie);
                     }
                 }
             }

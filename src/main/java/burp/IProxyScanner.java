@@ -103,7 +103,7 @@ public class IProxyScanner implements IProxyListener {
                             if (onePathParent.endsWith("/")) {
                                 onePathParent = onePathParent.substring(0, onePathParent.length() - 1);
                             }
-                            BurpExtender.getStdout().println("[+] 正在爬去Js提取Parent合并后的url： " + onePathData.get("url") +  onePathParent + path);
+                            BurpExtender.getStdout().println("[+] 正在爬取Js提取Parent合并后的url： " + onePathData.get("url") +  onePathParent + path);
                             onePathData.put("path",  onePathParent + path);
                             Map<String, Object> pathData = HTTPUtils.makeGetRequest(onePathData);
                             pathData.put("isJsFindUrl", "YY");

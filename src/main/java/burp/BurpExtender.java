@@ -160,7 +160,7 @@ public class BurpExtender implements IBurpExtender, IExtensionStateListener {
 
         // 关闭计划任务
         IProxyScanner.shutdownMonitorExecutor();
-        BurpExtender.getStdout().println("[+] 定时爬去任务断开成功.");
+        BurpExtender.getStdout().println("[+] 定时爬取任务断开成功.");
     }
 
 
