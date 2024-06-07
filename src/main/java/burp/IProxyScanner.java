@@ -124,13 +124,13 @@ public class IProxyScanner implements IProxyListener {
 
                             // 在filteredPathData的键中寻找任何包含keyToCheck的键
                             for (String key : notJsFindUrlAndNot404.keySet()) {
-                                if (key.contains(keyToCheck)) {
+                                if (key.endsWith(keyToCheck)) {
                                     // 提取出parent
-                                    String parentPath = key.replace(keyToCheck, "");
+                                    String parentPath = key.replace(keyToCheck, "").strip();
                                     if (parentPath.length() < 3){
                                         continue;
                                     }
-                                    // BurpExtender.getStdout().println("[+] jsFindUrl: " + isFindUrl.get(keyToCheck) + ", parentPath: " + parentPath + ", Key: " + key);
+                                     BurpExtender.getStdout().println("[+] jsFindUrl: " + isFindUrl.get(keyToCheck) + ", parentPath: " + parentPath + ", Key: " + key);
                                     uniqueElementsParent.computeIfAbsent((String) isFindUrl.get(keyToCheck), k -> new HashSet<>()).add(parentPath);
                                     break;
                                 }
