@@ -733,7 +733,7 @@ public class DatabaseService {
     // 方法以插入或更新 path_data 表
     public synchronized int insertOrUpdatePathData(String url, String path, boolean havingImportant, String status, String result, String describe, Map<String, Object> pathData) {
         int generatedId = -1; // 默认ID值，如果没有生成ID，则保持此值
-        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND method = ?";
+        String checkSql = "SELECT id, status, result, having_important FROM path_data WHERE url = ? AND path = ? AND method = ? ";
 
         try (Connection conn = this.connect();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
@@ -753,14 +753,16 @@ public class DatabaseService {
                     return generatedId;
                 }
                 if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报") || havingImportant ) {
-                    String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, describe = ?, path_data = ? WHERE id = ?";
+                    String updateSql = "UPDATE path_data SET having_important = ?, status = ?, result = ?, describe = ?, path_data = ?, isJsFindUrl = ?, jsFindUrl = ? WHERE id = ?";
                     try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                         updateStmt.setBoolean(1, havingImportant);
                         updateStmt.setString(2, status);
                         updateStmt.setString(3, result);
                         updateStmt.setString(4, describe);
                         updateStmt.setString(5, serializePathData(pathData));
-                        updateStmt.setInt(6, generatedId);
+                        updateStmt.setString(6, (String) pathData.get("isJsFindUrl"));
+                        updateStmt.setString(7,  (String) pathData.get("jsFindUrl"));
+                        updateStmt.setInt(8, generatedId);
                         updateStmt.executeUpdate();
                     }
                 }
