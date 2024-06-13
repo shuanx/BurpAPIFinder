@@ -1090,6 +1090,58 @@
       "accuracy": "high"
     },
     {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "AppSecret",
+        "AppKey"
+      ],
+      "type": "敏感内容",
+      "describe": "AppSecret、AppKey",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "AppSecret",
+        "AppKey"
+      ],
+      "type": "敏感内容",
+      "describe": "AppSecret、AppKey",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "Corpid",
+        "Corpsecret"
+      ],
+      "type": "敏感内容",
+      "describe": "企业微信Corpid、Corpsecret",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
+      "match": "keyword",
+      "location": "body",
+      "keyword": [
+        "App_Id",
+        "App_Secret"
+      ],
+      "type": "敏感内容",
+      "describe": "飞书App_Id、App_Secret",
+      "isImportant": true,
+      "isOpen": true,
+      "accuracy": "high"
+    },
+    {
       "match": "regular",
       "location": "body",
       "keyword": [
