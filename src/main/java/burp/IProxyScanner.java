@@ -24,7 +24,7 @@ public class IProxyScanner implements IProxyListener {
     private static IExtensionHelpers helpers;
     static ScheduledExecutorService monitorExecutor;
     private static int monitorExecutorServiceNumberOfIntervals = 2;
-    private static int MaxResponseContentLength = 200000;
+    private static int MaxResponseContentLength = 5000000;
 
 
     public IProxyScanner() {

@@ -14,7 +14,7 @@ import java.util.*;
  * @description：TODO
  */
 public class HTTPUtils {
-    public static int MaxResponseContentLength = 500000;
+    public static int MaxResponseContentLength = 5000000;
 
     public static Map<String, Object> makeGetRequest(Map<String, Object> pathDataModel) {
         Map<String, Object> onePathData = (Map<String, Object>) pathDataModel.get("path_data");

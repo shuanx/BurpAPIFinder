@@ -197,6 +197,7 @@ public class FingerUtils {
 
         // 响应的body值
         String responseBody = new String(oneResponseBytes, StandardCharsets.UTF_8);
+        int responseBodyLength = responseBody.length();
         // 响应包是3开头或者404的则不进行匹配
         if (!((String)onePathData.get("status")).startsWith("3") || !((String)onePathData.get("status")).equals("404")){
             // 响应头
@@ -231,12 +232,22 @@ public class FingerUtils {
                             matchedResults.append(key).append("、");
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
-                            while (matcher.find()) {
-                                foundMatch = true;
-                                // 将匹配到的内容添加到StringBuilder中
-                                matchedResults.append(matcher.group()).append("、");
-                                if (matchedResults.length() > MAX_SIZE){
-                                    break;
+                            for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
+                                int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
+                                String responseBodyChunk = responseBody.substring(start, end);
+
+                                Pattern pattern2 = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
+                                Matcher matcher2 = pattern2.matcher(responseBodyChunk);
+                                while (matcher2.find()) {
+                                    foundMatch = true;
+                                    // 将匹配到的内容添加到StringBuilder中
+                                    matchedResults.append(matcher2.group()).append("、");
+                                    if (matchedResults.length() > RESULT_SIZE) {
+                                        break;
+                                    }
+                                }
+                                if (!foundMatch) {
+                                    isMatch = false;
                                 }
                             }
                             if (!foundMatch) {
