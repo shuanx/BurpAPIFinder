@@ -749,7 +749,7 @@ public class DatabaseService {
                 String currentResult = rs.getString("result");
                 Boolean currentHavingImportant = rs.getBoolean("having_important");
                 // 如果记录存在，但状态不是200，则更新记录
-                if (currentResult.equals("误报") || status.equals("等待爬取") || currentHavingImportant){
+                if (currentResult.equals("误报") || status.equals("等待爬取") || (currentHavingImportant && !result.equals("误报"))){
                     return generatedId;
                 }
                 if ((!"200".equals(currentStatus)) || (currentStatus.equals("爬取中")) || result.equals("误报") || havingImportant ) {
