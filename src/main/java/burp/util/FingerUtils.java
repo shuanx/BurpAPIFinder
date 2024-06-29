@@ -3,6 +3,7 @@ package burp.util;
 import burp.BurpExtender;
 import burp.IExtensionHelpers;
 import burp.IHttpRequestResponse;
+import burp.IProxyScanner;
 import burp.model.FingerPrintRule;
 import burp.dataModel.ApiDataModel;
 
@@ -19,11 +20,11 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
-    private static final int MAX_SIZE = 50000; // 设置最大字节大小为40000
-    private static final int CHUNK_SIZE = 20000;
+    private static int MAX_SIZE = 50000; // 设置最大字节大小为40000
+    private static int CHUNK_SIZE = 50000;
     private static final int RESULT_SIZE = 10000;
 
-    private static final int CONTEXT_LENGTH = 40; // 前后各20个字符
+    private static final int CONTEXT_LENGTH = 40; // 前后各40个字符
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -38,6 +39,11 @@ public class FingerUtils {
             }
 
             byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+            if (oneResponseBytes.length > IProxyScanner.MaxResponseContentLength){
+                CHUNK_SIZE = 100000;
+            }else{
+                CHUNK_SIZE = 50000;
+            }
             // 判断响应包是否超大，超大则截断
             // 如果数组超过20000个字节，则截断并添加一条消息
             if (oneResponseBytes.length > MAX_SIZE) {
@@ -87,29 +93,29 @@ public class FingerUtils {
                 }
                 boolean isMatch = true;
                 for (String key : rule.getKeyword()) {
+
                     try {
-                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            isMatch = false;
-                            break;
-                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            continue;
+                        if (rule.getMatch().equals("keyword")) {
+                            if (!locationContent.toLowerCase().contains(key.toLowerCase())){
+                                isMatch = false;
+                                break;
+                            }
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
+                            isMatch = false;
                             for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
                                 int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
                                 String responseBodyChunk = responseBody.substring(start, end);
-
                                 Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
                                 Matcher matcher = pattern.matcher(responseBodyChunk);
                                 if (matcher.find()) {
                                     foundMatch = true;
+                                    break;
                                     // 将匹配到的内容添加到StringBuilder中
-                                }
-                                if (!foundMatch) {
-                                    isMatch = false;
                                 }
                             }
                             if (foundMatch) {
+                                isMatch = true;
                                 break;
                             }
                         }
@@ -225,6 +231,11 @@ public class FingerUtils {
         String onePath = (String) onePathData.get("path");
 
         byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+        if (oneResponseBytes.length > IProxyScanner.MaxResponseContentLength){
+            CHUNK_SIZE = 100000;
+        }else{
+            CHUNK_SIZE = 50000;
+        }
         // 如果数组超过20000个字节，则截断并添加一条消息
         if (oneResponseBytes.length > MAX_SIZE) {
             byte[] truncatedResponse = new byte[MAX_SIZE];
@@ -267,16 +278,16 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
-                StringBuilder matchedResults = new StringBuilder("");
                 for (String key : rule.getKeyword()) {
                     try {
-                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            isMatch = false;
-                            break;
-                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            continue;
+                        if (rule.getMatch().equals("keyword")) {
+                            if (!locationContent.toLowerCase().contains(key.toLowerCase())){
+                                isMatch = false;
+                                break;
+                            }
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
+                            isMatch = false;
                             for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
                                 int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
                                 String responseBodyChunk = responseBody.substring(start, end);
@@ -285,13 +296,12 @@ public class FingerUtils {
                                 Matcher matcher2 = pattern2.matcher(responseBodyChunk);
                                 while (matcher2.find()) {
                                     foundMatch = true;
+                                    break;
                                     // 将匹配到的内容添加到StringBuilder中
-                                }
-                                if (!foundMatch) {
-                                    isMatch = false;
                                 }
                             }
                             if (foundMatch) {
+                                isMatch = true;
                                 break;
                             }
                         }
@@ -311,7 +321,7 @@ public class FingerUtils {
                         onePathData.put("isImportant", true);
                         color = "red";
                     }
-                    matchedResults = new StringBuilder("");
+                    StringBuilder matchedResults = new StringBuilder("");
                     for (String key : rule.getKeyword()) {
                         try {
                             if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {

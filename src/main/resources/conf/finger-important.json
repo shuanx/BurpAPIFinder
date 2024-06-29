@@ -976,7 +976,7 @@
       ],
       "type": "敏感内容",
       "describe": "JSON Web Token",
-      "isImportant": true,
+      "isImportant": false,
       "isOpen": true,
       "accuracy": "high"
     },
