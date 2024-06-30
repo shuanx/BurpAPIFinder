@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BurpExtender implements IBurpExtender, IExtensionStateListener {
     public final static String extensionName = "APIFinder";
-    public final static String version = "v2024-06-01";
+    public final static String version = "v2024-07-01";
     public final static String author = "Shaun";
 
     private static PrintWriter stdout;
