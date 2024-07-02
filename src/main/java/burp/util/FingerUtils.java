@@ -3,6 +3,7 @@ package burp.util;
 import burp.BurpExtender;
 import burp.IExtensionHelpers;
 import burp.IHttpRequestResponse;
+import burp.IProxyScanner;
 import burp.model.FingerPrintRule;
 import burp.dataModel.ApiDataModel;
 
@@ -19,9 +20,11 @@ import java.util.regex.PatternSyntaxException;
  */
 public class FingerUtils {
 
-    private static final int MAX_SIZE = 50000; // 设置最大字节大小为40000
-    private static final int CHUNK_SIZE = 20000;
+    private static int MAX_SIZE = 50000; // 设置最大字节大小为40000
+    private static int CHUNK_SIZE = 50000;
     private static final int RESULT_SIZE = 10000;
+
+    private static final int CONTEXT_LENGTH = 40; // 前后各40个字符
 
     public static ApiDataModel FingerFilter(String url, ApiDataModel originalApiData, Map<String, Object> pathData, IExtensionHelpers helpers) {
         // 对originalApiData进行匹配
@@ -36,6 +39,11 @@ public class FingerUtils {
             }
 
             byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+            if (oneResponseBytes.length > IProxyScanner.MaxResponseContentLength){
+                CHUNK_SIZE = 100000;
+            }else{
+                CHUNK_SIZE = 50000;
+            }
             // 判断响应包是否超大，超大则截断
             // 如果数组超过20000个字节，则截断并添加一条消息
             if (oneResponseBytes.length > MAX_SIZE) {
@@ -84,34 +92,30 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
-                StringBuilder matchedResults = new StringBuilder("");
                 for (String key : rule.getKeyword()) {
+
                     try {
-                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            isMatch = false;
-                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            matchedResults.append(key).append("、");
+                        if (rule.getMatch().equals("keyword")) {
+                            if (!locationContent.toLowerCase().contains(key.toLowerCase())){
+                                isMatch = false;
+                                break;
+                            }
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
+                            isMatch = false;
                             for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
                                 int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
                                 String responseBodyChunk = responseBody.substring(start, end);
-
                                 Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
                                 Matcher matcher = pattern.matcher(responseBodyChunk);
-                                while (matcher.find()) {
+                                if (matcher.find()) {
                                     foundMatch = true;
+                                    break;
                                     // 将匹配到的内容添加到StringBuilder中
-                                    matchedResults.append(matcher.group()).append("、");
-                                    if (matchedResults.length() > RESULT_SIZE) {
-                                        break;
-                                    }
-                                }
-                                if (!foundMatch) {
-                                    isMatch = false;
                                 }
                             }
-                            if (foundMatch){
+                            if (foundMatch) {
+                                isMatch = true;
                                 break;
                             }
                         }
@@ -119,7 +123,7 @@ public class FingerUtils {
                         BurpExtender.getStderr().println("正则表达式语法错误: " + key);
                     } catch (NullPointerException e) {
                         BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         BurpExtender.getStderr().println("匹配出现其他报错: " + e);
                     }
                 }
@@ -131,6 +135,43 @@ public class FingerUtils {
                         onePathData.put("isImportant", true);
                         color = "red";
                     }
+                    StringBuilder matchedResults = new StringBuilder("");
+                    for (String key : rule.getKeyword()) {
+                        try {
+                            if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
+                                String matchedContext = getMatchedContext(locationContent, key, color);
+                                matchedResults.append(matchedContext);
+                            } else if (rule.getMatch().equals("regular")) {
+                                boolean foundMatch = false;
+                                for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
+                                    int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
+                                    String responseBodyChunk = responseBody.substring(start, end);
+
+                                    Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
+                                    Matcher matcher = pattern.matcher(responseBodyChunk);
+                                    while (matcher.find()) {
+                                        foundMatch = true;
+                                        // 将匹配到的内容添加到StringBuilder中
+                                        String matchedContext = getMatchedContext(responseBodyChunk, matcher.start(), matcher.end(), color);
+                                        matchedResults.append(matchedContext);
+                                        if (matchedResults.length() > RESULT_SIZE) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (foundMatch) {
+                                    break;
+                                }
+                            }
+                        } catch (PatternSyntaxException e) {
+                            BurpExtender.getStderr().println("正则表达式语法错误: " + key);
+                        } catch (NullPointerException e) {
+                            BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
+                        } catch (Exception e) {
+                            BurpExtender.getStderr().println("匹配出现其他报错: " + e);
+                        }
+                    }
+
                     String existingDescribe = (String) onePathData.get("describe");
                     if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
                         onePathData.put("describe", rule.getDescribe());
@@ -160,8 +201,8 @@ public class FingerUtils {
                     } else {
                         resultInfo = resultInfo + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
-                    onePathData.put("result info", resultInfo + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result: " + matchedResults.toString() + "<br>");
+                    onePathData.put("result info", resultInfo + "match result：" + matchedResults.toString() + "<br>");
                 }
             }
             BurpExtender.getDataBaseService().insertOrUpdatePathData(Utils.getUriFromUrl(url), onePath, (Boolean) onePathData.get("isImportant"), (String) onePathData.get("status"), (String) onePathData.get("result"), (String) onePathData.get("describe"), onePathData);
@@ -171,6 +212,18 @@ public class FingerUtils {
         return originalApiData;
     }
 
+    private static String getMatchedContext(String content, String key, String color) {
+        int index = content.toLowerCase().indexOf(key.toLowerCase());
+        return getMatchedContext(content, index, index + key.length(), color);
+    }
+
+    private static String getMatchedContext(String content, int start, int end, String color) {
+        int contextEnd = Math.min(content.length(), end + CONTEXT_LENGTH);
+        String match = "<span style='color: " + color + ";'>" +  Utils.encodeForHTML(content.substring(start, end)) + "</span>";
+        String afterMatch =  Utils.encodeForHTML(content.substring(end, contextEnd));
+        return "<br>=> " + match + afterMatch;
+    }
+
     public static ApiDataModel FingerFilter(Map<String, Object> onePathData){
         String url = (String) onePathData.get("url");
         ApiDataModel originalApiData = BurpExtender.getDataBaseService().selectApiDataModelByUri(Utils.getUriFromUrl(url));
@@ -178,6 +231,11 @@ public class FingerUtils {
         String onePath = (String) onePathData.get("path");
 
         byte[] oneResponseBytes = Base64.getDecoder().decode((String) onePathData.get("response"));
+        if (oneResponseBytes.length > IProxyScanner.MaxResponseContentLength){
+            CHUNK_SIZE = 100000;
+        }else{
+            CHUNK_SIZE = 50000;
+        }
         // 如果数组超过20000个字节，则截断并添加一条消息
         if (oneResponseBytes.length > MAX_SIZE) {
             byte[] truncatedResponse = new byte[MAX_SIZE];
@@ -220,18 +278,16 @@ public class FingerUtils {
                     BurpExtender.getStderr().println("[!]指纹出现问题：" + rule.getLocation());
                 }
                 boolean isMatch = true;
-                StringBuilder matchedResults = new StringBuilder("");
                 for (String key : rule.getKeyword()) {
                     try {
-                        Pattern pattern = Pattern.compile(key);
-                        Matcher matcher = pattern.matcher(locationContent);
-
-                        if (rule.getMatch().equals("keyword") && !locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            isMatch = false;
-                        } else if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
-                            matchedResults.append(key).append("、");
+                        if (rule.getMatch().equals("keyword")) {
+                            if (!locationContent.toLowerCase().contains(key.toLowerCase())){
+                                isMatch = false;
+                                break;
+                            }
                         } else if (rule.getMatch().equals("regular")) {
                             boolean foundMatch = false;
+                            isMatch = false;
                             for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
                                 int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
                                 String responseBodyChunk = responseBody.substring(start, end);
@@ -240,18 +296,13 @@ public class FingerUtils {
                                 Matcher matcher2 = pattern2.matcher(responseBodyChunk);
                                 while (matcher2.find()) {
                                     foundMatch = true;
+                                    break;
                                     // 将匹配到的内容添加到StringBuilder中
-                                    matchedResults.append(matcher2.group()).append("、");
-                                    if (matchedResults.length() > RESULT_SIZE) {
-                                        break;
-                                    }
-                                }
-                                if (!foundMatch) {
-                                    isMatch = false;
                                 }
                             }
-                            if (!foundMatch) {
-                                isMatch = false;
+                            if (foundMatch) {
+                                isMatch = true;
+                                break;
                             }
                         }
                     } catch (PatternSyntaxException e) {
@@ -269,6 +320,42 @@ public class FingerUtils {
                     if (rule.getIsImportant()) {
                         onePathData.put("isImportant", true);
                         color = "red";
+                    }
+                    StringBuilder matchedResults = new StringBuilder("");
+                    for (String key : rule.getKeyword()) {
+                        try {
+                            if (rule.getMatch().equals("keyword") && locationContent.toLowerCase().contains(key.toLowerCase())) {
+                                String matchedContext = getMatchedContext(locationContent, key, color);
+                                matchedResults.append(matchedContext);
+                            } else if (rule.getMatch().equals("regular")) {
+                                boolean foundMatch = false;
+                                for (int start = 0; start < responseBodyLength; start += CHUNK_SIZE) {
+                                    int end = Math.min(start + CHUNK_SIZE, responseBodyLength);
+                                    String responseBodyChunk = responseBody.substring(start, end);
+
+                                    Pattern pattern = Pattern.compile(key, Pattern.CASE_INSENSITIVE);
+                                    Matcher matcher = pattern.matcher(responseBodyChunk);
+                                    while (matcher.find()) {
+                                        foundMatch = true;
+                                        // 将匹配到的内容添加到StringBuilder中
+                                        String matchedContext = getMatchedContext(responseBodyChunk, matcher.start(), matcher.end(), color);
+                                        matchedResults.append(matchedContext);
+                                        if (matchedResults.length() > RESULT_SIZE) {
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (foundMatch) {
+                                    break;
+                                }
+                            }
+                        } catch (PatternSyntaxException e) {
+                            BurpExtender.getStderr().println("正则表达式语法错误: " + key);
+                        } catch (NullPointerException e) {
+                            BurpExtender.getStderr().println("传入了 null 作为正则表达式: " + key);
+                        } catch (Exception e) {
+                            BurpExtender.getStderr().println("匹配出现其他报错: " + e);
+                        }
                     }
                     String existingDescribe = (String) onePathData.get("describe");
                     if (existingDescribe.equals("-") || existingDescribe.isEmpty()) {
@@ -294,8 +381,8 @@ public class FingerUtils {
                     } else {
                         resultInfo = resultInfo + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color);
                     }
-                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
-                    onePathData.put("result info", resultInfo + "match result：<span style='color: " + color + ";'>" + Utils.encodeForHTML(matchedResults.toString().replaceAll("、+$", "")) + "</span>");
+                    originalApiData.setResultInfo(originalApiData.getResultInfo().strip() + "<br><br>############################ NEXT ############################<br>" + "URL: " + Utils.encodeForHTML(Utils.getUriFromUrl(url) + onePath) + "<br>" + rule.getInfo(color) + "match result: " + matchedResults.toString() + "<br>");
+                    onePathData.put("result info", resultInfo + "match result：" + matchedResults.toString() + "<br>");
                 }
             }
         }
