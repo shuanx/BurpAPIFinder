@@ -38,7 +38,8 @@ public class FingerConfigTab extends JPanel {
     private JTable table;
     private JDialog editPanel;  // 新增：编辑面板
     public static Integer editingRow = null;
-    private JTextField keywordField, describeField;  // 新增：编辑面板的文本字段
+    private JTextArea keywordField; // 新增：编辑面板的文本字段
+    private JTextField describeField;
     private JComboBox<Boolean> isImportantField;
     private JComboBox<String> methodField, locationField, typeField, accuracyFiled;
 
@@ -632,7 +633,7 @@ public class FingerConfigTab extends JPanel {
         editPanel = new JDialog();
         editPanel.setTitle("新增指纹");
         editPanel.setLayout(new GridBagLayout());  // 更改为 GridBagLayout
-        editPanel.setSize(500, 350);
+        editPanel.setSize(500, 450);
         editPanel.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
         editPanel.setModal(false);
         editPanel.setResizable(true);
@@ -643,7 +644,7 @@ public class FingerConfigTab extends JPanel {
         methodField = new JComboBox<>(new String[]{"keyword", "regular"});
         accuracyFiled = new JComboBox<>(new String[]{"high", "medium", "lower"});
         locationField = new JComboBox<>();
-        keywordField = new JTextField();
+        keywordField = new JTextArea(5, 20);
         describeField = new JTextField("-");
         methodField.setSelectedItem("keyword");
         updateLocationField("keyword");
@@ -729,14 +730,25 @@ public class FingerConfigTab extends JPanel {
         // 添加 "Keyword" 输入框
         constraints.gridx = 1;  // 在网格的第二列添加组件
         constraints.weightx = 1.0;  // 允许横向扩展
-        editPanel.add(keywordField, constraints);
+        // 设置 GridBagConstraints 来跨越多行和列
+        constraints.gridy = 7;  // 在网格的第四行开始添加组件
+        constraints.gridwidth = 1; // 占据一列
+        keywordField.setLineWrap(true); // 启用自动换行
+        keywordField.setWrapStyleWord(true); // 以单词为边界进行换行
+
+        JScrollPane keywordFieldScrollPane = new JScrollPane(
+                keywordField,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        );
+
+        editPanel.add(keywordFieldScrollPane, constraints);
 
         // 根据需要，为 Location 和 Keyword 输入框设置首选大小
         typeField.setPreferredSize(new Dimension(100, typeField.getPreferredSize().height));
         isImportantField.setPreferredSize(new Dimension(100, isImportantField.getPreferredSize().height));
         methodField.setPreferredSize(new Dimension(100, methodField.getPreferredSize().height));
         locationField.setPreferredSize(new Dimension(100, locationField.getPreferredSize().height));
-        keywordField.setPreferredSize(new Dimension(100, keywordField.getPreferredSize().height));
 
 
         JButton saveButton = new JButton("Save");

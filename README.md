@@ -29,6 +29,9 @@
 2、如原先有使用旧版本的，需要删除掉原先同BurpAPIFinder.jar同目录下的BurpAPIFinder.db和finger-tmp.json文件后再加载
 3、加载完后，不需要任何其他配置，只需要你在访问的网站的BurpSuite的代码，就会进行敏感指纹识别，有空去看看该网站看有没有匹配到铭感信息即可S
 
+## 功能介绍
+https://note.youdao.com/s/LGwO5Dmw
+
 ## 闲聊/优化/建议/问题反馈群
 <img src="images/weixinqun.png" alt="img.png" width="200"/>
 
